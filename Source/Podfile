@@ -1,0 +1,8 @@
+platform :ios, '8.0'
+use_frameworks!
+
+target 'VKDocReader' do
+  pod 'SwiftyJSON'
+  pod 'SSKeychain'
+  pod 'Alamofire'
+end

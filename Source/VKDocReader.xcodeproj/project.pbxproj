@@ -1,0 +1,666 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		578257D51C8AFA6F003C3568 /* VKDocReaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578257D41C8AFA6F003C3568 /* VKDocReaderTests.swift */; };
+		578257E01C8AFA6F003C3568 /* VKDocReaderUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578257DF1C8AFA6F003C3568 /* VKDocReaderUITests.swift */; };
+		578257FC1C8B173B003C3568 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578257EF1C8B173B003C3568 /* AppDelegate.swift */; };
+		578257FD1C8B173B003C3568 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 578257F51C8B173B003C3568 /* Main.storyboard */; };
+		578257FE1C8B173B003C3568 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578257F61C8B173B003C3568 /* ViewController.swift */; };
+		578258001C8B173B003C3568 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 578257FA1C8B173B003C3568 /* Assets.xcassets */; };
+		578258011C8B173B003C3568 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 578257FB1C8B173B003C3568 /* LaunchScreen.storyboard */; };
+		578258031C8B18FF003C3568 /* ServiceLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578258021C8B18FF003C3568 /* ServiceLayer.swift */; };
+		578258051C8B1959003C3568 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578258041C8B1959003C3568 /* Service.swift */; };
+		578258071C8B1973003C3568 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578258061C8B1973003C3568 /* AuthService.swift */; };
+		578258091C8B1A2E003C3568 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578258081C8B1A2E003C3568 /* AuthViewController.swift */; };
+		5782580B1C8B1A39003C3568 /* AuthWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5782580A1C8B1A39003C3568 /* AuthWebViewController.swift */; };
+		5782580D1C8B1A5B003C3568 /* Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5782580C1C8B1A5B003C3568 /* Const.swift */; };
+		5782580F1C8B278D003C3568 /* UserSettingsSerivce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5782580E1C8B278D003C3568 /* UserSettingsSerivce.swift */; };
+		578258111C8B2D63003C3568 /* UserDocsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578258101C8B2D63003C3568 /* UserDocsViewController.swift */; };
+		8FEBB0456EC5586BE2BDFC30 /* Pods_VKDocReader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEB8F83F2C0DE4A927EC806B /* Pods_VKDocReader.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		578257D11C8AFA6F003C3568 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 578257B41C8AFA6F003C3568 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 578257BB1C8AFA6F003C3568;
+			remoteInfo = VKDocReader;
+		};
+		578257DC1C8AFA6F003C3568 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 578257B41C8AFA6F003C3568 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 578257BB1C8AFA6F003C3568;
+			remoteInfo = VKDocReader;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		07C163E77DAE8C9B3CBAAAF9 /* Pods-VKDocReader.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VKDocReader.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VKDocReader/Pods-VKDocReader.debug.xcconfig"; sourceTree = "<group>"; };
+		578257BC1C8AFA6F003C3568 /* VKDocReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VKDocReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		578257D01C8AFA6F003C3568 /* VKDocReaderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VKDocReaderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		578257D41C8AFA6F003C3568 /* VKDocReaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKDocReaderTests.swift; sourceTree = "<group>"; };
+		578257D61C8AFA6F003C3568 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		578257DB1C8AFA6F003C3568 /* VKDocReaderUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VKDocReaderUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		578257DF1C8AFA6F003C3568 /* VKDocReaderUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKDocReaderUITests.swift; sourceTree = "<group>"; };
+		578257E11C8AFA6F003C3568 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		578257EF1C8B173B003C3568 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		578257F51C8B173B003C3568 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		578257F61C8B173B003C3568 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		578257F81C8B173B003C3568 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		578257FA1C8B173B003C3568 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		578257FB1C8B173B003C3568 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		578258021C8B18FF003C3568 /* ServiceLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceLayer.swift; sourceTree = "<group>"; };
+		578258041C8B1959003C3568 /* Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
+		578258061C8B1973003C3568 /* AuthService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		578258081C8B1A2E003C3568 /* AuthViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
+		5782580A1C8B1A39003C3568 /* AuthWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthWebViewController.swift; sourceTree = "<group>"; };
+		5782580C1C8B1A5B003C3568 /* Const.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Const.swift; sourceTree = "<group>"; };
+		5782580E1C8B278D003C3568 /* UserSettingsSerivce.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSettingsSerivce.swift; sourceTree = "<group>"; };
+		578258101C8B2D63003C3568 /* UserDocsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDocsViewController.swift; sourceTree = "<group>"; };
+		CEB8F83F2C0DE4A927EC806B /* Pods_VKDocReader.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VKDocReader.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FECA0E32A931B8D1DADCE151 /* Pods-VKDocReader.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VKDocReader.release.xcconfig"; path = "Pods/Target Support Files/Pods-VKDocReader/Pods-VKDocReader.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		578257B91C8AFA6F003C3568 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8FEBB0456EC5586BE2BDFC30 /* Pods_VKDocReader.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		578257CD1C8AFA6F003C3568 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		578257D81C8AFA6F003C3568 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		578257B31C8AFA6F003C3568 = {
+			isa = PBXGroup;
+			children = (
+				578257ED1C8B173B003C3568 /* VKDocReader */,
+				578257D31C8AFA6F003C3568 /* VKDocReaderTests */,
+				578257DE1C8AFA6F003C3568 /* VKDocReaderUITests */,
+				578257BD1C8AFA6F003C3568 /* Products */,
+				C0CC6E6FA1CF04CC4EC87F82 /* Pods */,
+				A6853E1B165B4ED768EBD6E8 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		578257BD1C8AFA6F003C3568 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				578257BC1C8AFA6F003C3568 /* VKDocReader.app */,
+				578257D01C8AFA6F003C3568 /* VKDocReaderTests.xctest */,
+				578257DB1C8AFA6F003C3568 /* VKDocReaderUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		578257D31C8AFA6F003C3568 /* VKDocReaderTests */ = {
+			isa = PBXGroup;
+			children = (
+				578257D41C8AFA6F003C3568 /* VKDocReaderTests.swift */,
+				578257D61C8AFA6F003C3568 /* Info.plist */,
+			);
+			path = VKDocReaderTests;
+			sourceTree = "<group>";
+		};
+		578257DE1C8AFA6F003C3568 /* VKDocReaderUITests */ = {
+			isa = PBXGroup;
+			children = (
+				578257DF1C8AFA6F003C3568 /* VKDocReaderUITests.swift */,
+				578257E11C8AFA6F003C3568 /* Info.plist */,
+			);
+			path = VKDocReaderUITests;
+			sourceTree = "<group>";
+		};
+		578257ED1C8B173B003C3568 /* VKDocReader */ = {
+			isa = PBXGroup;
+			children = (
+				578257EE1C8B173B003C3568 /* Classes */,
+				578257F71C8B173B003C3568 /* Other */,
+				578257F91C8B173B003C3568 /* Resourses */,
+			);
+			path = VKDocReader;
+			sourceTree = "<group>";
+		};
+		578257EE1C8B173B003C3568 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				578257EF1C8B173B003C3568 /* AppDelegate.swift */,
+				5782580C1C8B1A5B003C3568 /* Const.swift */,
+				578257F01C8B173B003C3568 /* Logic */,
+				578257F31C8B173B003C3568 /* Model */,
+				578257F41C8B173B003C3568 /* Presentation */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		578257F01C8B173B003C3568 /* Logic */ = {
+			isa = PBXGroup;
+			children = (
+				578257F11C8B173B003C3568 /* Service */,
+				578257F21C8B173B003C3568 /* Transport */,
+				578258021C8B18FF003C3568 /* ServiceLayer.swift */,
+			);
+			path = Logic;
+			sourceTree = "<group>";
+		};
+		578257F11C8B173B003C3568 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				578258041C8B1959003C3568 /* Service.swift */,
+				578258061C8B1973003C3568 /* AuthService.swift */,
+				5782580E1C8B278D003C3568 /* UserSettingsSerivce.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		578257F21C8B173B003C3568 /* Transport */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Transport;
+			sourceTree = "<group>";
+		};
+		578257F31C8B173B003C3568 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		578257F41C8B173B003C3568 /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				578257F51C8B173B003C3568 /* Main.storyboard */,
+				578257F61C8B173B003C3568 /* ViewController.swift */,
+				578258081C8B1A2E003C3568 /* AuthViewController.swift */,
+				5782580A1C8B1A39003C3568 /* AuthWebViewController.swift */,
+				578258101C8B2D63003C3568 /* UserDocsViewController.swift */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		578257F71C8B173B003C3568 /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				578257F81C8B173B003C3568 /* Info.plist */,
+			);
+			path = Other;
+			sourceTree = "<group>";
+		};
+		578257F91C8B173B003C3568 /* Resourses */ = {
+			isa = PBXGroup;
+			children = (
+				578257FA1C8B173B003C3568 /* Assets.xcassets */,
+				578257FB1C8B173B003C3568 /* LaunchScreen.storyboard */,
+			);
+			path = Resourses;
+			sourceTree = "<group>";
+		};
+		A6853E1B165B4ED768EBD6E8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CEB8F83F2C0DE4A927EC806B /* Pods_VKDocReader.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C0CC6E6FA1CF04CC4EC87F82 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				07C163E77DAE8C9B3CBAAAF9 /* Pods-VKDocReader.debug.xcconfig */,
+				FECA0E32A931B8D1DADCE151 /* Pods-VKDocReader.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		578257BB1C8AFA6F003C3568 /* VKDocReader */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 578257E41C8AFA6F003C3568 /* Build configuration list for PBXNativeTarget "VKDocReader" */;
+			buildPhases = (
+				D2B07AEDDA8857D158EF59AC /* Check Pods Manifest.lock */,
+				578257B81C8AFA6F003C3568 /* Sources */,
+				578257B91C8AFA6F003C3568 /* Frameworks */,
+				578257BA1C8AFA6F003C3568 /* Resources */,
+				3CB6EBB3422A33E5D675C771 /* Embed Pods Frameworks */,
+				9FBF5330EFEEA31D342EC31E /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = VKDocReader;
+			productName = VKDocReader;
+			productReference = 578257BC1C8AFA6F003C3568 /* VKDocReader.app */;
+			productType = "com.apple.product-type.application";
+		};
+		578257CF1C8AFA6F003C3568 /* VKDocReaderTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 578257E71C8AFA6F003C3568 /* Build configuration list for PBXNativeTarget "VKDocReaderTests" */;
+			buildPhases = (
+				578257CC1C8AFA6F003C3568 /* Sources */,
+				578257CD1C8AFA6F003C3568 /* Frameworks */,
+				578257CE1C8AFA6F003C3568 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				578257D21C8AFA6F003C3568 /* PBXTargetDependency */,
+			);
+			name = VKDocReaderTests;
+			productName = VKDocReaderTests;
+			productReference = 578257D01C8AFA6F003C3568 /* VKDocReaderTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		578257DA1C8AFA6F003C3568 /* VKDocReaderUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 578257EA1C8AFA6F003C3568 /* Build configuration list for PBXNativeTarget "VKDocReaderUITests" */;
+			buildPhases = (
+				578257D71C8AFA6F003C3568 /* Sources */,
+				578257D81C8AFA6F003C3568 /* Frameworks */,
+				578257D91C8AFA6F003C3568 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				578257DD1C8AFA6F003C3568 /* PBXTargetDependency */,
+			);
+			name = VKDocReaderUITests;
+			productName = VKDocReaderUITests;
+			productReference = 578257DB1C8AFA6F003C3568 /* VKDocReaderUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		578257B41C8AFA6F003C3568 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0720;
+				LastUpgradeCheck = 0720;
+				ORGANIZATIONNAME = "Yaroslav Ryabukha";
+				TargetAttributes = {
+					578257BB1C8AFA6F003C3568 = {
+						CreatedOnToolsVersion = 7.2.1;
+					};
+					578257CF1C8AFA6F003C3568 = {
+						CreatedOnToolsVersion = 7.2.1;
+						TestTargetID = 578257BB1C8AFA6F003C3568;
+					};
+					578257DA1C8AFA6F003C3568 = {
+						CreatedOnToolsVersion = 7.2.1;
+						TestTargetID = 578257BB1C8AFA6F003C3568;
+					};
+				};
+			};
+			buildConfigurationList = 578257B71C8AFA6F003C3568 /* Build configuration list for PBXProject "VKDocReader" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 578257B31C8AFA6F003C3568;
+			productRefGroup = 578257BD1C8AFA6F003C3568 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				578257BB1C8AFA6F003C3568 /* VKDocReader */,
+				578257CF1C8AFA6F003C3568 /* VKDocReaderTests */,
+				578257DA1C8AFA6F003C3568 /* VKDocReaderUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		578257BA1C8AFA6F003C3568 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				578258011C8B173B003C3568 /* LaunchScreen.storyboard in Resources */,
+				578258001C8B173B003C3568 /* Assets.xcassets in Resources */,
+				578257FD1C8B173B003C3568 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		578257CE1C8AFA6F003C3568 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		578257D91C8AFA6F003C3568 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		3CB6EBB3422A33E5D675C771 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-VKDocReader/Pods-VKDocReader-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9FBF5330EFEEA31D342EC31E /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-VKDocReader/Pods-VKDocReader-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D2B07AEDDA8857D158EF59AC /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		578257B81C8AFA6F003C3568 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5782580B1C8B1A39003C3568 /* AuthWebViewController.swift in Sources */,
+				578257FE1C8B173B003C3568 /* ViewController.swift in Sources */,
+				578258051C8B1959003C3568 /* Service.swift in Sources */,
+				578258071C8B1973003C3568 /* AuthService.swift in Sources */,
+				578258031C8B18FF003C3568 /* ServiceLayer.swift in Sources */,
+				5782580F1C8B278D003C3568 /* UserSettingsSerivce.swift in Sources */,
+				578258111C8B2D63003C3568 /* UserDocsViewController.swift in Sources */,
+				5782580D1C8B1A5B003C3568 /* Const.swift in Sources */,
+				578258091C8B1A2E003C3568 /* AuthViewController.swift in Sources */,
+				578257FC1C8B173B003C3568 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		578257CC1C8AFA6F003C3568 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				578257D51C8AFA6F003C3568 /* VKDocReaderTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		578257D71C8AFA6F003C3568 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				578257E01C8AFA6F003C3568 /* VKDocReaderUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		578257D21C8AFA6F003C3568 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 578257BB1C8AFA6F003C3568 /* VKDocReader */;
+			targetProxy = 578257D11C8AFA6F003C3568 /* PBXContainerItemProxy */;
+		};
+		578257DD1C8AFA6F003C3568 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 578257BB1C8AFA6F003C3568 /* VKDocReader */;
+			targetProxy = 578257DC1C8AFA6F003C3568 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		578257E21C8AFA6F003C3568 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		578257E31C8AFA6F003C3568 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		578257E51C8AFA6F003C3568 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 07C163E77DAE8C9B3CBAAAF9 /* Pods-VKDocReader.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = VKDocReader/Other/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = ru.yaryabu.VKDocReader;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		578257E61C8AFA6F003C3568 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = FECA0E32A931B8D1DADCE151 /* Pods-VKDocReader.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = VKDocReader/Other/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = ru.yaryabu.VKDocReader;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		578257E81C8AFA6F003C3568 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = VKDocReaderTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = ru.yaryabu.VKDocReaderTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VKDocReader.app/VKDocReader";
+			};
+			name = Debug;
+		};
+		578257E91C8AFA6F003C3568 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = VKDocReaderTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = ru.yaryabu.VKDocReaderTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VKDocReader.app/VKDocReader";
+			};
+			name = Release;
+		};
+		578257EB1C8AFA6F003C3568 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = VKDocReaderUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = ru.yaryabu.VKDocReaderUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = VKDocReader;
+				USES_XCTRUNNER = YES;
+			};
+			name = Debug;
+		};
+		578257EC1C8AFA6F003C3568 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = VKDocReaderUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = ru.yaryabu.VKDocReaderUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = VKDocReader;
+				USES_XCTRUNNER = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		578257B71C8AFA6F003C3568 /* Build configuration list for PBXProject "VKDocReader" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				578257E21C8AFA6F003C3568 /* Debug */,
+				578257E31C8AFA6F003C3568 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		578257E41C8AFA6F003C3568 /* Build configuration list for PBXNativeTarget "VKDocReader" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				578257E51C8AFA6F003C3568 /* Debug */,
+				578257E61C8AFA6F003C3568 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		578257E71C8AFA6F003C3568 /* Build configuration list for PBXNativeTarget "VKDocReaderTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				578257E81C8AFA6F003C3568 /* Debug */,
+				578257E91C8AFA6F003C3568 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		578257EA1C8AFA6F003C3568 /* Build configuration list for PBXNativeTarget "VKDocReaderUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				578257EB1C8AFA6F003C3568 /* Debug */,
+				578257EC1C8AFA6F003C3568 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 578257B41C8AFA6F003C3568 /* Project object */;
+}
