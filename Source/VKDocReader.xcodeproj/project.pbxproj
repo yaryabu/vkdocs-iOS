@@ -13,7 +13,6 @@
 		578257FD1C8B173B003C3568 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 578257F51C8B173B003C3568 /* Main.storyboard */; };
 		578257FE1C8B173B003C3568 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578257F61C8B173B003C3568 /* ViewController.swift */; };
 		578258001C8B173B003C3568 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 578257FA1C8B173B003C3568 /* Assets.xcassets */; };
-		578258011C8B173B003C3568 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 578257FB1C8B173B003C3568 /* LaunchScreen.storyboard */; };
 		578258031C8B18FF003C3568 /* ServiceLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578258021C8B18FF003C3568 /* ServiceLayer.swift */; };
 		578258051C8B1959003C3568 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578258041C8B1959003C3568 /* Service.swift */; };
 		578258071C8B1973003C3568 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578258061C8B1973003C3568 /* AuthService.swift */; };
@@ -22,6 +21,7 @@
 		5782580D1C8B1A5B003C3568 /* Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5782580C1C8B1A5B003C3568 /* Const.swift */; };
 		5782580F1C8B278D003C3568 /* UserSettingsSerivce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5782580E1C8B278D003C3568 /* UserSettingsSerivce.swift */; };
 		578258111C8B2D63003C3568 /* UserDocsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578258101C8B2D63003C3568 /* UserDocsViewController.swift */; };
+		57AF96961C8B4C3700E924C3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 57AF96951C8B4C3700E924C3 /* LaunchScreen.storyboard */; };
 		8FEBB0456EC5586BE2BDFC30 /* Pods_VKDocReader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEB8F83F2C0DE4A927EC806B /* Pods_VKDocReader.framework */; };
 /* End PBXBuildFile section */
 
@@ -56,7 +56,6 @@
 		578257F61C8B173B003C3568 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		578257F81C8B173B003C3568 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		578257FA1C8B173B003C3568 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		578257FB1C8B173B003C3568 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		578258021C8B18FF003C3568 /* ServiceLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceLayer.swift; sourceTree = "<group>"; };
 		578258041C8B1959003C3568 /* Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		578258061C8B1973003C3568 /* AuthService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
@@ -65,6 +64,7 @@
 		5782580C1C8B1A5B003C3568 /* Const.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Const.swift; sourceTree = "<group>"; };
 		5782580E1C8B278D003C3568 /* UserSettingsSerivce.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSettingsSerivce.swift; sourceTree = "<group>"; };
 		578258101C8B2D63003C3568 /* UserDocsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDocsViewController.swift; sourceTree = "<group>"; };
+		57AF96951C8B4C3700E924C3 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CEB8F83F2C0DE4A927EC806B /* Pods_VKDocReader.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VKDocReader.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FECA0E32A931B8D1DADCE151 /* Pods-VKDocReader.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VKDocReader.release.xcconfig"; path = "Pods/Target Support Files/Pods-VKDocReader/Pods-VKDocReader.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -215,7 +215,7 @@
 			isa = PBXGroup;
 			children = (
 				578257FA1C8B173B003C3568 /* Assets.xcassets */,
-				578257FB1C8B173B003C3568 /* LaunchScreen.storyboard */,
+				57AF96951C8B4C3700E924C3 /* LaunchScreen.storyboard */,
 			);
 			path = Resourses;
 			sourceTree = "<group>";
@@ -344,7 +344,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				578258011C8B173B003C3568 /* LaunchScreen.storyboard in Resources */,
+				57AF96961C8B4C3700E924C3 /* LaunchScreen.storyboard in Resources */,
 				578258001C8B173B003C3568 /* Assets.xcassets in Resources */,
 				578257FD1C8B173B003C3568 /* Main.storyboard in Resources */,
 			);
