@@ -17,8 +17,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        
-        SSKeychain.setAccessibilityType(kSecAttrAccessibleAlwaysThisDeviceOnly)
+        if Bash.fileExists(Const.Directories.vaultDir, isDirectory: true) == false {
+            Bash.mkdir(Const.Directories.vaultDir)
+        }
+        if Bash.fileExists(Const.Directories.fileSystemDir, isDirectory: true) == false {
+            Bash.mkdir(Const.Directories.fileSystemDir)
+        }
+//        if ServiceLayer.sharedServiceLayer.userSettingsService.hasLaunchedOnce == false {
+            print("firstLaunch")
+
+            SSKeychain.setAccessibilityType(kSecAttrAccessibleAlwaysThisDeviceOnly)
+            ServiceLayer.sharedServiceLayer.userSettingsService.hasLaunchedOnce = true
+//        }
+        Bash.cd(Const.Directories.appBundleDir)
+        self.chooseInitialViewCotroller()
         // Override point for customization after application launch.
         return true
     }
@@ -45,6 +57,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
-
+    func chooseInitialViewCotroller() {
+        if (ServiceLayer.sharedServiceLayer.authService.token != nil) {
+            let storyboard = UIStoryboard.init(name: Const.Common.mainStoryboardName, bundle: NSBundle.mainBundle())
+            self.window?.rootViewController = storyboard.instantiateViewControllerWithIdentifier(Const.StoryboardIDs.tabBarController)
+            self.window?.makeKeyAndVisible()
+        }
+        // ViewController авторизации изначально initial в Main.storyboard
+        
+    }
 }
 
