@@ -9,6 +9,7 @@
 import Foundation
 
 import Alamofire
+import RealmSwift
 
 class DocsService: Service {
     
@@ -95,8 +96,10 @@ class DocsService: Service {
             })
             }, completion: { (fileName, filePath) -> Void in
                 Dispatch.mainQueue({ () -> () in
-                    document.fileName = fileName
-                    document.filePath = filePath
+                    try! Realm().write({ () -> Void in
+                        document.fileName = fileName
+                        document.filePath = filePath
+                    })
                     completion(document: document)
                 })
             }) { (error) -> Void in
