@@ -108,13 +108,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelectionDuringEditing="YES" rowHeight="58" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="aH8-lc-tdi">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="551"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="100" verticalHuggingPriority="100" horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" selectionStyle="default" indentationWidth="10" reuseIdentifier="UserDocsTableViewCell" rowHeight="58" id="AXK-2m-UqC" customClass="UserDocsTableViewCell" customModule="VKDocReader" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="92" width="600" height="58"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" horizontalHuggingPriority="200" verticalHuggingPriority="200" horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" tableViewCell="AXK-2m-UqC" id="lnp-1x-Acd">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="200" verticalHuggingPriority="200" horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" tableViewCell="AXK-2m-UqC" id="lnp-1x-Acd">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="57.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
@@ -202,7 +202,7 @@
                         <constraints>
                             <constraint firstItem="aH8-lc-tdi" firstAttribute="top" secondItem="J1t-OQ-y7Y" secondAttribute="bottom" constant="-64" id="15Y-OV-Qim"/>
                             <constraint firstAttribute="trailing" secondItem="aH8-lc-tdi" secondAttribute="trailing" id="9XZ-n5-yN6"/>
-                            <constraint firstItem="JQZ-MN-YiN" firstAttribute="top" secondItem="aH8-lc-tdi" secondAttribute="bottom" id="c3T-OB-WoC"/>
+                            <constraint firstItem="JQZ-MN-YiN" firstAttribute="top" secondItem="aH8-lc-tdi" secondAttribute="bottom" constant="-49" id="c3T-OB-WoC"/>
                             <constraint firstItem="aH8-lc-tdi" firstAttribute="leading" secondItem="v2M-8W-hGw" secondAttribute="leading" id="rfs-ju-3PJ"/>
                         </constraints>
                     </view>
@@ -219,7 +219,7 @@
         <!--fdf-->
         <scene sceneID="lHa-wc-Wcc">
             <objects>
-                <viewController hidesBottomBarWhenPushed="YES" id="fbH-G0-N1P" customClass="DocumentPreviewViewController" customModule="VKDocReader" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" hidesBottomBarWhenPushed="YES" id="fbH-G0-N1P" customClass="DocumentPreviewViewController" customModule="VKDocReader" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ULi-Ql-1G8"/>
                         <viewControllerLayoutGuide type="bottom" id="l2q-6X-fYW"/>
@@ -229,19 +229,19 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DGh-hE-c3y">
-                                <rect key="frame" x="0.0" y="64" width="600" height="487"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <subviews>
                                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="I2d-wb-h44">
-                                        <rect key="frame" x="290" y="233.5" width="20" height="20"/>
+                                        <rect key="frame" x="290" y="297.5" width="20" height="20"/>
                                     </activityIndicatorView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 %" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FhS-Ig-L9F">
-                                        <rect key="frame" x="284" y="273.5" width="33" height="24"/>
+                                        <rect key="frame" x="284" y="337.5" width="33" height="24"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3xG-fg-g7H">
-                                        <rect key="frame" x="226" y="367" width="148" height="80"/>
+                                        <rect key="frame" x="226" y="431" width="148" height="80"/>
                                         <color key="backgroundColor" red="1" green="0.72001415668025515" blue="0.64519217501998383" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="80" id="TLh-Q2-GYa"/>
@@ -259,17 +259,17 @@
                                     <constraint firstItem="I2d-wb-h44" firstAttribute="centerX" secondItem="DGh-hE-c3y" secondAttribute="centerX" id="Bce-H4-w93"/>
                                     <constraint firstItem="3xG-fg-g7H" firstAttribute="centerX" secondItem="DGh-hE-c3y" secondAttribute="centerX" id="OCS-mH-Gnt"/>
                                     <constraint firstItem="FhS-Ig-L9F" firstAttribute="centerX" secondItem="DGh-hE-c3y" secondAttribute="centerX" id="UCt-M1-gxI"/>
-                                    <constraint firstItem="I2d-wb-h44" firstAttribute="centerY" secondItem="DGh-hE-c3y" secondAttribute="centerY" id="mhZ-u7-n5T"/>
-                                    <constraint firstAttribute="bottom" secondItem="3xG-fg-g7H" secondAttribute="bottom" constant="40" id="xf6-ov-JiO"/>
+                                    <constraint firstItem="I2d-wb-h44" firstAttribute="centerY" secondItem="DGh-hE-c3y" secondAttribute="centerY" constant="7.5" id="mhZ-u7-n5T"/>
+                                    <constraint firstAttribute="bottom" secondItem="3xG-fg-g7H" secondAttribute="bottom" constant="89" id="xf6-ov-JiO"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="DGh-hE-c3y" secondAttribute="trailing" id="9bQ-zC-mWq"/>
-                            <constraint firstItem="DGh-hE-c3y" firstAttribute="top" secondItem="ULi-Ql-1G8" secondAttribute="bottom" id="IAi-26-kIF"/>
+                            <constraint firstAttribute="bottom" secondItem="DGh-hE-c3y" secondAttribute="bottom" id="PzT-3K-HIP"/>
                             <constraint firstItem="DGh-hE-c3y" firstAttribute="leading" secondItem="4gx-0a-dw9" secondAttribute="leading" id="V0Y-p3-sch"/>
-                            <constraint firstItem="l2q-6X-fYW" firstAttribute="top" secondItem="DGh-hE-c3y" secondAttribute="bottom" id="s1v-v2-cXb"/>
+                            <constraint firstItem="DGh-hE-c3y" firstAttribute="top" secondItem="ULi-Ql-1G8" secondAttribute="bottom" constant="-64" id="lX6-9M-Ato"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="fdf" id="1Y6-CK-MCh">

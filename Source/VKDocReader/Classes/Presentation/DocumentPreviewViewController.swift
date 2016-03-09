@@ -71,7 +71,6 @@ class DocumentPreviewViewController: ViewController, QLPreviewControllerDataSour
     
     func previewController(controller: QLPreviewController, previewItemAtIndex index: Int) -> QLPreviewItem {
 //        print("preview")
-//        self.loadingView.removeFromSuperview()
         print("111")
         return NSURL(fileURLWithPath: self.document!.filePath ?? "")
     }
@@ -91,7 +90,7 @@ class DocumentPreviewViewController: ViewController, QLPreviewControllerDataSour
     
     @IBAction func cancelButtonPressed(sender: AnyObject) {
         self.serviceLayer.docsService.cancelDownload(self.document!)
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.navigationController!.popToRootViewControllerAnimated(true)
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
