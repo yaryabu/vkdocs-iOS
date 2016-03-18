@@ -13,7 +13,6 @@ class TabBarController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("SIZE", Bash.du(Const.Directories.vaultDir))
         self.serviceLayer.userService.getUserInfo({ (user) -> Void in
             let realm = try! Realm()
             

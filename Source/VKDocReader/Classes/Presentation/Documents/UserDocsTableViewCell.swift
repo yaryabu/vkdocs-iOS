@@ -19,13 +19,15 @@ class UserDocsTableViewCell: UITableViewCell {
     private let loadButtonDefaultText = "Load"
     private let loadButtonSavedDocumentText = "Saved"
     
+    private let loadButtonAddToUserText = "Add"
+    
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var sizeDateLabel: UILabel!
     @IBOutlet weak var thumbnailImageView: UIImageView!
     @IBOutlet weak var extensionLabel: UILabel!
     @IBOutlet weak var loadButton: UIButton!
     
-    func configureCell(document: Document) {
+    func configureCell(document: Document, isSearchResult: Bool) {
         self.titleLabel.text = document.title
         let dateString = DateFormatter().stringFromTimestamp(Int(document.date)!, formatString: self.dateFormat)
         self.sizeDateLabel.text = "\(Int(document.size)!/1000/1000) МБ, \(dateString)"
@@ -49,6 +51,11 @@ class UserDocsTableViewCell: UITableViewCell {
             self.extensionLabel.text = document.ext
             self.thumbnailImageView.hidden = true
             self.extensionLabel.hidden = false
+        }
+        
+        if isSearchResult {
+            self.loadButton.setTitle(loadButtonAddToUserText, forState: .Normal)
+            return
         }
         
         if document.fileName != nil {

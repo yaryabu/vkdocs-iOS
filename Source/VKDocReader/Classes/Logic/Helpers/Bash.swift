@@ -17,19 +17,16 @@ class Bash {
         return NSFileManager.defaultManager().currentDirectoryPath
     }
     
-    class func ls() -> [String] {
-        do {
-            let ls = try NSFileManager.defaultManager().contentsOfDirectoryAtPath(".")
-            return ls
-        } catch {
-            return []
-        }
-    }
-    
     class func ls(dir: String) -> [String] {
         do {
             let ls = try NSFileManager.defaultManager().contentsOfDirectoryAtPath(dir)
-            return ls
+            return ls.filter({ (folder) -> Bool in
+                if folder == ".DS_Store" {
+                    return false
+                } else {
+                    return true
+                }
+            })
         } catch {
             return []
         }

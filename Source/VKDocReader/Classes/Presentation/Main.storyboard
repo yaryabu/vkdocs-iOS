@@ -206,10 +206,46 @@
                                             <outlet property="titleLabel" destination="5vZ-Ui-TGt" id="Fne-Rh-eQe"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="100" verticalHuggingPriority="100" horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" selectionStyle="default" indentationWidth="10" reuseIdentifier="FolderCell" rowHeight="58" id="2O5-2J-I41" customClass="FolderCell" customModule="VKDocReader" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="150" width="600" height="58"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="200" verticalHuggingPriority="200" horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" tableViewCell="2O5-2J-I41" id="rl7-sb-dHi">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="57.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2fV-9n-STp">
+                                                    <rect key="frame" x="101" y="18" width="42" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Папка" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RRL-Ga-kKY">
+                                                    <rect key="frame" x="8" y="8" width="83" height="41.5"/>
+                                                    <color key="backgroundColor" red="0.4977039665465306" green="0.82158231693648043" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="RRL-Ga-kKY" secondAttribute="height" multiplier="2:1" id="enb-sR-zLq"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottomMargin" secondItem="2fV-9n-STp" secondAttribute="bottom" constant="10" id="A1c-w9-b8N"/>
+                                                <constraint firstItem="2fV-9n-STp" firstAttribute="top" secondItem="rl7-sb-dHi" secondAttribute="topMargin" constant="10" id="B0m-ct-vGq"/>
+                                                <constraint firstItem="2fV-9n-STp" firstAttribute="leading" secondItem="RRL-Ga-kKY" secondAttribute="trailing" constant="10" id="CxF-yI-ebq"/>
+                                                <constraint firstItem="RRL-Ga-kKY" firstAttribute="leading" secondItem="rl7-sb-dHi" secondAttribute="leadingMargin" id="WIL-AI-ENn"/>
+                                                <constraint firstItem="RRL-Ga-kKY" firstAttribute="top" secondItem="rl7-sb-dHi" secondAttribute="topMargin" id="umV-BL-cSa"/>
+                                                <constraint firstItem="RRL-Ga-kKY" firstAttribute="bottom" secondItem="rl7-sb-dHi" secondAttribute="bottomMargin" id="vaB-Pg-p0X"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="folderNameLabel" destination="2fV-9n-STp" id="cEP-SE-1kc"/>
+                                        </connections>
+                                    </tableViewCell>
                                 </prototypes>
                                 <sections/>
                                 <connections>
-                                    <outlet property="dataSource" destination="Ms7-l9-AGR" id="SLu-4B-YI4"/>
                                     <outlet property="delegate" destination="Ms7-l9-AGR" id="HEE-21-DMq"/>
                                 </connections>
                             </tableView>

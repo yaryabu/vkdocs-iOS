@@ -133,11 +133,38 @@ class DocsService: Service {
         self.transport.cancelFileDownload(document.urlString)
     }
     
+    func searchDocuments(query: String, offset: Int, completion: ([Document]) -> Void, failure: (error: Error) -> Void) {
+        self.transport.getJSON(Const.Network.baseUrl + "/docs.search", parameters: self.searchDocumentsParameters(query, offset: String(offset)), completion: { (json) -> Void in
+            if let error = self.checkError(json) {
+                Dispatch.mainQueue({ () -> () in
+                    failure(error: error)
+                    return
+                })
+            }
+            let parsedDocs = DocsParser.parseDocuments(json)
+            Dispatch.mainQueue({ () -> () in
+                completion(parsedDocs)
+            })
+            }) { (error) -> Void in
+                failure(error: self.createError(error))
+        }
+    }
+    
     
     //MARK: Parameters builders
     func getDocumentsParameters() -> [String:String] {
         let token = self.authService.token!
         return ["access_token":token]
+    }
+    
+    func searchDocumentsParameters(query: String, offset: String) -> [String:String] {
+        let token = self.authService.token!
+        return [
+            "access_token":token,
+            "q": query,
+            "count": "50",
+            "offset": offset
+        ]
     }
     
     func refreshDocumentParameters(document: Document) -> [String:String] {
