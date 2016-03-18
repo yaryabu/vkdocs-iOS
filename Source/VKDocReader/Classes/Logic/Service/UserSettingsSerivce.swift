@@ -6,7 +6,7 @@
 //  Copyright © 2016 Yaroslav Ryabukha. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 class UserSettingsSerivce: Service {
     var hasLaunchedOnce: Bool {
@@ -34,5 +34,30 @@ class UserSettingsSerivce: Service {
         set {
             NSUserDefaults.standardUserDefaults().setInteger(newValue, forKey: Const.UserDefaults.currentDocumentsCount)
         }
+    }
+    
+    var useWifiOnly: Bool {
+        get {
+            return NSUserDefaults.standardUserDefaults().boolForKey(Const.UserDefaults.useWifiOnly)
+        }
+        set {
+            NSUserDefaults.standardUserDefaults().setBool(newValue, forKey: Const.UserDefaults.useWifiOnly)
+        }
+    }
+    
+    //TODO: вынести в отдельный сервис
+    var isCurrentConnectionCellular: Bool {
+        get {
+            let connectionType = try! Reachability.reachabilityForInternetConnection().currentReachabilityStatus
+            print("REACH", connectionType)
+            return connectionType.description == "Cellular"
+        }
+    }
+    
+    override func deleteAllInfo() {
+        NSUserDefaults.standardUserDefaults().removeObjectForKey(Const.UserDefaults.deleteDocumentsAfterPreviewKey)
+        NSUserDefaults.standardUserDefaults().removeObjectForKey(Const.UserDefaults.currentDocumentsCount)
+        NSUserDefaults.standardUserDefaults().removeObjectForKey(Const.UserDefaults.useWifiOnly)
+
     }
 }

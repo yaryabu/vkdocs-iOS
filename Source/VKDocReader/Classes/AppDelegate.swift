@@ -9,6 +9,7 @@
 import UIKit
 
 import SSKeychain
+import RealmSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,10 +18,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        if Bash.fileExists(Const.Directories.vaultDir, isDirectory: true) == false {
+        print("realm", try! Realm().path)
+        if Bash.fileExists(Const.Directories.vaultDir) == false {
             Bash.mkdir(Const.Directories.vaultDir)
         }
-        if Bash.fileExists(Const.Directories.fileSystemDir, isDirectory: true) == false {
+        if Bash.fileExists(Const.Directories.fileSystemDir) == false {
             Bash.mkdir(Const.Directories.fileSystemDir)
         }
 //        if ServiceLayer.sharedServiceLayer.userSettingsService.hasLaunchedOnce == false {
@@ -29,7 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             SSKeychain.setAccessibilityType(kSecAttrAccessibleAlwaysThisDeviceOnly)
             ServiceLayer.sharedServiceLayer.userSettingsService.hasLaunchedOnce = true
 //        }
-        Bash.cd(Const.Directories.appBundleDir)
+        Bash.cd(Const.Directories.appDocumentsDir)
         self.chooseInitialViewCotroller()
         // Override point for customization after application launch.
         return true
@@ -58,13 +60,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func chooseInitialViewCotroller() {
+        let storyboard = UIStoryboard(name: Const.Common.mainStoryboardName, bundle: NSBundle.mainBundle())
         if (ServiceLayer.sharedServiceLayer.authService.token != nil) {
-            let storyboard = UIStoryboard.init(name: Const.Common.mainStoryboardName, bundle: NSBundle.mainBundle())
             self.window?.rootViewController = storyboard.instantiateViewControllerWithIdentifier(Const.StoryboardIDs.tabBarController)
-            self.window?.makeKeyAndVisible()
+//            self.window?.makeKeyAndVisible()
+        } else {
+            self.window?.rootViewController = storyboard.instantiateViewControllerWithIdentifier(Const.StoryboardIDs.authViewController)
         }
         // ViewController авторизации изначально initial в Main.storyboard
         
     }
+    
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        super.touchesBegan(touches, withEvent: event)
+        let location = event!.allTouches()!.first!.locationInView(self.window)
+        if CGRectContainsPoint(UIApplication.sharedApplication().statusBarFrame, location) {
+            NSNotificationCenter.defaultCenter().postNotificationName(Const.Notifications.statusBarTouched, object: nil)
+        }
+    }
+    
 }
 

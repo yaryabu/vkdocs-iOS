@@ -32,6 +32,8 @@ class Service {
                 print("Ошибка 7 (нет прав)")
             case 10:
                 print("Ошибка 10 (внутренняя ошибка сервера)")
+            case 14:
+                print("Ошибка 14 (нужна капча)")
             case 23:
                 print("Ошибка 23 (метод выключен)")
             case 100:
@@ -55,5 +57,9 @@ class Service {
         default:
             return Error(code: error.code, message: error.localizedDescription)
         }
+    }
+    
+    func deleteAllInfo() {
+        
     }
 }

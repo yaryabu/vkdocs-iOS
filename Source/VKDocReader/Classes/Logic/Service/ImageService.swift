@@ -10,14 +10,15 @@ import UIKit
 import SwiftyJSON
 
 class ImageService: Service {
-    func getImage(urlString: String, completion: (image: UIImage) -> Void, failure: (error: Error) -> Void) {
+    func getImage(urlString: String, completion: (imageData: NSData) -> Void, failure: (error: Error) -> Void) {
         self.transport.getData(urlString, completion: { (data) -> Void in
             self.checkError(JSON(data: data))
             Dispatch.mainQueue({ () -> () in
-                completion(image: UIImage(data: data)!)
+                completion(imageData: data)
             })
             }, failure: { (error) -> Void in
                 failure(error: self.createError(error))
         })
     }
+    
 }

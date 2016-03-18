@@ -15,7 +15,10 @@ class Transport: Alamofire.Manager {
     var downloadRequestPool: [String:Request] = [:]
 
     func getJSON(urlString: String, parameters: [String:AnyObject]?, completion: (json: JSON) -> Void, failure: (error: NSError) -> Void) {
-        self.request(.GET, urlString, parameters: parameters, encoding: .URL, headers: nil)
+        //TODO вынести добалвение параметра на уровень сервисов
+        var newParams = parameters
+        newParams!["v"] = Const.Network.apiVersion
+        self.request(.GET, urlString, parameters: newParams, encoding: .URL, headers: nil)
             .responseJSON { (response) -> Void in
             switch response.result {
             case .Success:
@@ -85,11 +88,26 @@ class Transport: Alamofire.Manager {
             }
     }
     
+    func requestForUrlExists(urlString: String) -> Bool {
+        if self.downloadRequestPool[urlString] != nil {
+            return true
+        } else {
+            return false
+        }
+    }
+    
     func cancelFileDownload(urlString: String) {
         if let request = self.downloadRequestPool[urlString] {
             request.cancel()
             self.downloadRequestPool.removeValueForKey(urlString)
         }
+    }
+    
+    func cancelAllDownloads() {
+        for request in self.downloadRequestPool {
+            request.1.cancel()
+        }
+        self.downloadRequestPool = [:]
     }
     
     private func computeFilePath(fileDirectory: String, fileExtension: String, suggestedFilename: String?) -> (fileName: String, filePath: String) {

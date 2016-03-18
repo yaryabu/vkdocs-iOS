@@ -75,8 +75,34 @@ class Bash {
         }
     }
     
-    class func fileExists(dirPath: String, isDirectory: Bool) -> Bool {
-        var objcBool = ObjCBool(isDirectory)
-        return NSFileManager.defaultManager().fileExistsAtPath(dirPath, isDirectory: &objcBool)
+    class func du(path: String) -> UInt {
+        var totalSize: UInt = 0
+        
+        for file in ls(path) {
+            let filePath = path + "/" + file
+            if isDirectory(filePath) {
+                totalSize += du(filePath)
+            } else {
+                totalSize += try! NSFileManager.defaultManager().attributesOfItemAtPath(filePath)[NSFileSize] as! UInt
+            }
+        }
+        
+        return totalSize
+    }
+    
+    class func du(path: String, completion: (UInt) -> Void) {
+        Dispatch.mainQueue() { () -> () in
+            completion(du(path))
+        }
+    }
+    
+    class func isDirectory(path: String) -> Bool {
+        var isDirectory = ObjCBool(false)
+        NSFileManager.defaultManager().fileExistsAtPath(path, isDirectory: &isDirectory)
+        return Bool(isDirectory)
+    }
+    
+    class func fileExists(dirPath: String) -> Bool {
+        return NSFileManager.defaultManager().fileExistsAtPath(dirPath, isDirectory: nil)
     }
 }

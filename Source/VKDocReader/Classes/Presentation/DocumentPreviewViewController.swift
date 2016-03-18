@@ -9,6 +9,8 @@
 import UIKit
 import QuickLook
 
+import RealmSwift
+
 class DocumentPreviewViewController: ViewController, QLPreviewControllerDataSource, QLPreviewControllerDelegate, UIDocumentInteractionControllerDelegate, UIGestureRecognizerDelegate {
     
     @IBOutlet weak var loadingLabel: UILabel!
@@ -19,29 +21,66 @@ class DocumentPreviewViewController: ViewController, QLPreviewControllerDataSour
     
     let previewController = QLPreviewController()
     let documentInteractionsController = UIDocumentInteractionController()
+    var tapGestureRecogniser: UITapGestureRecognizer!
 
+    var navigationBarTapView: UIView!
+    
+    //если ссылаться на self.navigationController во viewDidDisappear, то при втором
+    //переходе на экран МП падает т.к. при распаковке возвращается nil
+    //Переменная weakNC решает эту проблему
+    weak var weakNC: NavigationController!
+    
+    
+//    let activityViewController: UIActivityViewController!
     
     override func viewDidLoad() {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "statusBarTouched:", name: Const.Notifications.statusBarTouched, object: nil)
         super.viewDidLoad()
         self.navigationItem.title = self.document!.title
-        print("TETETE.txt", QLPreviewController.canPreviewItem(NSURL(fileURLWithPath: "TETETE.txt")))
-        print("TETETE.xlsx", QLPreviewController.canPreviewItem(NSURL(fileURLWithPath: "TETETE.xlsx")))
-        print("TETETE.png", QLPreviewController.canPreviewItem(NSURL(fileURLWithPath: "TETETE.png")))
-        print("TETETE.flac", QLPreviewController.canPreviewItem(NSURL(fileURLWithPath: "TETETE.flac")))
-        print("TETETE.rar", QLPreviewController.canPreviewItem(NSURL(fileURLWithPath: "TETETE.rar")))
-        print("TETETE", QLPreviewController.canPreviewItem(NSURL(fileURLWithPath: "TETETE")))
+        self.weakNC = self.navigationController as! NavigationController
+//        print("TETETE.txt", QLPreviewController.canPreviewItem(NSURL(fileURLWithPath: "TETETE.txt")))
+//        print("TETETE.xlsx", QLPreviewController.canPreviewItem(NSURL(fileURLWithPath: "TETETE.xlsx")))
+//        print("TETETE.png", QLPreviewController.canPreviewItem(NSURL(fileURLWithPath: "TETETE.png")))
+//        print("TETETE.flac", QLPreviewController.canPreviewItem(NSURL(fileURLWithPath: "TETETE.flac")))
+//        print("TETETE.rar", QLPreviewController.canPreviewItem(NSURL(fileURLWithPath: "TETETE.rar")))
+//        print("TETETE", QLPreviewController.canPreviewItem(NSURL(fileURLWithPath: "TETETE")))
+        
         
         self.addChildViewController(previewController)
         previewController.dataSource = self
         previewController.delegate = self
+//        self.previewController.view.frame = CGRect(
+//            x: 0,
+//            y: 0, //self.weakNC.navigationBar.frame.height,
+//            width: self.view.frame.width,
+//            height: self.view.frame.height
+//        )
 
         self.previewDocument()
     }
     
-    func handleTap(sender: UITapGestureRecognizer) {
-        print("tap")
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.tapGestureRecogniser = UITapGestureRecognizer(target: self, action: "navigationBarTitleTapped:")
+        self.tapGestureRecogniser.delegate = self
+        self.navigationBarTapView = UIView(frame: CGRect(
+            x: self.weakNC.navigationBar.frame.width/4,
+            y: 0,
+            width: self.weakNC.navigationBar.frame.width/2,
+            height: self.weakNC.navigationBar.frame.height
+            )
+        )
+//        self.navigationBarTapView.backgroundColor = UIColor.greenColor()
+        self.navigationBarTapView.addGestureRecognizer(self.tapGestureRecogniser)
+        self.weakNC.navigationBar.addSubview(self.navigationBarTapView)
     }
     
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.showNavigationBar()
+        self.navigationBarTapView.removeFromSuperview()
+    }
     
     func previewDocument() {
         
@@ -51,7 +90,6 @@ class DocumentPreviewViewController: ViewController, QLPreviewControllerDataSour
             self.previewController.reloadData()
         } else {
             self.serviceLayer.docsService.downloadDocument(self.document!, progress: {(totalRead, totalSize) -> Void in
-//                    progress(percent: Int((Double(totalRead)/Double(totalSize))*100))
                 let percent = Int((Double(totalRead)/Double(totalSize))*100)
                 self.loadingLabel.text = "\(percent) %\n \(totalRead/1024) КБ/\(totalSize/1024) КБ"
                 }, completion: { (document) -> Void in
@@ -69,9 +107,8 @@ class DocumentPreviewViewController: ViewController, QLPreviewControllerDataSour
         return 1
     }
     
+    
     func previewController(controller: QLPreviewController, previewItemAtIndex index: Int) -> QLPreviewItem {
-//        print("preview")
-        print("111")
         return NSURL(fileURLWithPath: self.document!.filePath ?? "")
     }
     
@@ -79,28 +116,55 @@ class DocumentPreviewViewController: ViewController, QLPreviewControllerDataSour
         
     }
     
+    func navigationBarTitleTapped(sender: UITapGestureRecognizer) {
+//        self.hideNavigationBar()
+    }
+    
+    func statusBarTouched(notification: NSNotification) {
+//        self.showNavigationBar()
+    }
+    
+    func hideNavigationBar() {
+        self.weakNC.hideNavigationBarFrame(nil) { () -> () in
+//            self.previewController.view.frame = CGRect(
+//                x: 0,
+//                y: 0,
+//                width: self.view.frame.width,
+//                height: self.view.frame.height
+//            )
+        }
+    }
+    
+    func showNavigationBar() {
+        self.weakNC.showNavigationBarFrame(nil) { () -> () in
+//            self.previewController.view.frame = CGRect(
+//                x: 0,
+//                y: self.weakNC.navigationBar.frame.height, //self.weakNC.navBarAndStatusBarHeight,
+//                width: self.view.frame.width,
+//                height: self.loadingView.frame.height
+//            )
+        }
+    }
+    
     @IBAction func shareButtonPressed(sender: AnyObject) {
-        
         if self.document!.filePath == nil {
             return
         }
-        self.documentInteractionsController.URL = NSURL(fileURLWithPath: self.document!.filePath ?? "")
-        self.documentInteractionsController.presentOptionsMenuFromBarButtonItem(self.shareButton, animated: true)
+        
+        let acVC = UIActivityViewController(activityItems: [NSData(contentsOfFile: self.document!.filePath!)!], applicationActivities:nil)
+        self.presentViewController(acVC, animated: true, completion: nil)
+//        self.weakNC.presentViewController(acVC, animated: true, completion: nil)
+
+//        self.documentInteractionsController.URL = NSURL(fileURLWithPath: self.document!.filePath ?? "")
+//        self.documentInteractionsController.presentOptionsMenuFromBarButtonItem(self.shareButton, animated: true)
+//        self.documentInteractionsController
     }
     
     @IBAction func cancelButtonPressed(sender: AnyObject) {
         self.serviceLayer.docsService.cancelDownload(self.document!)
-        self.navigationController!.popToRootViewControllerAnimated(true)
+        self.weakNC.popToRootViewControllerAnimated(true)
     }
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        print("began", touches.count)
-    }
     
-    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        print("touches", touches.count)
-//        let touch = touches.first
-//        let touchLocation = touch!.locationInView(self.view)
-//        if touchLocation
-    }
+    
 }

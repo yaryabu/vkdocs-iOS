@@ -9,6 +9,14 @@
 import UIKit
 
 class ViewController: UIViewController {
-    let serviceLayer = ServiceLayer.sharedServiceLayer
+//    let serviceLayer = ServiceLayer.sharedServiceLayer
 }
 
+extension UIViewController {
+//    let serviceLayer = ServiceLayer.sharedServiceLayer
+    var serviceLayer: ServiceLayer {
+        get {
+            return ServiceLayer.sharedServiceLayer
+        }
+    }
+}

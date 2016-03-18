@@ -22,9 +22,22 @@ class UserService: Service {
         self.transport.getJSON(Const.Network.baseUrl + "/users.get", parameters: ["access_token":self.authService.token!, "fields" : "photo_max"], completion: { (json) -> Void in
             self.checkError(json)
             let user = UserParser.parseUser(json)
-            completion(user: user)
+            Dispatch.mainQueue({ () -> () in
+                completion(user: user)
+            })
             }) { (error) -> Void in
                 failure(error: self.createError(error))
         }
     }
+    
+    func getUserAvatarData(user: User, completion: (data: NSData) -> Void, failure: (error: Error) -> Void) {
+        self.transport.getData(user.photoUrlString, completion: { (data) -> Void in
+            Dispatch.mainQueue({ () -> () in
+                completion(data: data)
+            })
+            }) { (error) -> Void in
+                failure(error: self.createError(error))
+        }
+    }
+    
 }

@@ -90,21 +90,43 @@ class DocsService: Service {
     
     func downloadDocument(document: Document, progress: (totalRead: UInt, bytesToRead: UInt) -> Void, completion: (document: Document) -> Void, failure: (error: Error) -> Void) {
         
+        if document.fileName != nil {
+            return
+        }
+        
+        if self.userSettingsSerivce.isCurrentConnectionCellular {
+            if self.userSettingsSerivce.useWifiOnly {
+                Dispatch.mainQueue({ () -> () in
+                    failure(error: Error(code: -10, message: "Загрузка через мобильный интернет запрещена в настройках"))
+                })
+                return
+            }
+        }
+        
         self.transport.downloadFile(document.urlString, fileDirectory: document.fileDirectory, fileExtension: document.ext, progress: { (totalRead, bytesToRead) -> Void in
             Dispatch.mainQueue({ () -> () in
                 progress(totalRead: totalRead, bytesToRead: bytesToRead)
             })
             }, completion: { (fileName, filePath) -> Void in
                 Dispatch.mainQueue({ () -> () in
-                    try! Realm().write({ () -> Void in
-                        document.fileName = fileName
-                        document.filePath = filePath
-                    })
+//                    let realm = try! Realm()
+//                    do {
+//                    try realm.write({ () -> Void in
+//                        document.fileName = fileName
+//                        realm.add(document, update: true)
+//                        print(document.filePath, document.fileName)
+//                    })
+//                    } catch {print("realmError")}
+//                    realm.refresh()
                     completion(document: document)
                 })
             }) { (error) -> Void in
                 failure(error: self.createError(error))
         }
+    }
+    
+    func downloadExists(document: Document) -> Bool {
+        return self.transport.requestForUrlExists(document.urlString)
     }
     
     func cancelDownload(document: Document) {

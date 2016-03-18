@@ -39,7 +39,9 @@ class AuthWebViewController: ViewController, UIWebViewDelegate {
     
     func authSuccessful(paramsString: String) {
         self.serviceLayer.authService.saveAuthData(paramsString)
-        self.performSegueWithIdentifier(Const.StoryboardSegues.logInSuccess, sender: self)
+        let storyboard = UIStoryboard.init(name: Const.Common.mainStoryboardName, bundle: NSBundle.mainBundle())
+        let window = UIApplication.sharedApplication().windows[0]
+        window.rootViewController = storyboard.instantiateViewControllerWithIdentifier(Const.StoryboardIDs.tabBarController)
     }
     
     func userDeniedAuth() {

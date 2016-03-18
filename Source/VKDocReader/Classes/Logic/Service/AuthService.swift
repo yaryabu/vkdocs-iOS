@@ -10,8 +10,6 @@ import SSKeychain
 
 class AuthService: Service {
     
-    private let userDefaults = NSUserDefaults.standardUserDefaults()
-    
     var token: String? {
         get {
             return SSKeychain.passwordForService(Const.Keychain.serviceName, account: Const.Keychain.sharedAccountName)
@@ -26,10 +24,10 @@ class AuthService: Service {
     }
     var userId: String? {
         get {
-            return self.userDefaults.stringForKey(Const.UserDefaults.userIdKey)
+            return NSUserDefaults.standardUserDefaults().stringForKey(Const.UserDefaults.userIdKey)
         }
         set {
-            self.userDefaults.setObject(newValue, forKey: Const.UserDefaults.userIdKey)
+            NSUserDefaults.standardUserDefaults().setObject(newValue, forKey: Const.UserDefaults.userIdKey)
         }
     }
     
@@ -44,5 +42,10 @@ class AuthService: Service {
             }
         }
         print(self.token, self.userId)
+    }
+    
+    override func deleteAllInfo() {
+        self.token = nil
+        self.userId = nil
     }
 }

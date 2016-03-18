@@ -12,16 +12,13 @@ class UserParser: Parser {
     class func parseUser(json: JSON) -> User {
         let userJson = json["response"][0]
         
-        let id = String(userJson["uid"].int!)
-        let firstName = userJson["first_name"].string!
-        let lastName = userJson["last_name"].string!
-        let photoUrlString = userJson["photo_max"].string!
+        let user = User()
         
-        return User(
-            id: id,
-            firstName: firstName,
-            lastName: lastName,
-            photoUrlString: photoUrlString
-        )
+        user.id = String(userJson["id"].int!)
+        user.firstName = userJson["first_name"].string!
+        user.lastName = userJson["last_name"].string!
+        user.photoUrlString = userJson["photo_max"].string!
+        
+        return user
     }
 }

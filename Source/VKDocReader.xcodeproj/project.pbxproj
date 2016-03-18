@@ -12,6 +12,8 @@
 		5730FB961C8E25BC00D48B8C /* DocumentPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5730FB951C8E25BC00D48B8C /* DocumentPreviewViewController.swift */; };
 		575980F41C8F47DF009A9460 /* DocsParameterBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575980F31C8F47DF009A9460 /* DocsParameterBuilder.swift */; };
 		57687F861C8F32EE0037AF4F /* Bash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57687F851C8F32EE0037AF4F /* Bash.swift */; };
+		5775CE911C98BF7D00D2C113 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5775CE901C98BF7D00D2C113 /* TabBarController.swift */; };
+		5775CE941C98CE3F00D2C113 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5775CE931C98CE3F00D2C113 /* Reachability.swift */; };
 		578257D51C8AFA6F003C3568 /* VKDocReaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578257D41C8AFA6F003C3568 /* VKDocReaderTests.swift */; };
 		578257E01C8AFA6F003C3568 /* VKDocReaderUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578257DF1C8AFA6F003C3568 /* VKDocReaderUITests.swift */; };
 		578257FC1C8B173B003C3568 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578257EF1C8B173B003C3568 /* AppDelegate.swift */; };
@@ -26,11 +28,16 @@
 		5782580D1C8B1A5B003C3568 /* Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5782580C1C8B1A5B003C3568 /* Const.swift */; };
 		5782580F1C8B278D003C3568 /* UserSettingsSerivce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5782580E1C8B278D003C3568 /* UserSettingsSerivce.swift */; };
 		578258111C8B2D63003C3568 /* UserDocsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578258101C8B2D63003C3568 /* UserDocsViewController.swift */; };
+		578A4DD21C93449F00D49CE2 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578A4DD11C93449F00D49CE2 /* NavigationController.swift */; };
 		5795DD5E1C8C9D750008DFA1 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5795DD5D1C8C9D750008DFA1 /* DateFormatter.swift */; };
 		5795DD601C8C9D8F0008DFA1 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5795DD5F1C8C9D8F0008DFA1 /* Error.swift */; };
 		5795DD621C8CC9450008DFA1 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5795DD611C8CC9450008DFA1 /* UserService.swift */; };
 		5795DD641C8CCA280008DFA1 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5795DD631C8CCA280008DFA1 /* User.swift */; };
 		5795DD661C8CCAAC0008DFA1 /* UserParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5795DD651C8CCAAC0008DFA1 /* UserParser.swift */; };
+		57AF2C9D1C97442600C5A193 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57AF2C9C1C97442600C5A193 /* SettingsViewController.swift */; };
+		57AF2CA51C97578600C5A193 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57AF2CA41C97578600C5A193 /* ShareViewController.swift */; };
+		57AF2CA81C97578600C5A193 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 57AF2CA61C97578600C5A193 /* MainInterface.storyboard */; };
+		57AF2CAC1C97578600C5A193 /* ShareUpload.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 57AF2CA21C97578600C5A193 /* ShareUpload.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		57AF96961C8B4C3700E924C3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 57AF96951C8B4C3700E924C3 /* LaunchScreen.storyboard */; };
 		57AF96981C8B524800E924C3 /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57AF96971C8B524800E924C3 /* Document.swift */; };
 		57AF969A1C8B53FC00E924C3 /* Transport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57AF96991C8B53FC00E924C3 /* Transport.swift */; };
@@ -57,7 +64,28 @@
 			remoteGlobalIDString = 578257BB1C8AFA6F003C3568;
 			remoteInfo = VKDocReader;
 		};
+		57AF2CAA1C97578600C5A193 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 578257B41C8AFA6F003C3568 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 57AF2CA11C97578600C5A193;
+			remoteInfo = ShareExtension;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		57AF2CB01C97578600C5A193 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				57AF2CAC1C97578600C5A193 /* ShareUpload.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		07C163E77DAE8C9B3CBAAAF9 /* Pods-VKDocReader.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VKDocReader.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VKDocReader/Pods-VKDocReader.debug.xcconfig"; sourceTree = "<group>"; };
@@ -66,6 +94,8 @@
 		5730FB951C8E25BC00D48B8C /* DocumentPreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentPreviewViewController.swift; sourceTree = "<group>"; };
 		575980F31C8F47DF009A9460 /* DocsParameterBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DocsParameterBuilder.swift; path = ParameterBuilders/DocsParameterBuilder.swift; sourceTree = "<group>"; };
 		57687F851C8F32EE0037AF4F /* Bash.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Bash.swift; path = Helpers/Bash.swift; sourceTree = "<group>"; };
+		5775CE901C98BF7D00D2C113 /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		5775CE931C98CE3F00D2C113 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Reachability.swift; path = ThirdParty/Reachability.swift; sourceTree = "<group>"; };
 		578257BC1C8AFA6F003C3568 /* VKDocReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VKDocReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		578257D01C8AFA6F003C3568 /* VKDocReaderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VKDocReaderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		578257D41C8AFA6F003C3568 /* VKDocReaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKDocReaderTests.swift; sourceTree = "<group>"; };
@@ -86,11 +116,18 @@
 		5782580C1C8B1A5B003C3568 /* Const.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Const.swift; sourceTree = "<group>"; };
 		5782580E1C8B278D003C3568 /* UserSettingsSerivce.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSettingsSerivce.swift; sourceTree = "<group>"; };
 		578258101C8B2D63003C3568 /* UserDocsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDocsViewController.swift; sourceTree = "<group>"; };
+		578A4DD11C93449F00D49CE2 /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		5795DD5D1C8C9D750008DFA1 /* DateFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DateFormatter.swift; path = Helpers/DateFormatter.swift; sourceTree = "<group>"; };
 		5795DD5F1C8C9D8F0008DFA1 /* Error.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Error.swift; path = Helpers/Error.swift; sourceTree = "<group>"; };
 		5795DD611C8CC9450008DFA1 /* UserService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		5795DD631C8CCA280008DFA1 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		5795DD651C8CCAAC0008DFA1 /* UserParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserParser.swift; path = Parser/UserParser.swift; sourceTree = "<group>"; };
+		57AF2C9C1C97442600C5A193 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		57AF2CA21C97578600C5A193 /* ShareUpload.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ShareUpload.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		57AF2CA41C97578600C5A193 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
+		57AF2CA71C97578600C5A193 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		57AF2CA91C97578600C5A193 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		57AF2CB11C97584800C5A193 /* VKDocReader.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = VKDocReader.entitlements; sourceTree = "<group>"; };
 		57AF96951C8B4C3700E924C3 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		57AF96971C8B524800E924C3 /* Document.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
 		57AF96991C8B53FC00E924C3 /* Transport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transport.swift; sourceTree = "<group>"; };
@@ -126,6 +163,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		57AF2C9F1C97578600C5A193 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -148,14 +192,24 @@
 			name = ParameterBuilders;
 			sourceTree = "<group>";
 		};
+		5775CE921C98CE1D00D2C113 /* ThirdParty */ = {
+			isa = PBXGroup;
+			children = (
+				5775CE931C98CE3F00D2C113 /* Reachability.swift */,
+			);
+			name = ThirdParty;
+			sourceTree = "<group>";
+		};
 		578257B31C8AFA6F003C3568 = {
 			isa = PBXGroup;
 			children = (
 				578257ED1C8B173B003C3568 /* VKDocReader */,
 				578257D31C8AFA6F003C3568 /* VKDocReaderTests */,
 				578257DE1C8AFA6F003C3568 /* VKDocReaderUITests */,
+				57AF2CA31C97578600C5A193 /* ShareExtension */,
 				578257BD1C8AFA6F003C3568 /* Products */,
 				C0CC6E6FA1CF04CC4EC87F82 /* Pods */,
+				5775CE921C98CE1D00D2C113 /* ThirdParty */,
 				A6853E1B165B4ED768EBD6E8 /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -166,6 +220,7 @@
 				578257BC1C8AFA6F003C3568 /* VKDocReader.app */,
 				578257D01C8AFA6F003C3568 /* VKDocReaderTests.xctest */,
 				578257DB1C8AFA6F003C3568 /* VKDocReaderUITests.xctest */,
+				57AF2CA21C97578600C5A193 /* ShareUpload.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -191,6 +246,7 @@
 		578257ED1C8B173B003C3568 /* VKDocReader */ = {
 			isa = PBXGroup;
 			children = (
+				57AF2CB11C97584800C5A193 /* VKDocReader.entitlements */,
 				578257EE1C8B173B003C3568 /* Classes */,
 				578257F71C8B173B003C3568 /* Other */,
 				578257F91C8B173B003C3568 /* Resourses */,
@@ -264,6 +320,9 @@
 				57AF96A21C8B665C00E924C3 /* View.swift */,
 				57AF96A41C8B66B200E924C3 /* UserDocsTableViewCell.swift */,
 				5730FB951C8E25BC00D48B8C /* DocumentPreviewViewController.swift */,
+				578A4DD11C93449F00D49CE2 /* NavigationController.swift */,
+				57AF2C9C1C97442600C5A193 /* SettingsViewController.swift */,
+				5775CE901C98BF7D00D2C113 /* TabBarController.swift */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -283,6 +342,16 @@
 				57AF96951C8B4C3700E924C3 /* LaunchScreen.storyboard */,
 			);
 			path = Resourses;
+			sourceTree = "<group>";
+		};
+		57AF2CA31C97578600C5A193 /* ShareExtension */ = {
+			isa = PBXGroup;
+			children = (
+				57AF2CA41C97578600C5A193 /* ShareViewController.swift */,
+				57AF2CA61C97578600C5A193 /* MainInterface.storyboard */,
+				57AF2CA91C97578600C5A193 /* Info.plist */,
+			);
+			path = ShareExtension;
 			sourceTree = "<group>";
 		};
 		57AF969D1C8B5C8200E924C3 /* Parser */ = {
@@ -325,10 +394,12 @@
 				578257BA1C8AFA6F003C3568 /* Resources */,
 				3CB6EBB3422A33E5D675C771 /* Embed Pods Frameworks */,
 				9FBF5330EFEEA31D342EC31E /* Copy Pods Resources */,
+				57AF2CB01C97578600C5A193 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				57AF2CAB1C97578600C5A193 /* PBXTargetDependency */,
 			);
 			name = VKDocReader;
 			productName = VKDocReader;
@@ -371,6 +442,23 @@
 			productReference = 578257DB1C8AFA6F003C3568 /* VKDocReaderUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		57AF2CA11C97578600C5A193 /* ShareUpload */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 57AF2CAD1C97578600C5A193 /* Build configuration list for PBXNativeTarget "ShareUpload" */;
+			buildPhases = (
+				57AF2C9E1C97578600C5A193 /* Sources */,
+				57AF2C9F1C97578600C5A193 /* Frameworks */,
+				57AF2CA01C97578600C5A193 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ShareUpload;
+			productName = ShareExtension;
+			productReference = 57AF2CA21C97578600C5A193 /* ShareUpload.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -383,7 +471,11 @@
 				TargetAttributes = {
 					578257BB1C8AFA6F003C3568 = {
 						CreatedOnToolsVersion = 7.2.1;
+						DevelopmentTeam = SH46XG936M;
 						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
 							com.apple.BackgroundModes = {
 								enabled = 0;
 							};
@@ -399,6 +491,9 @@
 					578257DA1C8AFA6F003C3568 = {
 						CreatedOnToolsVersion = 7.2.1;
 						TestTargetID = 578257BB1C8AFA6F003C3568;
+					};
+					57AF2CA11C97578600C5A193 = {
+						CreatedOnToolsVersion = 7.2.1;
 					};
 				};
 			};
@@ -418,6 +513,7 @@
 				578257BB1C8AFA6F003C3568 /* VKDocReader */,
 				578257CF1C8AFA6F003C3568 /* VKDocReaderTests */,
 				578257DA1C8AFA6F003C3568 /* VKDocReaderUITests */,
+				57AF2CA11C97578600C5A193 /* ShareUpload */,
 			);
 		};
 /* End PBXProject section */
@@ -444,6 +540,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		57AF2CA01C97578600C5A193 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				57AF2CA81C97578600C5A193 /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -507,6 +611,7 @@
 				5782580B1C8B1A39003C3568 /* AuthWebViewController.swift in Sources */,
 				5795DD661C8CCAAC0008DFA1 /* UserParser.swift in Sources */,
 				5795DD641C8CCA280008DFA1 /* User.swift in Sources */,
+				578A4DD21C93449F00D49CE2 /* NavigationController.swift in Sources */,
 				578257FE1C8B173B003C3568 /* ViewController.swift in Sources */,
 				578258051C8B1959003C3568 /* Service.swift in Sources */,
 				578258071C8B1973003C3568 /* AuthService.swift in Sources */,
@@ -514,16 +619,19 @@
 				5795DD5E1C8C9D750008DFA1 /* DateFormatter.swift in Sources */,
 				57AF96A11C8B5CB000E924C3 /* DocsParser.swift in Sources */,
 				57AF969C1C8B571D00E924C3 /* DocsService.swift in Sources */,
+				5775CE911C98BF7D00D2C113 /* TabBarController.swift in Sources */,
 				57AF969F1C8B5C9800E924C3 /* Parser.swift in Sources */,
 				578258031C8B18FF003C3568 /* ServiceLayer.swift in Sources */,
 				5795DD621C8CC9450008DFA1 /* UserService.swift in Sources */,
 				57AF96A51C8B66B200E924C3 /* UserDocsTableViewCell.swift in Sources */,
+				5775CE941C98CE3F00D2C113 /* Reachability.swift in Sources */,
 				5715AE7E1C8B863F0074C59F /* ImageService.swift in Sources */,
 				5795DD601C8C9D8F0008DFA1 /* Error.swift in Sources */,
 				57687F861C8F32EE0037AF4F /* Bash.swift in Sources */,
 				5715AE811C8BB5560074C59F /* Dispatch.swift in Sources */,
 				5782580F1C8B278D003C3568 /* UserSettingsSerivce.swift in Sources */,
 				57AF969A1C8B53FC00E924C3 /* Transport.swift in Sources */,
+				57AF2C9D1C97442600C5A193 /* SettingsViewController.swift in Sources */,
 				5730FB961C8E25BC00D48B8C /* DocumentPreviewViewController.swift in Sources */,
 				578258111C8B2D63003C3568 /* UserDocsViewController.swift in Sources */,
 				5782580D1C8B1A5B003C3568 /* Const.swift in Sources */,
@@ -548,6 +656,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		57AF2C9E1C97578600C5A193 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				57AF2CA51C97578600C5A193 /* ShareViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -561,7 +677,23 @@
 			target = 578257BB1C8AFA6F003C3568 /* VKDocReader */;
 			targetProxy = 578257DC1C8AFA6F003C3568 /* PBXContainerItemProxy */;
 		};
+		57AF2CAB1C97578600C5A193 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 57AF2CA11C97578600C5A193 /* ShareUpload */;
+			targetProxy = 57AF2CAA1C97578600C5A193 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		57AF2CA61C97578600C5A193 /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				57AF2CA71C97578600C5A193 /* Base */,
+			);
+			name = MainInterface.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		578257E21C8AFA6F003C3568 /* Debug */ = {
@@ -652,11 +784,16 @@
 			baseConfigurationReference = 07C163E77DAE8C9B3CBAAAF9 /* Pods-VKDocReader.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = VKDocReader/VKDocReader.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = VKDocReader/Other/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ru.yaryabu.VKDocReader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WARNING_CFLAGS = (
 					"-Wextra",
 					"-Wall",
@@ -669,11 +806,16 @@
 			baseConfigurationReference = FECA0E32A931B8D1DADCE151 /* Pods-VKDocReader.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = VKDocReader/VKDocReader.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = VKDocReader/Other/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ru.yaryabu.VKDocReader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WARNING_CFLAGS = (
 					"-Wextra",
 					"-Wall",
@@ -729,6 +871,30 @@
 			};
 			name = Release;
 		};
+		57AF2CAE1C97578600C5A193 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = ShareExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = ru.yaryabu.VKDocReader.ShareUpload;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		57AF2CAF1C97578600C5A193 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = ShareExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = ru.yaryabu.VKDocReader.ShareUpload;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -764,6 +930,15 @@
 			buildConfigurations = (
 				578257EB1C8AFA6F003C3568 /* Debug */,
 				578257EC1C8AFA6F003C3568 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		57AF2CAD1C97578600C5A193 /* Build configuration list for PBXNativeTarget "ShareUpload" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				57AF2CAE1C97578600C5A193 /* Debug */,
+				57AF2CAF1C97578600C5A193 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

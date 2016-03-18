@@ -22,4 +22,11 @@ class ServiceLayer {
         self.docsService = DocsService(authService: self.authService, userSettingsSerivce: self.userSettingsService)
         self.imageService = ImageService()
     }
+    
+    func deleteAllInfo() {
+        self.authService.deleteAllInfo()
+        self.userSettingsService.deleteAllInfo()
+        Transport.sharedTransport.cancelAllDownloads()
+    }
+    
 }
