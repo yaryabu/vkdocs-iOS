@@ -13,10 +13,14 @@ struct Const {
         static let clientId = "5295261"
         static let bundleIdentifier = NSBundle.mainBundle().bundleIdentifier!
         static let mainStoryboardName = "Main"
+        //рандомная строка, которая добавляется ко всем папкам для документов, чтобы 
+        // небыло конфликтов с пользовательскими папками
+        static let directoryConflictHelper = ".h7237uigYFasdaw3w"
     }
     
     struct Notifications {
         static let statusBarTouched = "statusBarTouchedNotification"
+        static let cellButtonPressed = "UserDocsTableViewCellButtonPressed"
     }
     
     struct Network {
@@ -48,6 +52,7 @@ struct Const {
         static let logInButtonPressed = "logInButtonPressed"
         static let logInSuccess = "logInSuccess"
         static let previewDocument = "previewDocument"
+        static let createFolder = "createFolder"
     }
     
     struct Keychain {

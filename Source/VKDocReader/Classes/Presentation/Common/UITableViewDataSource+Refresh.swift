@@ -10,8 +10,22 @@ import UIKit
 
 protocol DataSource: UITableViewDataSource {
     func refresh(refreshEnded: () -> Void, refreshFailed: (error: Error) -> Void)
+    func document(indexPath: NSIndexPath) -> Document
+    func updateCache()
 }
 
-//extension UITableViewDataSource {
-//    func refresh(refreshEnded: () -> Void, refreshFailed: (error: Error) -> Void) {}
+//extension UIAlertController {
+//    func closeOnTap(parentVC: ViewController) {
+////        parentVC.addChildViewController(self)
+//        let gs = UITapGestureRecognizer(target: self, action: "tap:")
+//        
+//        if preferredStyle == UIAlertControllerStyle.ActionSheet {
+//            parentVC.view.userInteractionEnabled = true
+//            parentVC.view.addGestureRecognizer(gs)
+//        }
+//    }
+//    
+//    func tap(sender: UITapGestureRecognizer) {
+//        dismissViewControllerAnimated(true, completion: nil)
+//    }
 //}

@@ -93,7 +93,59 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x9w-BK-ydg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1763" y="315"/>
+            <point key="canvasLocation" x="1695" y="315"/>
+        </scene>
+        <!--Create folder-->
+        <scene sceneID="VRm-36-KGG">
+            <objects>
+                <viewController id="qlk-zy-5K6" customClass="CreateFolderViewController" customModule="VKDocReader" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="VjJ-zn-mGb"/>
+                        <viewControllerLayoutGuide type="bottom" id="5gz-wY-3n6"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="FDw-wm-d80">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="30" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="aID-ZW-HTW">
+                                <rect key="frame" x="167" y="270" width="266" height="60"/>
+                                <color key="backgroundColor" red="1" green="0.23718426943620929" blue="0.6718150859137737" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="266" id="MCk-bC-Zrz"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="60" id="w9N-uJ-RM1"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
+                                <connections>
+                                    <outlet property="delegate" destination="qlk-zy-5K6" id="Xx2-mu-kZH"/>
+                                </connections>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="aID-ZW-HTW" firstAttribute="centerY" secondItem="FDw-wm-d80" secondAttribute="centerY" id="BGj-nO-5wb"/>
+                            <constraint firstItem="aID-ZW-HTW" firstAttribute="centerX" secondItem="FDw-wm-d80" secondAttribute="centerX" id="aPe-8e-mLC"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Create folder" id="YkK-Da-5H1">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="JI2-dd-208">
+                            <connections>
+                                <action selector="cancelButtonPressed:" destination="qlk-zy-5K6" id="9xB-Mu-06d"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Create" id="7A9-mo-mLQ">
+                            <connections>
+                                <action selector="createButtonPressed:" destination="qlk-zy-5K6" id="ORF-Wr-o1N"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="textField" destination="aID-ZW-HTW" id="hiw-6t-qwH"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Tne-Ie-D9i" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3775" y="-1200"/>
         </scene>
         <!--User Docs View Controller-->
         <scene sceneID="F3K-76-7Sf">
@@ -268,11 +320,34 @@
                         <outlet property="optionsButton" destination="SLs-sC-S8J" id="X90-hx-ytI"/>
                         <outlet property="tableView" destination="aH8-lc-tdi" id="AHT-hm-b2z"/>
                         <segue destination="fbH-G0-N1P" kind="show" identifier="previewDocument" id="Pou-qO-h7y"/>
+                        <segue destination="rb2-KS-Aae" kind="presentation" identifier="createFolder" id="gDm-nq-f8c"/>
+                        <segue destination="qMQ-kO-Jzh" kind="show" id="X4o-Lq-5h5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JkX-iK-1O9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4127" y="-663"/>
+            <point key="canvasLocation" x="3783" y="315"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="iFh-TQ-hol">
+            <objects>
+                <viewController id="qMQ-kO-Jzh" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="CBd-iQ-OO3"/>
+                        <viewControllerLayoutGuide type="bottom" id="cha-8X-gGq"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="1QL-BM-1QQ">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <segue destination="fbH-G0-N1P" kind="show" identifier="previewDocument" id="J5d-HI-4BO"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XEa-Aa-fXY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4597" y="315"/>
         </scene>
         <!--Title-->
         <scene sceneID="lHa-wc-Wcc">
@@ -333,19 +408,19 @@
                     <navigationItem key="navigationItem" title="Title" id="qaY-En-eqp">
                         <barButtonItem key="rightBarButtonItem" systemItem="action" id="vWY-yN-ra7">
                             <connections>
-                                <action selector="shareButtonPressed:" destination="fbH-G0-N1P" id="VmF-iD-2wE"/>
+                                <action selector="optionsButtonPressed:" destination="fbH-G0-N1P" id="L80-6x-hWD"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="loadingLabel" destination="FhS-Ig-L9F" id="psp-sq-kbd"/>
                         <outlet property="loadingView" destination="DGh-hE-c3y" id="pxm-Vq-JKr"/>
-                        <outlet property="shareButton" destination="vWY-yN-ra7" id="N5B-v7-Nha"/>
+                        <outlet property="optionsButton" destination="vWY-yN-ra7" id="sn5-OB-vMT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pui-iW-vCs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4917" y="-663"/>
+            <point key="canvasLocation" x="4229" y="1393"/>
         </scene>
         <!--One-->
         <scene sceneID="Cdw-fP-7og">
@@ -368,7 +443,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="y86-Bn-tX8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3315" y="-663"/>
+            <point key="canvasLocation" x="3127" y="315"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="8Tv-Bf-FX7">
@@ -465,7 +540,26 @@
                                 </connections>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TotalSize" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xf6-dr-l9j">
-                                <rect key="frame" x="265" y="406" width="70" height="21"/>
+                                <rect key="frame" x="265.5" y="406" width="69.5" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Only Wi-Fi load" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WZ0-sv-1NE">
+                                <rect key="frame" x="144" y="270.5" width="117" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="1XM-ao-1YC">
+                                <rect key="frame" x="276" y="443.5" width="51" height="31"/>
+                                <connections>
+                                    <action selector="onlyWifiLoadSwitchChanged:" destination="qI0-HP-mX1" eventType="valueChanged" id="5Rd-37-xrJ"/>
+                                    <action selector="saveDocsAutomaticallySwitchPressed:" destination="qI0-HP-mX1" eventType="valueChanged" id="FHB-zJ-46G"/>
+                                </connections>
+                            </switch>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Save Documents Automatically" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M0J-mo-m7r">
+                                <rect key="frame" x="24" y="449" width="237" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -475,10 +569,14 @@
                         <constraints>
                             <constraint firstItem="vbI-jq-NY7" firstAttribute="centerX" secondItem="mP1-Oe-IQv" secondAttribute="centerX" id="03I-7X-tzW"/>
                             <constraint firstItem="urD-Kl-we5" firstAttribute="centerX" secondItem="mP1-Oe-IQv" secondAttribute="centerX" id="1xf-8V-AYa"/>
+                            <constraint firstItem="1XM-ao-1YC" firstAttribute="centerX" secondItem="mP1-Oe-IQv" secondAttribute="centerX" id="66s-Ap-whs"/>
+                            <constraint firstItem="vbI-jq-NY7" firstAttribute="leading" secondItem="WZ0-sv-1NE" secondAttribute="trailing" constant="15" id="6N6-b6-A69"/>
+                            <constraint firstItem="1XM-ao-1YC" firstAttribute="top" secondItem="xf6-dr-l9j" secondAttribute="bottom" constant="17" id="6aZ-wm-tQ0"/>
                             <constraint firstItem="y87-cI-1hi" firstAttribute="top" secondItem="vbI-jq-NY7" secondAttribute="bottom" constant="23" id="HFp-Wc-mHk"/>
                             <constraint firstItem="xf6-dr-l9j" firstAttribute="centerX" secondItem="mP1-Oe-IQv" secondAttribute="centerX" id="JIU-2Q-oHb"/>
                             <constraint firstItem="stM-9Z-dUQ" firstAttribute="top" secondItem="y87-cI-1hi" secondAttribute="bottom" constant="19" id="KGn-aS-ReR"/>
                             <constraint firstItem="y87-cI-1hi" firstAttribute="centerX" secondItem="mP1-Oe-IQv" secondAttribute="centerX" id="NJS-K8-qze"/>
+                            <constraint firstItem="M0J-mo-m7r" firstAttribute="centerY" secondItem="1XM-ao-1YC" secondAttribute="centerY" id="Ni2-Y8-o42"/>
                             <constraint firstItem="2zi-Zt-WTm" firstAttribute="centerX" secondItem="mP1-Oe-IQv" secondAttribute="centerX" id="R81-ma-Ulm"/>
                             <constraint firstItem="ihg-AE-zBQ" firstAttribute="centerX" secondItem="mP1-Oe-IQv" secondAttribute="centerX" id="Rb7-WN-rkP"/>
                             <constraint firstItem="xf6-dr-l9j" firstAttribute="top" secondItem="stM-9Z-dUQ" secondAttribute="bottom" constant="8" id="SZL-5M-H0n"/>
@@ -489,11 +587,14 @@
                             <constraint firstItem="ihg-AE-zBQ" firstAttribute="top" secondItem="jxg-KA-4Lt" secondAttribute="bottom" constant="13" id="o8J-AU-JC9"/>
                             <constraint firstItem="vbI-jq-NY7" firstAttribute="top" secondItem="2zi-Zt-WTm" secondAttribute="bottom" constant="8" id="pNr-44-0DI"/>
                             <constraint firstItem="stM-9Z-dUQ" firstAttribute="centerX" secondItem="mP1-Oe-IQv" secondAttribute="centerX" id="t8J-uc-HtC"/>
+                            <constraint firstItem="1XM-ao-1YC" firstAttribute="leading" secondItem="M0J-mo-m7r" secondAttribute="trailing" constant="15" id="u0W-xr-Lqh"/>
+                            <constraint firstItem="WZ0-sv-1NE" firstAttribute="centerY" secondItem="vbI-jq-NY7" secondAttribute="centerY" id="y8h-5n-PO3"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="hwc-Bh-Pbm"/>
                     <connections>
                         <outlet property="onlyWifiLoadSwitch" destination="vbI-jq-NY7" id="qgv-37-3E5"/>
+                        <outlet property="saveDocsAutomaticallySwitch" destination="1XM-ao-1YC" id="ZHC-0b-NVt"/>
                         <outlet property="totalDocumentsSizeLabel" destination="xf6-dr-l9j" id="rtq-84-flJ"/>
                         <outlet property="userAvatarImageView" destination="jxg-KA-4Lt" id="Lu7-mT-0Xz"/>
                         <outlet property="userNameLabel" destination="ihg-AE-zBQ" id="x9s-FD-8ne"/>
@@ -502,7 +603,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fab-xa-LEx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4127" y="315"/>
+            <point key="canvasLocation" x="2439" y="1623"/>
         </scene>
         <!--Two-->
         <scene sceneID="2u8-v5-XEP">
@@ -521,7 +622,28 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hzK-ml-w2o" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3315" y="315"/>
+            <point key="canvasLocation" x="2439" y="975"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="P6G-PL-gsf">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="rb2-KS-Aae" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="H2S-jU-c6L">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="qlk-zy-5K6" kind="relationship" relationship="rootViewController" id="qhb-EC-bPC"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sjk-Ji-Wy2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3783" y="-456"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="Pou-qO-h7y"/>
+    </inferredMetricsTieBreakers>
 </document>

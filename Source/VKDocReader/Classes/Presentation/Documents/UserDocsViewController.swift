@@ -30,30 +30,43 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
     let pullToRefreshControl = UIRefreshControl()
     
     let searchBar = UISearchBar()
+    let searchBarSpinner = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
+//        NSNotificationCenter.defaultCenter().addObserver(self, selector: "cellButtonPressed:", name: Const.Notifications.cellButtonPressed, object: nil)
+
+        print(self.navigationController!.viewControllers)
+        print(self.navigationController!.viewControllers[0] == self)
         
         currentDataSource = mainDataSource
-        
-        self.navigationBarButtons = (leftButton: addDocumentButton, rightButton: optionsButton)
-        
-        searchBar.sizeToFit()
-        navigationItem.titleView = searchBar
-        searchBar.delegate = self
-        searchBar.backgroundColor = UIColor.clearColor()
-        
         self.pullToRefreshControl.addTarget(self, action: "pullToRefreshActivated", forControlEvents: UIControlEvents.ValueChanged)
         self.tableView.addSubview(self.pullToRefreshControl)
+//        tableView.registerNib(UINib(nibName: "UserDocsTableViewCell", bundle: nil), forCellReuseIdentifier: UserDocsTableViewCell.cellIdentifier)
         
-        self.refresh { () -> Void in}
+        if self.navigationController!.viewControllers[0] == self {
+            self.navigationBarButtons = (leftButton: addDocumentButton, rightButton: optionsButton)
+            searchBar.sizeToFit()
+            navigationItem.titleView = searchBar
+            searchBar.delegate = self
+            searchBar.backgroundColor = UIColor.clearColor()
+            searchBar.addSubview(searchBarSpinner)
+            searchBarSpinner.hidesWhenStopped = true
+            searchBarSpinner.stopAnimating()
+            refresh { () -> Void in}
+        } else {
+            navigationItem.leftBarButtonItem = nil
+            navigationItem.title = Bash.pwd().componentsSeparatedByString("/").last
+        }
         
         print("token", self.serviceLayer.authService.token)
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        
+        currentDataSource.updateCache()
         self.tableView.reloadData()
         
         if searchBar.text != "" {
@@ -61,6 +74,21 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
         }
         
     }
+    
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        if navigationController == nil && Bash.pwd() != Const.Directories.fileSystemDir {
+            print("back")
+            Bash.cd("..")
+        }
+    }
+//
+//    override func didMoveToParentViewController(parent: UIViewController?) {
+//        print("back")
+//        if Bash.pwd() != Const.Directories.fileSystemDir {
+//            Bash.cd("..")
+//        }
+//    }
     
     func refresh(refreshEnded: () -> Void) {
         currentDataSource.refresh({ () -> Void in
@@ -74,7 +102,7 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
     
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         if let ds = currentDataSource as? SearchDataSource {
-            if indexPath.row == ds.searchResults.count - 10 {
+            if indexPath.row == ds.vkSearchResults.count - 10 {
                 search()
             }
         }
@@ -83,10 +111,18 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
+        if let _ = currentDataSource as? SearchDataSource {
+            self.performSegueWithIdentifier(Const.StoryboardSegues.previewDocument, sender: indexPath)
+            return
+        }
+        
         if indexPath.section == 0 {
-            
+            let ds = currentDataSource as! UserDocsDataSource
+            Bash.cd(ds.folders[indexPath.row])
+            let vc = storyboard!.instantiateViewControllerWithIdentifier(Const.StoryboardIDs.userDocsTableViewController)
+            navigationController!.pushViewController(vc, animated: true)
         } else {
-            self.performSegueWithIdentifier(Const.StoryboardSegues.previewDocument, sender: indexPath.row)
+            self.performSegueWithIdentifier(Const.StoryboardSegues.previewDocument, sender: indexPath)
         }
     }
     
@@ -94,7 +130,11 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
         searchBar.resignFirstResponder()
         if segue.identifier == Const.StoryboardSegues.previewDocument {
             let vc = segue.destinationViewController as! DocumentPreviewViewController
-            vc.document = mainDataSource.documents[sender as! Int]
+            if let ds = currentDataSource as? UserDocsDataSource {
+                vc.document = ds.document(sender as! NSIndexPath)
+            } else if let ds = currentDataSource as? SearchDataSource {
+                vc.document = ds.document(sender as! NSIndexPath)
+            }
         }
     }
     
@@ -120,26 +160,29 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
     }
     
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchBar.text == "" {
-            return
-        }
+        searchBarSpinner.startAnimating()
         NSObject.cancelPreviousPerformRequestsWithTarget(self, selector: "search", object: nil)
         performSelector("search", withObject: nil, afterDelay: 0.4) //ВК не позволяет больше 3 запросов в секунду. С таким delay все ОК
     }
     
     func search() {
         let query = searchBar.text!
-        let ds = currentDataSource as! SearchDataSource
-        ds.startSearch(query, completion: { () -> Void in
+        if let ds = currentDataSource as? SearchDataSource {
+            ds.startSearch(query, completion: { () -> Void in
+                self.searchBarSpinner.stopAnimating()
+                self.tableView.reloadData()
+                }) { (error) -> Void in
+                    print(error)
+            }
+        } else {
+            self.searchBarSpinner.stopAnimating()
             self.tableView.reloadData()
-            }) { (error) -> Void in
-                print(error)
         }
     }
     
     func searchBarCancelButtonClicked(searchBar: UISearchBar) {
         currentDataSource = mainDataSource
-        currentDataSource.refresh({ () -> Void in}) { (error) -> Void in}
+        refresh { () -> Void in}
         searchBar.setShowsCancelButton(false, animated: true)
         searchBar.text = ""
         searchBar.resignFirstResponder()
@@ -147,20 +190,35 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
         self.navigationItem.rightBarButtonItem = self.navigationBarButtons.1
     }
     
+//    func cellButtonPressed(notification: NSNotification) {
+//        let button = notification.object as! UIButton
+//        
+//        let buttonPosition = button.convertPoint(CGPointZero, toView: self.tableView)
+//        let indexPath = self.tableView.indexPathForRowAtPoint(buttonPosition)!
+//    }
+    
     @IBAction func loadButtonPressed(sender: AnyObject) {
         
-        let buttonPosition = sender.convertPoint(CGPointZero, toView: self.tableView)
+        let buttonPosition = (sender as! UIButton).convertPoint(CGPointZero, toView: self.tableView)
         let indexPath = self.tableView.indexPathForRowAtPoint(buttonPosition)!
         
         if let _ = currentDataSource as? UserDocsDataSource {
-            self.serviceLayer.docsService.downloadDocument(mainDataSource.documents[indexPath.row], progress: { (totalRead, bytesToRead) -> Void in
+            let doc = mainDataSource.documents[indexPath.row]
+            
+            if doc.tempPath != nil {
+                doc.saveFromTempDir()
+                self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.None)
+                return
+            }
+            
+            self.serviceLayer.docsService.downloadDocument(doc, progress: { (totalRead, bytesToRead) -> Void in
                 }, completion: { (document) -> Void in
                 }) { (error) -> Void in
             }
             self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.None)
-            print("buttPressed", mainDataSource.documents[indexPath.row].title)
+            print("buttPressed", doc.title)
         } else {
-            self.serviceLayer.docsService.addDocumentToUser(searchDataSource.searchResults[indexPath.row], completion: { (newDocumentId) -> Void in
+            self.serviceLayer.docsService.addDocumentToUser(searchDataSource.vkSearchResults[indexPath.row], completion: { (newDocumentId) -> Void in
                 //code
                 }, failure: { (error) -> Void in
                     print(error)

@@ -72,6 +72,18 @@ class Bash {
         }
     }
     
+    class func rmRecursively(fromDir: String, fileName: String) {
+        for file in ls(fromDir) {
+            let filePath = fromDir + "/" + file
+            if isDirectory(filePath) {
+                rmRecursively(filePath, fileName: fileName)
+            }
+            if file == fileName {
+                rm(filePath)
+            }
+        }
+    }
+    
     class func du(path: String) -> UInt {
         var totalSize: UInt = 0
         
@@ -85,12 +97,6 @@ class Bash {
         }
         
         return totalSize
-    }
-    
-    class func du(path: String, completion: (UInt) -> Void) {
-        Dispatch.mainQueue() { () -> () in
-            completion(du(path))
-        }
     }
     
     class func isDirectory(path: String) -> Bool {

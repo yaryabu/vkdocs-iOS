@@ -19,6 +19,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         print("realm", try! Realm().path)
+        //TODO: при запуске надо бы почистить tmp
+        //
         if Bash.fileExists(Const.Directories.vaultDir) == false {
             Bash.mkdir(Const.Directories.vaultDir)
         }
@@ -31,7 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             SSKeychain.setAccessibilityType(kSecAttrAccessibleAlwaysThisDeviceOnly)
             ServiceLayer.sharedServiceLayer.userSettingsService.hasLaunchedOnce = true
 //        }
-        Bash.cd(Const.Directories.appDocumentsDir)
+        Bash.cd(Const.Directories.fileSystemDir)
         self.chooseInitialViewCotroller()
         // Override point for customization after application launch.
         return true

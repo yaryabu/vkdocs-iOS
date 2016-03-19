@@ -23,9 +23,11 @@ class SettingsViewController: ViewController, MFMailComposeViewControllerDelegat
     @IBOutlet weak var totalDocumentsSizeLabel: UILabel!
     @IBOutlet weak var onlyWifiLoadSwitch: UISwitch!
     
+    @IBOutlet weak var saveDocsAutomaticallySwitch: UISwitch!
     override func viewDidLoad() {
         super.viewDidLoad()
         self.onlyWifiLoadSwitch.on = self.serviceLayer.userSettingsService.useWifiOnly
+        self.saveDocsAutomaticallySwitch.on = !self.serviceLayer.userSettingsService.deleteDocumentsAfterPreview
         self.updateUserData()
         
         let realm = try! Realm()
@@ -57,18 +59,11 @@ class SettingsViewController: ViewController, MFMailComposeViewControllerDelegat
     }
     
     @IBAction func clearCacheButtonPressed(sender: AnyObject) {
-        let alert = UIAlertController(title: "Что хотите удалить?", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+        let alert = UIAlertController(title: "Что хотите удалить?", message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
+        alert.view.backgroundColor = UIColor.redColor()
         let deleteAllAction = UIAlertAction(title: "Загруженные документы и папки", style: UIAlertActionStyle.Destructive) { (action) -> Void in
             Transport.sharedTransport.cancelAllDownloads()
-            
-//            let realm = try! Realm()
-//            let documents = Array(realm.objects(Document).filter("fileName != nil"))
-//            try! realm.write({ () -> Void in
-//                for doc in documents {
-//                    doc.fileName = nil
-//                    
-//                }
-//            })
+
             Bash.rm(Const.Directories.fileSystemDir)
             Bash.mkdir(Const.Directories.fileSystemDir)
             Bash.rm(Const.Directories.vaultDir)
@@ -76,18 +71,11 @@ class SettingsViewController: ViewController, MFMailComposeViewControllerDelegat
         }
         let deleteOnlyFilesAction = UIAlertAction(title: "Только загруженные документы", style: .Default) { (action) -> Void in
             Transport.sharedTransport.cancelAllDownloads()
-            
-//            let realm = try! Realm()
-//            let documents = Array(realm.objects(Document).filter("fileName != nil"))
-//            try! realm.write({ () -> Void in
-//                for doc in documents {
-//                    doc.fileName = nil
-//                }
-//            })
+
             Bash.rm(Const.Directories.vaultDir)
             Bash.mkdir(Const.Directories.vaultDir)
         }
-        let cancelAction = UIAlertAction(title: "Отмена", style: .Cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: "Отмена", style: .Default, handler: nil)
         alert.addAction(deleteAllAction)
         alert.addAction(deleteOnlyFilesAction)
         alert.addAction(cancelAction)
@@ -102,8 +90,6 @@ class SettingsViewController: ViewController, MFMailComposeViewControllerDelegat
         } else {
             self.serviceLayer.userSettingsService.useWifiOnly = false
         }
-        
-        print("switch", wifiLoadSwitch.on)
     }
     
     @IBAction func contactButtonPressed(sender: AnyObject) {
@@ -145,5 +131,14 @@ class SettingsViewController: ViewController, MFMailComposeViewControllerDelegat
         alert.addAction(yesAction)
         
         self.presentViewController(alert, animated: true, completion: nil)
+    }
+    @IBAction func saveDocsAutomaticallySwitchPressed(sender: AnyObject) {
+        let docsSwitch = sender as! UISwitch
+        if docsSwitch.on {
+            self.serviceLayer.userSettingsService.deleteDocumentsAfterPreview = false
+        } else {
+            self.serviceLayer.userSettingsService.deleteDocumentsAfterPreview = true
+        }
+
     }
 }

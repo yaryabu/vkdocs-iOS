@@ -7,24 +7,55 @@
 //
 
 import UIKit
+import RealmSwift
 
 class SearchDataSource: NSObject, DataSource {
-    var searchResults: [Document] = []
+    var savedDocumentsResult: [Document] = []
+    var vkSearchResults: [Document] = []
     
     private var latestQuery: String = ""
+    
+    func updateCache() {}
+    
+    func document(indexPath: NSIndexPath) -> Document {
+        if indexPath.section == 0 {
+            return savedDocumentsResult[indexPath.row]
+        } else {
+            return vkSearchResults[indexPath.row]
+        }
+    }
     
     func refresh(refreshEnded: () -> Void, refreshFailed: (error: Error) -> Void) {
         refreshEnded()
     }
     
-    
     func startSearch(query: String, completion: () -> Void, failure: (error: Error) -> Void) {
         
-        ServiceLayer.sharedServiceLayer.docsService.searchDocuments(query, offset: searchResults.count, completion: { (documents) -> Void in
-            if query == self.latestQuery {
-                self.searchResults.appendContentsOf(documents)
+        //нельзя отсылать на сервер пустые строки в get запросе
+        if query == "" {
+            savedDocumentsResult = []
+            vkSearchResults = []
+            completion()
+            return
+        }
+        
+        let savedDocs = try! Array(Realm().objects(Document))
+        savedDocumentsResult = savedDocs.filter { (doc) -> Bool in
+            if doc.title.lowercaseString.containsString(query.lowercaseString) {
+                return true
             } else {
-                self.searchResults = documents
+                return false
+            }
+        }
+        
+        ServiceLayer.sharedServiceLayer.docsService.searchDocuments(query, offset: vkSearchResults.count, completion: { (documents) -> Void in
+            for doc in documents {
+                doc.isSearchResult = true
+            }
+            if query == self.latestQuery {
+                self.vkSearchResults.appendContentsOf(documents)
+            } else {
+                self.vkSearchResults = documents
             }
             completion()
             self.latestQuery = query
@@ -35,24 +66,39 @@ class SearchDataSource: NSObject, DataSource {
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
+        return 2
+    }
+    
+    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if section == 0 {
+            if savedDocumentsResult.count > 0 {
+                return "self"
+            }
+        } else {
+            if vkSearchResults.count > 0 {
+                return "all"
+            }
+        }
+        return nil
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.searchResults.count
-    }
-    
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {        
-        let cell = tableView.dequeueReusableCellWithIdentifier(UserDocsTableViewCell.cellIdentifier, forIndexPath: indexPath) as! UserDocsTableViewCell
-        cell.configureCell(searchResults[indexPath.row], isSearchResult: true)
-        return cell
-    }
-    
-    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        if indexPath.section == 0 {
-            return false
+        if section == 0 {
+            return self.savedDocumentsResult.count
         } else {
-            return true
+            return self.vkSearchResults.count
+        }
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        if indexPath.section == 0 {
+            let cell = tableView.dequeueReusableCellWithIdentifier(UserDocsTableViewCell.cellIdentifier, forIndexPath: indexPath) as! UserDocsTableViewCell
+            cell.configureCell(savedDocumentsResult[indexPath.row], isSearchResult: false)
+            return cell
+        } else {
+            let cell = tableView.dequeueReusableCellWithIdentifier(UserDocsTableViewCell.cellIdentifier, forIndexPath: indexPath) as! UserDocsTableViewCell
+            cell.configureCell(vkSearchResults[indexPath.row], isSearchResult: true)
+            return cell
         }
     }
 }

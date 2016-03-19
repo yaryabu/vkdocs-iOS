@@ -12,11 +12,20 @@ import RealmSwift
 class UserDocsDataSource: NSObject, DataSource {
     
     var documents: [Document]
-    var folders: [String]
+    var folders: [String] {
+        return Bash.ls(Const.Directories.fileSystemDir)
+    }
     
     override init() {
         self.documents = try! Array(Realm().objects(Document))
-        self.folders = Bash.ls(Const.Directories.fileSystemDir)
+    }
+    
+    func document(indexPath: NSIndexPath) -> Document {
+        return documents[indexPath.row]
+    }
+    
+    func updateCache() {
+        self.documents = try! Array(Realm().objects(Document))   
     }
     
     func refresh(refreshEnded: () -> Void, refreshFailed: (error: Error) -> Void) {
@@ -83,7 +92,6 @@ class UserDocsDataSource: NSObject, DataSource {
         if indexPath.section == 0 {
             if editingStyle == UITableViewCellEditingStyle.Delete {
                 Bash.rm(Const.Directories.fileSystemDir + "/" + folders[indexPath.row])
-                self.folders.removeAtIndex(indexPath.row)
             } else {}
         } else {
             if editingStyle == UITableViewCellEditingStyle.Delete {

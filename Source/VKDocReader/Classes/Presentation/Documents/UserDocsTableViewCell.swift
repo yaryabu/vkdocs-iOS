@@ -72,9 +72,10 @@ class UserDocsTableViewCell: UITableViewCell {
                     self.loadButton.setTitle(self.loadButtonDefaultText, forState: .Normal)
             })
         }
-        
-        
-        
     }
     
+    @IBAction func buttonPressed(sender: AnyObject) {
+        NSNotificationCenter.defaultCenter().postNotificationName(Const.Notifications.cellButtonPressed, object: sender)
+        print("huwfhu", titleLabel.text, sender)
+    }
 }

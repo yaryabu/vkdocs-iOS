@@ -33,23 +33,20 @@ class Document: Object {
     }
     
     dynamic var fileDirectory: String {
-        get {
-            let dir = Const.Directories.vaultDir + "/" + id
+            //рандомная строка, чтобы точно не было конфликтов с пользовательскими папками
+            let dir = Const.Directories.vaultDir + "/" + id + Const.Common.directoryConflictHelper
             if Bash.fileExists(dir) == false {
                 Bash.mkdir(dir)
             }
             return dir
-        }
     }
     dynamic var fileName: String? {
-        get {
             let fileDirContents = Bash.ls(fileDirectory)
             if fileDirContents.count > 0 {
                 return fileDirContents[0]
             } else {
                 return nil
             }
-        }
     }
     
     dynamic var filePath: String? {
@@ -62,9 +59,65 @@ class Document: Object {
         }
     }
     
+    dynamic var tempDir: String {
+        //рандомная строка, чтобы точно не было конфликтов с пользовательскими папками
+        let dir = NSTemporaryDirectory() + id + Const.Common.directoryConflictHelper
+        if Bash.fileExists(dir) == false {
+            Bash.mkdir(dir)
+        }
+        return dir
+    }
+    
+    dynamic var tempPath: String? {
+        let fileDirContents = Bash.ls(tempDir)
+        if fileDirContents.count > 0 {
+            return tempDir + "/" + fileDirContents[0]
+        } else {
+            return nil
+        }
+    }
+    dynamic var isSearchResult: Bool = false
+    
     override static func primaryKey() -> String? {
         return "id"
     }
+    
+    override static func ignoredProperties() -> [String] {
+        return ["tempDir", "isSearchResult"]
+    }
+    
+    func moveToTempDir() {
+        
+        if fileName == nil {
+            return
+        }
+        
+        Bash.mv(self.filePath!, to: self.tempDir + "/" + fileName!)
+        Bash.rm(self.fileDirectory)
+    }
+    
+    func saveFromTempDir() {
+        
+        if tempPath == nil {
+            return
+        }
+        
+        if let name = self.tempPath?.componentsSeparatedByString("/").last {
+            Bash.mv(self.tempPath!, to: self.fileDirectory + "/" + name)
+            Bash.rm(self.tempDir)
+        }
+    }
+    
+    func deleteFile() {
+        Bash.rm(fileDirectory)
+        Bash.rm(tempDir)
+    }
+    
+    func removeAllFromFileSystem() {
+        let name = fileDirectory.componentsSeparatedByString("/").last!
+        Bash.rmRecursively(Const.Directories.fileSystemDir, fileName: name)
+    }
+    
 }
 
 //приходится сравнивать все элементы, а не только id т.к. у объекта
