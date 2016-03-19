@@ -58,7 +58,9 @@ class UserDocsTableViewCell: UITableViewCell {
             return
         }
         
-        if document.fileName != nil {
+        if document.tempPath != nil {
+            self.loadButton.setTitle(loadButtonDefaultText, forState: .Normal)
+        } else if document.fileName != nil {
             self.loadButton.setTitle(loadButtonSavedDocumentText, forState: .Normal)
         } else if ServiceLayer.sharedServiceLayer.docsService.downloadExists(document) == false {
             self.loadButton.setTitle(loadButtonDefaultText, forState: .Normal)

@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		5703FA4F1C9CC5A000C84F60 /* UserDocsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5703FA4E1C9CC5A000C84F60 /* UserDocsTableViewCell.xib */; };
+		5703FA511C9D9A6C00C84F60 /* FolderDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5703FA501C9D9A6C00C84F60 /* FolderDataSource.swift */; };
+		5703FA531C9DDDFD00C84F60 /* DocumentsPickerNavBarOverlay.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5703FA521C9DDDFD00C84F60 /* DocumentsPickerNavBarOverlay.xib */; };
+		5703FA551C9DDF2B00C84F60 /* DocumentsPickerNavBarOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5703FA541C9DDF2B00C84F60 /* DocumentsPickerNavBarOverlay.swift */; };
 		5715AE7E1C8B863F0074C59F /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5715AE7D1C8B863F0074C59F /* ImageService.swift */; };
 		5715AE811C8BB5560074C59F /* Dispatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5715AE801C8BB5560074C59F /* Dispatch.swift */; };
 		575980F41C8F47DF009A9460 /* DocsParameterBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575980F31C8F47DF009A9460 /* DocsParameterBuilder.swift */; };
@@ -27,6 +30,8 @@
 		5795DD621C8CC9450008DFA1 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5795DD611C8CC9450008DFA1 /* UserService.swift */; };
 		5795DD641C8CCA280008DFA1 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5795DD631C8CCA280008DFA1 /* User.swift */; };
 		5795DD661C8CCAAC0008DFA1 /* UserParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5795DD651C8CCAAC0008DFA1 /* UserParser.swift */; };
+		57ADB19E1C9DF25E001E0766 /* DocumentsPickerTabBarOverlay.xib in Resources */ = {isa = PBXBuildFile; fileRef = 57ADB19D1C9DF25E001E0766 /* DocumentsPickerTabBarOverlay.xib */; };
+		57ADB1A01C9DF265001E0766 /* DocumentsPickerTabBarOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57ADB19F1C9DF265001E0766 /* DocumentsPickerTabBarOverlay.swift */; };
 		57AF2CA51C97578600C5A193 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57AF2CA41C97578600C5A193 /* ShareViewController.swift */; };
 		57AF2CA81C97578600C5A193 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 57AF2CA61C97578600C5A193 /* MainInterface.storyboard */; };
 		57AF2CAC1C97578600C5A193 /* ShareUpload.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 57AF2CA21C97578600C5A193 /* ShareUpload.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -96,6 +101,9 @@
 /* Begin PBXFileReference section */
 		07C163E77DAE8C9B3CBAAAF9 /* Pods-VKDocReader.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VKDocReader.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VKDocReader/Pods-VKDocReader.debug.xcconfig"; sourceTree = "<group>"; };
 		5703FA4E1C9CC5A000C84F60 /* UserDocsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserDocsTableViewCell.xib; sourceTree = "<group>"; };
+		5703FA501C9D9A6C00C84F60 /* FolderDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FolderDataSource.swift; sourceTree = "<group>"; };
+		5703FA521C9DDDFD00C84F60 /* DocumentsPickerNavBarOverlay.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DocumentsPickerNavBarOverlay.xib; sourceTree = "<group>"; };
+		5703FA541C9DDF2B00C84F60 /* DocumentsPickerNavBarOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentsPickerNavBarOverlay.swift; sourceTree = "<group>"; };
 		5715AE7D1C8B863F0074C59F /* ImageService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
 		5715AE801C8BB5560074C59F /* Dispatch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Dispatch.swift; path = Helpers/Dispatch.swift; sourceTree = "<group>"; };
 		575980F31C8F47DF009A9460 /* DocsParameterBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DocsParameterBuilder.swift; path = ParameterBuilders/DocsParameterBuilder.swift; sourceTree = "<group>"; };
@@ -121,6 +129,8 @@
 		5795DD611C8CC9450008DFA1 /* UserService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		5795DD631C8CCA280008DFA1 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		5795DD651C8CCAAC0008DFA1 /* UserParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserParser.swift; path = Parser/UserParser.swift; sourceTree = "<group>"; };
+		57ADB19D1C9DF25E001E0766 /* DocumentsPickerTabBarOverlay.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DocumentsPickerTabBarOverlay.xib; sourceTree = "<group>"; };
+		57ADB19F1C9DF265001E0766 /* DocumentsPickerTabBarOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentsPickerTabBarOverlay.swift; sourceTree = "<group>"; };
 		57AF2CA21C97578600C5A193 /* ShareUpload.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ShareUpload.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		57AF2CA41C97578600C5A193 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		57AF2CA71C97578600C5A193 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
@@ -402,6 +412,11 @@
 				57E204341C9C8EF8009B3033 /* CreateFolderViewController.swift */,
 				57E204381C9C9818009B3033 /* FolderCell.swift */,
 				5703FA4E1C9CC5A000C84F60 /* UserDocsTableViewCell.xib */,
+				5703FA501C9D9A6C00C84F60 /* FolderDataSource.swift */,
+				5703FA521C9DDDFD00C84F60 /* DocumentsPickerNavBarOverlay.xib */,
+				5703FA541C9DDF2B00C84F60 /* DocumentsPickerNavBarOverlay.swift */,
+				57ADB19D1C9DF25E001E0766 /* DocumentsPickerTabBarOverlay.xib */,
+				57ADB19F1C9DF265001E0766 /* DocumentsPickerTabBarOverlay.swift */,
 			);
 			path = Documents;
 			sourceTree = "<group>";
@@ -573,7 +588,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5703FA531C9DDDFD00C84F60 /* DocumentsPickerNavBarOverlay.xib in Resources */,
 				57E204321C9C8C7B009B3033 /* Main.storyboard in Resources */,
+				57ADB19E1C9DF25E001E0766 /* DocumentsPickerTabBarOverlay.xib in Resources */,
 				5703FA4F1C9CC5A000C84F60 /* UserDocsTableViewCell.xib in Resources */,
 				57AF96961C8B4C3700E924C3 /* LaunchScreen.storyboard in Resources */,
 				578258001C8B173B003C3568 /* Assets.xcassets in Resources */,
@@ -677,11 +694,13 @@
 				57E2042D1C9C8C7B009B3033 /* DocumentPreviewViewController.swift in Sources */,
 				5795DD5E1C8C9D750008DFA1 /* DateFormatter.swift in Sources */,
 				57AF96A11C8B5CB000E924C3 /* DocsParser.swift in Sources */,
+				5703FA511C9D9A6C00C84F60 /* FolderDataSource.swift in Sources */,
 				57AF969C1C8B571D00E924C3 /* DocsService.swift in Sources */,
 				57AF969F1C8B5C9800E924C3 /* Parser.swift in Sources */,
 				578258031C8B18FF003C3568 /* ServiceLayer.swift in Sources */,
 				5795DD621C8CC9450008DFA1 /* UserService.swift in Sources */,
 				57E204311C9C8C7B009B3033 /* UserDocsDataSource.swift in Sources */,
+				57ADB1A01C9DF265001E0766 /* DocumentsPickerTabBarOverlay.swift in Sources */,
 				5775CE941C98CE3F00D2C113 /* Reachability.swift in Sources */,
 				5715AE7E1C8B863F0074C59F /* ImageService.swift in Sources */,
 				5795DD601C8C9D8F0008DFA1 /* Error.swift in Sources */,
@@ -693,6 +712,7 @@
 				57AF969A1C8B53FC00E924C3 /* Transport.swift in Sources */,
 				5782580D1C8B1A5B003C3568 /* Const.swift in Sources */,
 				578257FC1C8B173B003C3568 /* AppDelegate.swift in Sources */,
+				5703FA551C9DDF2B00C84F60 /* DocumentsPickerNavBarOverlay.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

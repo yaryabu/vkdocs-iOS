@@ -78,6 +78,8 @@ class Document: Object {
     }
     dynamic var isSearchResult: Bool = false
     
+    dynamic var order = 0
+    
     override static func primaryKey() -> String? {
         return "id"
     }
@@ -108,6 +110,16 @@ class Document: Object {
         }
     }
     
+    func deleteDocument() {
+        deleteFile()
+        removeAllFromFileSystem()
+        
+        let realm = try! Realm()
+        try! realm.write({[unowned self]  () -> Void in
+            realm.delete(self)
+        })
+    }
+    
     func deleteFile() {
         Bash.rm(fileDirectory)
         Bash.rm(tempDir)
@@ -131,7 +143,8 @@ func ==(left: Document, right: Document) -> Bool {
         left.ext == right.ext &&
         left.vkHash == right.vkHash &&
         left.date == right.date &&
-        left.thumbnailUrlString == right.thumbnailUrlString 
+        left.thumbnailUrlString == right.thumbnailUrlString &&
+        left.order == right.order
     //urlString не сравнивается т.к. меняется, даже если файл остается прежним
 
     if result == false {

@@ -25,7 +25,14 @@ class UserDocsDataSource: NSObject, DataSource {
     }
     
     func updateCache() {
-        self.documents = try! Array(Realm().objects(Document))   
+        let docs = try! Array(Realm().objects(Document))
+        self.documents = docs.sort({ (doc1, doc2) -> Bool in
+            if doc1.order < doc2.order {
+                return true
+            } else {
+                return false
+            }
+        })
     }
     
     func refresh(refreshEnded: () -> Void, refreshFailed: (error: Error) -> Void) {

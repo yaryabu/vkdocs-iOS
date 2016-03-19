@@ -198,12 +198,13 @@ class DocumentPreviewViewController: ViewController, QLPreviewControllerDataSour
         let cancelAction = UIAlertAction(title: "Отмена", style: .Cancel) { (action) -> Void in}
         let deleteCompletelyAction = UIAlertAction(title: "Удалить из ВК", style: .Default) { (action) -> Void in
             ServiceLayer.sharedServiceLayer.docsService.deleteDocumentFromUser(self.document, completion: { () -> Void in
-                self.document.deleteFile()
-                self.document.removeAllFromFileSystem()
-                let realm = try! Realm()
-                try! realm.write({ () -> Void in
-                    realm.delete(self.document)
-                })
+                self.document.deleteDocument()
+//                self.document.deleteFile()
+//                self.document.removeAllFromFileSystem()
+//                let realm = try! Realm()
+//                try! realm.write({ () -> Void in
+//                    realm.delete(self.document)
+//                })
                 self.navigationController!.popViewControllerAnimated(true)
                 }, failure: { (error) -> Void in
                     print(error)
@@ -211,9 +212,8 @@ class DocumentPreviewViewController: ViewController, QLPreviewControllerDataSour
             
         }
         let deleteOnlyFileAction = UIAlertAction(title: "Удалить файл", style: .Default) { (action) -> Void in
-            self.navigationController!.popViewControllerAnimated(true)
             self.document.deleteFile()
-            self.dismissViewControllerAnimated(true, completion: nil)
+            self.navigationController!.popViewControllerAnimated(true)
         }
         alert.addAction(cancelAction)
         alert.addAction(deleteCompletelyAction)

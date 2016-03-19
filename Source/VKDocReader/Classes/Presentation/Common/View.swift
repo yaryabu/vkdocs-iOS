@@ -9,4 +9,12 @@
 import UIKit
 
 class View: UIView {
+    class func loadFromNibNamed(nibNamed: String, bundle: NSBundle? = nil) -> View? {
+        return UINib(
+            nibName: nibNamed,
+            bundle: bundle
+            ).instantiateWithOwner(nil, options: nil)[0] as? View
+    }
+    func presentAnimated(frame: CGRect) {}
+    func dismissAnimated() {}
 }

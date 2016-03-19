@@ -10,6 +10,7 @@ import Foundation
 
 class Bash {
     class func cd(dir: String) -> Bool {
+        print("CD", dir)
         return NSFileManager.defaultManager().changeCurrentDirectoryPath(dir)
     }
     
