@@ -46,6 +46,7 @@ class UserDocsTableViewCell: UITableViewCell {
                 })
                 }, failure: { (error) -> Void in
                     print(error)
+                    //TODO: NSNotification для ошибки
             })
         } else {
             self.extensionLabel.text = document.ext
@@ -71,6 +72,8 @@ class UserDocsTableViewCell: UITableViewCell {
                 }, completion: { (document) -> Void in
                     self.loadButton.setTitle(self.loadButtonSavedDocumentText, forState: .Normal)
                 }, failure: { (error) -> Void in
+                    //TODO: NSNotification для ошибки
+                    print(error)
                     self.loadButton.setTitle(self.loadButtonDefaultText, forState: .Normal)
             })
         }

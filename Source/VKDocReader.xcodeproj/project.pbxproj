@@ -33,6 +33,13 @@
 		57ADB19E1C9DF25E001E0766 /* DocumentsPickerTabBarOverlay.xib in Resources */ = {isa = PBXBuildFile; fileRef = 57ADB19D1C9DF25E001E0766 /* DocumentsPickerTabBarOverlay.xib */; };
 		57ADB1A01C9DF265001E0766 /* DocumentsPickerTabBarOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57ADB19F1C9DF265001E0766 /* DocumentsPickerTabBarOverlay.swift */; };
 		57ADB1A21C9EC47A001E0766 /* MoveCopyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57ADB1A11C9EC47A001E0766 /* MoveCopyViewController.swift */; };
+		57ADB1A41C9F0496001E0766 /* Window.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57ADB1A31C9F0496001E0766 /* Window.swift */; };
+		57ADB1A61C9F215E001E0766 /* ToastManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57ADB1A51C9F215E001E0766 /* ToastManager.swift */; };
+		57ADB1AB1C9F3063001E0766 /* Lucida Grande.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 57ADB1AA1C9F3063001E0766 /* Lucida Grande.ttf */; };
+		57ADB1B01C9F3B5D001E0766 /* UIColors+VKColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57ADB1AF1C9F3B5D001E0766 /* UIColors+VKColors.swift */; };
+		57ADB1B21C9F3F21001E0766 /* UIFont+VKFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57ADB1B11C9F3F21001E0766 /* UIFont+VKFont.swift */; };
+		57ADB1B51C9F4CC3001E0766 /* SettingsLabels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57ADB1B41C9F4CC3001E0766 /* SettingsLabels.swift */; };
+		57ADB1B71C9F4DE3001E0766 /* Open Sans.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 57ADB1B61C9F4DE3001E0766 /* Open Sans.ttf */; };
 		57AF2CA51C97578600C5A193 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57AF2CA41C97578600C5A193 /* ShareViewController.swift */; };
 		57AF2CA81C97578600C5A193 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 57AF2CA61C97578600C5A193 /* MainInterface.storyboard */; };
 		57AF2CAC1C97578600C5A193 /* ShareUpload.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 57AF2CA21C97578600C5A193 /* ShareUpload.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -133,6 +140,13 @@
 		57ADB19D1C9DF25E001E0766 /* DocumentsPickerTabBarOverlay.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DocumentsPickerTabBarOverlay.xib; sourceTree = "<group>"; };
 		57ADB19F1C9DF265001E0766 /* DocumentsPickerTabBarOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentsPickerTabBarOverlay.swift; sourceTree = "<group>"; };
 		57ADB1A11C9EC47A001E0766 /* MoveCopyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoveCopyViewController.swift; sourceTree = "<group>"; };
+		57ADB1A31C9F0496001E0766 /* Window.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Window.swift; sourceTree = "<group>"; };
+		57ADB1A51C9F215E001E0766 /* ToastManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToastManager.swift; sourceTree = "<group>"; };
+		57ADB1AA1C9F3063001E0766 /* Lucida Grande.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lucida Grande.ttf"; sourceTree = "<group>"; };
+		57ADB1AF1C9F3B5D001E0766 /* UIColors+VKColors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColors+VKColors.swift"; sourceTree = "<group>"; };
+		57ADB1B11C9F3F21001E0766 /* UIFont+VKFont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+VKFont.swift"; sourceTree = "<group>"; };
+		57ADB1B41C9F4CC3001E0766 /* SettingsLabels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsLabels.swift; sourceTree = "<group>"; };
+		57ADB1B61C9F4DE3001E0766 /* Open Sans.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Open Sans.ttf"; sourceTree = "<group>"; };
 		57AF2CA21C97578600C5A193 /* ShareUpload.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ShareUpload.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		57AF2CA41C97578600C5A193 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		57AF2CA71C97578600C5A193 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
@@ -344,10 +358,38 @@
 		578257F91C8B173B003C3568 /* Resourses */ = {
 			isa = PBXGroup;
 			children = (
+				57ADB1AC1C9F3B4B001E0766 /* Colors */,
+				57ADB1A91C9F3063001E0766 /* Fonts */,
 				578257FA1C8B173B003C3568 /* Assets.xcassets */,
 				57AF96951C8B4C3700E924C3 /* LaunchScreen.storyboard */,
 			);
 			path = Resourses;
+			sourceTree = "<group>";
+		};
+		57ADB1A91C9F3063001E0766 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				57ADB1B61C9F4DE3001E0766 /* Open Sans.ttf */,
+				57ADB1AA1C9F3063001E0766 /* Lucida Grande.ttf */,
+				57ADB1B11C9F3F21001E0766 /* UIFont+VKFont.swift */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		57ADB1AC1C9F3B4B001E0766 /* Colors */ = {
+			isa = PBXGroup;
+			children = (
+				57ADB1AF1C9F3B5D001E0766 /* UIColors+VKColors.swift */,
+			);
+			path = Colors;
+			sourceTree = "<group>";
+		};
+		57ADB1B31C9F4C71001E0766 /* Labels */ = {
+			isa = PBXGroup;
+			children = (
+				57ADB1B41C9F4CC3001E0766 /* SettingsLabels.swift */,
+			);
+			path = Labels;
 			sourceTree = "<group>";
 		};
 		57AF2CA31C97578600C5A193 /* ShareExtension */ = {
@@ -394,11 +436,14 @@
 		57E204191C9C8C7B009B3033 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				57ADB1B31C9F4C71001E0766 /* Labels */,
 				57E2041A1C9C8C7B009B3033 /* NavigationController.swift */,
 				57E2041B1C9C8C7B009B3033 /* TabBarController.swift */,
 				57E2041C1C9C8C7B009B3033 /* View.swift */,
 				57E2041D1C9C8C7B009B3033 /* ViewController.swift */,
 				57E204361C9C9431009B3033 /* UITableViewDataSource+Refresh.swift */,
+				57ADB1A31C9F0496001E0766 /* Window.swift */,
+				57ADB1A51C9F215E001E0766 /* ToastManager.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -591,8 +636,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				57ADB1B71C9F4DE3001E0766 /* Open Sans.ttf in Resources */,
 				5703FA531C9DDDFD00C84F60 /* DocumentsPickerNavBarOverlay.xib in Resources */,
 				57E204321C9C8C7B009B3033 /* Main.storyboard in Resources */,
+				57ADB1AB1C9F3063001E0766 /* Lucida Grande.ttf in Resources */,
 				57ADB19E1C9DF25E001E0766 /* DocumentsPickerTabBarOverlay.xib in Resources */,
 				5703FA4F1C9CC5A000C84F60 /* UserDocsTableViewCell.xib in Resources */,
 				57AF96961C8B4C3700E924C3 /* LaunchScreen.storyboard in Resources */,
@@ -691,6 +738,7 @@
 				57E204391C9C9818009B3033 /* FolderCell.swift in Sources */,
 				5795DD641C8CCA280008DFA1 /* User.swift in Sources */,
 				578258051C8B1959003C3568 /* Service.swift in Sources */,
+				57ADB1B51C9F4CC3001E0766 /* SettingsLabels.swift in Sources */,
 				578258071C8B1973003C3568 /* AuthService.swift in Sources */,
 				57E204281C9C8C7B009B3033 /* AuthWebViewController.swift in Sources */,
 				57ADB1A21C9EC47A001E0766 /* MoveCopyViewController.swift in Sources */,
@@ -703,18 +751,22 @@
 				57AF969F1C8B5C9800E924C3 /* Parser.swift in Sources */,
 				578258031C8B18FF003C3568 /* ServiceLayer.swift in Sources */,
 				5795DD621C8CC9450008DFA1 /* UserService.swift in Sources */,
+				57ADB1B21C9F3F21001E0766 /* UIFont+VKFont.swift in Sources */,
 				57E204311C9C8C7B009B3033 /* UserDocsDataSource.swift in Sources */,
+				57ADB1A41C9F0496001E0766 /* Window.swift in Sources */,
 				57ADB1A01C9DF265001E0766 /* DocumentsPickerTabBarOverlay.swift in Sources */,
 				5775CE941C98CE3F00D2C113 /* Reachability.swift in Sources */,
 				5715AE7E1C8B863F0074C59F /* ImageService.swift in Sources */,
 				5795DD601C8C9D8F0008DFA1 /* Error.swift in Sources */,
 				57E2042A1C9C8C7B009B3033 /* TabBarController.swift in Sources */,
+				57ADB1B01C9F3B5D001E0766 /* UIColors+VKColors.swift in Sources */,
 				57687F861C8F32EE0037AF4F /* Bash.swift in Sources */,
 				57E2042C1C9C8C7B009B3033 /* ViewController.swift in Sources */,
 				5715AE811C8BB5560074C59F /* Dispatch.swift in Sources */,
 				5782580F1C8B278D003C3568 /* UserSettingsSerivce.swift in Sources */,
 				57AF969A1C8B53FC00E924C3 /* Transport.swift in Sources */,
 				5782580D1C8B1A5B003C3568 /* Const.swift in Sources */,
+				57ADB1A61C9F215E001E0766 /* ToastManager.swift in Sources */,
 				578257FC1C8B173B003C3568 /* AppDelegate.swift in Sources */,
 				5703FA551C9DDF2B00C84F60 /* DocumentsPickerNavBarOverlay.swift in Sources */,
 			);

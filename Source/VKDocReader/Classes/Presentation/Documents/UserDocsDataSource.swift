@@ -26,7 +26,7 @@ class UserDocsDataSource: NSObject, DataSource {
     
     func folderPath(indexPath: NSIndexPath) -> String? {
         if indexPath.section == 0 {
-            return Const.Directories.fileSystemDir + "/" + folders[indexPath.row]
+            return Bash.pwd() + "/" + folders[indexPath.row]
         } else {
             return nil
         }
@@ -55,6 +55,7 @@ class UserDocsDataSource: NSObject, DataSource {
                         }, failure: { (error) -> Void in
                             doc.deleteDocument()
                             failure(error: error)
+                            //TODO: NSNotification для ошибки
                             print(error)
                     })
                 })
@@ -99,6 +100,7 @@ class UserDocsDataSource: NSObject, DataSource {
     }
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        
         if section == 0 {
             return "Папки"
         } else {
@@ -121,7 +123,11 @@ class UserDocsDataSource: NSObject, DataSource {
     }
     
     func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return true
+        if let _ = tableView.delegate as? UserDocsViewController {
+            return true
+        } else {
+            return false
+        }
     }
     
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
@@ -134,14 +140,9 @@ class UserDocsDataSource: NSObject, DataSource {
                 print("delete", indexPath.row)
                 let document = self.documents[indexPath.row]
                 ServiceLayer.sharedServiceLayer.docsService.deleteDocumentFromUser(document, completion: { () -> Void in
-                    Bash.rm(document.fileDirectory)
-                    let realm = try! Realm()
-                    try! realm.write({ () -> Void in
-                        realm.delete(document)
-                    })
-                    print("deleted")
+                    document.deleteDocument()
                     }, failure: { (error) -> Void in
-                        print(error)
+                        (tableView.delegate as! ViewController).handleError(error)
                 })
                 self.documents.removeAtIndex(indexPath.row)
             }

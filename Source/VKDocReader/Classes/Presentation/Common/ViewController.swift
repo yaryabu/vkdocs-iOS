@@ -7,15 +7,37 @@
 //
 
 import UIKit
+import CRToast
 
 class ViewController: UIViewController {
     lazy var isRootViewController: Bool = {
         return self.navigationController?.viewControllers[0] == self
     }()
+    
 }
 
 extension UIViewController {
     var serviceLayer: ServiceLayer {
-            return ServiceLayer.sharedServiceLayer
+        return ServiceLayer.sharedServiceLayer
+    }
+    
+    
+    
+    func handleError(error: Error) {
+        print(error)
+        switch error.code {
+        case 5:
+            //TODO:
+            print("auth error")
+            ToastManager.presentError(error)
+        case 14:
+            //TODO:
+            print("captcha")
+            ToastManager.presentError(error)
+        case -999:
+            print("loadError")
+        default:
+            ToastManager.presentError(error)
+        }
     }
 }

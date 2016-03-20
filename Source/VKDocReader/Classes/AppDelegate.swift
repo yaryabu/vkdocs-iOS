@@ -13,10 +13,18 @@ import RealmSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
+    
+    var customWindow: Window?
+    var window: UIWindow? {
+        get {
+            customWindow = customWindow ?? Window(frame: UIScreen.mainScreen().bounds)
+            return customWindow
+        }
+        set { }
+    }
 
-    var window: UIWindow?
-
-
+    
+    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         print("realm", try! Realm().path)
         //TODO: при запуске надо бы почистить tmp
@@ -35,6 +43,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        }
         Bash.cd(Const.Directories.fileSystemDir)
         self.chooseInitialViewCotroller()
+//        
+//        let view = UIView(frame: UIApplication.sharedApplication().statusBarFrame)
+//        view.backgroundColor = UIColor.vkWhiteColor()
+//        window!.addSubview(view)
+        let statusBar = UIApplication.sharedApplication().valueForKey("statusBarWindow")?.valueForKey("statusBar") as! UIView
+        statusBar.backgroundColor = UIColor.vkWhiteColor()
+        
         // Override point for customization after application launch.
         return true
     }

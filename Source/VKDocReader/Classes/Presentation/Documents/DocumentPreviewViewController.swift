@@ -107,7 +107,7 @@ class DocumentPreviewViewController: ViewController, QLPreviewControllerDataSour
                     self.view.addSubview(self.previewController.view)
                     self.previewController.reloadData()
                 }, failure: { (error) -> Void in
-                    print(error)
+                    self.handleError(error)
             })
         }
     }
@@ -178,11 +178,17 @@ class DocumentPreviewViewController: ViewController, QLPreviewControllerDataSour
         let shareAction = UIAlertAction(title: "Отправить", style: .Default) { (action) -> Void in
             let acVC = UIActivityViewController(activityItems: [NSData(contentsOfFile: self.document.filePath!)!], applicationActivities:nil)
             self.presentViewController(acVC, animated: true, completion: nil)
+            let getLinkActivity = UIActivity()
+            getLinkActivity.activityTitle()
             //        self.weakNC.presentViewController(acVC, animated: true, completion: nil)
             
             //        self.documentInteractionsController.URL = NSURL(fileURLWithPath: self.document.filePath ?? "")
             //        self.documentInteractionsController.presentOptionsMenuFromBarButtonItem(self.shareButton, animated: true)
             //        self.documentInteractionsController
+        }
+        let copyLinkAction = UIAlertAction(title: "Копировать ссылку", style: .Default) { (action) -> Void in
+            UIPasteboard.generalPasteboard().string = self.document.urlString
+            ToastManager.presentInfo("Ссылка скопирована")
         }
         let deleteAction = UIAlertAction(title: "Удалить", style: .Destructive) { (action) -> Void in
             self.presentDeleteAlert()
@@ -192,6 +198,7 @@ class DocumentPreviewViewController: ViewController, QLPreviewControllerDataSour
             actionSheet.addAction(saveAction)
         }
         actionSheet.addAction(addToFolderAction)
+        actionSheet.addAction(copyLinkAction)
         actionSheet.addAction(shareAction)
         actionSheet.addAction(deleteAction)
         actionSheet.addAction(cancelAction)
@@ -207,7 +214,7 @@ class DocumentPreviewViewController: ViewController, QLPreviewControllerDataSour
                 self.document.deleteDocument()
                 self.navigationController!.popViewControllerAnimated(true)
                 }, failure: { (error) -> Void in
-                    print(error)
+                    self.handleError(error)
             })
             
         }

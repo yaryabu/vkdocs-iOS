@@ -62,7 +62,6 @@ class SearchDataSource: NSObject, DataSource {
             completion()
             self.latestQuery = query
             }) { (error) -> Void in
-                print(error)
                 failure(error: error)
         }
     }

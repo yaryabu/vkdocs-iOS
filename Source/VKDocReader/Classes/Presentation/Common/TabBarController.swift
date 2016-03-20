@@ -10,7 +10,10 @@ import UIKit
 import RealmSwift
 
 class TabBarController: UITabBarController {
-
+    
+    let firstTabSelectedView = UIView()
+    let secondTabSelectedView = UIView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.serviceLayer.userService.getUserInfo({ (user) -> Void in
@@ -28,10 +31,64 @@ class TabBarController: UITabBarController {
                     realm.add(user, update: true)
                 })
                 }, failure: { (error) -> Void in
-                    print(error)
+                    self.handleError(error)
             })
             }) { (error) -> Void in
-                print(error)
+                self.handleError(error)
+        }
+        
+        firstTabSelectedView.frame = CGRect(
+            x: 0,
+            y: 0,
+            width: tabBar.frame.width/2,
+            height: 2
+        )
+        secondTabSelectedView.frame = CGRect(
+            x: tabBar.frame.width/2,
+            y: 0,
+            width: tabBar.frame.width/2,
+            height: 2
+        )
+        firstTabSelectedView.backgroundColor = UIColor.vkDuskBlueColor()
+        secondTabSelectedView.backgroundColor = UIColor.vkDuskBlueColor()
+        
+        tabBar.addSubview(firstTabSelectedView)
+
+        UITabBarItem.appearance().setTitleTextAttributes([
+            NSFontAttributeName: UIFont.tabBarFont(),
+            NSForegroundColorAttributeName: UIColor.vkBlackColor()
+            ],
+            forState: UIControlState.Normal
+        )
+        UITabBarItem.appearance().setTitleTextAttributes([
+            NSFontAttributeName: UIFont.tabBarFont(),
+            NSForegroundColorAttributeName: UIColor.vkDuskBlueColor()
+            ],
+            forState: UIControlState.Selected
+        )
+        UITabBarItem.appearance().titlePositionAdjustment = UIOffset(horizontal: 0, vertical: -15)
+        tabBar.backgroundImage = UIImage()
+        tabBar.backgroundColor = UIColor.vkWhiteColor()
+    }
+    
+    override func viewWillLayoutSubviews() {
+        let screenFrame = UIApplication.sharedApplication().keyWindow!.frame
+        let tabBarFrame = CGRect(
+            x: 0,
+            y: screenFrame.height - 48,
+            width: screenFrame.width,
+            height: 48
+        )
+        tabBar.frame = tabBarFrame
+    }
+    
+    override func tabBar(tabBar: UITabBar, didSelectItem item: UITabBarItem) {
+        if tabBar.items!.indexOf(item) == 0 {
+            secondTabSelectedView.removeFromSuperview()
+            tabBar.addSubview(firstTabSelectedView)
+        } else {
+            firstTabSelectedView.removeFromSuperview()
+            tabBar.addSubview(secondTabSelectedView)
         }
     }
 
@@ -44,5 +101,5 @@ class TabBarController: UITabBarController {
         // Pass the selected object to the new view controller.
     }
     */
-
 }
+

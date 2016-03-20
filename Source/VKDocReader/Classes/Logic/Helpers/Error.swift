@@ -9,6 +9,8 @@
 struct Error {
     var code: Int = -1
     var message: String = "Неизвестная ошибка сервера"
+    var captchaId: String?
+    var captcha_img: String?
     
     init() {}
     

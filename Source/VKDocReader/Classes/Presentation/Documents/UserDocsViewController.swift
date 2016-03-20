@@ -102,8 +102,8 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
             refreshEnded()
             self.tableView.reloadData()
             }, refreshFailed: { (error) -> Void in
-                print(error)
                 refreshEnded()
+                self.handleError(error)
         })
     }
     
@@ -237,7 +237,7 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
                 self.searchBarSpinner.stopAnimating()
                 self.tableView.reloadData()
                 }) { (error) -> Void in
-                    print(error)
+                    self.handleError(error)
             }
         } else {
             self.searchBarSpinner.stopAnimating()
@@ -317,8 +317,14 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
             self.tableView.setEditing(true, animated: true)
             self.setEditing(true, animated: true)
         }
+        let addFileToFolderAction = UIAlertAction(title: "Добавить файл", style: .Default) { (action) -> Void in
+            self.docPickerChooseFileToAdd()
+        }
         
         actionSheet.addAction(cancelAction)
+        if !isRootViewController {
+            actionSheet.addAction(addFileToFolderAction)
+        }
         actionSheet.addAction(sortByNameAction)
         actionSheet.addAction(sortByDateAction)
         actionSheet.addAction(sortBySizeAction)
@@ -364,7 +370,7 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
                 self.tableView.setEditing(false, animated: true)
                 self.setEditing(false, animated: true)
                 }, failure: { (error) -> Void in
-                    print(error)
+                    self.handleError(error)
             })
         }
         let noAction = UIAlertAction(title: "Нет", style: .Cancel, handler: nil)
@@ -428,6 +434,15 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
         
         tableView.setEditing(false, animated: true)
         setEditing(false, animated: true)
+    }
+    
+    func docPickerChooseFileToAdd() {
+        let navControllerVc = self.storyboard!.instantiateViewControllerWithIdentifier(Const.StoryboardIDs.moveCopyViewControllerNavigationController) as! NavigationController
+        let moveCopyVc = navControllerVc.viewControllers[0] as! MoveCopyViewController
+        moveCopyVc.actionType = MoveCopyActionType.ChooseFileToAdd
+        moveCopyVc.finalDirectory = currentPath
+        
+        self.presentViewController(navControllerVc, animated: true, completion: nil)
     }
     
 }

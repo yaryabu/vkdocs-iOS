@@ -23,26 +23,20 @@ class Transport: Alamofire.Manager {
             switch response.result {
             case .Success:
                 if let value = response.result.value {
-                    let json = JSON(value)
-                    print("transport", value)
+//                    print("transport", value)
                     Dispatch.defaultQueue({ () -> () in
+                        let json = JSON(value)
                         completion(json: json)
                     })
                 }
             case .Failure(let error):
-                Dispatch.defaultQueue({ () -> () in
-                    failure(error: error)
-                })
+                failure(error: error)
             }
         }
     }
     
     func getData(urlString: String, completion: (data: NSData) -> Void, failure: (error: NSError) -> Void) {
         self.request(.GET, urlString, parameters: nil, encoding: .URL, headers: nil)
-            .progress({ (num1, num2, num3) -> Void in
-//                let prog = Int((Double(num2)/Double(num3))*100)
-//                print("prog \(prog)")
-            })
             .responseData { (response) -> Void in
             switch response.result {
             case .Success:
@@ -50,9 +44,7 @@ class Transport: Alamofire.Manager {
                     completion(data: response.data!)
                 })
             case .Failure(let error):
-                Dispatch.defaultQueue({ () -> () in
-                    failure(error: error)
-                })
+                failure(error: error)
             }
         }
     }
@@ -76,7 +68,6 @@ class Transport: Alamofire.Manager {
                 progress(totalReadBytes: UInt(totalRead), bytesToRead: UInt(size))
             })
             .response { (request, response, data, error) -> Void in
-                print("eto ya")
                 if (error != nil) {
                     failure(error: error!)
                     self.cancelFileDownload(urlString)

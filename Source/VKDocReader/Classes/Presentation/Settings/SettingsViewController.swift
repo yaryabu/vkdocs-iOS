@@ -15,17 +15,21 @@ class SettingsViewController: ViewController, MFMailComposeViewControllerDelegat
     
     var notificationToken: NotificationToken?
     
-    @IBOutlet weak var userAvatarImageView: UIImageView!
+    @IBOutlet weak var clearCacheButton: UIButton!
+    @IBOutlet weak var userAvatarImageBarButton: UIBarButtonItem!
     
-    @IBOutlet weak var userNameLabel: UILabel!
-    @IBOutlet weak var userSurnameLabel: UILabel!
-    
-    @IBOutlet weak var totalDocumentsSizeLabel: UILabel!
+    @IBOutlet weak var contactDeveloperButton: UIButton!
     @IBOutlet weak var onlyWifiLoadSwitch: UISwitch!
     
     @IBOutlet weak var saveDocsAutomaticallySwitch: UISwitch!
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.clearCacheButton.setTitleColor(UIColor.vkBlackTwoColor(), forState: UIControlState.Normal)
+        self.clearCacheButton.titleLabel!.font = UIFont.defaultFont()
+        
+        self.contactDeveloperButton.setTitleColor(UIColor.vkBlackTwoColor(), forState: UIControlState.Normal)
+        self.contactDeveloperButton.titleLabel!.font = UIFont.defaultFont()
+        
         self.onlyWifiLoadSwitch.on = self.serviceLayer.userSettingsService.useWifiOnly
         self.saveDocsAutomaticallySwitch.on = !self.serviceLayer.userSettingsService.deleteDocumentsAfterPreview
         self.updateUserData()
@@ -40,9 +44,10 @@ class SettingsViewController: ViewController, MFMailComposeViewControllerDelegat
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        Dispatch.mainQueue() { () -> () in
-            self.totalDocumentsSizeLabel.text = "\(Bash.du(Const.Directories.vaultDir)/1024/1024) МБ занято"
-        }
+//        Dispatch.mainQueue() { () -> () in
+        self.clearCacheButton.setTitle("Очистить кэш – \(Bash.du(Const.Directories.vaultDir)/1024/1024) МБ занято", forState: UIControlState.Normal)
+//            self.clearCacheButton.titleLabel!.text = "Очистить кэш – \(Bash.du(Const.Directories.vaultDir)/1024/1024) МБ занято"
+//        }
         
     }
     
@@ -50,9 +55,30 @@ class SettingsViewController: ViewController, MFMailComposeViewControllerDelegat
     func updateUserData() {
         let realm = try! Realm()
         if let user = realm.objects(User).first {
-            self.userNameLabel.text = user.firstName
-            self.userSurnameLabel.text = user.lastName
-            self.userAvatarImageView.image = UIImage(data: user.photoData!)
+            let label = UserNameLabel()
+            label.frame = CGRect(x: 20, y: 8, width: 200, height: 40)
+            label.text = user.firstName + " " + user.lastName
+//            self.userSurnameLabel.text = user.lastName
+            label.transform = CGAffineTransformMakeTranslation(-38, -8)
+            let container = UIView(frame: label.frame)
+            container.addSubview(label)
+            navigationItem.titleView = container
+            let avatarImageView = UIImageView(image: UIImage(data: user.photoData!))
+            avatarImageView.layer.masksToBounds = true
+            avatarImageView.layer.cornerRadius = 15
+            avatarImageView.frame = CGRect(
+                x: 0,
+                y: 0,
+                width: 30,
+                height: 30
+            )
+            avatarImageView.transform = CGAffineTransformMakeTranslation(-10, 0)
+            let imageViewContainer = UIView(frame: avatarImageView.frame)
+            imageViewContainer.addSubview(avatarImageView)
+//            let suggestButtonItem = UIBarButtonItem(customView: suggestButtonContainer)
+            let button = UIBarButtonItem(customView: imageViewContainer)
+            navigationItem.leftBarButtonItem = button
+//            self.userAvatarImageBarButton = button
         } else {
             //TODO: добавить спиннер
         }
@@ -68,12 +94,16 @@ class SettingsViewController: ViewController, MFMailComposeViewControllerDelegat
             Bash.mkdir(Const.Directories.fileSystemDir)
             Bash.rm(Const.Directories.vaultDir)
             Bash.mkdir(Const.Directories.vaultDir)
+            self.clearCacheButton.setTitle("Очистить кэш – \(Bash.du(Const.Directories.vaultDir)/1024/1024) МБ занято", forState: UIControlState.Normal)
+
         }
         let deleteOnlyFilesAction = UIAlertAction(title: "Только загруженные документы", style: .Default) { (action) -> Void in
             Transport.sharedTransport.cancelAllDownloads()
 
             Bash.rm(Const.Directories.vaultDir)
             Bash.mkdir(Const.Directories.vaultDir)
+            self.clearCacheButton.setTitle("Очистить кэш — \(Bash.du(Const.Directories.vaultDir)/1024/1024) МБ занято", forState: UIControlState.Normal)
+
         }
         let cancelAction = UIAlertAction(title: "Отмена", style: .Default, handler: nil)
         alert.addAction(deleteAllAction)

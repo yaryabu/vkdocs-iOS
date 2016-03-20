@@ -27,15 +27,17 @@ class DocsService: Service {
             if let error = self.checkError(json) {
                 Dispatch.mainQueue({ () -> () in
                     failure(error: error)
-                    return
                 })
+                return
             }
             let parsedDocs = DocsParser.parseDocuments(json)
             Dispatch.mainQueue({ () -> () in
                 completion(parsedDocs)
             })
         }) { (error) -> Void in
-            failure(error: self.createError(error))
+            if let error = self.createError(error) {
+                failure(error: error)
+            }
         }
     }
     
@@ -44,15 +46,17 @@ class DocsService: Service {
             if let error = self.checkError(json) {
                 Dispatch.mainQueue({ () -> () in
                     failure(error: error)
-                    return
                 })
+                return
             }
             let parsedDocs = DocsParser.parseDocuments(json)
             Dispatch.mainQueue({ () -> () in
                 completion(document: parsedDocs[0])
             })
             }) { (error) -> Void in
-                failure(error: self.createError(error))
+                if let error = self.createError(error) {
+                    failure(error: error)
+                }
         }
     }
     
@@ -61,14 +65,16 @@ class DocsService: Service {
             if let error = self.checkError(json) {
                 Dispatch.mainQueue({ () -> () in
                     failure(error: error)
-                    return
                 })
+                return
             }
             Dispatch.mainQueue({ () -> () in
                 completion(newDocumentId: String(json["response"].int!))
             })
             }) { (error) -> Void in
-                failure(error: self.createError(error))
+                if let error = self.createError(error) {
+                    failure(error: error)
+                }
         }
     }
     
@@ -77,14 +83,16 @@ class DocsService: Service {
             if let error = self.checkError(json) {
                 Dispatch.mainQueue({ () -> () in
                     failure(error: error)
-                    return
                 })
+                return
             }
             Dispatch.mainQueue({ () -> () in
                 completion()
             })
             }) { (error) -> Void in
-                failure(error: self.createError(error))
+                if let error = self.createError(error) {
+                    failure(error: error)
+                }
         }
     }
     
@@ -109,19 +117,12 @@ class DocsService: Service {
             })
             }, completion: { (fileName, filePath) -> Void in
                 Dispatch.mainQueue({ () -> () in
-//                    let realm = try! Realm()
-//                    do {
-//                    try realm.write({ () -> Void in
-//                        document.fileName = fileName
-//                        realm.add(document, update: true)
-//                        print(document.filePath, document.fileName)
-//                    })
-//                    } catch {print("realmError")}
-//                    realm.refresh()
                     completion(document: document)
                 })
             }) { (error) -> Void in
-                failure(error: self.createError(error))
+                if let error = self.createError(error) {
+                    failure(error: error)
+                }
         }
     }
     
@@ -138,26 +139,28 @@ class DocsService: Service {
             if let error = self.checkError(json) {
                 Dispatch.mainQueue({ () -> () in
                     failure(error: error)
-                    return
                 })
+                return
             }
             let parsedDocs = DocsParser.parseDocuments(json)
             Dispatch.mainQueue({ () -> () in
                 completion(parsedDocs)
             })
             }) { (error) -> Void in
-                failure(error: self.createError(error))
+                if let error = self.createError(error) {
+                    failure(error: error)
+                }
         }
     }
     
     
     //MARK: Parameters builders
-    func getDocumentsParameters() -> [String:String] {
+    private func getDocumentsParameters() -> [String:String] {
         let token = self.authService.token!
         return ["access_token":token]
     }
     
-    func searchDocumentsParameters(query: String, offset: String) -> [String:String] {
+    private func searchDocumentsParameters(query: String, offset: String) -> [String:String] {
         let token = self.authService.token!
         return [
             "access_token":token,
@@ -167,7 +170,7 @@ class DocsService: Service {
         ]
     }
     
-    func refreshDocumentParameters(document: Document) -> [String:String] {
+    private func refreshDocumentParameters(document: Document) -> [String:String] {
         let token = self.authService.token!
         return [
             "access_token":token,
@@ -175,7 +178,7 @@ class DocsService: Service {
         ]
     }
     
-    func addDocumentToUserParameters(document: Document) -> [String:String] {
+    private func addDocumentToUserParameters(document: Document) -> [String:String] {
         let token = self.authService.token!
         return [
             "access_token":token,
@@ -185,7 +188,7 @@ class DocsService: Service {
         ]
     }
     
-    func deleteDocumentFromUserParameters(document: Document) -> [String:String] {
+    private func deleteDocumentFromUserParameters(document: Document) -> [String:String] {
         let token = self.authService.token!
         return [
             "access_token":token,

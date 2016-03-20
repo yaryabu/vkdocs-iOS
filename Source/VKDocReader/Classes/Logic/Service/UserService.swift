@@ -20,13 +20,20 @@ class UserService: Service {
     
     func getUserInfo(completion: (user: User) -> Void, failure: (error: Error) -> Void) {
         self.transport.getJSON(Const.Network.baseUrl + "/users.get", parameters: ["access_token":self.authService.token!, "fields" : "photo_50"], completion: { (json) -> Void in
-            self.checkError(json)
+            if let error = self.checkError(json) {
+                Dispatch.mainQueue({ () -> () in
+                    failure(error: error)
+                })
+                return
+            }
             let user = UserParser.parseUser(json)
             Dispatch.mainQueue({ () -> () in
                 completion(user: user)
             })
             }) { (error) -> Void in
-                failure(error: self.createError(error))
+                if let error = self.createError(error) {
+                    failure(error: error)
+                }
         }
     }
     
@@ -36,7 +43,9 @@ class UserService: Service {
                 completion(data: data)
             })
             }) { (error) -> Void in
-                failure(error: self.createError(error))
+                if let error = self.createError(error) {
+                    failure(error: error)
+                }
         }
     }
     
