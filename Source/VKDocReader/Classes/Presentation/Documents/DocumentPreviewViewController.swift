@@ -167,7 +167,13 @@ class DocumentPreviewViewController: ViewController, QLPreviewControllerDataSour
             Bash.mv(self.document.tempPath!, to: self.document.fileDirectory + "/" + name)
         }
         let addToFolderAction = UIAlertAction(title: "Добавить в папку", style: .Default) { (action) -> Void in
-//            TODO:
+            let navControllerVc = self.storyboard!.instantiateViewControllerWithIdentifier(Const.StoryboardIDs.moveCopyViewControllerNavigationController) as! NavigationController
+            let moveCopyVc = navControllerVc.viewControllers[0] as! MoveCopyViewController
+            
+            let name = self.document.fileDirectory.componentsSeparatedByString("/").last!
+            moveCopyVc.fileNames = [name]
+            
+            self.presentViewController(navControllerVc, animated: true, completion: nil)
         }
         let shareAction = UIAlertAction(title: "Отправить", style: .Default) { (action) -> Void in
             let acVC = UIActivityViewController(activityItems: [NSData(contentsOfFile: self.document.filePath!)!], applicationActivities:nil)
@@ -199,12 +205,6 @@ class DocumentPreviewViewController: ViewController, QLPreviewControllerDataSour
         let deleteCompletelyAction = UIAlertAction(title: "Удалить из ВК", style: .Default) { (action) -> Void in
             ServiceLayer.sharedServiceLayer.docsService.deleteDocumentFromUser(self.document, completion: { () -> Void in
                 self.document.deleteDocument()
-//                self.document.deleteFile()
-//                self.document.removeAllFromFileSystem()
-//                let realm = try! Realm()
-//                try! realm.write({ () -> Void in
-//                    realm.delete(self.document)
-//                })
                 self.navigationController!.popViewControllerAnimated(true)
                 }, failure: { (error) -> Void in
                     print(error)

@@ -21,13 +21,25 @@ class FolderDataSource: NSObject, DataSource {
         print(elements)
     }
     
-    func refresh(refreshEnded: () -> Void, refreshFailed: (error: Error) -> Void) {
-        
+    func refresh(refreshEnded: () -> Void, refreshFailed: (error: Error) -> Void) {}
+    
+    func deleteElements(indexPaths: [NSIndexPath], completion: () -> Void, failure: (error: Error) -> Void) {
+        for indexPath in indexPaths {
+            Bash.rm(elementPath(indexPath))
+        }
+        completion()
     }
+    
     func document(indexPath: NSIndexPath) -> Document {
         let docName = elements[indexPath.row]
         return documentByFileName(docName)
     }
+    
+    func elementPath(indexPath: NSIndexPath) -> String {
+        let path = Bash.pwd() + "/" + elements[indexPath.row]
+        return path
+    }
+    
     func updateCache() {}
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -43,6 +55,11 @@ class FolderDataSource: NSObject, DataSource {
         if elements[indexPath.row].containsString(Const.Common.directoryConflictHelper) {
             let cell = tableView.dequeueReusableCellWithIdentifier(UserDocsTableViewCell.cellIdentifier, forIndexPath: indexPath) as! UserDocsTableViewCell
             cell.configureCell(documentByFileName(elements[indexPath.row]), isSearchResult: false)
+            if let _ = tableView.delegate as? MoveCopyViewController {
+                cell.loadButton.removeFromSuperview()
+//                cell.loadButton.hidden = true
+//                cell.loadButton.enabled = false
+            }
             return cell
         } else {
             let cell = tableView.dequeueReusableCellWithIdentifier(FolderCell.cellIdentifier, forIndexPath: indexPath) as! FolderCell
@@ -52,32 +69,16 @@ class FolderDataSource: NSObject, DataSource {
     }
     
     func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return true
+        if let _ = tableView.delegate as? MoveCopyViewController {
+            return false
+        } else {
+            return true
+        }
     }
     
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-//        if indexPath.section == 0 {
-//            if editingStyle == UITableViewCellEditingStyle.Delete {
-//                Bash.rm(Const.Directories.fileSystemDir + "/" + folders[indexPath.row])
-//            } else {}
-//        } else {
-//            if editingStyle == UITableViewCellEditingStyle.Delete {
-//                print("delete", indexPath.row)
-//                let document = self.documents[indexPath.row]
-//                ServiceLayer.sharedServiceLayer.docsService.deleteDocumentFromUser(document, completion: { () -> Void in
-//                    Bash.rm(document.fileDirectory)
-//                    let realm = try! Realm()
-//                    try! realm.write({ () -> Void in
-//                        realm.delete(document)
-//                    })
-//                    print("deleted")
-//                    }, failure: { (error) -> Void in
-//                        print(error)
-//                })
-//                self.documents.removeAtIndex(indexPath.row)
-//            }
-//        }
-//        tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Bottom)
+        Bash.rm(elementPath(indexPath))
+        tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Bottom)
     }
     
     func isDirectory(indexPath: NSIndexPath) -> Bool {

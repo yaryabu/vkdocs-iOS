@@ -19,7 +19,7 @@ class UserService: Service {
     }
     
     func getUserInfo(completion: (user: User) -> Void, failure: (error: Error) -> Void) {
-        self.transport.getJSON(Const.Network.baseUrl + "/users.get", parameters: ["access_token":self.authService.token!, "fields" : "photo_max"], completion: { (json) -> Void in
+        self.transport.getJSON(Const.Network.baseUrl + "/users.get", parameters: ["access_token":self.authService.token!, "fields" : "photo_50"], completion: { (json) -> Void in
             self.checkError(json)
             let user = UserParser.parseUser(json)
             Dispatch.mainQueue({ () -> () in

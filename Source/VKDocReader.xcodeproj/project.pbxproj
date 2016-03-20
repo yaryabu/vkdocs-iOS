@@ -32,6 +32,7 @@
 		5795DD661C8CCAAC0008DFA1 /* UserParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5795DD651C8CCAAC0008DFA1 /* UserParser.swift */; };
 		57ADB19E1C9DF25E001E0766 /* DocumentsPickerTabBarOverlay.xib in Resources */ = {isa = PBXBuildFile; fileRef = 57ADB19D1C9DF25E001E0766 /* DocumentsPickerTabBarOverlay.xib */; };
 		57ADB1A01C9DF265001E0766 /* DocumentsPickerTabBarOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57ADB19F1C9DF265001E0766 /* DocumentsPickerTabBarOverlay.swift */; };
+		57ADB1A21C9EC47A001E0766 /* MoveCopyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57ADB1A11C9EC47A001E0766 /* MoveCopyViewController.swift */; };
 		57AF2CA51C97578600C5A193 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57AF2CA41C97578600C5A193 /* ShareViewController.swift */; };
 		57AF2CA81C97578600C5A193 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 57AF2CA61C97578600C5A193 /* MainInterface.storyboard */; };
 		57AF2CAC1C97578600C5A193 /* ShareUpload.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 57AF2CA21C97578600C5A193 /* ShareUpload.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -131,6 +132,7 @@
 		5795DD651C8CCAAC0008DFA1 /* UserParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserParser.swift; path = Parser/UserParser.swift; sourceTree = "<group>"; };
 		57ADB19D1C9DF25E001E0766 /* DocumentsPickerTabBarOverlay.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DocumentsPickerTabBarOverlay.xib; sourceTree = "<group>"; };
 		57ADB19F1C9DF265001E0766 /* DocumentsPickerTabBarOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentsPickerTabBarOverlay.swift; sourceTree = "<group>"; };
+		57ADB1A11C9EC47A001E0766 /* MoveCopyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoveCopyViewController.swift; sourceTree = "<group>"; };
 		57AF2CA21C97578600C5A193 /* ShareUpload.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ShareUpload.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		57AF2CA41C97578600C5A193 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		57AF2CA71C97578600C5A193 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
@@ -417,6 +419,7 @@
 				5703FA541C9DDF2B00C84F60 /* DocumentsPickerNavBarOverlay.swift */,
 				57ADB19D1C9DF25E001E0766 /* DocumentsPickerTabBarOverlay.xib */,
 				57ADB19F1C9DF265001E0766 /* DocumentsPickerTabBarOverlay.swift */,
+				57ADB1A11C9EC47A001E0766 /* MoveCopyViewController.swift */,
 			);
 			path = Documents;
 			sourceTree = "<group>";
@@ -690,6 +693,7 @@
 				578258051C8B1959003C3568 /* Service.swift in Sources */,
 				578258071C8B1973003C3568 /* AuthService.swift in Sources */,
 				57E204281C9C8C7B009B3033 /* AuthWebViewController.swift in Sources */,
+				57ADB1A21C9EC47A001E0766 /* MoveCopyViewController.swift in Sources */,
 				57AF96981C8B524800E924C3 /* Document.swift in Sources */,
 				57E2042D1C9C8C7B009B3033 /* DocumentPreviewViewController.swift in Sources */,
 				5795DD5E1C8C9D750008DFA1 /* DateFormatter.swift in Sources */,

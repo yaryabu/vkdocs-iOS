@@ -15,6 +15,6 @@ class View: UIView {
             bundle: bundle
             ).instantiateWithOwner(nil, options: nil)[0] as? View
     }
-    func presentAnimated(frame: CGRect) {}
+    func presentAnimated(frame: CGRect, view: UIView) {}
     func dismissAnimated() {}
 }

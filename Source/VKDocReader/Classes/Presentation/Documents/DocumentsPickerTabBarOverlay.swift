@@ -19,7 +19,7 @@ class DocumentsPickerTabBarOverlay: View {
         return super.loadFromNibNamed(nibNamed, bundle: bundle) as! DocumentsPickerTabBarOverlay
     }
     
-    override func presentAnimated(frame: CGRect) {
+    override func presentAnimated(frame: CGRect, view: UIView) {
         let newFrame = CGRect(
             x: frame.origin.x,
             y: frame.origin.y + frame.height,
@@ -27,7 +27,8 @@ class DocumentsPickerTabBarOverlay: View {
             height: frame.height
         )
         self.frame = newFrame
-        UIApplication.sharedApplication().keyWindow!.addSubview(self)
+        view.addSubview(self)
+        
         UIView.animateWithDuration(0.3) { () -> Void in
             self.frame = frame
         }

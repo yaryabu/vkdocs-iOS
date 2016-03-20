@@ -41,13 +41,7 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        docPickerNavBarOverlay = DocumentsPickerNavBarOverlay.loadFromNibNamed("DocumentsPickerNavBarOverlay")
-        docPickerNavBarOverlay.exitButton.addTarget(self, action: "docPickerExitButtonPressed:", forControlEvents: .TouchUpInside)
-        
-        docPickerTabBarOverlay = DocumentsPickerTabBarOverlay.loadFromNibNamed("DocumentsPickerTabBarOverlay")
-        docPickerTabBarOverlay.deleteButton.addTarget(self, action: "docPickerDeleteButtonPressed:", forControlEvents: .TouchUpInside)
-        docPickerTabBarOverlay.moveButton.addTarget(self, action: "docPickerMoveButtonPressed:", forControlEvents: .TouchUpInside)
-        docPickerTabBarOverlay.copyButton.addTarget(self, action: "docPickerCopyButtonPressed:", forControlEvents: .TouchUpInside)
+        configureEditingMode()
 
 //        NSNotificationCenter.defaultCenter().addObserver(self, selector: "cellButtonPressed:", name: Const.Notifications.cellButtonPressed, object: nil)
 
@@ -55,7 +49,7 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
         self.tableView.addSubview(self.pullToRefreshControl)
 //        tableView.registerNib(UINib(nibName: "UserDocsTableViewCell", bundle: nil), forCellReuseIdentifier: UserDocsTableViewCell.cellIdentifier)
         
-        if self.navigationController!.viewControllers[0] == self {
+        if isRootViewController {
             
             searchDataSource = SearchDataSource()
             vkDocumentsDataSource = UserDocsDataSource()
@@ -96,6 +90,12 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
         }
     }
 
+    override func willMoveToParentViewController(parent: UIViewController?) {
+        super.willMoveToParentViewController(parent)
+        if parent == nil {
+            Bash.cd("..")
+        }
+    }
     
     func refresh(refreshEnded: () -> Void) {
         currentDataSource.refresh({ () -> Void in
@@ -120,20 +120,27 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
     
         print("setEditing")
         if editing {
-            let tabBarFrame = self.tabBarController!.tabBar.frame
-            docPickerTabBarOverlay.presentAnimated(tabBarFrame)
-            
             let navBarFrame = self.navigationController!.navigationBar.frame
-            docPickerNavBarOverlay.presentAnimated(navBarFrame)
+            let newFrame = CGRect(
+                x: navBarFrame.origin.x,
+                y: navBarFrame.origin.y - UIApplication.sharedApplication().statusBarFrame.height,
+                width: navBarFrame.width,
+                height: navBarFrame.height
+            )
+            docPickerNavBarOverlay.presentAnimated(newFrame, view: self.navigationController!.navigationBar)
             
+            let tabBarFrame = self.tabBarController!.tabBar.frame
+            if isRootViewController {
+                docPickerTabBarOverlay.moveButton.hidden = true
+            }
+            docPickerTabBarOverlay.presentAnimated(tabBarFrame, view: self.tabBarController!.view)
         } else {
-            docPickerTabBarOverlay.dismissAnimated()
             docPickerNavBarOverlay.dismissAnimated()
+            docPickerTabBarOverlay.dismissAnimated()
         }
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        //TODO: не забыть про deselect
         if tableView.editing {
             self.docPickerNavBarOverlay.titleLabel.text = "Выбрано: \(tableView.indexPathsForSelectedRows!.count)"
             return
@@ -169,6 +176,13 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
         }
     }
     
+    func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
+        if tableView.editing {
+            self.docPickerNavBarOverlay.titleLabel.text = "Выбрано: \(tableView.indexPathsForSelectedRows?.count ?? 0)"
+            tableView.style
+        }
+    }
+    
 //    func pushNewFolderViewController(indexPath: NSIndexPath) {
 //        let ds = currentDataSource as? FolderDataSource
 //        let vc = storyboard!.instantiateViewControllerWithIdentifier(Const.StoryboardIDs.userDocsTableViewController)
@@ -194,13 +208,11 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
     
     func pullToRefreshActivated() {
         self.refresh { () -> Void in
-            print("end")
             self.pullToRefreshControl.endRefreshing()
         }
     }
     
     func searchBarShouldBeginEditing(searchBar: UISearchBar) -> Bool {
-        print("sb")
         currentDataSource = searchDataSource
         self.navigationItem.leftBarButtonItem = nil
         self.navigationItem.rightBarButtonItem = nil
@@ -209,7 +221,6 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
     }
     
     func searchBarShouldEndEditing(searchBar: UISearchBar) -> Bool {
-        print("se")
         return true
     }
     
@@ -286,6 +297,7 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
         self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.None)
         print("buttPressed", doc.title)
     }
+    
     @IBAction func optionsButtonPressed(sender: AnyObject) {
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
         let cancelAction = UIAlertAction(title: "Отмена", style: .Cancel) { (action) -> Void in}
@@ -316,11 +328,14 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
         presentViewController(actionSheet, animated: true, completion: nil)
     }
     
-    override func willMoveToParentViewController(parent: UIViewController?) {
-        super.willMoveToParentViewController(parent)
-        if parent == nil {
-            Bash.cd("..")
-        }
+    func configureEditingMode() {
+        docPickerNavBarOverlay = DocumentsPickerNavBarOverlay.loadFromNibNamed("DocumentsPickerNavBarOverlay")
+        docPickerNavBarOverlay.exitButton.addTarget(self, action: "docPickerExitButtonPressed:", forControlEvents: .TouchUpInside)
+        
+        docPickerTabBarOverlay = DocumentsPickerTabBarOverlay.loadFromNibNamed("DocumentsPickerTabBarOverlay")
+        docPickerTabBarOverlay.deleteButton.addTarget(self, action: "docPickerDeleteButtonPressed:", forControlEvents: .TouchUpInside)
+        docPickerTabBarOverlay.moveButton.addTarget(self, action: "docPickerMoveButtonPressed:", forControlEvents: .TouchUpInside)
+        docPickerTabBarOverlay.copyButton.addTarget(self, action: "docPickerCopyButtonPressed:", forControlEvents: .TouchUpInside)
     }
     
     func docPickerExitButtonPressed(sender: AnyObject?) {
@@ -329,16 +344,88 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
     }
     
     func docPickerDeleteButtonPressed(sender: AnyObject?) {
-        tableView.setEditing(false, animated: true)
-        setEditing(false, animated: true)
+        let indexPaths = self.tableView.indexPathsForSelectedRows!
+
+        if let ds = currentDataSource as? FolderDataSource {
+            ds.deleteElements(indexPaths, completion: { () -> Void in
+                }, failure: { (error) -> Void in
+                    print(error)
+            })
+            return
+        }
+        
+        let alert = UIAlertController(title: "Удалить из ВК?", message: "Вы точно хотите это удалить?", preferredStyle: .Alert)
+        let yesAction = UIAlertAction(title: "Да", style: .Destructive) { (action) -> Void in
+            //TODO: добавить проверку и блокировкать кнопку, если ничего не выбрано
+            
+            //TODO: тут обязательно нужен спиннер
+            self.currentDataSource.deleteElements(indexPaths, completion: { () -> Void in
+                self.tableView.deleteRowsAtIndexPaths(indexPaths, withRowAnimation: UITableViewRowAnimation.Automatic)
+                self.tableView.setEditing(false, animated: true)
+                self.setEditing(false, animated: true)
+                }, failure: { (error) -> Void in
+                    print(error)
+            })
+        }
+        let noAction = UIAlertAction(title: "Нет", style: .Cancel, handler: nil)
+        
+        alert.addAction(yesAction)
+        alert.addAction(noAction)
+        
+        presentViewController(alert, animated: true, completion: nil)
     }
-    
+    // Вызывается только с FolderDataSource
     func docPickerMoveButtonPressed(sender: AnyObject?) {
+        let indexPaths = self.tableView.indexPathsForSelectedRows!
+        
+        let navControllerVc = self.storyboard!.instantiateViewControllerWithIdentifier(Const.StoryboardIDs.moveCopyViewControllerNavigationController) as! NavigationController
+        let moveCopyVc = navControllerVc.viewControllers[0] as! MoveCopyViewController
+        moveCopyVc.actionType = MoveCopyActionType.Move
+        
+        var paths: [String] = []
+        let ds = currentDataSource as! FolderDataSource
+        for indexPath in indexPaths {
+            paths.append(ds.elementPath(indexPath))
+        }
+        
+        moveCopyVc.paths = paths
+
+        self.presentViewController(navControllerVc, animated: true, completion: nil)
+        
         tableView.setEditing(false, animated: true)
         setEditing(false, animated: true)
     }
     
     func docPickerCopyButtonPressed(sender: AnyObject?) {
+        let indexPaths = self.tableView.indexPathsForSelectedRows!
+        
+        let navControllerVc = self.storyboard!.instantiateViewControllerWithIdentifier(Const.StoryboardIDs.moveCopyViewControllerNavigationController) as! NavigationController
+        let moveCopyVc = navControllerVc.viewControllers[0] as! MoveCopyViewController
+        moveCopyVc.actionType = MoveCopyActionType.Copy
+        
+        var paths: [String] = []
+        var names: [String] = []
+        
+        if let ds = currentDataSource as? UserDocsDataSource {
+            for indexPath in indexPaths {
+                if let path = ds.folderPath(indexPath) {
+                    paths.append(path)
+                } else {
+                    let name = ds.document(indexPath).fileDirectory.componentsSeparatedByString("/").last!
+                    names.append(name)
+                }
+            }
+        } else if let ds = currentDataSource as? FolderDataSource {
+            for indexPath in indexPaths {
+                paths.append(ds.elementPath(indexPath))
+            }
+        }
+        
+        moveCopyVc.fileNames = names
+        moveCopyVc.paths = paths
+        
+        self.presentViewController(navControllerVc, animated: true, completion: nil)
+        
         tableView.setEditing(false, animated: true)
         setEditing(false, animated: true)
     }

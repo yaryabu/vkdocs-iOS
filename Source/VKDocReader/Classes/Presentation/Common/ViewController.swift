@@ -9,14 +9,13 @@
 import UIKit
 
 class ViewController: UIViewController {
-//    let serviceLayer = ServiceLayer.sharedServiceLayer
+    lazy var isRootViewController: Bool = {
+        return self.navigationController?.viewControllers[0] == self
+    }()
 }
 
 extension UIViewController {
-//    let serviceLayer = ServiceLayer.sharedServiceLayer
     var serviceLayer: ServiceLayer {
-        get {
             return ServiceLayer.sharedServiceLayer
-        }
     }
 }

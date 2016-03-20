@@ -12,6 +12,7 @@ protocol DataSource: UITableViewDataSource {
     func refresh(refreshEnded: () -> Void, refreshFailed: (error: Error) -> Void)
     func document(indexPath: NSIndexPath) -> Document
     func updateCache()
+    func deleteElements(indexPaths: [NSIndexPath], completion: () -> Void, failure: (error: Error) -> Void)
 }
 
 //extension UIAlertController {

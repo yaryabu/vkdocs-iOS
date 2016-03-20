@@ -17,7 +17,7 @@ class UserParser: Parser {
         user.id = String(userJson["id"].int!)
         user.firstName = userJson["first_name"].string!
         user.lastName = userJson["last_name"].string!
-        user.photoUrlString = userJson["photo_max"].string!
+        user.photoUrlString = userJson["photo_50"].string!
         
         return user
     }

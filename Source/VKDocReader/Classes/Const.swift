@@ -45,7 +45,10 @@ struct Const {
         static let tabBarController = "TabBarController"
 //        static let sidebarViewController = "SidebarViewController"
         static let userDocsTableViewController = "UserDocsTableViewController"
-        static let UserDocsTableViewControllerNavigationController = "UserDocsTableViewControllerNavigationController"
+        static let userDocsTableViewControllerNavigationController = "UserDocsTableViewControllerNavigationController"
+        static let moveCopyViewController = "MoveCopyViewController"
+        static let moveCopyViewControllerNavigationController = "MoveCopyViewControllerNavigationController"
+
     }
     
     struct StoryboardSegues {

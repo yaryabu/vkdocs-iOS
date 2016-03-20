@@ -29,6 +29,8 @@ class SearchDataSource: NSObject, DataSource {
         refreshEnded()
     }
     
+    func deleteElements(indexPaths: [NSIndexPath], completion: () -> Void, failure: (error: Error) -> Void) {}
+    
     func startSearch(query: String, completion: () -> Void, failure: (error: Error) -> Void) {
         
         //нельзя отсылать на сервер пустые строки в get запросе

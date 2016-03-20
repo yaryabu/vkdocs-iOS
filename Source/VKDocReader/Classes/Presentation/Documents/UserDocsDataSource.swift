@@ -11,10 +11,10 @@ import RealmSwift
 
 class UserDocsDataSource: NSObject, DataSource {
     
-    var documents: [Document]
     var folders: [String] {
         return Bash.ls(Const.Directories.fileSystemDir)
     }
+    var documents: [Document]
     
     override init() {
         self.documents = try! Array(Realm().objects(Document))
@@ -22,6 +22,14 @@ class UserDocsDataSource: NSObject, DataSource {
     
     func document(indexPath: NSIndexPath) -> Document {
         return documents[indexPath.row]
+    }
+    
+    func folderPath(indexPath: NSIndexPath) -> String? {
+        if indexPath.section == 0 {
+            return Const.Directories.fileSystemDir + "/" + folders[indexPath.row]
+        } else {
+            return nil
+        }
     }
     
     func updateCache() {
@@ -33,6 +41,27 @@ class UserDocsDataSource: NSObject, DataSource {
                 return false
             }
         })
+    }
+    
+    func deleteElements(indexPaths: [NSIndexPath], completion: () -> Void, failure: (error: Error) -> Void) {
+        for indexPath in indexPaths {
+            if indexPath.section == 0 {
+                Bash.rm(folderPath(indexPath)!)
+            } else {
+                let doc = document(indexPath)
+                // задержка, чтобы не превышать ограничения ВК
+                Dispatch.mainQueueAfter(0.7, closure: { () -> () in
+                    ServiceLayer.sharedServiceLayer.docsService.deleteDocumentFromUser(doc, completion: { () -> Void in
+                        }, failure: { (error) -> Void in
+                            doc.deleteDocument()
+                            failure(error: error)
+                            print(error)
+                    })
+                })
+                documents.removeAtIndex(indexPath.row)
+            }
+        }
+        completion()
     }
     
     func refresh(refreshEnded: () -> Void, refreshFailed: (error: Error) -> Void) {

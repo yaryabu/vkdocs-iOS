@@ -10,6 +10,14 @@ import UIKit
 
 class NavigationController: UINavigationController {
     
+    override init(rootViewController: UIViewController) {
+        super.init(rootViewController: rootViewController)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
     var navigationBarFrameHidden: Bool {
         get {
             return self.navigationBar.frame.origin.y < 0
