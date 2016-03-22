@@ -100,7 +100,7 @@
             </objects>
             <point key="canvasLocation" x="1695" y="315"/>
         </scene>
-        <!--Create folder-->
+        <!--Новая папка-->
         <scene sceneID="VRm-36-KGG">
             <objects>
                 <viewController id="qlk-zy-5K6" customClass="CreateFolderViewController" customModule="VKDocReader" customModuleProvider="target" sceneMemberID="viewController">
@@ -112,9 +112,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="30" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="aID-ZW-HTW">
-                                <rect key="frame" x="167" y="270" width="266" height="60"/>
-                                <color key="backgroundColor" red="1" green="0.23718426943620929" blue="0.6718150859137737" alpha="1" colorSpace="calibratedRGB"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="06i-U3-MfW">
+                                <rect key="frame" x="250" y="357.5" width="100" height="242.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="8YK-9V-NBG"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="llM-zY-KPu">
+                                <rect key="frame" x="250" y="64" width="100" height="242.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="OeC-Tg-AGw"/>
+                                </constraints>
+                            </view>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Имя новой папки" textAlignment="natural" minimumFontSize="30" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="aID-ZW-HTW">
+                                <rect key="frame" x="16" y="306.5" width="568" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="266" id="MCk-bC-Zrz"/>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="60" id="w9N-uJ-RM1"/>
@@ -125,15 +136,34 @@
                                     <outlet property="delegate" destination="qlk-zy-5K6" id="Xx2-mu-kZH"/>
                                 </connections>
                             </textField>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fke-uz-azm">
+                                <rect key="frame" x="16.5" y="356.5" width="568" height="1"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="0zO-aH-aki"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="aID-ZW-HTW" firstAttribute="centerY" secondItem="FDw-wm-d80" secondAttribute="centerY" id="BGj-nO-5wb"/>
-                            <constraint firstItem="aID-ZW-HTW" firstAttribute="centerX" secondItem="FDw-wm-d80" secondAttribute="centerX" id="aPe-8e-mLC"/>
+                            <constraint firstItem="llM-zY-KPu" firstAttribute="top" secondItem="VjJ-zn-mGb" secondAttribute="bottom" id="0ZE-Fs-9tl"/>
+                            <constraint firstItem="fke-uz-azm" firstAttribute="top" secondItem="aID-ZW-HTW" secondAttribute="bottom" constant="-10" id="2Ej-6Y-Bn2"/>
+                            <constraint firstItem="fke-uz-azm" firstAttribute="centerX" secondItem="FDw-wm-d80" secondAttribute="centerX" id="8ue-MD-T5O"/>
+                            <constraint firstItem="aID-ZW-HTW" firstAttribute="top" secondItem="llM-zY-KPu" secondAttribute="bottom" id="MJt-ym-M3i"/>
+                            <constraint firstItem="aID-ZW-HTW" firstAttribute="centerX" secondItem="FDw-wm-d80" secondAttribute="centerX" id="MYc-SK-pgj"/>
+                            <constraint firstItem="06i-U3-MfW" firstAttribute="top" secondItem="fke-uz-azm" secondAttribute="bottom" id="PEn-hU-xfQ"/>
+                            <constraint firstItem="06i-U3-MfW" firstAttribute="centerX" secondItem="FDw-wm-d80" secondAttribute="centerX" id="Wll-Bu-3p4"/>
+                            <constraint firstItem="aID-ZW-HTW" firstAttribute="leading" secondItem="FDw-wm-d80" secondAttribute="leading" constant="16" id="fGg-d8-QZe"/>
+                            <constraint firstAttribute="trailing" secondItem="aID-ZW-HTW" secondAttribute="trailing" constant="16" id="hbK-aE-kl4"/>
+                            <constraint firstItem="06i-U3-MfW" firstAttribute="height" secondItem="llM-zY-KPu" secondAttribute="height" id="iGB-Zt-5K6"/>
+                            <constraint firstItem="fke-uz-azm" firstAttribute="width" secondItem="aID-ZW-HTW" secondAttribute="width" id="tEy-7u-fYg"/>
+                            <constraint firstItem="5gz-wY-3n6" firstAttribute="top" secondItem="06i-U3-MfW" secondAttribute="bottom" id="tcW-Da-f4y"/>
+                            <constraint firstItem="llM-zY-KPu" firstAttribute="centerX" secondItem="FDw-wm-d80" secondAttribute="centerX" id="zGP-y0-hNF"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Create folder" id="YkK-Da-5H1">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="JI2-dd-208">
+                    <navigationItem key="navigationItem" title="Новая папка" id="YkK-Da-5H1">
+                        <barButtonItem key="leftBarButtonItem" image="exit_cross" style="done" id="JI2-dd-208">
+                            <color key="tintColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="cancelButtonPressed:" destination="qlk-zy-5K6" id="9xB-Mu-06d"/>
                             </connections>
@@ -145,6 +175,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="bottomSpacing" destination="tcW-Da-f4y" id="dXw-S0-tMI"/>
                         <outlet property="textField" destination="aID-ZW-HTW" id="hiw-6t-qwH"/>
                     </connections>
                 </viewController>
@@ -313,8 +344,9 @@
                     </view>
                     <navigationItem key="navigationItem" id="Xr7-bO-vJI">
                         <nil key="title"/>
+                        <barButtonItem key="backBarButtonItem" title=" " id="Yru-ph-gFc"/>
                         <barButtonItem key="leftBarButtonItem" systemItem="add" id="5gg-He-Ihn"/>
-                        <barButtonItem key="rightBarButtonItem" title="Opts" id="SLs-sC-S8J">
+                        <barButtonItem key="rightBarButtonItem" image="options_button" id="SLs-sC-S8J">
                             <connections>
                                 <action selector="optionsButtonPressed:" destination="Ms7-l9-AGR" id="hGw-OE-q95"/>
                             </connections>
@@ -497,7 +529,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="ActionName" id="MT2-Wi-B8b">
-                        <barButtonItem key="leftBarButtonItem" systemItem="stop" id="hoh-WM-tOX">
+                        <barButtonItem key="leftBarButtonItem" image="exit_cross" id="hoh-WM-tOX">
                             <connections>
                                 <action selector="exitButtonPressed:" destination="qMQ-kO-Jzh" id="cBr-yR-cXV"/>
                             </connections>
@@ -575,6 +607,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="qaY-En-eqp">
+                        <barButtonItem key="backBarButtonItem" title=" " id="sTy-wg-uyr"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="action" id="vWY-yN-ra7">
                             <connections>
                                 <action selector="optionsButtonPressed:" destination="fbH-G0-N1P" id="L80-6x-hWD"/>
@@ -825,7 +858,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="hwc-Bh-Pbm">
                         <barButtonItem key="leftBarButtonItem" title="Item" style="plain" id="IEE-tq-00s"/>
-                        <barButtonItem key="rightBarButtonItem" image="ExitAppButton" id="aXC-vI-ZIO">
+                        <barButtonItem key="rightBarButtonItem" image="exit_app_button" id="aXC-vI-ZIO">
                             <color key="tintColor" red="0.9882352941176471" green="0.36078431372549019" blue="0.36078431372549019" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="exitButtonPressed:" destination="qI0-HP-mX1" id="1qL-y7-fes"/>
@@ -901,6 +934,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="ExitAppButton" width="13" height="19"/>
+        <image name="exit_app_button" width="13" height="19"/>
+        <image name="exit_cross" width="15" height="15"/>
+        <image name="options_button" width="5" height="18"/>
     </resources>
 </document>

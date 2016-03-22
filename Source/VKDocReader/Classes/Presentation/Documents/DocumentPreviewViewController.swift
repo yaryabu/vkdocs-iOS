@@ -188,7 +188,7 @@ class DocumentPreviewViewController: ViewController, QLPreviewControllerDataSour
         }
         let copyLinkAction = UIAlertAction(title: "Копировать ссылку", style: .Default) { (action) -> Void in
             UIPasteboard.generalPasteboard().string = self.document.urlString
-            ToastManager.presentInfo("Ссылка скопирована")
+            ToastManager.sharedInstance.presentInfo("Ссылка скопирована")
         }
         let deleteAction = UIAlertAction(title: "Удалить", style: .Destructive) { (action) -> Void in
             self.presentDeleteAlert()

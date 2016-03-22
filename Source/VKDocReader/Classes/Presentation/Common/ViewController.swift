@@ -29,15 +29,15 @@ extension UIViewController {
         case 5:
             //TODO:
             print("auth error")
-            ToastManager.presentError(error)
+            ToastManager.sharedInstance.presentError(error)
         case 14:
             //TODO:
             print("captcha")
-            ToastManager.presentError(error)
+            ToastManager.sharedInstance.presentError(error)
         case -999:
             print("loadError")
         default:
-            ToastManager.presentError(error)
+            ToastManager.sharedInstance.presentError(error)
         }
     }
 }

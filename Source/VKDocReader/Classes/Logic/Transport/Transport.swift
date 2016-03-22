@@ -13,6 +13,11 @@ class Transport: Alamofire.Manager {
     static let sharedTransport = Transport()
 
     var downloadRequestPool: [String:Request] = [:]
+    
+    init() {
+        super.init()
+        session.configuration.timeoutIntervalForResource = 10
+    }
 
     func getJSON(urlString: String, parameters: [String:AnyObject]?, completion: (json: JSON) -> Void, failure: (error: NSError) -> Void) {
         //TODO вынести добалвение параметра на уровень сервисов

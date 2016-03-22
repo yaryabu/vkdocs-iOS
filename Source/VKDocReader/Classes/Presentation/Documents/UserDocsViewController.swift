@@ -33,8 +33,31 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
     
     let pullToRefreshControl = UIRefreshControl()
     
-    let searchBar = UISearchBar()
-    let searchBarSpinner = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
+    let searchBar: UISearchBar = {
+        let bar = UISearchBar()
+        bar.sizeToFit()
+        bar.placeholder = "Поиск"
+        bar.barTintColor = UIColor.vkWhiteColor()
+        
+        for view in bar.subviews {
+            for view2 in view.subviews {
+                if let tf = view as? UITextField {
+                    tf.backgroundColor = UIColor.vkCloudyBlueColor()
+                }
+                if let tf = view2 as? UITextField {
+                    tf.backgroundColor = UIColor.vkCloudyBlueColor()
+                }
+            }
+        }
+        return bar
+    }()
+    
+    let searchBarSpinner: UIActivityIndicatorView = {
+        let spinner = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
+        spinner.hidesWhenStopped = true
+        spinner.stopAnimating()
+        return spinner
+    }()
     
     var docPickerNavBarOverlay: DocumentsPickerNavBarOverlay!
     var docPickerTabBarOverlay: DocumentsPickerTabBarOverlay!
@@ -45,8 +68,8 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
 
 //        NSNotificationCenter.defaultCenter().addObserver(self, selector: "cellButtonPressed:", name: Const.Notifications.cellButtonPressed, object: nil)
 
-        self.pullToRefreshControl.addTarget(self, action: "pullToRefreshActivated", forControlEvents: UIControlEvents.ValueChanged)
-        self.tableView.addSubview(self.pullToRefreshControl)
+        pullToRefreshControl.addTarget(self, action: "pullToRefreshActivated", forControlEvents: UIControlEvents.ValueChanged)
+        tableView.addSubview(self.pullToRefreshControl)
 //        tableView.registerNib(UINib(nibName: "UserDocsTableViewCell", bundle: nil), forCellReuseIdentifier: UserDocsTableViewCell.cellIdentifier)
         
         if isRootViewController {
@@ -56,13 +79,10 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
             currentDataSource = vkDocumentsDataSource
             
             navigationBarButtons = (leftButton: addDocumentButton, rightButton: optionsButton)
-            searchBar.sizeToFit()
             navigationItem.titleView = searchBar
             searchBar.delegate = self
-            searchBar.backgroundColor = UIColor.clearColor()
             searchBar.addSubview(searchBarSpinner)
-            searchBarSpinner.hidesWhenStopped = true
-            searchBarSpinner.stopAnimating()
+            
             refresh { () -> Void in}
         } else {
             folderDataSource = FolderDataSource()
@@ -238,6 +258,7 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
                 self.tableView.reloadData()
                 }) { (error) -> Void in
                     self.handleError(error)
+                    self.searchBarSpinner.stopAnimating()
             }
         } else {
             self.searchBarSpinner.stopAnimating()

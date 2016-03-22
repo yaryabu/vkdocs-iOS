@@ -64,7 +64,6 @@ class MoveCopyViewController: ViewController, UITableViewDelegate {
             navigationItem.title = currentPath.componentsSeparatedByString("/").last!
         }
         
-        
     }
     
     override func viewWillAppear(animated: Bool) {

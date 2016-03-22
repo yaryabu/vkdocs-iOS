@@ -95,7 +95,7 @@ class SettingsViewController: ViewController, MFMailComposeViewControllerDelegat
             Bash.rm(Const.Directories.vaultDir)
             Bash.mkdir(Const.Directories.vaultDir)
             self.clearCacheButton.setTitle("Очистить кэш – \(Bash.du(Const.Directories.vaultDir)/1024/1024) МБ занято", forState: UIControlState.Normal)
-
+            ToastManager.sharedInstance.presentInfo("Документы и папки удалены")
         }
         let deleteOnlyFilesAction = UIAlertAction(title: "Только загруженные документы", style: .Default) { (action) -> Void in
             Transport.sharedTransport.cancelAllDownloads()
@@ -103,6 +103,7 @@ class SettingsViewController: ViewController, MFMailComposeViewControllerDelegat
             Bash.rm(Const.Directories.vaultDir)
             Bash.mkdir(Const.Directories.vaultDir)
             self.clearCacheButton.setTitle("Очистить кэш — \(Bash.du(Const.Directories.vaultDir)/1024/1024) МБ занято", forState: UIControlState.Normal)
+            ToastManager.sharedInstance.presentInfo("Кэш удален")
 
         }
         let cancelAction = UIAlertAction(title: "Отмена", style: .Default, handler: nil)

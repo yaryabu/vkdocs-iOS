@@ -102,7 +102,12 @@ class UserDocsDataSource: NSObject, DataSource {
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
         if section == 0 {
+            //TODO: создать ячейку типа "Создай папку"
+            if folders.count == 0 {
+                return nil
+            } else {
             return "Папки"
+            }
         } else {
             return "Документы"
         }

@@ -43,12 +43,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        }
         Bash.cd(Const.Directories.fileSystemDir)
         self.chooseInitialViewCotroller()
-//        
-//        let view = UIView(frame: UIApplication.sharedApplication().statusBarFrame)
-//        view.backgroundColor = UIColor.vkWhiteColor()
-//        window!.addSubview(view)
-        let statusBar = UIApplication.sharedApplication().valueForKey("statusBarWindow")?.valueForKey("statusBar") as! UIView
-        statusBar.backgroundColor = UIColor.vkWhiteColor()
+        
         
         // Override point for customization after application launch.
         return true

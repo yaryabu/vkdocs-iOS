@@ -21,6 +21,10 @@ extension UIFont {
         return UIFont(name: "Open Sans", size: 16)!
     }
     
+    class func createFolderFieldFont() -> UIFont {
+        return UIFont(name: "Open Sans", size: 16)!
+    }
+    
     class func defaultFont() -> UIFont {
         return UIFont(name: "Open Sans", size: 12)!
     }

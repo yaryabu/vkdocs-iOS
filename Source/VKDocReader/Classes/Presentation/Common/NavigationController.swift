@@ -35,13 +35,16 @@ class NavigationController: UINavigationController {
         self.navigationBar.userInteractionEnabled = true
         self.view.userInteractionEnabled = true
         
-        UINavigationBar.appearance().backgroundColor = UIColor.vkWhiteColor()
-        UINavigationBar.appearance().setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
+//        UINavigationBar.appearance().backgroundColor = UIColor.vkWhiteColor()
+        navigationBar.barTintColor = UIColor.vkWhiteColor()
+//        UINavigationBar.appearance().setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
         UINavigationBar.appearance().titleTextAttributes = [
             NSFontAttributeName: UIFont.navigationBarFont(),
             NSForegroundColorAttributeName: UIColor.vkBlackColor()
         ]
-        
+        UINavigationBar.appearance().backIndicatorImage = UIImage(named: "back_button")
+        UINavigationBar.appearance().backIndicatorTransitionMaskImage = UIImage(named: "back_button")
+        UINavigationBar.appearance().tintColor = UIColor.vkBlackColor()
     }
     
     func hideNavigationBarFrame(animationDuration: Double?, additionalAnimations: (() -> ())?) {
