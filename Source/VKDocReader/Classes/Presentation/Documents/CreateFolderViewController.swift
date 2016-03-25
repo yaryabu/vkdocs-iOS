@@ -10,20 +10,21 @@ import UIKit
 
 class CreateFolderViewController: ViewController, UITextFieldDelegate {
     
+    @IBOutlet weak var createButton: UIBarButtonItem! {
+        didSet {
+            createButton.enabled = false
+        }
+    }
     @IBOutlet weak var textField: UITextField! {
         didSet {
             textField.font = UIFont.createFolderFieldFont()
             textField.textColor = UIColor.vkWarmGreyColor()
             textField.tintColor = UIColor.vkDuskBlueColor()
+            textField.enablesReturnKeyAutomatically = true
         }
     }
     
     @IBOutlet weak var bottomSpacing: NSLayoutConstraint!
-    let navBarDividerOvarlay: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor.vkWhiteColor()
-        return view
-    }()
     
     
     override func viewDidLoad() {
@@ -34,23 +35,15 @@ class CreateFolderViewController: ViewController, UITextFieldDelegate {
 
         
         textField.becomeFirstResponder()
-        navBarDividerOvarlay.frame = CGRect(
-            x: 0,
-            y: navigationController!.navigationBar.frame.origin.x + navigationController!.navigationBar.frame.height - 2,
-            width: view.frame.width,
-            height: 5
-        )
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController!.navigationBar.addSubview(navBarDividerOvarlay)
     }
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         textField.resignFirstResponder()
-        navBarDividerOvarlay.removeFromSuperview()
     }
     
     @IBAction func cancelButtonPressed(sender: AnyObject) {
@@ -59,6 +52,13 @@ class CreateFolderViewController: ViewController, UITextFieldDelegate {
     
     @IBAction func createButtonPressed(sender: AnyObject) {
         createFolder()
+    }
+    @IBAction func textFieldEditingChanged(sender: AnyObject) {
+        if textField.text == "" {
+            createButton.enabled = false
+        } else {
+            createButton.enabled = true
+        }
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
@@ -69,8 +69,14 @@ class CreateFolderViewController: ViewController, UITextFieldDelegate {
     func createFolder() {
         let text = self.textField.text!
         
-        if text == "" || folderCreatedAlready(text) {
-            //TODO: добавить ошибку
+        if folderCreatedAlready(text) {
+            let error = Error(code: 0, message: "Папка уже существует")
+            ToastManager.sharedInstance.presentError(error)
+            return
+        }
+        if text.containsString("/") {
+            let error = Error(code: 0, message: "Символ / не допускается")
+            ToastManager.sharedInstance.presentError(error)
             return
         }
         

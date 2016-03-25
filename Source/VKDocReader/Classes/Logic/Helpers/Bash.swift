@@ -48,27 +48,33 @@ class Bash {
     
     class func cp(from: String, to: String) -> Bool {
         do {
-            try NSFileManager.defaultManager().copyItemAtPath(from, toPath: to)
+            //если попытаться заменить существующий файл, то возвращается ошибка
+            //сделано для случаев, если from и to одинаковые
+            let bakDir = NSTemporaryDirectory() + "cp.bak"
+            mkdir(bakDir)
+            let bakPath = bakDir + "/" + from.componentsSeparatedByString("/").last!
+            try NSFileManager.defaultManager().copyItemAtPath(from, toPath: bakPath)
+            rm(to)
+            try NSFileManager.defaultManager().copyItemAtPath(bakPath, toPath: to)
+            rm(bakDir)
             return true
         } catch {
             return false
         }
     }
     
-    class func mv(from: String, to: String) -> Bool {
-        do {
-            try NSFileManager.defaultManager().moveItemAtPath(from, toPath: to)
-            return true
-        } catch {
-            return false
-        }
+    class func mv(from: String, to: String) {
+        cp(from, to: to)
+        rm(from)
     }
     
     class func rm(filePath: String) -> Bool {
         do {
             try NSFileManager.defaultManager().removeItemAtPath(filePath)
+            print("123")
             return true
         } catch {
+            print(error)
             return false
         }
     }
@@ -85,15 +91,15 @@ class Bash {
         }
     }
     
-    class func du(path: String) -> UInt {
-        var totalSize: UInt = 0
+    class func du(path: String) -> Int {
+        var totalSize: Int = 0
         
         for file in ls(path) {
             let filePath = path + "/" + file
             if isDirectory(filePath) {
                 totalSize += du(filePath)
             } else {
-                totalSize += try! NSFileManager.defaultManager().attributesOfItemAtPath(filePath)[NSFileSize] as! UInt
+                totalSize += try! NSFileManager.defaultManager().attributesOfItemAtPath(filePath)[NSFileSize] as! Int
             }
         }
         

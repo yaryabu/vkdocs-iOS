@@ -49,11 +49,14 @@ class UserDocsDataSource: NSObject, DataSource {
                 Bash.rm(folderPath(indexPath)!)
             } else {
                 let doc = document(indexPath)
+                doc.removeAllFromFileSystem()
                 // задержка, чтобы не превышать ограничения ВК
                 Dispatch.mainQueueAfter(0.7, closure: { () -> () in
+                    //TODO: сделать отдельный метод на удаление, чтобы можно было сразу удалить
+                    //доки из realm
                     ServiceLayer.sharedServiceLayer.docsService.deleteDocumentFromUser(doc, completion: { () -> Void in
+                        doc.deleteDocument()
                         }, failure: { (error) -> Void in
-                            doc.deleteDocument()
                             failure(error: error)
                             //TODO: NSNotification для ошибки
                             print(error)
@@ -122,7 +125,10 @@ class UserDocsDataSource: NSObject, DataSource {
         } else {
             let cell = tableView.dequeueReusableCellWithIdentifier(UserDocsTableViewCell.cellIdentifier, forIndexPath: indexPath) as! UserDocsTableViewCell
             let document = self.documents[indexPath.row]
-            cell.configureCell(document, isSearchResult: false)
+            
+            let shouldHideButton = tableView.delegate as? MoveCopyViewController != nil
+            
+            cell.configureCell(document, isSearchResult: false, hideButton: shouldHideButton)
             return cell
         }
     }

@@ -44,11 +44,7 @@ class SettingsViewController: ViewController, MFMailComposeViewControllerDelegat
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-//        Dispatch.mainQueue() { () -> () in
-        self.clearCacheButton.setTitle("Очистить кэш – \(Bash.du(Const.Directories.vaultDir)/1024/1024) МБ занято", forState: UIControlState.Normal)
-//            self.clearCacheButton.titleLabel!.text = "Очистить кэш – \(Bash.du(Const.Directories.vaultDir)/1024/1024) МБ занято"
-//        }
-        
+        refreshCacheSize()
     }
     
     
@@ -86,27 +82,26 @@ class SettingsViewController: ViewController, MFMailComposeViewControllerDelegat
     
     @IBAction func clearCacheButtonPressed(sender: AnyObject) {
         let alert = UIAlertController(title: "Что хотите удалить?", message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
-        alert.view.backgroundColor = UIColor.redColor()
         let deleteAllAction = UIAlertAction(title: "Загруженные документы и папки", style: UIAlertActionStyle.Destructive) { (action) -> Void in
-            Transport.sharedTransport.cancelAllDownloads()
+            LoadTaskManager.sharedManager.cancelAllDownloads()
 
             Bash.rm(Const.Directories.fileSystemDir)
             Bash.mkdir(Const.Directories.fileSystemDir)
             Bash.rm(Const.Directories.vaultDir)
             Bash.mkdir(Const.Directories.vaultDir)
-            self.clearCacheButton.setTitle("Очистить кэш – \(Bash.du(Const.Directories.vaultDir)/1024/1024) МБ занято", forState: UIControlState.Normal)
+            self.refreshCacheSize()
             ToastManager.sharedInstance.presentInfo("Документы и папки удалены")
         }
         let deleteOnlyFilesAction = UIAlertAction(title: "Только загруженные документы", style: .Default) { (action) -> Void in
-            Transport.sharedTransport.cancelAllDownloads()
+            LoadTaskManager.sharedManager.cancelAllDownloads()
 
             Bash.rm(Const.Directories.vaultDir)
             Bash.mkdir(Const.Directories.vaultDir)
-            self.clearCacheButton.setTitle("Очистить кэш — \(Bash.du(Const.Directories.vaultDir)/1024/1024) МБ занято", forState: UIControlState.Normal)
+            self.refreshCacheSize()
             ToastManager.sharedInstance.presentInfo("Кэш удален")
 
         }
-        let cancelAction = UIAlertAction(title: "Отмена", style: .Default, handler: nil)
+        let cancelAction = UIAlertAction(title: "Отмена", style: .Cancel, handler: nil)
         alert.addAction(deleteAllAction)
         alert.addAction(deleteOnlyFilesAction)
         alert.addAction(cancelAction)
@@ -171,5 +166,11 @@ class SettingsViewController: ViewController, MFMailComposeViewControllerDelegat
             self.serviceLayer.userSettingsService.deleteDocumentsAfterPreview = true
         }
 
+    }
+    
+    func refreshCacheSize() {
+        let cacheSize = SizeFormatter.closestFormatFromBytes(Bash.du(Const.Directories.vaultDir))
+        let cacheSizeString = String(cacheSize.number) + " " + cacheSize.unitTypeName
+        self.clearCacheButton.setTitle("Очистить кэш – \(cacheSizeString) занято", forState: UIControlState.Normal)
     }
 }

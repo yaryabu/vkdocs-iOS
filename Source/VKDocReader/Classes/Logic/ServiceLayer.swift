@@ -14,19 +14,21 @@ class ServiceLayer {
     let userService: UserService
     let docsService: DocsService
     let imageService: ImageService
+    let uploadDocsService: UploadDocumentsService
     
-    init() {
+    private init() {
         self.authService = AuthService()
         self.userSettingsService = UserSettingsSerivce()
         self.userService = UserService(authService: self.authService, userSettingsSerivce: self.userSettingsService)
         self.docsService = DocsService(authService: self.authService, userSettingsSerivce: self.userSettingsService)
+        self.uploadDocsService = UploadDocumentsService(authService: self.authService, userSettingsSerivce: self.userSettingsService)
         self.imageService = ImageService()
     }
     
     func deleteAllInfo() {
         self.authService.deleteAllInfo()
         self.userSettingsService.deleteAllInfo()
-        Transport.sharedTransport.cancelAllDownloads()
+        LoadTaskManager.sharedManager.cancelAllDownloads()
     }
     
 }

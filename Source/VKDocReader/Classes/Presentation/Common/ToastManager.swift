@@ -13,7 +13,7 @@ class ToastManager {
     
     static let sharedInstance = ToastManager()
     
-    var latestToast: (message: String, toastTimestamp: NSTimeInterval) = ("", NSDate(timeIntervalSince1970: 1).timeIntervalSince1970)
+    private var latestToast: (message: String, toastTimestamp: NSTimeInterval) = ("", NSDate(timeIntervalSince1970: 1).timeIntervalSince1970)
     
     func presentError(error: Error) {
         presentToast(error.message, color: UIColor.vkGrapefruitColor())
@@ -52,7 +52,7 @@ class ToastManager {
     private func shouldShowToast(toastMessage: String) -> Bool {
         if toastMessage == latestToast.message {
             let currentTimeStamp = NSDate().timeIntervalSince1970
-            if currentTimeStamp - latestToast.toastTimestamp < 3.0 {
+            if currentTimeStamp - latestToast.toastTimestamp < 2.0 {
                 return false
             }
         }

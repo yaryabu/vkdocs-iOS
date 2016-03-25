@@ -47,4 +47,16 @@ class DocumentsPickerTabBarOverlay: View {
                 self.removeFromSuperview()
         }
     }
+    
+    func changeButtonsState(itemsSelected: Int, isRootViewController: Bool) {
+        if itemsSelected > 0 {
+            deleteButton.enabled = true
+            copyButton.enabled = true
+            moveButton.enabled = !isRootViewController
+        } else {
+            deleteButton.enabled = false
+            copyButton.enabled = false
+            moveButton.enabled = false
+        }
+    }
 }

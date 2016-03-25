@@ -35,6 +35,9 @@ class MoveCopyViewController: ViewController, UITableViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tableView.registerNib(UINib(nibName: "UserDocsTableViewCell", bundle: nil), forCellReuseIdentifier: UserDocsTableViewCell.cellIdentifier)
+        tableView.registerNib(UINib(nibName: "FolderCell", bundle: nil), forCellReuseIdentifier: FolderCell.cellIdentifier)
+        
         if actionType == .ChooseFileToAdd {
             if isRootViewController {
                 tableView.dataSource = userDocsDataSource
@@ -43,10 +46,13 @@ class MoveCopyViewController: ViewController, UITableViewDelegate {
             }
             navigationItem.rightBarButtonItem = nil
         } else {
+            if isRootViewController {
+                saveButton.enabled = false
+            }
             tableView.dataSource = folderDataSource
         }
+        
         if isRootViewController {
-            saveButton.enabled = false
             var title: String!
             switch actionType {
             case .Copy:
@@ -82,6 +88,7 @@ class MoveCopyViewController: ViewController, UITableViewDelegate {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         print("TAP", indexPath.row)
         
+        //этот сценарий только для добавления файлов в папки
         if let _ = tableView.dataSource as? UserDocsDataSource {
             if indexPath.section == 0 {
                 let vc = storyboard!.instantiateViewControllerWithIdentifier(Const.StoryboardIDs.moveCopyViewController) as! MoveCopyViewController
@@ -92,6 +99,11 @@ class MoveCopyViewController: ViewController, UITableViewDelegate {
                 navigationController!.pushViewController(vc, animated: true)
             } else {
                 let docName = userDocsDataSource.document(indexPath).fileDirectory.componentsSeparatedByString("/").last!
+                if Bash.ls(finalDirectory).contains(docName) {
+                    let error = Error(code: 0, message: "В папке уже есть этот файл")
+                    ToastManager.sharedInstance.presentError(error)
+                    return
+                }
                 Bash.touch(finalDirectory + "/" + docName)
                 dismissViewControllerAnimated(true, completion: nil)
             }
@@ -99,12 +111,17 @@ class MoveCopyViewController: ViewController, UITableViewDelegate {
         }
         
         if folderDataSource.isDirectory(indexPath) {
+            let newPath = Bash.pwd() + "/" + folderDataSource.elements[indexPath.row]
+            if paths.contains(newPath) {
+                let error = Error(code: 0, message: "Нельзя копировать папку в себя")
+                ToastManager.sharedInstance.presentError(error)
+                return
+            }
             let vc = storyboard!.instantiateViewControllerWithIdentifier(Const.StoryboardIDs.moveCopyViewController) as! MoveCopyViewController
             vc.actionType = self.actionType
             vc.paths = self.paths
             vc.fileNames = self.fileNames
             vc.finalDirectory = self.finalDirectory
-            let newPath = Bash.pwd() + "/" + folderDataSource.elements[indexPath.row]
             vc.currentPath = newPath
             navigationController!.pushViewController(vc, animated: true)
         } else {
@@ -119,22 +136,55 @@ class MoveCopyViewController: ViewController, UITableViewDelegate {
     
     @IBAction func saveButtonPressed(sender: AnyObject) {
         print("saveButtonPressed")
+        let currentDirectoryItems = Bash.ls(currentPath)
+        var conflictingPaths: [String] = []
+        for path in paths {
+            let name = path.componentsSeparatedByString("/").last!
+            if currentDirectoryItems.contains(name) {
+                conflictingPaths.append(path)
+            }
+        }
         
+        if conflictingPaths.count > 0 {
+            var message = ""
+            for path in conflictingPaths {
+                let name = path.componentsSeparatedByString("/").last!
+                message += "\(name)\n"
+            }
+            message = String(message.characters.dropLast())
+            let alert = UIAlertController(title: "Заменить папки?", message: message, preferredStyle: UIAlertControllerStyle.Alert)
+            let yesAction = UIAlertAction(title: "Да", style: .Default, handler: { (action) in
+                self.performActionAndDismiss()
+            })
+            let noAction = UIAlertAction(title: "Нет", style: .Cancel, handler: nil)
+            alert.addAction(yesAction)
+            alert.addAction(noAction)
+            
+            presentViewController(alert, animated: true, completion: nil)
+        } else {
+            performActionAndDismiss()
+        }
+        
+    }
+    
+    func performActionAndDismiss() {
         for path in paths {
             let name = path.componentsSeparatedByString("/").last!
             let newPath = currentPath + "/" + name
             if actionType == .Copy {
                 Bash.cp(path, to: newPath)
-            } else {
+                ToastManager.sharedInstance.presentInfo("Файлы скопированы")
+            } else if actionType == .Move {
                 Bash.mv(path, to: newPath)
+                ToastManager.sharedInstance.presentInfo("Файлы перемещены")
             }
         }
         
         for name in fileNames {
             Bash.touch(currentPath + "/" + name)
+            ToastManager.sharedInstance.presentInfo("Файл добавлен в папку")
         }
         dismissViewControllerAnimated(true, completion: nil)
-        
     }
     
     

@@ -14,13 +14,15 @@ struct Const {
         static let bundleIdentifier = NSBundle.mainBundle().bundleIdentifier!
         static let mainStoryboardName = "Main"
         //рандомная строка, которая добавляется ко всем папкам для документов, чтобы 
-        // небыло конфликтов с пользовательскими папками
+        //не было конфликтов с пользовательскими папками
         static let directoryConflictHelper = ".h7237uigYFasdaw3w"
     }
     
     struct Notifications {
         static let statusBarTouched = "statusBarTouchedNotification"
-        static let cellButtonPressed = "UserDocsTableViewCellButtonPressed"
+        static let cellButtonPressed = "UserDocsTableViewCellButtonPressedNotification"
+        static let uploadProgress = "uploadProgressNotification"
+        static let uploadComplete = "uploadCompleteNotification"
     }
     
     struct Network {

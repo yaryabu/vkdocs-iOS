@@ -11,10 +11,9 @@ import Social
 
 class ShareViewController: UIViewController {
     
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//        self.textView.resignFirstResponder()
-//    }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
 //
 //    override func isContentValid() -> Bool {
 //        // Do validation of contentText and/or NSExtensionContext attachments here

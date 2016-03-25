@@ -11,21 +11,19 @@ import UIKit
 import SSKeychain
 import RealmSwift
 
+import Fabric
+import Crashlytics
+
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
-    var customWindow: Window?
-    var window: UIWindow? {
-        get {
-            customWindow = customWindow ?? Window(frame: UIScreen.mainScreen().bounds)
-            return customWindow
-        }
-        set { }
-    }
-
-    
+    var window: UIWindow?
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        Fabric.with([Crashlytics.self])
+        
+
         print("realm", try! Realm().path)
         //TODO: при запуске надо бы почистить tmp
         //
@@ -44,9 +42,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Bash.cd(Const.Directories.fileSystemDir)
         self.chooseInitialViewCotroller()
         
-        
         // Override point for customization after application launch.
         return true
+    }
+    
+    func application(application: UIApplication, handleEventsForBackgroundURLSession identifier: String, completionHandler: () -> Void) {
     }
 
     func applicationWillResignActive(application: UIApplication) {
@@ -79,7 +79,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } else {
             self.window?.rootViewController = storyboard.instantiateViewControllerWithIdentifier(Const.StoryboardIDs.authViewController)
         }
-        // ViewController авторизации изначально initial в Main.storyboard
+        window?.makeKeyAndVisible()
         
     }
     

@@ -11,8 +11,9 @@ import RealmSwift
 
 class Service {
     let transport = Transport.sharedTransport
+    let loadTaskManager = LoadTaskManager.sharedManager
     
-    //WARNING: обработка ошибок
+    //TODO: доработать специальные ошибки
     func checkError(json: JSON) -> Error? {
         let errorJson = json["error"]
         if errorJson != nil {

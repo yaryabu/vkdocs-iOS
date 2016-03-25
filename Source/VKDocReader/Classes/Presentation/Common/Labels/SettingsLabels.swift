@@ -8,13 +8,9 @@
 
 import UIKit
 
+//TODO: сделать нормальные имена. А-ля "vkA1Label", "vkA3Label" итд
 class Label: UILabel {
-    
-//    init() {
-//        super.init()
-//        prepareLabel()
-//    }
-//    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         prepareLabel()
@@ -26,24 +22,9 @@ class Label: UILabel {
     }
     
     func prepareLabel() {
-        fatalError("no prepareLabel")
+        fatalError("prepareLabel not implemented")
     }
-    
-//    class SettingsLabels: Label {
-//        class func userNameLabel() -> UILabel {
-//            let label = UILabel()
-//            label.font = UIFont.userNameFont()
-//            label.tintColor = UIColor.vkBlackColor()
-//            return label
-//        }
-//        
-//        class SettingHeaderLabel() -> Label {
-//            let label = UILabel()
-//            label.font = UIFont.userNameFont()
-//            label.tintColor = UIColor.vkBlackColor()
-//            return label
-//        }
-//    }
+
 }
 
 class UserNameLabel: Label {

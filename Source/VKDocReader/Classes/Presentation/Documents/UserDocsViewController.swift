@@ -7,9 +7,11 @@
 //
 
 import UIKit
+import AssetsLibrary
+
 import RealmSwift
 
-class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDelegate {
+class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate {
     
     var currentPath: String! = Const.Directories.fileSystemDir
     
@@ -32,6 +34,20 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
     @IBOutlet weak var tableView: UITableView!
     
     let pullToRefreshControl = UIRefreshControl()
+    
+    lazy var longTapGestureRecognizer: UILongPressGestureRecognizer = {
+        let gr = UILongPressGestureRecognizer(target: self, action: "cellLongTapped:")
+        gr.delegate = self
+        return gr
+    }()
+    
+    lazy var imagePicker: UIImagePickerController  = {
+        let picker = UIImagePickerController()
+        picker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+        picker.mediaTypes = UIImagePickerController.availableMediaTypesForSourceType(picker.sourceType) ?? []
+        picker.delegate = self
+        return picker
+    }()
     
     let searchBar: UISearchBar = {
         let bar = UISearchBar()
@@ -65,13 +81,16 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
     override func viewDidLoad() {
         super.viewDidLoad()
         configureEditingMode()
+        
+        tableView.addGestureRecognizer(longTapGestureRecognizer)
 
-//        NSNotificationCenter.defaultCenter().addObserver(self, selector: "cellButtonPressed:", name: Const.Notifications.cellButtonPressed, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "cellButtonPressed:", name: Const.Notifications.cellButtonPressed, object: nil)
 
         pullToRefreshControl.addTarget(self, action: "pullToRefreshActivated", forControlEvents: UIControlEvents.ValueChanged)
         tableView.addSubview(self.pullToRefreshControl)
-//        tableView.registerNib(UINib(nibName: "UserDocsTableViewCell", bundle: nil), forCellReuseIdentifier: UserDocsTableViewCell.cellIdentifier)
-        
+        tableView.registerNib(UINib(nibName: "UserDocsTableViewCell", bundle: nil), forCellReuseIdentifier: UserDocsTableViewCell.cellIdentifier)
+        tableView.registerNib(UINib(nibName: "FolderCell", bundle: nil), forCellReuseIdentifier: FolderCell.cellIdentifier)
+
         if isRootViewController {
             
             searchDataSource = SearchDataSource()
@@ -83,7 +102,7 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
             searchBar.delegate = self
             searchBar.addSubview(searchBarSpinner)
             
-            refresh { () -> Void in}
+            refreshTableViewData()
         } else {
             folderDataSource = FolderDataSource()
             currentDataSource = folderDataSource
@@ -98,9 +117,64 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
         print("token", self.serviceLayer.authService.token)
     }
     
+    func cellLongTapped(gestureRecognizer: UILongPressGestureRecognizer) {
+        let tapPoint = gestureRecognizer.locationInView(self.tableView)
+        let indexPath = tableView.indexPathForRowAtPoint(tapPoint)
+        
+        if tableView.editing == false && editing == false {
+            tableView.setEditing(true, animated: true)
+            setEditing(true, animated: true)
+            tableView.selectRowAtIndexPath(indexPath, animated: true, scrollPosition: UITableViewScrollPosition.None)
+        }
+        
+    }
+    
+    
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+        picker.dismissViewControllerAnimated(true, completion: nil)
+        ToastManager.sharedInstance.presentInfo("Загружаем документ в ВК")
+        Dispatch.defaultQueue { () -> () in
+            let referenceUrl = info[UIImagePickerControllerReferenceURL] as! NSURL
+            ALAssetsLibrary().assetForURL(referenceUrl, resultBlock: { (asset) in
+                let fileName = asset.defaultRepresentation().filename()
+                let path = NSTemporaryDirectory() + fileName
+                if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+                    let data = UIImagePNGRepresentation(image)!
+                    data.writeToFile(path, atomically: false)
+                    self.uploadMediaFile(path, fileName: fileName)
+
+                } else if let videoUrl = info[UIImagePickerControllerMediaURL] as? NSURL {
+                    let urlString = videoUrl.absoluteString.componentsSeparatedByString("file://").last!
+                    let data = NSData(contentsOfFile: urlString)!
+                    data.writeToFile(path, atomically: false)
+                    self.uploadMediaFile(path, fileName: fileName)
+                }
+                }, failureBlock: { (error) in
+                    if let newError = self.serviceLayer.uploadDocsService.createError(error) {
+                        self.handleError(newError)
+                    }
+            })
+        }
+    }
+    
+    func uploadMediaFile(path: String, fileName: String) {
+        self.serviceLayer.uploadDocsService.uploadDocument(path, documentName: fileName, completion: { () -> Void in
+            ToastManager.sharedInstance.presentInfo("Документ загружен")
+            self.refreshTableViewData()
+            }, progress: { (totalUploaded, bytesToUpload) -> Void in
+                print("PROGRESS", totalUploaded, bytesToUpload)
+        }) { (error) -> Void in
+            self.handleError(error)
+        }
+    }
+    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         Bash.cd(currentPath)
+        
+        //фиксит проблему, когда pull-to-refresh залезает под tableView
+        pullToRefreshControl.beginRefreshing()
+        pullToRefreshControl.endRefreshing()
         
         currentDataSource.updateCache()
         self.tableView.reloadData()
@@ -117,12 +191,12 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
         }
     }
     
-    func refresh(refreshEnded: () -> Void) {
+    func refreshTableViewData(refreshEnded: (() -> Void)? = nil) {
         currentDataSource.refresh({ () -> Void in
-            refreshEnded()
+            refreshEnded?()
             self.tableView.reloadData()
             }, refreshFailed: { (error) -> Void in
-                refreshEnded()
+                refreshEnded?()
                 self.handleError(error)
         })
     }
@@ -145,24 +219,36 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
                 x: navBarFrame.origin.x,
                 y: navBarFrame.origin.y - UIApplication.sharedApplication().statusBarFrame.height,
                 width: navBarFrame.width,
-                height: navBarFrame.height
+                height: navBarFrame.height - 2 // -2 для прогресс бара загрузки
             )
-            docPickerNavBarOverlay.presentAnimated(newFrame, view: self.navigationController!.navigationBar)
             
             let tabBarFrame = self.tabBarController!.tabBar.frame
-            if isRootViewController {
-                docPickerTabBarOverlay.moveButton.hidden = true
+            if !isRootViewController {
+                navigationItem.hidesBackButton = true
             }
+            
+            let itemsCount = tableView.indexPathsForSelectedRows?.count ?? 0
+            
+            docPickerNavBarOverlay.titleLabel.text = "Выбрано: \(itemsCount)"
+            docPickerTabBarOverlay.changeButtonsState(itemsCount, isRootViewController: isRootViewController)
+
+            docPickerNavBarOverlay.presentAnimated(newFrame, view: self.navigationController!.navigationBar)
             docPickerTabBarOverlay.presentAnimated(tabBarFrame, view: self.tabBarController!.view)
         } else {
+            if isRootViewController == false {
+                navigationItem.hidesBackButton = false
+            }
             docPickerNavBarOverlay.dismissAnimated()
             docPickerTabBarOverlay.dismissAnimated()
+            docPickerNavBarOverlay.titleLabel.text = "Выбрано: 0"
         }
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if tableView.editing {
-            self.docPickerNavBarOverlay.titleLabel.text = "Выбрано: \(tableView.indexPathsForSelectedRows!.count)"
+            let itemsCount = tableView.indexPathsForSelectedRows!.count
+            docPickerNavBarOverlay.titleLabel.text = "Выбрано: \(itemsCount)"
+            docPickerTabBarOverlay.changeButtonsState(itemsCount, isRootViewController: isRootViewController)
             return
         }
         
@@ -198,8 +284,9 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
     
     func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
         if tableView.editing {
-            self.docPickerNavBarOverlay.titleLabel.text = "Выбрано: \(tableView.indexPathsForSelectedRows?.count ?? 0)"
-            tableView.style
+            let itemsCount = tableView.indexPathsForSelectedRows?.count ?? 0
+            docPickerNavBarOverlay.titleLabel.text = "Выбрано: \(itemsCount)"
+            docPickerTabBarOverlay.changeButtonsState(itemsCount, isRootViewController: isRootViewController)
         }
     }
     
@@ -227,7 +314,7 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
     }
     
     func pullToRefreshActivated() {
-        self.refresh { () -> Void in
+        self.refreshTableViewData() { () -> Void in
             self.pullToRefreshControl.endRefreshing()
         }
     }
@@ -267,8 +354,13 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
     }
     
     func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+        if let ds = currentDataSource as? SearchDataSource {
+            ds.vkSearchResults = []
+            ds.savedDocumentsResult = []
+        }
         currentDataSource = vkDocumentsDataSource
-        refresh { () -> Void in}
+        refreshTableViewData()
+        
         searchBar.setShowsCancelButton(false, animated: true)
         searchBar.text = ""
         searchBar.resignFirstResponder()
@@ -276,23 +368,23 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
         self.navigationItem.rightBarButtonItem = self.navigationBarButtons.1
     }
     
-//    func cellButtonPressed(notification: NSNotification) {
-//        let button = notification.object as! UIButton
-//        
+    func cellButtonPressed(notification: NSNotification) {
+        let button = notification.object as! UIButton
+        loadButtonPressed(button)
 //        let buttonPosition = button.convertPoint(CGPointZero, toView: self.tableView)
 //        let indexPath = self.tableView.indexPathForRowAtPoint(buttonPosition)!
-//    }
+    }
     
     @IBAction func loadButtonPressed(sender: AnyObject) {
-        
         let buttonPosition = (sender as! UIButton).convertPoint(CGPointZero, toView: self.tableView)
         let indexPath = self.tableView.indexPathForRowAtPoint(buttonPosition)!
         
-        if let _ = currentDataSource as? SearchDataSource {
+        if let ds = currentDataSource as? SearchDataSource {
             self.serviceLayer.docsService.addDocumentToUser(searchDataSource.vkSearchResults[indexPath.row], completion: { (newDocumentId) -> Void in
-                //code
+                ds.removeVkSearchElement(indexPath, from: self.tableView)
+                ToastManager.sharedInstance.presentInfo("Документ добавлен")
                 }, failure: { (error) -> Void in
-                    print(error)
+                    self.handleError(error)
             })
             return
         }
@@ -314,6 +406,7 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
         self.serviceLayer.docsService.downloadDocument(doc, progress: { (totalRead, bytesToRead) -> Void in
             }, completion: { (document) -> Void in
             }) { (error) -> Void in
+                self.handleError(error)
         }
         self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.None)
         print("buttPressed", doc.title)
@@ -321,16 +414,7 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
     
     @IBAction func optionsButtonPressed(sender: AnyObject) {
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
-        let cancelAction = UIAlertAction(title: "Отмена", style: .Cancel) { (action) -> Void in}
-        let sortByNameAction = UIAlertAction(title: "Сортировать по имени", style: .Default) { (action) -> Void in
-            
-        }
-        let sortByDateAction = UIAlertAction(title: "Сортировать по дате", style: .Default) { (action) -> Void in
-            
-        }
-        let sortBySizeAction = UIAlertAction(title: "Сортировать по размеру", style: .Default) { (action) -> Void in
-            
-        }
+        let cancelAction = UIAlertAction(title: "Отмена", style: .Cancel, handler: nil)
         let createFolderAction = UIAlertAction(title: "Создать папку", style: .Default) { (action) -> Void in
             self.performSegueWithIdentifier(Const.StoryboardSegues.createFolder, sender: nil)
         }
@@ -346,9 +430,10 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
         if !isRootViewController {
             actionSheet.addAction(addFileToFolderAction)
         }
-        actionSheet.addAction(sortByNameAction)
-        actionSheet.addAction(sortByDateAction)
-        actionSheet.addAction(sortBySizeAction)
+        //TODO: если останется время
+//        actionSheet.addAction(sortByNameAction)
+//        actionSheet.addAction(sortByDateAction)
+//        actionSheet.addAction(sortBySizeAction)
         actionSheet.addAction(createFolderAction)
         actionSheet.addAction(chooseElementsAction)
 
@@ -383,7 +468,6 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
         
         let alert = UIAlertController(title: "Удалить из ВК?", message: "Вы точно хотите это удалить?", preferredStyle: .Alert)
         let yesAction = UIAlertAction(title: "Да", style: .Destructive) { (action) -> Void in
-            //TODO: добавить проверку и блокировкать кнопку, если ничего не выбрано
             
             //TODO: тут обязательно нужен спиннер
             self.currentDataSource.deleteElements(indexPaths, completion: { () -> Void in
@@ -401,6 +485,7 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
         
         presentViewController(alert, animated: true, completion: nil)
     }
+    
     // Вызывается только с FolderDataSource
     func docPickerMoveButtonPressed(sender: AnyObject?) {
         let indexPaths = self.tableView.indexPathsForSelectedRows!
@@ -466,4 +551,10 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
         self.presentViewController(navControllerVc, animated: true, completion: nil)
     }
     
+    @IBAction func addDocumentButtonPressed(sender: AnyObject) {
+        
+        //TODO: добавить проверку, если сейчас уже что-то загружается
+        
+        presentViewController(imagePicker, animated: true, completion: nil)
+    }
 }

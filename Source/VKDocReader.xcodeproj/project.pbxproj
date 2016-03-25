@@ -15,6 +15,9 @@
 		5715AE811C8BB5560074C59F /* Dispatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5715AE801C8BB5560074C59F /* Dispatch.swift */; };
 		575980F41C8F47DF009A9460 /* DocsParameterBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575980F31C8F47DF009A9460 /* DocsParameterBuilder.swift */; };
 		57687F861C8F32EE0037AF4F /* Bash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57687F851C8F32EE0037AF4F /* Bash.swift */; };
+		577047DC1CA1DC8600A2CA98 /* SizeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577047DB1CA1DC8600A2CA98 /* SizeFormatter.swift */; };
+		577047DE1CA1EFE000A2CA98 /* FolderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 577047DD1CA1EFE000A2CA98 /* FolderCell.xib */; };
+		577047E01CA2227E00A2CA98 /* UploadDocumentsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577047DF1CA2227E00A2CA98 /* UploadDocumentsService.swift */; };
 		5775CE941C98CE3F00D2C113 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5775CE931C98CE3F00D2C113 /* Reachability.swift */; };
 		578257D51C8AFA6F003C3568 /* VKDocReaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578257D41C8AFA6F003C3568 /* VKDocReaderTests.swift */; };
 		578257E01C8AFA6F003C3568 /* VKDocReaderUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578257DF1C8AFA6F003C3568 /* VKDocReaderUITests.swift */; };
@@ -33,7 +36,6 @@
 		57ADB19E1C9DF25E001E0766 /* DocumentsPickerTabBarOverlay.xib in Resources */ = {isa = PBXBuildFile; fileRef = 57ADB19D1C9DF25E001E0766 /* DocumentsPickerTabBarOverlay.xib */; };
 		57ADB1A01C9DF265001E0766 /* DocumentsPickerTabBarOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57ADB19F1C9DF265001E0766 /* DocumentsPickerTabBarOverlay.swift */; };
 		57ADB1A21C9EC47A001E0766 /* MoveCopyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57ADB1A11C9EC47A001E0766 /* MoveCopyViewController.swift */; };
-		57ADB1A41C9F0496001E0766 /* Window.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57ADB1A31C9F0496001E0766 /* Window.swift */; };
 		57ADB1A61C9F215E001E0766 /* ToastManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57ADB1A51C9F215E001E0766 /* ToastManager.swift */; };
 		57ADB1AB1C9F3063001E0766 /* Lucida Grande.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 57ADB1AA1C9F3063001E0766 /* Lucida Grande.ttf */; };
 		57ADB1B01C9F3B5D001E0766 /* UIColors+VKColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57ADB1AF1C9F3B5D001E0766 /* UIColors+VKColors.swift */; };
@@ -116,6 +118,9 @@
 		5715AE801C8BB5560074C59F /* Dispatch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Dispatch.swift; path = Helpers/Dispatch.swift; sourceTree = "<group>"; };
 		575980F31C8F47DF009A9460 /* DocsParameterBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DocsParameterBuilder.swift; path = ParameterBuilders/DocsParameterBuilder.swift; sourceTree = "<group>"; };
 		57687F851C8F32EE0037AF4F /* Bash.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Bash.swift; path = Helpers/Bash.swift; sourceTree = "<group>"; };
+		577047DB1CA1DC8600A2CA98 /* SizeFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SizeFormatter.swift; path = Helpers/SizeFormatter.swift; sourceTree = "<group>"; };
+		577047DD1CA1EFE000A2CA98 /* FolderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FolderCell.xib; sourceTree = "<group>"; };
+		577047DF1CA2227E00A2CA98 /* UploadDocumentsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadDocumentsService.swift; sourceTree = "<group>"; };
 		5775CE931C98CE3F00D2C113 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Reachability.swift; path = ThirdParty/Reachability.swift; sourceTree = "<group>"; };
 		578257BC1C8AFA6F003C3568 /* VKDocReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VKDocReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		578257D01C8AFA6F003C3568 /* VKDocReaderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VKDocReaderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -140,7 +145,6 @@
 		57ADB19D1C9DF25E001E0766 /* DocumentsPickerTabBarOverlay.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DocumentsPickerTabBarOverlay.xib; sourceTree = "<group>"; };
 		57ADB19F1C9DF265001E0766 /* DocumentsPickerTabBarOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentsPickerTabBarOverlay.swift; sourceTree = "<group>"; };
 		57ADB1A11C9EC47A001E0766 /* MoveCopyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoveCopyViewController.swift; sourceTree = "<group>"; };
-		57ADB1A31C9F0496001E0766 /* Window.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Window.swift; sourceTree = "<group>"; };
 		57ADB1A51C9F215E001E0766 /* ToastManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToastManager.swift; sourceTree = "<group>"; };
 		57ADB1AA1C9F3063001E0766 /* Lucida Grande.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lucida Grande.ttf"; sourceTree = "<group>"; };
 		57ADB1AF1C9F3B5D001E0766 /* UIColors+VKColors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColors+VKColors.swift"; sourceTree = "<group>"; };
@@ -218,6 +222,7 @@
 				5795DD5F1C8C9D8F0008DFA1 /* Error.swift */,
 				5795DD5D1C8C9D750008DFA1 /* DateFormatter.swift */,
 				57687F851C8F32EE0037AF4F /* Bash.swift */,
+				577047DB1CA1DC8600A2CA98 /* SizeFormatter.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -326,6 +331,7 @@
 				57AF969B1C8B571D00E924C3 /* DocsService.swift */,
 				5715AE7D1C8B863F0074C59F /* ImageService.swift */,
 				5795DD611C8CC9450008DFA1 /* UserService.swift */,
+				577047DF1CA2227E00A2CA98 /* UploadDocumentsService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -442,7 +448,6 @@
 				57E2041C1C9C8C7B009B3033 /* View.swift */,
 				57E2041D1C9C8C7B009B3033 /* ViewController.swift */,
 				57E204361C9C9431009B3033 /* UITableViewDataSource+Refresh.swift */,
-				57ADB1A31C9F0496001E0766 /* Window.swift */,
 				57ADB1A51C9F215E001E0766 /* ToastManager.swift */,
 			);
 			path = Common;
@@ -453,12 +458,13 @@
 			children = (
 				57E2041F1C9C8C7B009B3033 /* DocumentPreviewViewController.swift */,
 				57E204201C9C8C7B009B3033 /* SearchDataSource.swift */,
-				57E204211C9C8C7B009B3033 /* UserDocsTableViewCell.swift */,
 				57E204221C9C8C7B009B3033 /* UserDocsViewController.swift */,
 				57E204231C9C8C7B009B3033 /* UserDocsDataSource.swift */,
 				57E204341C9C8EF8009B3033 /* CreateFolderViewController.swift */,
+				577047DD1CA1EFE000A2CA98 /* FolderCell.xib */,
 				57E204381C9C9818009B3033 /* FolderCell.swift */,
 				5703FA4E1C9CC5A000C84F60 /* UserDocsTableViewCell.xib */,
+				57E204211C9C8C7B009B3033 /* UserDocsTableViewCell.swift */,
 				5703FA501C9D9A6C00C84F60 /* FolderDataSource.swift */,
 				5703FA521C9DDDFD00C84F60 /* DocumentsPickerNavBarOverlay.xib */,
 				5703FA541C9DDF2B00C84F60 /* DocumentsPickerNavBarOverlay.swift */,
@@ -508,6 +514,7 @@
 				3CB6EBB3422A33E5D675C771 /* Embed Pods Frameworks */,
 				9FBF5330EFEEA31D342EC31E /* Copy Pods Resources */,
 				57AF2CB01C97578600C5A193 /* Embed App Extensions */,
+				577047DA1CA1C91A00A2CA98 /* Crashlitycs */,
 			);
 			buildRules = (
 			);
@@ -590,9 +597,12 @@
 								enabled = 1;
 							};
 							com.apple.BackgroundModes = {
-								enabled = 0;
+								enabled = 1;
 							};
 							com.apple.Maps.iOS = {
+								enabled = 0;
+							};
+							com.apple.iCloud = {
 								enabled = 0;
 							};
 						};
@@ -607,6 +617,7 @@
 					};
 					57AF2CA11C97578600C5A193 = {
 						CreatedOnToolsVersion = 7.2.1;
+						DevelopmentTeam = SH46XG936M;
 					};
 				};
 			};
@@ -637,6 +648,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				57ADB1B71C9F4DE3001E0766 /* Open Sans.ttf in Resources */,
+				577047DE1CA1EFE000A2CA98 /* FolderCell.xib in Resources */,
 				5703FA531C9DDDFD00C84F60 /* DocumentsPickerNavBarOverlay.xib in Resources */,
 				57E204321C9C8C7B009B3033 /* Main.storyboard in Resources */,
 				57ADB1AB1C9F3063001E0766 /* Lucida Grande.ttf in Resources */,
@@ -687,6 +699,20 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-VKDocReader/Pods-VKDocReader-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		577047DA1CA1C91A00A2CA98 /* Crashlitycs */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = Crashlitycs;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" e57fc7fbe910fd50ffe3e5a4483ba7b35cad90b0 7a966c5a723be6355ec1c0ad479663e8624c1fe69f61e197d1c74ded77d2a015";
+		};
 		9FBF5330EFEEA31D342EC31E /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -729,6 +755,7 @@
 				57E204371C9C9431009B3033 /* UITableViewDataSource+Refresh.swift in Sources */,
 				57E2042F1C9C8C7B009B3033 /* UserDocsTableViewCell.swift in Sources */,
 				57E204331C9C8C7B009B3033 /* SettingsViewController.swift in Sources */,
+				577047E01CA2227E00A2CA98 /* UploadDocumentsService.swift in Sources */,
 				57E204271C9C8C7B009B3033 /* AuthViewController.swift in Sources */,
 				57E204301C9C8C7B009B3033 /* UserDocsViewController.swift in Sources */,
 				57E2042E1C9C8C7B009B3033 /* SearchDataSource.swift in Sources */,
@@ -753,8 +780,8 @@
 				5795DD621C8CC9450008DFA1 /* UserService.swift in Sources */,
 				57ADB1B21C9F3F21001E0766 /* UIFont+VKFont.swift in Sources */,
 				57E204311C9C8C7B009B3033 /* UserDocsDataSource.swift in Sources */,
-				57ADB1A41C9F0496001E0766 /* Window.swift in Sources */,
 				57ADB1A01C9DF265001E0766 /* DocumentsPickerTabBarOverlay.swift in Sources */,
+				577047DC1CA1DC8600A2CA98 /* SizeFormatter.swift in Sources */,
 				5775CE941C98CE3F00D2C113 /* Reachability.swift in Sources */,
 				5715AE7E1C8B863F0074C59F /* ImageService.swift in Sources */,
 				5795DD601C8C9D8F0008DFA1 /* Error.swift in Sources */,
@@ -919,6 +946,7 @@
 				CODE_SIGN_ENTITLEMENTS = VKDocReader/VKDocReader.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = VKDocReader/Other/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -926,6 +954,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = ru.yaryabu.VKDocReader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 1;
 				WARNING_CFLAGS = (
 					"-Wextra",
 					"-Wall",
@@ -948,6 +977,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = ru.yaryabu.VKDocReader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 1;
 				WARNING_CFLAGS = (
 					"-Wextra",
 					"-Wall",
@@ -1006,11 +1036,14 @@
 		57AF2CAE1C97578600C5A193 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = ShareExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ru.yaryabu.VKDocReader.ShareUpload;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -1018,11 +1051,14 @@
 		57AF2CAF1C97578600C5A193 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = ShareExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ru.yaryabu.VKDocReader.ShareUpload;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
 			};
 			name = Release;

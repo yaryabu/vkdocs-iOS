@@ -54,12 +54,10 @@ class FolderDataSource: NSObject, DataSource {
         
         if elements[indexPath.row].containsString(Const.Common.directoryConflictHelper) {
             let cell = tableView.dequeueReusableCellWithIdentifier(UserDocsTableViewCell.cellIdentifier, forIndexPath: indexPath) as! UserDocsTableViewCell
-            cell.configureCell(documentByFileName(elements[indexPath.row]), isSearchResult: false)
-            if let _ = tableView.delegate as? MoveCopyViewController {
-                cell.loadButton.removeFromSuperview()
-//                cell.loadButton.hidden = true
-//                cell.loadButton.enabled = false
-            }
+            
+            let shouldHideButton = tableView.delegate as? MoveCopyViewController != nil
+            
+            cell.configureCell(documentByFileName(elements[indexPath.row]), isSearchResult: false, hideButton: shouldHideButton)
             return cell
         } else {
             let cell = tableView.dequeueReusableCellWithIdentifier(FolderCell.cellIdentifier, forIndexPath: indexPath) as! FolderCell
@@ -89,7 +87,8 @@ class FolderDataSource: NSObject, DataSource {
             return true
         }
     }
-
+    
+    //TODO: эта штука будет падать, если не чистить весь fileSystem после удаления из вк
     private func documentByFileName(fileName: String) -> Document {
         let realm = try! Realm()
         let docId = fileName.componentsSeparatedByString(Const.Common.directoryConflictHelper)[0]

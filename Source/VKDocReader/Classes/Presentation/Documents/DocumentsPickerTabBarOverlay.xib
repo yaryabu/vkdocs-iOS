@@ -4,6 +4,13 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="Lucida Grande.ttf">
+            <string>LucidaGrande</string>
+            <string>LucidaGrande</string>
+            <string>LucidaGrande</string>
+        </mutableArray>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -11,33 +18,50 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="62"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BvS-jV-Muo">
-                    <rect key="frame" x="0.0" y="0.0" width="200" height="62"/>
-                    <state key="normal" title="Удалить"/>
+                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" horizontalCompressionResistancePriority="1" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BvS-jV-Muo">
+                    <rect key="frame" x="8" y="0.0" width="66" height="62"/>
+                    <fontDescription key="fontDescription" name="LucidaGrande" family="Lucida Grande" pointSize="16"/>
+                    <state key="normal" title="Удалить">
+                        <color key="titleColor" red="0.98823529481887817" green="0.36078432202339172" blue="0.36078432202339172" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                    </state>
+                    <state key="disabled">
+                        <color key="titleColor" red="0.75294119120000003" green="0.8156862855" blue="0.85882353779999998" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                    </state>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kaP-9U-MF8">
-                    <rect key="frame" x="200" y="0.0" width="200" height="62"/>
-                    <state key="normal" title="Переместить"/>
+                <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kaP-9U-MF8">
+                    <rect key="frame" x="74" y="0.0" width="263" height="62"/>
+                    <fontDescription key="fontDescription" name="LucidaGrande" family="Lucida Grande" pointSize="16"/>
+                    <state key="normal" title="Переместить">
+                        <color key="titleColor" red="0.20000000298023224" green="0.20000000298023224" blue="0.20000000298023224" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                    </state>
+                    <state key="disabled">
+                        <color key="titleColor" red="0.75294119119644165" green="0.81568628549575806" blue="0.85882353782653809" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                    </state>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nqS-Sn-FE0">
-                    <rect key="frame" x="400" y="0.0" width="200" height="62"/>
-                    <state key="normal" title="Скопировать"/>
+                <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nqS-Sn-FE0">
+                    <rect key="frame" x="337" y="0.0" width="263" height="62"/>
+                    <fontDescription key="fontDescription" name="LucidaGrande" family="Lucida Grande" pointSize="16"/>
+                    <state key="normal" title="Скопировать">
+                        <color key="titleColor" red="0.0" green="0.62745100259780884" blue="0.40000000596046448" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                    </state>
+                    <state key="disabled">
+                        <color key="titleColor" red="0.75294119120000003" green="0.8156862855" blue="0.85882353779999998" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                    </state>
                 </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="nqS-Sn-FE0" firstAttribute="leading" secondItem="kaP-9U-MF8" secondAttribute="trailing" id="90q-Ez-FGZ"/>
-                <constraint firstItem="kaP-9U-MF8" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="9eJ-6K-Emv"/>
-                <constraint firstItem="BvS-jV-Muo" firstAttribute="width" secondItem="kaP-9U-MF8" secondAttribute="width" id="GF2-2f-f2l"/>
-                <constraint firstItem="nqS-Sn-FE0" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="JfS-iG-Ne1"/>
-                <constraint firstItem="kaP-9U-MF8" firstAttribute="leading" secondItem="BvS-jV-Muo" secondAttribute="trailing" id="Ryi-x1-wrd"/>
-                <constraint firstAttribute="bottom" secondItem="BvS-jV-Muo" secondAttribute="bottom" id="WrL-PZ-fRX"/>
-                <constraint firstItem="BvS-jV-Muo" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Xz1-E6-TPF"/>
-                <constraint firstAttribute="bottom" secondItem="nqS-Sn-FE0" secondAttribute="bottom" id="j6f-Sv-RBt"/>
-                <constraint firstItem="BvS-jV-Muo" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="ldk-8v-ZZj"/>
-                <constraint firstAttribute="bottom" secondItem="kaP-9U-MF8" secondAttribute="bottom" id="osJ-0g-gtK"/>
-                <constraint firstAttribute="trailing" secondItem="nqS-Sn-FE0" secondAttribute="trailing" id="tyV-Gc-6im"/>
-                <constraint firstItem="nqS-Sn-FE0" firstAttribute="width" secondItem="kaP-9U-MF8" secondAttribute="width" id="xrb-bk-OUo"/>
+                <constraint firstAttribute="trailing" secondItem="nqS-Sn-FE0" secondAttribute="trailing" id="0Ge-Oo-rmO"/>
+                <constraint firstItem="kaP-9U-MF8" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Gve-Ch-FMj"/>
+                <constraint firstAttribute="bottom" secondItem="nqS-Sn-FE0" secondAttribute="bottom" id="HA7-YL-FnR"/>
+                <constraint firstItem="nqS-Sn-FE0" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Xs5-LQ-dZg"/>
+                <constraint firstItem="BvS-jV-Muo" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="YfH-FI-taq"/>
+                <constraint firstItem="nqS-Sn-FE0" firstAttribute="leading" secondItem="kaP-9U-MF8" secondAttribute="trailing" id="jAq-n4-Yqs"/>
+                <constraint firstItem="kaP-9U-MF8" firstAttribute="leading" secondItem="BvS-jV-Muo" secondAttribute="trailing" id="lpg-MN-194"/>
+                <constraint firstItem="kaP-9U-MF8" firstAttribute="width" secondItem="nqS-Sn-FE0" secondAttribute="width" id="oDO-cG-zeG"/>
+                <constraint firstItem="BvS-jV-Muo" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="sW6-JH-0vB"/>
+                <constraint firstAttribute="bottom" secondItem="kaP-9U-MF8" secondAttribute="bottom" id="wLH-6Q-GRJ"/>
+                <constraint firstAttribute="bottom" secondItem="BvS-jV-Muo" secondAttribute="bottom" id="zZf-Fe-fBy"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <nil key="simulatedTopBarMetrics"/>

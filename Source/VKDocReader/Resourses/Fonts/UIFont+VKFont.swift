@@ -8,6 +8,7 @@
 
 import UIKit
 
+//TODO: сделать нормальные имена. А-ля "vkA1Font", "vkA3Font" итд
 extension UIFont {
     class func tabBarFont() -> UIFont {
         return UIFont(name: "Lucida Grande", size: 16)!
@@ -26,7 +27,7 @@ extension UIFont {
     }
     
     class func defaultFont() -> UIFont {
-        return UIFont(name: "Open Sans", size: 12)!
+        return UIFont(name: "Open Sans", size: 14)!
     }
     
 }

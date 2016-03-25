@@ -13,10 +13,32 @@ import RealmSwift
 
 class DocumentPreviewViewController: ViewController, QLPreviewControllerDataSource, QLPreviewControllerDelegate, UIDocumentInteractionControllerDelegate, UIGestureRecognizerDelegate {
     
-    @IBOutlet weak var loadingLabel: UILabel!
-    @IBOutlet var loadingView: UIView!
-    @IBOutlet weak var optionsButton: UIBarButtonItem!
+    @IBOutlet weak var percentLabel: UILabel!
+    @IBOutlet weak var kbytesLabel: UILabel! {
+        didSet {
+            kbytesLabel.text = ""
+        }
+    }
     
+    @IBOutlet var loadingView: UIView!
+    
+    @IBOutlet weak var cancelButton: UIBarButtonItem!
+    
+    lazy var optionsButton: UIBarButtonItem = {
+        let btn = UIBarButtonItem()
+        btn.target = self
+        btn.action = "optionsButtonPressed:"
+        btn.image = UIImage(named: "options_button.pdf")
+        return btn
+    }()
+    
+    @IBOutlet weak var progressBar: UIProgressView! {
+        didSet {
+            progressBar.layer.masksToBounds = true
+            progressBar.layer.cornerRadius = 3
+            progressBar.progress = 0.0
+        }
+    }
     var document: Document!
     
     let previewController = QLPreviewController()
@@ -36,6 +58,11 @@ class DocumentPreviewViewController: ViewController, QLPreviewControllerDataSour
     override func viewDidLoad() {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "statusBarTouched:", name: Const.Notifications.statusBarTouched, object: nil)
         super.viewDidLoad()
+        if self.document.tempPath != nil || self.document.filePath != nil {
+            navigationItem.rightBarButtonItem = nil
+            navigationItem.setRightBarButtonItem(optionsButton, animated: false)
+//            navigationItem.rightBarButtonItem = optionsButton
+        }
         self.navigationItem.title = self.document.title
         self.weakNC = self.navigationController as! NavigationController
 //        print("TETETE.txt", QLPreviewController.canPreviewItem(NSURL(fileURLWithPath: "TETETE.txt")))
@@ -57,6 +84,10 @@ class DocumentPreviewViewController: ViewController, QLPreviewControllerDataSour
 //        )
 
         self.previewDocument()
+    }
+    
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.All
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -96,13 +127,16 @@ class DocumentPreviewViewController: ViewController, QLPreviewControllerDataSour
             self.previewController.reloadData()
         } else {
             self.serviceLayer.docsService.downloadDocument(self.document, progress: {(totalRead, totalSize) -> Void in
-                let percent = Int((Double(totalRead)/Double(totalSize))*100)
-                self.loadingLabel.text = "\(percent) %\n \(totalRead/1024) КБ/\(totalSize/1024) КБ"
+                let percent10k = Double(totalRead)/Double(totalSize)
+                self.percentLabel.text = String(Int(percent10k*100)) + " %"
+                self.kbytesLabel.text = "\(totalRead/1024) КБ/\(totalSize/1024) КБ"
+                self.progressBar.progress = Float(percent10k)
                 }, completion: { (document) -> Void in
                     self.document = document
                     if self.serviceLayer.userSettingsService.deleteDocumentsAfterPreview || self.document.isSearchResult {
                         self.document.moveToTempDir()
                     }
+                    self.navigationItem.rightBarButtonItem = self.optionsButton
                     self.loadingView.removeFromSuperview()
                     self.view.addSubview(self.previewController.view)
                     self.previewController.reloadData()
@@ -155,7 +189,7 @@ class DocumentPreviewViewController: ViewController, QLPreviewControllerDataSour
         }
     }
     
-    @IBAction func optionsButtonPressed(sender: AnyObject) {
+    func optionsButtonPressed(sender: AnyObject) {
         if self.document.filePath == nil && self.document.tempPath == nil {
             return
         }
@@ -165,6 +199,20 @@ class DocumentPreviewViewController: ViewController, QLPreviewControllerDataSour
         let saveAction = UIAlertAction(title: "Сохранить", style: .Default) { (action) -> Void in
             let name = self.document.tempPath!.componentsSeparatedByString("/").last!
             Bash.mv(self.document.tempPath!, to: self.document.fileDirectory + "/" + name)
+            let realm = try! Realm()
+            if realm.objects(Document).filter("id == \"\(self.document.id)\"").first == nil {
+                self.serviceLayer.docsService.addDocumentToUser(self.document, completion: { (newDocumentId) -> Void in
+                    try! realm.write({ () -> Void in
+                        realm.add(self.document)
+                    })
+                    self.document.isSearchResult = false
+                    ToastManager.sharedInstance.presentInfo("Документ добавлен")
+                    }, failure: { (error) -> Void in
+                        self.handleError(error)
+                })
+            } else {
+                ToastManager.sharedInstance.presentInfo("Сохранено")
+            }
         }
         let addToFolderAction = UIAlertAction(title: "Добавить в папку", style: .Default) { (action) -> Void in
             let navControllerVc = self.storyboard!.instantiateViewControllerWithIdentifier(Const.StoryboardIDs.moveCopyViewControllerNavigationController) as! NavigationController
@@ -176,15 +224,9 @@ class DocumentPreviewViewController: ViewController, QLPreviewControllerDataSour
             self.presentViewController(navControllerVc, animated: true, completion: nil)
         }
         let shareAction = UIAlertAction(title: "Отправить", style: .Default) { (action) -> Void in
-            let acVC = UIActivityViewController(activityItems: [NSData(contentsOfFile: self.document.filePath!)!], applicationActivities:nil)
-            self.presentViewController(acVC, animated: true, completion: nil)
-            let getLinkActivity = UIActivity()
-            getLinkActivity.activityTitle()
-            //        self.weakNC.presentViewController(acVC, animated: true, completion: nil)
-            
-            //        self.documentInteractionsController.URL = NSURL(fileURLWithPath: self.document.filePath ?? "")
-            //        self.documentInteractionsController.presentOptionsMenuFromBarButtonItem(self.shareButton, animated: true)
-            //        self.documentInteractionsController
+            actionSheet.dismissViewControllerAnimated(false, completion: nil)
+            self.documentInteractionsController.URL = NSURL(fileURLWithPath: self.document.filePath ?? "")
+            self.documentInteractionsController.presentOptionsMenuFromBarButtonItem(self.optionsButton, animated: true)
         }
         let copyLinkAction = UIAlertAction(title: "Копировать ссылку", style: .Default) { (action) -> Void in
             UIPasteboard.generalPasteboard().string = self.document.urlString
@@ -193,14 +235,20 @@ class DocumentPreviewViewController: ViewController, QLPreviewControllerDataSour
         let deleteAction = UIAlertAction(title: "Удалить", style: .Destructive) { (action) -> Void in
             self.presentDeleteAlert()
         }
-        let cancelAction = UIAlertAction(title: "Отмена", style: .Cancel) { (action) -> Void in}
+        let cancelAction = UIAlertAction(title: "Отмена", style: .Cancel, handler: nil)
+        
         if self.document.tempPath != nil {
             actionSheet.addAction(saveAction)
         }
-        actionSheet.addAction(addToFolderAction)
+        if document.isSearchResult == false {
+            actionSheet.addAction(addToFolderAction)
+        }
         actionSheet.addAction(copyLinkAction)
         actionSheet.addAction(shareAction)
-        actionSheet.addAction(deleteAction)
+        if document.isSearchResult == false {
+            actionSheet.addAction(deleteAction)
+        }
+        
         actionSheet.addAction(cancelAction)
         
         presentViewController(actionSheet, animated: true, completion: nil)
@@ -208,7 +256,7 @@ class DocumentPreviewViewController: ViewController, QLPreviewControllerDataSour
     
     func presentDeleteAlert() {
         let alert = UIAlertController(title: "Удалить", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
-        let cancelAction = UIAlertAction(title: "Отмена", style: .Cancel) { (action) -> Void in}
+        let cancelAction = UIAlertAction(title: "Отмена", style: .Cancel, handler: nil)
         let deleteCompletelyAction = UIAlertAction(title: "Удалить из ВК", style: .Default) { (action) -> Void in
             ServiceLayer.sharedServiceLayer.docsService.deleteDocumentFromUser(self.document, completion: { () -> Void in
                 self.document.deleteDocument()
@@ -231,6 +279,7 @@ class DocumentPreviewViewController: ViewController, QLPreviewControllerDataSour
     
     @IBAction func cancelButtonPressed(sender: AnyObject) {
         self.serviceLayer.docsService.cancelDownload(self.document)
+        ToastManager.sharedInstance.presentError(Error(code: 0, message: "Загрузка отменена"))
         self.weakNC.popToRootViewControllerAnimated(true)
     }
     

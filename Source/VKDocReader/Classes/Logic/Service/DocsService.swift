@@ -102,6 +102,23 @@ class DocsService: Service {
             return
         }
         
+        let reachability: Reachability
+        do {
+            reachability = try Reachability.reachabilityForInternetConnection()
+        } catch {
+            Dispatch.mainQueue({ () -> () in
+                failure(error: Error(code: -10, message: "Зafsdfaах"))
+            })
+            return
+        }
+        if reachability.isReachable() == false {
+            Dispatch.mainQueue({ () -> () in
+                failure(error: Error(code: -10, message: "qqqqq"))
+            })
+            return
+        }
+        
+        
         if self.userSettingsSerivce.isCurrentConnectionCellular {
             if self.userSettingsSerivce.useWifiOnly {
                 Dispatch.mainQueue({ () -> () in
@@ -111,7 +128,7 @@ class DocsService: Service {
             }
         }
         
-        self.transport.downloadFile(document.urlString, fileDirectory: document.fileDirectory, fileExtension: document.ext, progress: { (totalRead, bytesToRead) -> Void in
+        self.loadTaskManager.downloadFile(document.urlString, fileDirectory: document.fileDirectory, fileExtension: document.ext, progress: { (totalRead, bytesToRead) -> Void in
             Dispatch.mainQueue({ () -> () in
                 progress(totalRead: totalRead, bytesToRead: bytesToRead)
             })
@@ -127,11 +144,11 @@ class DocsService: Service {
     }
     
     func downloadExists(document: Document) -> Bool {
-        return self.transport.requestForUrlExists(document.urlString)
+        return self.loadTaskManager.requestForUrlExists(document.urlString)
     }
     
     func cancelDownload(document: Document) {
-        self.transport.cancelFileDownload(document.urlString)
+        self.loadTaskManager.cancelFileDownload(document.urlString)
     }
     
     func searchDocuments(query: String, offset: Int, completion: ([Document]) -> Void, failure: (error: Error) -> Void) {

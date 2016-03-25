@@ -31,6 +31,15 @@ class SearchDataSource: NSObject, DataSource {
     
     func deleteElements(indexPaths: [NSIndexPath], completion: () -> Void, failure: (error: Error) -> Void) {}
     
+    func removeVkSearchElement(indexPath: NSIndexPath, from tableView: UITableView) {
+        if indexPath.section == 0 {
+            
+        } else {
+            vkSearchResults.removeAtIndex(indexPath.row)
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Bottom)
+        }
+    }
+    
     func startSearch(query: String, completion: () -> Void, failure: (error: Error) -> Void) {
         
         //нельзя отсылать на сервер пустые строки в get запросе
@@ -94,11 +103,11 @@ class SearchDataSource: NSObject, DataSource {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCellWithIdentifier(UserDocsTableViewCell.cellIdentifier, forIndexPath: indexPath) as! UserDocsTableViewCell
-            cell.configureCell(savedDocumentsResult[indexPath.row], isSearchResult: false)
+            cell.configureCell(savedDocumentsResult[indexPath.row], isSearchResult: false, hideButton: false)
             return cell
         } else {
             let cell = tableView.dequeueReusableCellWithIdentifier(UserDocsTableViewCell.cellIdentifier, forIndexPath: indexPath) as! UserDocsTableViewCell
-            cell.configureCell(vkSearchResults[indexPath.row], isSearchResult: true)
+            cell.configureCell(vkSearchResults[indexPath.row], isSearchResult: true, hideButton: false)
             return cell
         }
     }

@@ -27,7 +27,7 @@ class UserDocsTableViewCell: UITableViewCell {
     @IBOutlet weak var extensionLabel: UILabel!
     @IBOutlet weak var loadButton: UIButton!
     
-    func configureCell(document: Document, isSearchResult: Bool) {
+    func configureCell(document: Document, isSearchResult: Bool, hideButton: Bool) {
         self.titleLabel.text = document.title
         let dateString = DateFormatter().stringFromTimestamp(Int(document.date)!, formatString: self.dateFormat)
         self.sizeDateLabel.text = "\(Int(document.size)!/1000/1000) МБ, \(dateString)"
@@ -56,6 +56,13 @@ class UserDocsTableViewCell: UITableViewCell {
         
         if isSearchResult {
             self.loadButton.setTitle(loadButtonAddToUserText, forState: .Normal)
+            return
+        }
+        
+        if hideButton {
+            if loadButton != nil {
+                self.loadButton.removeFromSuperview()
+            }
             return
         }
         
