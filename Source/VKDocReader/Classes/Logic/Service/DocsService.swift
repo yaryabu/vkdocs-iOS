@@ -120,9 +120,16 @@ class DocsService: Service {
             return
         }
         
+        if try! Reachability.reachabilityForInternetConnection().isReachable() == false {
+            Dispatch.mainQueue({ () -> () in
+                failure(error: Error(code: 0, message: "Не удалось подключиться к интернету"))
+            })
+            return
+        }
+        
         if userSettingsSerivce.useWifiOnly && userSettingsSerivce.isCurrentConnectionCellular {
             Dispatch.mainQueue({ () -> () in
-                failure(error: Error(code: -10, message: "Загрузка через мобильный интернет запрещена в настройках"))
+                failure(error: Error(code: 0, message: "Загрузка через мобильный интернет запрещена в настройках"))
             })
             return
         }
