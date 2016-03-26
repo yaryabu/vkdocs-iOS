@@ -36,7 +36,6 @@ class Transport: Alamofire.Manager {
             switch response.result {
             case .Success:
                 if let value = response.result.value {
-                    print("transport", value)
                     Dispatch.defaultQueue({ () -> () in
                         let json = JSON(value)
                         completion(json: json)
@@ -166,28 +165,72 @@ class Transport: Alamofire.Manager {
 //    }
 }
 
+struct RequestPoolItem {
+    let requestUrl: String
+    let request: Request
+    
+    init(requestUrl: String, request: Request) {
+        self.requestUrl = requestUrl
+        self.request = request
+    }
+}
+
 //TODO: В отдельный файл
 class LoadTaskManager: Alamofire.Manager {
     static let sharedManager = LoadTaskManager()
-    private init() {
-        let config = NSURLSessionConfiguration.backgroundSessionConfigurationWithIdentifier("ouf'[ewuhfwae[huew[whe[hu[uhfhuoawfgouawu;")
-        super.init(configuration: config, delegate: Manager.SessionDelegate(), serverTrustPolicyManager: nil)
+    
+    var downloadRequestPool: [Request] {
+        didSet {
+            print("COUNT", downloadRequestPool.count)
+            if downloadRequestPool.count > 1 {
+                downloadRequestPool[0].resume()
+                downloadRequestPool[1].resume()
+                print("RESUME")
+            } else if downloadRequestPool.count == 1 {
+                print("RESUME 111")
+                downloadRequestPool[0].resume()
+            }
+        }
     }
     
-    var downloadRequestPool: [String:Request] = [:]
+    private init() {
+        downloadRequestPool = []
+        let config = NSURLSessionConfiguration.backgroundSessionConfigurationWithIdentifier("ouf'[ewuhfwae[huew[whe[hu[uhfhuoawfgouawu;")
+        super.init(configuration: config, delegate: Manager.SessionDelegate(), serverTrustPolicyManager: nil)
+//        delegate.taskWillPerformHTTPRedirection = nil
+        startRequestsImmediately = false
+    }
+    
+    func requestForUrlString(urlString: String) -> Request? {
+        for req in downloadRequestPool {
+            if req.request!.URLString == urlString {
+                return req
+            }
+        }
+        return nil
+    }
+    
+    func removeRequestWithUrlString(urlString: String) {
+        for req in downloadRequestPool {
+            if req.request!.URLString == urlString {
+                
+            }
+        }
+    }
     
     func downloadFile(urlString: String, fileDirectory: String, fileExtension: String, progress: (totalReadBytes: UInt, bytesToRead: UInt) -> Void, completion: (fileName: String, filePath: String) -> Void, failure: (error: NSError) -> Void) {
         
-        var downloadRequest: Request?
+        var downloadRequest: Request!
         
-        if self.downloadRequestPool[urlString] != nil {
-            downloadRequest = downloadRequestPool[urlString]
+        if let req = self.requestForUrlString(urlString) {
+            downloadRequest = req
         } else {
             downloadRequest = self.download(.GET, urlString, destination: {(temporaryUrl, response) -> NSURL in
                 let fileNamePath = self.computeFilePath(fileDirectory, fileExtension: fileExtension, suggestedFilename: response.suggestedFilename)
                 return NSURL(fileURLWithPath: fileNamePath.filePath)
             })
-            self.downloadRequestPool[urlString] = downloadRequest
+            self.downloadRequestPool.append(downloadRequest)
+//            self.downloadRequestPool[urlString] = downloadRequest
         }
         
         downloadRequest!
@@ -197,22 +240,28 @@ class LoadTaskManager: Alamofire.Manager {
             .response { (request, response, data, error) -> Void in
                 if (error != nil) {
                     failure(error: error!)
+                    print("ERROR", error)
+                    
                     self.cancelFileDownload(urlString)
+                    print("CANCEL FAIL", urlString)
                 } else {
                     let fileNamePath = self.computeFilePath(fileDirectory, fileExtension: fileExtension, suggestedFilename: response!.suggestedFilename)
                     completion(fileName: fileNamePath.fileName, filePath: fileNamePath.filePath)
+                    self.cancelFileDownload(urlString)
+                    print("CANCEL OK", urlString)
                 }
-                self.downloadRequestPool.removeValueForKey(urlString)
+            
         }
     }
     
     func uploadFile(serverUrl: String, pathToFile: NSURL, progressClosure: (totalUploaded: Int, totalToUpload: Int) -> Void, completion: (json: JSON) -> Void, failure: (error: NSError) -> Void) {
-        
+    
         upload(.POST, serverUrl, multipartFormData: { (multipart) -> Void in
             multipart.appendBodyPart(fileURL: pathToFile, name: "file")
         }) { (encodingResult) -> Void in
             switch encodingResult {
             case .Success(let upload, _, _):
+                upload.resume()
                 upload
                     .progress({ (uploaded, totalUploaded, totalToUpload) -> Void in
                         progressClosure(totalUploaded: Int(totalUploaded), totalToUpload: Int(totalToUpload))
@@ -235,40 +284,41 @@ class LoadTaskManager: Alamofire.Manager {
             }
             
         }
-        
     }
     
     func requestForUrlExists(urlString: String) -> Bool {
-        if self.downloadRequestPool[urlString] != nil {
-            return true
-        } else {
-            return false
+        for req in downloadRequestPool {
+            if req.request!.URLString == urlString {
+                return true
+            }
         }
+        return false
     }
     
     func cancelFileDownload(urlString: String) {
-        if let request = self.downloadRequestPool[urlString] {
-            request.cancel()
-            self.downloadRequestPool.removeValueForKey(urlString)
+        for (i, req) in downloadRequestPool.enumerate() {
+            if req.request!.URLString == urlString {
+                req.cancel()
+                downloadRequestPool.removeAtIndex(i)
+                return
+            }
         }
     }
     
     func cancelAllDownloads() {
-        for request in self.downloadRequestPool {
-            request.1.cancel()
+        for req in downloadRequestPool {
+            req.cancel()
         }
-        self.downloadRequestPool = [:]
+        downloadRequestPool.removeAll()
     }
     
     private func computeFilePath(fileDirectory: String, fileExtension: String, suggestedFilename: String?) -> (fileName: String, filePath: String) {
         if let name = suggestedFilename {
             let filePath = fileDirectory + "/" + name
-            print(filePath)
             return (name, filePath)
         } else {
             let name = "no_name." + fileExtension
             let filePath = fileDirectory + "/" + name
-            print(filePath)
             return (name, filePath)
         }
     }

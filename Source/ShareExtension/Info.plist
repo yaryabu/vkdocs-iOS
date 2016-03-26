@@ -28,7 +28,7 @@
 		<dict>
 			<key>NSExtensionActivationRule</key>
 			<dict>
-				<key>NSExtensionActivationSupportsAttachmentsWithMaxCount</key>
+				<key>NSExtensionActivationSupportsAttachmentsWithMinxCount</key>
 				<integer>1</integer>
 			</dict>
 		</dict>

@@ -73,6 +73,7 @@ class UserDocsTableViewCell: UITableViewCell {
         } else if ServiceLayer.sharedServiceLayer.docsService.downloadExists(document) == false {
             self.loadButton.setTitle(loadButtonDefaultText, forState: .Normal)
         } else {
+            self.loadButton.setTitle("0", forState: .Normal)
             ServiceLayer.sharedServiceLayer.docsService.downloadDocument(document, progress: { (totalRead, bytesToRead) -> Void in
                 let percent = Int((Double(totalRead)/Double(bytesToRead))*100)
                 self.loadButton.setTitle(String(percent), forState: .Normal)
@@ -88,6 +89,5 @@ class UserDocsTableViewCell: UITableViewCell {
     
     @IBAction func buttonPressed(sender: AnyObject) {
         NSNotificationCenter.defaultCenter().postNotificationName(Const.Notifications.cellButtonPressed, object: sender)
-        print("huwfhu", titleLabel.text, sender)
     }
 }

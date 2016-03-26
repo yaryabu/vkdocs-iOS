@@ -82,7 +82,6 @@ class UploadDocumentsService: Service {
     
     private func parseServerUrlResponse(json: JSON) -> String {
         let serverUrl = json["response"]["upload_url"].string!
-        print(serverUrl)
         return serverUrl
     }
     

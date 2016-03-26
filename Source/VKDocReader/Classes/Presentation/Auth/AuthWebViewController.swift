@@ -24,7 +24,7 @@ class AuthWebViewController: ViewController, UIWebViewDelegate {
     
     func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
         let urlString = request.URL!.absoluteString
-        print(urlString)
+        
         if urlString.containsString("access_token") {
             let paramsString = urlString.componentsSeparatedByString("#")[1]
             self.authSuccessful(paramsString)

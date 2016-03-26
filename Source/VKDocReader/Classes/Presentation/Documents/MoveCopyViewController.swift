@@ -86,7 +86,6 @@ class MoveCopyViewController: ViewController, UITableViewDelegate {
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        print("TAP", indexPath.row)
         
         //этот сценарий только для добавления файлов в папки
         if let _ = tableView.dataSource as? UserDocsDataSource {
@@ -135,7 +134,6 @@ class MoveCopyViewController: ViewController, UITableViewDelegate {
     }
     
     @IBAction func saveButtonPressed(sender: AnyObject) {
-        print("saveButtonPressed")
         let currentDirectoryItems = Bash.ls(currentPath)
         var conflictingPaths: [String] = []
         for path in paths {

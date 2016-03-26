@@ -63,13 +63,14 @@ class Service {
         return nil
     }
     func createError(error: NSError) -> Error? {
-        print("Error", error.code, error.localizedDescription)
         switch error.code {
         case -999:
             return nil
 //            return Error(code: -999, message: "Загрузка отменена пользователем")
         default:
-            return Error(code: error.code, message: error.localizedDescription)
+            let newError = Error(code: error.code, message: error.localizedDescription)
+            print(newError)
+            return newError
         }
     }
     

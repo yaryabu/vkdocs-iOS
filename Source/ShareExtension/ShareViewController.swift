@@ -13,6 +13,12 @@ class ShareViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let items = extensionContext!.inputItems[0].attachments!![0]
+//        NSItemProvider
+        
+        
+//        print(extensionContext?.inputItems[0].attachments[0]
+        
     }
 //
 //    override func isContentValid() -> Bool {

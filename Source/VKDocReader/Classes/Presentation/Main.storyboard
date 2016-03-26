@@ -53,7 +53,7 @@
         <!--Авторизация-->
         <scene sceneID="cBq-6V-WVd">
             <objects>
-                <viewController id="eYz-of-vJg" customClass="AuthWebViewController" customModule="VKDocReader" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AuthWebViewController" id="eYz-of-vJg" customClass="AuthWebViewController" customModule="VKDocReader" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="bO7-r0-0aE"/>
                         <viewControllerLayoutGuide type="bottom" id="ZAl-QD-7LI"/>

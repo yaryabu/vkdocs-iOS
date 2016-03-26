@@ -10,7 +10,6 @@ import Foundation
 
 class Bash {
     class func cd(dir: String) -> Bool {
-        print("CD", dir)
         return NSFileManager.defaultManager().changeCurrentDirectoryPath(dir)
     }
     
@@ -71,10 +70,8 @@ class Bash {
     class func rm(filePath: String) -> Bool {
         do {
             try NSFileManager.defaultManager().removeItemAtPath(filePath)
-            print("123")
             return true
         } catch {
-            print(error)
             return false
         }
     }

@@ -44,8 +44,8 @@ struct Const {
     
     struct StoryboardIDs {
         static let authViewController = "AuthViewController"
+        static let authWebViewController = "AuthWebViewController"
         static let tabBarController = "TabBarController"
-//        static let sidebarViewController = "SidebarViewController"
         static let userDocsTableViewController = "UserDocsTableViewController"
         static let userDocsTableViewControllerNavigationController = "UserDocsTableViewControllerNavigationController"
         static let moveCopyViewController = "MoveCopyViewController"

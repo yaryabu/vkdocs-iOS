@@ -409,7 +409,6 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
                 self.handleError(error)
         }
         self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.None)
-        print("buttPressed", doc.title)
     }
     
     @IBAction func optionsButtonPressed(sender: AnyObject) {

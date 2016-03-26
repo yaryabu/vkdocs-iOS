@@ -17,8 +17,6 @@ class FolderDataSource: NSObject, DataSource {
     
     override init() {
         super.init()
-        print("FOLDER", Bash.pwd())
-        print(elements)
     }
     
     func refresh(refreshEnded: () -> Void, refreshFailed: (error: Error) -> Void) {}
