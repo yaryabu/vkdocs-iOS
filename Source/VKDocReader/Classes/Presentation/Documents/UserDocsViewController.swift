@@ -290,6 +290,42 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
         }
     }
     
+    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+        
+        let deleteAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "Удалить") { (action, indexPath) in
+            tableView.dataSource!.tableView!(tableView, commitEditingStyle: UITableViewCellEditingStyle.Delete, forRowAtIndexPath: indexPath)
+        }
+        deleteAction.backgroundColor = UIColor.vkGrapefruitColor()
+        
+        let editAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "Изменить") { (action, indexPath) in
+            self.setEditing(false, animated: true)
+            self.tableView.setEditing(false, animated: true)
+            let editViewControllerNavController = self.storyboard!.instantiateViewControllerWithIdentifier(Const.StoryboardIDs.editViewControllerNavigationController) as! NavigationController
+            let editViewController = editViewControllerNavController.viewControllers[0] as! EditViewController
+            if let ds = self.currentDataSource as? UserDocsDataSource {
+                if indexPath.section == 0 {
+                    editViewController.actionType = .EditFolder
+                    editViewController.folderPathToEdit = ds.folderPath(indexPath)
+                } else {
+                    editViewController.actionType = .EditDocument
+                    editViewController.documentToEdit = ds.document(indexPath)
+                }
+            } else if let ds = self.currentDataSource as? FolderDataSource {
+                if ds.isDirectory(indexPath) {
+                    editViewController.actionType = .EditFolder
+                    editViewController.folderPathToEdit = ds.elementPath(indexPath)
+                } else {
+                    editViewController.actionType = .EditDocument
+                    editViewController.documentToEdit = ds.document(indexPath)
+                }
+            }
+            self.presentViewController(editViewControllerNavController, animated: true, completion: nil)
+        }
+        editAction.backgroundColor = UIColor.vkEmeraldColor()
+        
+        return [deleteAction, editAction]
+    }
+    
 //    func pushNewFolderViewController(indexPath: NSIndexPath) {
 //        let ds = currentDataSource as? FolderDataSource
 //        let vc = storyboard!.instantiateViewControllerWithIdentifier(Const.StoryboardIDs.userDocsTableViewController)
@@ -412,6 +448,9 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
     }
     
     @IBAction func optionsButtonPressed(sender: AnyObject) {
+        self.tableView.setEditing(false, animated: true)
+        self.setEditing(false, animated: true)
+        
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
         let cancelAction = UIAlertAction(title: "Отмена", style: .Cancel, handler: nil)
         let createFolderAction = UIAlertAction(title: "Создать папку", style: .Default) { (action) -> Void in

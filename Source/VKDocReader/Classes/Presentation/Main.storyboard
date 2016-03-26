@@ -102,7 +102,7 @@
         <!--Новая папка-->
         <scene sceneID="VRm-36-KGG">
             <objects>
-                <viewController id="qlk-zy-5K6" customClass="CreateFolderViewController" customModule="VKDocReader" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EditViewController" id="qlk-zy-5K6" customClass="EditViewController" customModule="VKDocReader" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="VjJ-zn-mGb"/>
                         <viewControllerLayoutGuide type="bottom" id="5gz-wY-3n6"/>
@@ -661,7 +661,7 @@
         <!--Navigation Controller-->
         <scene sceneID="P6G-PL-gsf">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="rb2-KS-Aae" customClass="NavigationController" customModule="VKDocReader" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="EditViewControllerNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="rb2-KS-Aae" customClass="NavigationController" customModule="VKDocReader" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="H2S-jU-c6L">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>

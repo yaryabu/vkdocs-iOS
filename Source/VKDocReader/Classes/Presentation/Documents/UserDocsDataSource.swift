@@ -145,6 +145,7 @@ class UserDocsDataSource: NSObject, DataSource {
         if indexPath.section == 0 {
             if editingStyle == UITableViewCellEditingStyle.Delete {
                 Bash.rm(Const.Directories.fileSystemDir + "/" + folders[indexPath.row])
+                //это редактирование
             } else {}
         } else {
             if editingStyle == UITableViewCellEditingStyle.Delete {

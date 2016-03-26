@@ -1,5 +1,5 @@
 //
-//  CreateFolderViewController.swift
+//  EditViewController.swift
 //  VKDocReader
 //
 //  Created by Yaroslav Ryabukha on 18/03/16.
@@ -8,7 +8,15 @@
 
 import UIKit
 
-class CreateFolderViewController: ViewController, UITextFieldDelegate {
+import RealmSwift
+
+enum EditActionType {
+    case CreateFolder
+    case EditFolder
+    case EditDocument
+}
+
+class EditViewController: ViewController, UITextFieldDelegate {
     
     @IBOutlet weak var createButton: UIBarButtonItem! {
         didSet {
@@ -26,13 +34,30 @@ class CreateFolderViewController: ViewController, UITextFieldDelegate {
     
     @IBOutlet weak var bottomSpacing: NSLayoutConstraint!
     
+    var actionType: EditActionType = .CreateFolder
+    
+    var documentToEdit: Document!
+    var folderPathToEdit: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
     
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillChangeFrameNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide:", name: UIKeyboardWillHideNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(EditViewController.keyboardWillShow(_:)), name: UIKeyboardWillChangeFrameNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(EditViewController.keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
 
+        switch actionType {
+        case .CreateFolder:
+            navigationItem.title = "Новая папка"
+            textField.text = ""
+        case .EditDocument:
+            navigationItem.title = "Изменить документ"
+            createButton.enabled = true
+            textField.text = documentToEdit.title
+        case .EditFolder:
+            navigationItem.title = "Изменить папку"
+            textField.text = folderPathToEdit.componentsSeparatedByString("/").last!
+            createButton.enabled = true
+        }
         
         textField.becomeFirstResponder()
     }
@@ -51,7 +76,7 @@ class CreateFolderViewController: ViewController, UITextFieldDelegate {
     }
     
     @IBAction func createButtonPressed(sender: AnyObject) {
-        createFolder()
+        performActionAndDismiss()
     }
     @IBAction func textFieldEditingChanged(sender: AnyObject) {
         if textField.text == "" {
@@ -62,26 +87,46 @@ class CreateFolderViewController: ViewController, UITextFieldDelegate {
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
-        createFolder()
+        performActionAndDismiss()
         return true
     }
     
-    func createFolder() {
+    func performActionAndDismiss() {
         let text = self.textField.text!
         
-        if folderCreatedAlready(text) {
-            let error = Error(code: 0, message: "Папка уже существует")
-            ToastManager.sharedInstance.presentError(error)
-            return
-        }
         if text.containsString("/") {
             let error = Error(code: 0, message: "Символ / не допускается")
             ToastManager.sharedInstance.presentError(error)
             return
         }
         
-        Bash.mkdir(text)
-        dismissViewControllerAnimated(true, completion: nil)
+        if folderCreatedAlready(text) {
+            let error = Error(code: 0, message: "Папка уже существует")
+            ToastManager.sharedInstance.presentError(error)
+            return
+        }
+        
+        switch actionType {
+        case .CreateFolder:
+            Bash.mkdir(text)
+            ToastManager.sharedInstance.presentInfo("Папка создана")
+            dismissViewControllerAnimated(true, completion: nil)
+        case .EditFolder:
+            Bash.mv(folderPathToEdit, to: Bash.pwd() + "/" + text)
+            ToastManager.sharedInstance.presentInfo("Папка изменена")
+            dismissViewControllerAnimated(true, completion: nil)
+        case .EditDocument:
+            serviceLayer.docsService.editDocument(documentToEdit, newDocumentName: text, completion: {
+                let realm = try! Realm()
+                try! realm.write({ 
+                    self.documentToEdit.title = text
+                })
+                ToastManager.sharedInstance.presentInfo("Документ изменен")
+                self.dismissViewControllerAnimated(true, completion: nil)
+                }, failure: { (error) in
+                    self.handleError(error)
+            })
+        }
     }
     
     func folderCreatedAlready(folderName: String) -> Bool {

@@ -78,6 +78,24 @@ class DocsService: Service {
         }
     }
     
+    func editDocument(document: Document, newDocumentName: String, completion: () -> Void, failure: (error: Error) -> Void) {
+        self.transport.getJSON(Const.Network.baseUrl + "/docs.edit", parameters: self.editDocumentParameters(document, newDocumentName: newDocumentName), completion: { (json) -> Void in
+            if let error = self.checkError(json) {
+                Dispatch.mainQueue({ () -> () in
+                    failure(error: error)
+                })
+                return
+            }
+            Dispatch.mainQueue({ () -> () in
+                completion()
+            })
+        }) { (error) -> Void in
+            if let error = self.createError(error) {
+                failure(error: error)
+            }
+        }
+    }
+    
     func deleteDocumentFromUser(document: Document, completion: () -> Void, failure: (error: Error) -> Void) {
         self.transport.getJSON(Const.Network.baseUrl + "/docs.delete", parameters: self.deleteDocumentFromUserParameters(document), completion: { (json) -> Void in
             if let error = self.checkError(json) {
@@ -102,30 +120,11 @@ class DocsService: Service {
             return
         }
         
-        let reachability: Reachability
-        do {
-            reachability = try Reachability.reachabilityForInternetConnection()
-        } catch {
+        if userSettingsSerivce.useWifiOnly && userSettingsSerivce.isCurrentConnectionCellular {
             Dispatch.mainQueue({ () -> () in
-                failure(error: Error(code: -10, message: "Зafsdfaах"))
+                failure(error: Error(code: -10, message: "Загрузка через мобильный интернет запрещена в настройках"))
             })
             return
-        }
-        if reachability.isReachable() == false {
-            Dispatch.mainQueue({ () -> () in
-                failure(error: Error(code: -10, message: "qqqqq"))
-            })
-            return
-        }
-        
-        
-        if self.userSettingsSerivce.isCurrentConnectionCellular {
-            if self.userSettingsSerivce.useWifiOnly {
-                Dispatch.mainQueue({ () -> () in
-                    failure(error: Error(code: -10, message: "Загрузка через мобильный интернет запрещена в настройках"))
-                })
-                return
-            }
         }
         
         self.loadTaskManager.downloadFile(document.urlString, fileDirectory: document.fileDirectory, fileExtension: document.ext, progress: { (totalRead, bytesToRead) -> Void in
@@ -202,6 +201,16 @@ class DocsService: Service {
             "owner_id":document.ownerId,
             "doc_id":document.id,
             "access_key":document.accessKey ?? ""
+        ]
+    }
+    
+    private func editDocumentParameters(document: Document, newDocumentName: String) -> [String:String] {
+        let token = self.authService.token!
+        return [
+            "access_token":token,
+            "owner_id":document.ownerId,
+            "doc_id":document.id,
+            "title": newDocumentName
         ]
     }
     

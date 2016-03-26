@@ -50,6 +50,8 @@ struct Const {
         static let userDocsTableViewControllerNavigationController = "UserDocsTableViewControllerNavigationController"
         static let moveCopyViewController = "MoveCopyViewController"
         static let moveCopyViewControllerNavigationController = "MoveCopyViewControllerNavigationController"
+        static let editViewController = "EditViewController"
+        static let editViewControllerNavigationController = "EditViewControllerNavigationController"
 
     }
     

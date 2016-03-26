@@ -136,27 +136,7 @@ class SettingsViewController: ViewController, MFMailComposeViewControllerDelegat
     }
     
     @IBAction func exitButtonPressed(sender: AnyObject) {
-        let alert = UIAlertController(title: "Вы точно хотите выйти?", message: "Все документы и папки будут удалены из приложения", preferredStyle: UIAlertControllerStyle.Alert)
-        let noAction = UIAlertAction(title: "Нет", style: .Cancel) { (action) -> Void in
-            alert.dismissViewControllerAnimated(true, completion: nil)
-        }
-        let yesAction = UIAlertAction(title: "Да", style: .Default) { (action) -> Void in
-            self.serviceLayer.deleteAllInfo()
-            let realm = try! Realm()
-            try! realm.write({ () -> Void in
-                realm.deleteAll()
-            })
-            let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-            Bash.rm(Const.Directories.fileSystemDir)
-            Bash.mkdir(Const.Directories.fileSystemDir)
-            Bash.rm(Const.Directories.vaultDir)
-            Bash.mkdir(Const.Directories.vaultDir)
-            appDelegate.chooseInitialViewCotroller()
-        }
-        alert.addAction(noAction)
-        alert.addAction(yesAction)
-        
-        self.presentViewController(alert, animated: true, completion: nil)
+        launchExitAppSequence()
     }
     @IBAction func saveDocsAutomaticallySwitchPressed(sender: AnyObject) {
         let docsSwitch = sender as! UISwitch
