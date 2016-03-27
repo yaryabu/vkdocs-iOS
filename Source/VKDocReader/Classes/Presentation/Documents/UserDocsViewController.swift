@@ -342,12 +342,14 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
             return
         }
         
-        let alert = UIAlertController(title: "Удалить из ВК?", message: "Вы точно хотите это удалить?", preferredStyle: .Alert)
+        let alert = UIAlertController(title: "Удалить из ВК?", message: "Выбранные документы удалятся из ВК", preferredStyle: .Alert)
         let yesAction = UIAlertAction(title: "Да", style: .Destructive) { (action) -> Void in
             
             //FIXME: тут обязательно нужен спиннер
             self.currentDataSource.deleteElements(indexPaths, completion: { () -> Void in
-                self.tableView.deleteRowsAtIndexPaths(indexPaths, withRowAnimation: UITableViewRowAnimation.Automatic)
+                //FIXME: анимация удаления
+                self.tableView.reloadData()
+//                self.tableView.deleteRowsAtIndexPaths(indexPaths, withRowAnimation: UITableViewRowAnimation.Automatic)
                 self.tableView.setEditing(false, animated: true)
                 self.setEditing(false, animated: true)
                 }, failure: { (error) -> Void in
