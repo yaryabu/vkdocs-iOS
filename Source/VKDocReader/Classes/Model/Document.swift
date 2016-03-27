@@ -154,14 +154,6 @@ func ==(left: Document, right: Document) -> Bool {
         left.thumbnailUrlString == right.thumbnailUrlString &&
         left.order == right.order
     //urlString не сравнивается т.к. меняется, даже если файл остается прежним
-
-    if result == false {
-        print("====DOCS UNEQUAL====")
-        print(left)
-        print("====SECOND====")
-        print(right)
-        print("====END====")
-    }
     return result
 }
 

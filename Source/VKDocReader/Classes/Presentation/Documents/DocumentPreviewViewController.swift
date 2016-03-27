@@ -41,7 +41,7 @@ class DocumentPreviewViewController: ViewController, QLPreviewControllerDataSour
     }
     var document: Document!
     
-    let previewController = QLPreviewController()
+    var previewController: QLPreviewController? = QLPreviewController()
     let documentInteractionsController = UIDocumentInteractionController()
     var tapGestureRecogniser: UITapGestureRecognizer!
     
@@ -54,13 +54,13 @@ class DocumentPreviewViewController: ViewController, QLPreviewControllerDataSour
         }
         self.navigationItem.title = self.document.title
         
-        self.addChildViewController(previewController)
-        previewController.dataSource = self
-        previewController.delegate = self
+        self.addChildViewController(previewController!)
+        previewController!.dataSource = self
+        previewController!.delegate = self
         
         //на iOS 9 QLPreviewController отображается под навбаром
         if #available(iOS 9, *) {
-            self.previewController.view.frame = CGRect(
+            self.previewController!.view.frame = CGRect(
                 x: 0,
                 y: navigationController!.navigationBar.frame.height,
                 width: self.view.frame.width,
@@ -69,6 +69,14 @@ class DocumentPreviewViewController: ViewController, QLPreviewControllerDataSour
         }
 
         self.previewDocument()
+    }
+    
+    override func willMoveToParentViewController(parent: UIViewController?) {
+        super.willMoveToParentViewController(parent)
+        if parent == nil {
+            // на iOS 8 QLPreviewController любит крашится, если сразу не покажет файл
+            previewController = nil
+        }
     }
 
     //FIXME: нужно позволять использовать лэндскейп на этом экране
@@ -86,8 +94,10 @@ class DocumentPreviewViewController: ViewController, QLPreviewControllerDataSour
                 }
             }
             self.loadingView.removeFromSuperview()
-            self.view.addSubview(previewController.view)
-            self.previewController.reloadData()
+            if previewController != nil {
+                self.view.addSubview(previewController!.view)
+                self.previewController!.reloadData()
+            }
         } else {
             self.serviceLayer.docsService.downloadDocument(self.document, progress: {(totalRead, totalSize) -> Void in
                 let percent10k = Double(totalRead)/Double(totalSize)
@@ -101,8 +111,11 @@ class DocumentPreviewViewController: ViewController, QLPreviewControllerDataSour
                     }
                     self.navigationItem.rightBarButtonItem = self.optionsButton
                     self.loadingView.removeFromSuperview()
-                    self.view.addSubview(self.previewController.view)
-                    self.previewController.reloadData()
+                    
+                    if self.previewController != nil {
+                        self.view.addSubview(self.previewController!.view)
+                        self.previewController!.reloadData()
+                    }
                 }, failure: { (error) -> Void in
                     self.handleError(error)
             })
@@ -130,13 +143,13 @@ class DocumentPreviewViewController: ViewController, QLPreviewControllerDataSour
             Bash.mv(self.document.tempPath!, to: self.document.fileDirectory + "/" + name)
             let realm = try! Realm()
             if realm.objects(Document).filter("id == \"\(self.document.id)\"").first == nil {
-                self.serviceLayer.docsService.addDocumentToUser(self.document, completion: { (newDocumentId) -> Void in
+                self.serviceLayer.docsService.addDocumentToUser(self.document, completion: { [unowned self] (newDocumentId) -> Void in
                     try! realm.write({ () -> Void in
                         realm.add(self.document)
                     })
                     self.document.isSearchResult = false
                     ToastManager.sharedInstance.presentInfo("Документ добавлен")
-                    }, failure: { (error) -> Void in
+                    }, failure: { [unowned self] (error) -> Void in
                         self.handleError(error)
                 })
             } else {

@@ -593,13 +593,13 @@
                                 <rect key="frame" x="0.0" y="156" width="600" height="64.5"/>
                                 <subviews>
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="vbI-jq-NY7">
-                                        <rect key="frame" x="519" y="17.5" width="51" height="31"/>
+                                        <rect key="frame" x="519" y="17" width="51" height="31"/>
                                         <color key="onTintColor" red="0.0" green="0.62745098039215685" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
                                             <action selector="onlyWifiLoadSwitchChanged:" destination="qI0-HP-mX1" eventType="valueChanged" id="SYm-Pp-0Aw"/>
                                         </connections>
                                     </switch>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1" verticalCompressionResistancePriority="1" misplaced="YES" text="Загрузка файлов только по Wi-Fi" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WZ0-sv-1NE" customClass="SettingLabel" customModule="VKDocReader" customModuleProvider="target">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1" verticalHuggingPriority="1" horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" misplaced="YES" text="Загрузка файлов только по Wi-Fi" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WZ0-sv-1NE" customClass="SettingLabel" customModule="VKDocReader" customModuleProvider="target">
                                         <rect key="frame" x="23" y="22" width="263" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -610,7 +610,7 @@
                                 <constraints>
                                     <constraint firstItem="vbI-jq-NY7" firstAttribute="centerY" secondItem="Wvd-Ll-XOF" secondAttribute="centerY" id="8FY-D0-4qv"/>
                                     <constraint firstItem="WZ0-sv-1NE" firstAttribute="leading" secondItem="Wvd-Ll-XOF" secondAttribute="leading" constant="24" id="FJD-xq-74a"/>
-                                    <constraint firstItem="vbI-jq-NY7" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="WZ0-sv-1NE" secondAttribute="trailing" constant="54" id="aoi-67-b6k"/>
+                                    <constraint firstItem="vbI-jq-NY7" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="WZ0-sv-1NE" secondAttribute="trailing" constant="10" id="aoi-67-b6k"/>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="60" id="bNz-Zt-7Zr"/>
                                     <constraint firstItem="WZ0-sv-1NE" firstAttribute="top" secondItem="Wvd-Ll-XOF" secondAttribute="top" constant="22" id="cr6-fr-omF"/>
                                     <constraint firstAttribute="trailing" secondItem="vbI-jq-NY7" secondAttribute="trailing" constant="32" id="g45-eY-PrJ"/>
@@ -627,7 +627,13 @@
                             <view contentMode="scaleToFill" verticalHuggingPriority="1" translatesAutoresizingMaskIntoConstraints="NO" id="Co0-7e-z5e">
                                 <rect key="frame" x="0.0" y="222" width="600" height="64.5"/>
                                 <subviews>
-                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rh8-pl-0vz">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1" verticalHuggingPriority="1" horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" text="Сохранять файлы после просмотра" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cgf-kS-X26" customClass="SettingLabel" customModule="VKDocReader" customModuleProvider="target">
+                                        <rect key="frame" x="24" y="22" width="286" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rh8-pl-0vz">
                                         <rect key="frame" x="519" y="17" width="51" height="31"/>
                                         <color key="onTintColor" red="0.0" green="0.62745098040000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
@@ -635,12 +641,6 @@
                                             <action selector="saveDocsAutomaticallySwitchPressed:" destination="qI0-HP-mX1" eventType="valueChanged" id="Boa-ix-A1a"/>
                                         </connections>
                                     </switch>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" verticalCompressionResistancePriority="1" text="Сохранять файлы после просмотра" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cgf-kS-X26" customClass="SettingLabel" customModule="VKDocReader" customModuleProvider="target">
-                                        <rect key="frame" x="24" y="22" width="286" height="20.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -779,6 +779,10 @@
         <scene sceneID="DDh-MM-77Z">
             <objects>
                 <viewController id="zZU-Mj-9j1" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="eVS-F1-uff"/>
+                        <viewControllerLayoutGuide type="bottom" id="OSm-3l-Kxc"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Wb1-UK-GeC">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

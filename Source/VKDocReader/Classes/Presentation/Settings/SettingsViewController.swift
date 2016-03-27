@@ -76,7 +76,7 @@ class SettingsViewController: ViewController, MFMailComposeViewControllerDelegat
                 width: 30,
                 height: 30
             )
-            avatarImageView.transform = CGAffineTransformMakeTranslation(-10, 0)
+            avatarImageView.transform = CGAffineTransformMakeTranslation(-7, 0)
             let imageViewContainer = UIView(frame: avatarImageView.frame)
             imageViewContainer.addSubview(avatarImageView)
 //            let suggestButtonItem = UIBarButtonItem(customView: suggestButtonContainer)

@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import AssetsLibrary
+import Photos
 
 import RealmSwift
 
@@ -544,25 +544,22 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
         ToastManager.sharedInstance.presentInfo("Загружаем документ в ВК")
         Dispatch.defaultQueue { () -> () in
             let referenceUrl = info[UIImagePickerControllerReferenceURL] as! NSURL
-            ALAssetsLibrary().assetForURL(referenceUrl, resultBlock: { (asset) in
-                let fileName = asset.defaultRepresentation().filename()
-                let path = NSTemporaryDirectory() + fileName
-                if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
-                    let data = UIImagePNGRepresentation(image)!
-                    data.writeToFile(path, atomically: false)
-                    self.uploadMediaFile(path, fileName: fileName)
-                    
-                } else if let videoUrl = info[UIImagePickerControllerMediaURL] as? NSURL {
-                    let urlString = videoUrl.absoluteString.componentsSeparatedByString("file://").last!
-                    let data = NSData(contentsOfFile: urlString)!
-                    data.writeToFile(path, atomically: false)
-                    self.uploadMediaFile(path, fileName: fileName)
-                }
-                }, failureBlock: { (error) in
-                    if let newError = self.serviceLayer.uploadDocsService.createError(error) {
-                        self.handleError(newError)
-                    }
-            })
+            
+            let asset = PHAsset.fetchAssetsWithALAssetURLs([referenceUrl], options: nil).firstObject
+            let fileName = asset?.filename! ?? "VK_Docs_file"
+            print(fileName)
+            let path = NSTemporaryDirectory() + fileName
+            if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+                let data = UIImagePNGRepresentation(image) ?? UIImageJPEGRepresentation(image, 1.0)!
+                data.writeToFile(path, atomically: false)
+                self.uploadMediaFile(path, fileName: fileName)
+                
+            } else if let videoUrl = info[UIImagePickerControllerMediaURL] as? NSURL {
+                let urlString = videoUrl.absoluteString.componentsSeparatedByString("file://").last!
+                let data = NSData(contentsOfFile: urlString)!
+                data.writeToFile(path, atomically: false)
+                self.uploadMediaFile(path, fileName: fileName)
+            }
         }
     }
     
