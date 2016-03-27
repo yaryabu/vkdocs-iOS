@@ -10,7 +10,7 @@ import SwiftyJSON
 import RealmSwift
 
 /**
- Абстрактный сервис
+ Базовый сервис, от которого наследуются остальные сервисы
  */
 class Service {
     let transport = Transport.sharedTransport
@@ -23,7 +23,6 @@ class Service {
         //FIXME: доработать специальные ошибки (капча, авторизация итд)
         let errorJson = json["error"]
         if errorJson != nil {
-            print(errorJson)
             switch errorJson["error_code"] {
             case 1:
                 return Error(code: 1, message: "Неизвестная ошибка")
@@ -79,7 +78,6 @@ class Service {
 //            return Error(code: -999, message: "Загрузка отменена пользователем")
         default:
             let newError = Error(code: error.code, message: error.localizedDescription)
-            print(newError)
             return newError
         }
     }

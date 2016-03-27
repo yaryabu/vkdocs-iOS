@@ -9,7 +9,13 @@
 import UIKit
 import RealmSwift
 
+/**
+ Базовый класс для всех VC в МП (за исключением TabBar, NavBar итд)
+ */
 class ViewController: UIViewController {
+    /**
+     Является ли VC первым в стаке для своего navigationController
+    */
     lazy var isRootViewController: Bool = {
         return self.navigationController?.viewControllers[0] == self
     }()
@@ -22,7 +28,6 @@ extension UIViewController {
     }
     
     func handleError(error: Error) {
-        print(error)
         switch error.code {
         case 5:
             //TODO:
@@ -41,10 +46,10 @@ extension UIViewController {
             self.presentViewController(alert, animated: true, completion: nil)
         case 14:
             //TODO:
-            print("captcha")
             ToastManager.sharedInstance.presentError(error)
         case -999:
-            print("loadError")
+            //Загрузка отменена (пользователем или чем-нибудь еще)
+            break
         default:
             ToastManager.sharedInstance.presentError(error)
         }

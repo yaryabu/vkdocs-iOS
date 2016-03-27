@@ -49,7 +49,6 @@ class UserSettingsSerivce: Service {
     var isCurrentConnectionCellular: Bool {
         get {
             let connectionType = try! Reachability.reachabilityForInternetConnection().currentReachabilityStatus
-            print("REACH", connectionType)
             return connectionType.description == "Cellular"
         }
     }

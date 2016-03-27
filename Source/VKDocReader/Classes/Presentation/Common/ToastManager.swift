@@ -9,16 +9,25 @@
 import UIKit
 import CRToast
 
+/**
+ Менеджер нотификаций на навбаре.
+ */
 class ToastManager {
-    
     static let sharedInstance = ToastManager()
+    private init() {}
     
     private var latestToast: (message: String, toastTimestamp: NSTimeInterval) = ("", NSDate(timeIntervalSince1970: 1).timeIntervalSince1970)
     
+    /**
+     Презентует error.message в красном цвете
+    */
     func presentError(error: Error) {
         presentToast(error.message, color: UIColor.vkGrapefruitColor())
     }
     
+    /**
+     Презентует error.message в зеленом цвете
+    */
     func presentInfo(message: String) {
         presentToast(message, color: UIColor.vkEmeraldColor())
     }

@@ -23,9 +23,7 @@ class LoadTaskManager: Alamofire.Manager {
             if downloadRequestPool.count > 1 {
                 downloadRequestPool[0].resume()
                 downloadRequestPool[1].resume()
-                print("RESUME")
             } else if downloadRequestPool.count == 1 {
-                print("RESUME 111")
                 downloadRequestPool[0].resume()
             }
         }
@@ -81,15 +79,12 @@ class LoadTaskManager: Alamofire.Manager {
             .response { (request, response, data, error) -> Void in
                 if (error != nil) {
                     failure(error: error!)
-                    print("ERROR", error)
                     
                     self.cancelFileDownload(urlString)
-                    print("CANCEL FAIL", urlString)
                 } else {
                     let fileNamePath = self.computeFilePath(fileDirectory, fileExtension: fileExtension, suggestedFilename: response!.suggestedFilename)
                     completion(fileName: fileNamePath.fileName, filePath: fileNamePath.filePath)
                     self.cancelFileDownload(urlString)
-                    print("CANCEL OK", urlString)
                 }
                 
         }

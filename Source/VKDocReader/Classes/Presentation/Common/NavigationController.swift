@@ -10,26 +10,6 @@ import UIKit
 
 class NavigationController: UINavigationController {
     
-    override init(rootViewController: UIViewController) {
-        super.init(rootViewController: rootViewController)
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
-    
-    var navigationBarFrameHidden: Bool {
-        get {
-            return self.navigationBar.frame.origin.y < 0
-        }
-    }
-    
-//    var navBarAndStatusBarHeight: CGFloat {
-//        get {
-//            return self.navigationBar.frame.height + UIApplication.sharedApplication().statusBarFrame.height
-//        }
-//    }
-    
     lazy var uploadProgressBarView: UIProgressView = {
         let progressView = UIProgressView(frame: CGRect(
             x: 0,
@@ -49,8 +29,8 @@ class NavigationController: UINavigationController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "uploadProgressChanged:", name: Const.Notifications.uploadProgress, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "uploadComplete:", name: Const.Notifications.uploadComplete, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(NavigationController.uploadProgressChanged(_:)), name: Const.Notifications.uploadProgress, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(NavigationController.uploadComplete(_:)), name: Const.Notifications.uploadComplete, object: nil)
         
         self.navigationBar.userInteractionEnabled = true
         self.view.userInteractionEnabled = true
@@ -70,20 +50,6 @@ class NavigationController: UINavigationController {
         navigationBar.barTintColor = UIColor.vkWhiteColor()
     }
     
-    func hideNavigationBarFrame(animationDuration: Double?, additionalAnimations: (() -> ())?) {
-        if self.navigationBarFrameHidden {
-            return
-        }
-        UIView.animateWithDuration(animationDuration ?? 0.3) { () -> Void in
-            self.navigationBar.frame = CGRect(
-                x: 0,
-                y: -self.navigationBar.frame.height,
-                width: self.navigationBar.frame.width,
-                height: self.navigationBar.frame.height
-            )
-            additionalAnimations?()
-        }
-    }
     
     func uploadProgressChanged(notification: NSNotification) {
         let percent = notification.object as! Float

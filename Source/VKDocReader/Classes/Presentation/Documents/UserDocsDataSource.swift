@@ -9,8 +9,14 @@
 import UIKit
 import RealmSwift
 
+/**
+ DataSource документов из ВК и корневых папок файловой системы.
+ */
 class UserDocsDataSource: NSObject, DataSource {
     
+    /**
+    Название ячейки, которая создает папки
+    */
     let createFolderCell = "CREATE_FOLDER_CELL_.m29voa721knv"
     
     var folders: [String] {
@@ -78,7 +84,6 @@ class UserDocsDataSource: NSObject, DataSource {
     func refresh(refreshEnded: () -> Void, refreshFailed: (error: Error) -> Void) {
         ServiceLayer.sharedServiceLayer.docsService.getDocuments( { (documentsArray) -> Void in
             if self.documents != documentsArray {
-                print("NOT EQUAL")
                 
                 let realm = try! Realm()
                 try! realm.write({ () -> Void in
@@ -92,7 +97,6 @@ class UserDocsDataSource: NSObject, DataSource {
             }
             refreshEnded()
             }, failure: { (error) -> Void in
-                print(error)
                 refreshFailed(error: error)
         })
     }
@@ -165,7 +169,6 @@ class UserDocsDataSource: NSObject, DataSource {
             } else {}
         } else {
             if editingStyle == UITableViewCellEditingStyle.Delete {
-                print("delete", indexPath.row)
                 let document = self.documents[indexPath.row]
                 ServiceLayer.sharedServiceLayer.docsService.deleteDocumentFromUser(document, completion: { () -> Void in
                     document.deleteDocument()

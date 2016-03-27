@@ -9,6 +9,9 @@
 import UIKit
 import RealmSwift
 
+/**
+ DataSource всех папок приложения, кроме корневых
+ */
 class FolderDataSource: NSObject, DataSource {
     
     var elements: [String] {

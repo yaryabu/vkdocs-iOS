@@ -63,21 +63,6 @@ class TabBarController: UITabBarController {
                 self.handleError(error)
         }
         
-//        firstTabSelectedView.frame = CGRect(
-//            x: 0,
-//            y: 0,
-//            width: tabBar.frame.width/2,
-//            height: 2
-//        )
-//        secondTabSelectedView.frame = CGRect(
-//            x: tabBar.frame.width/2,
-//            y: 0,
-//            width: tabBar.frame.width/2,
-//            height: 2
-//        )
-//        firstTabSelectedView.backgroundColor = UIColor.vkDuskBlueColor()
-//        secondTabSelectedView.backgroundColor = UIColor.vkDuskBlueColor()
-        
         tabBar.addSubview(selectedTabIndicatorView)
 
         UITabBarItem.appearance().setTitleTextAttributes([
@@ -113,25 +98,11 @@ class TabBarController: UITabBarController {
             UIView.animateWithDuration(0.3, animations: { 
                 self.selectedTabIndicatorView.frame = self.firstTabSelectedViewFrame
             })
-//            secondTabSelectedView.removeFromSuperview()
-//            tabBar.addSubview(firstTabSelectedView)
         } else {
             UIView.animateWithDuration(0.3, animations: {
                 self.selectedTabIndicatorView.frame = self.secondTabSelectedViewFrame
             })
-//            firstTabSelectedView.removeFromSuperview()
-//            tabBar.addSubview(secondTabSelectedView)
         }
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 }
 

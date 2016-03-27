@@ -22,6 +22,10 @@ class UserDocsTableViewCell: TableViewCell {
     @IBOutlet weak var sizeDateLabel: UILabel!
     @IBOutlet weak var thumbnailImageView: UIImageView!
     @IBOutlet weak var extensionLabel: UILabel!
+    
+    //Поскольку кнопка загрузки является accessoryView, появляются самые интересные
+    //проблемы реиспользования ячеек и вызова closure на них (к примеру, прогресс загрузки).
+    //Поэтому при каждом появлении ячейки на экране ей выдается новая кнопка, а не старая.
     var newButton: UIButton {
         get {
             self.accessoryView = nil
@@ -99,33 +103,7 @@ class UserDocsTableViewCell: TableViewCell {
         }
     
         accessoryView?.hidden = false
-        
         refreshDownloadState()
-//        if document.tempPath != nil {
-//            self.loadButton.setTitle("", forState: .Normal)
-//            self.loadButton.setImage(UIImage(named: "not_downloaded_file_icon"), forState: UIControlState.Normal)
-//        } else if document.fileName != nil {
-//            self.loadButton.setTitle("", forState: .Normal)
-//            self.loadButton.setImage(UIImage(named: "downloaded_file_icon"), forState: UIControlState.Normal)
-//        } else if ServiceLayer.sharedServiceLayer.docsService.downloadExists(document) == false {
-//            self.loadButton.setTitle("", forState: .Normal)
-//            self.loadButton.setImage(UIImage(named: "not_downloaded_file_icon"), forState: UIControlState.Normal)
-//        } else {
-//            self.loadButton.setTitle("0 %", forState: .Normal)
-//            self.loadButton.setImage(nil, forState: .Normal)
-//            ServiceLayer.sharedServiceLayer.docsService.downloadDocument(document, progress: { (totalRead, bytesToRead) -> Void in
-//                let percent = Int((Double(totalRead)/Double(bytesToRead))*100)
-//                self.loadButton.setTitle(String(percent) + " %", forState: .Normal)
-//                }, completion: { (document) -> Void in
-//                    self.loadButton.setTitle("", forState: .Normal)
-//                    self.loadButton.setImage(UIImage(named: "downloaded_file_icon"), forState: UIControlState.Normal)
-//                }, failure: { (error) -> Void in
-//                    //TODO: NSNotification для ошибки
-//                    print(error)
-//                    self.loadButton.setTitle("", forState: .Normal)
-//                    self.loadButton.setImage(UIImage(named: "not_downloaded_file_icon"), forState: UIControlState.Normal)
-//            })
-//        }
     }
     
     func refreshDownloadState() {

@@ -32,8 +32,6 @@ class Transport: Alamofire.Manager {
                 if let value = response.result.value {
                     Dispatch.defaultQueue({ () -> () in
                         let json = JSON(value)
-                        print("REQUEST", response.request?.URL?.absoluteString)
-                        print("RESPONSE", json)
                         completion(json: json)
                     })
                 }

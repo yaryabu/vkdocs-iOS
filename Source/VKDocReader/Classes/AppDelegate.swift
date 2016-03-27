@@ -23,8 +23,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         Fabric.with([Crashlytics.self])
         
-
-        print("realm", try! Realm().path)
         //TODO: при запуске надо бы почистить tmp
         //
         if Bash.fileExists(Const.Directories.vaultDir) == false {
@@ -33,10 +31,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if Bash.fileExists(Const.Directories.fileSystemDir) == false {
             Bash.mkdir(Const.Directories.fileSystemDir)
         }
+        //пока что не нужно особых действий при первом запуске
 //        if ServiceLayer.sharedServiceLayer.userSettingsService.hasLaunchedOnce == false {
 
             SSKeychain.setAccessibilityType(kSecAttrAccessibleAlwaysThisDeviceOnly)
-            ServiceLayer.sharedServiceLayer.userSettingsService.hasLaunchedOnce = true
+//            ServiceLayer.sharedServiceLayer.userSettingsService.hasLaunchedOnce = true
 //        }
         Bash.cd(Const.Directories.fileSystemDir)
         self.chooseInitialViewCotroller()

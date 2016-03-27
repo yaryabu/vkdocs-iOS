@@ -27,7 +27,7 @@ class DocumentPreviewViewController: ViewController, QLPreviewControllerDataSour
     lazy var optionsButton: UIBarButtonItem = {
         let btn = UIBarButtonItem()
         btn.target = self
-        btn.action = "optionsButtonPressed:"
+        btn.action = #selector(DocumentPreviewViewController.optionsButtonPressed(_:))
         btn.image = UIImage(named: "options_button.pdf")
         return btn
     }()
@@ -44,74 +44,37 @@ class DocumentPreviewViewController: ViewController, QLPreviewControllerDataSour
     let previewController = QLPreviewController()
     let documentInteractionsController = UIDocumentInteractionController()
     var tapGestureRecogniser: UITapGestureRecognizer!
-
-    var navigationBarTapView: UIView!
     
-    //если ссылаться на self.navigationController во viewDidDisappear, то при втором
-    //переходе на экран МП падает т.к. при распаковке возвращается nil
-    //Переменная weakNC решает эту проблему
-    weak var weakNC: NavigationController!
-    
-    
-//    let activityViewController: UIActivityViewController!
     
     override func viewDidLoad() {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "statusBarTouched:", name: Const.Notifications.statusBarTouched, object: nil)
         super.viewDidLoad()
         if self.document.tempPath != nil || self.document.filePath != nil {
             navigationItem.rightBarButtonItem = nil
             navigationItem.setRightBarButtonItem(optionsButton, animated: false)
-//            navigationItem.rightBarButtonItem = optionsButton
         }
         self.navigationItem.title = self.document.title
-        self.weakNC = self.navigationController as! NavigationController
-//        print("TETETE.txt", QLPreviewController.canPreviewItem(NSURL(fileURLWithPath: "TETETE.txt")))
-//        print("TETETE.xlsx", QLPreviewController.canPreviewItem(NSURL(fileURLWithPath: "TETETE.xlsx")))
-//        print("TETETE.png", QLPreviewController.canPreviewItem(NSURL(fileURLWithPath: "TETETE.png")))
-//        print("TETETE.flac", QLPreviewController.canPreviewItem(NSURL(fileURLWithPath: "TETETE.flac")))
-//        print("TETETE.rar", QLPreviewController.canPreviewItem(NSURL(fileURLWithPath: "TETETE.rar")))
-//        print("TETETE", QLPreviewController.canPreviewItem(NSURL(fileURLWithPath: "TETETE")))
-        
         
         self.addChildViewController(previewController)
         previewController.dataSource = self
         previewController.delegate = self
-//        self.previewController.view.frame = CGRect(
-//            x: 0,
-//            y: 0, //self.weakNC.navigationBar.frame.height,
-//            width: self.view.frame.width,
-//            height: self.view.frame.height
-//        )
+        
+        //на iOS 9 QLPreviewController отображается под навбаром
+        if #available(iOS 9, *) {
+            self.previewController.view.frame = CGRect(
+                x: 0,
+                y: navigationController!.navigationBar.frame.height,
+                width: self.view.frame.width,
+                height: self.view.frame.height - navigationController!.navigationBar.frame.height
+            )
+        }
 
         self.previewDocument()
     }
-    
-    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-        return UIInterfaceOrientationMask.All
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        self.tapGestureRecogniser = UITapGestureRecognizer(target: self, action: "navigationBarTitleTapped:")
-        self.tapGestureRecogniser.delegate = self
-        self.navigationBarTapView = UIView(frame: CGRect(
-            x: self.weakNC.navigationBar.frame.width/4,
-            y: 0,
-            width: self.weakNC.navigationBar.frame.width/2,
-            height: self.weakNC.navigationBar.frame.height
-            )
-        )
-//        self.navigationBarTapView.backgroundColor = UIColor.greenColor()
-        self.navigationBarTapView.addGestureRecognizer(self.tapGestureRecogniser)
-        self.weakNC.navigationBar.addSubview(self.navigationBarTapView)
-    }
-    
-    override func viewWillDisappear(animated: Bool) {
-        super.viewWillDisappear(animated)
-//        self.showNavigationBar()
-        self.navigationBarTapView.removeFromSuperview()
-    }
+
+    //FIXME: нужно позволять использовать лэндскейп на этом экране
+//    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+//        return UIInterfaceOrientationMask.All
+//    }
     
     func previewDocument() {
         
@@ -155,40 +118,6 @@ class DocumentPreviewViewController: ViewController, QLPreviewControllerDataSour
         return NSURL(fileURLWithPath: self.document.filePath ?? self.document.tempPath ?? "")
     }
     
-    func canPreviewCurrentDocument() {
-        
-    }
-    
-    func navigationBarTitleTapped(sender: UITapGestureRecognizer) {
-//        self.hideNavigationBar()
-    }
-    
-    func statusBarTouched(notification: NSNotification) {
-//        self.showNavigationBar()
-    }
-    
-    func hideNavigationBar() {
-        self.weakNC.hideNavigationBarFrame(nil) { () -> () in
-//            self.previewController.view.frame = CGRect(
-//                x: 0,
-//                y: 0,
-//                width: self.view.frame.width,
-//                height: self.view.frame.height
-//            )
-        }
-    }
-    
-//    func showNavigationBar() {
-//        self.weakNC.showNavigationBarFrame(nil) { () -> () in
-////            self.previewController.view.frame = CGRect(
-////                x: 0,
-////                y: self.weakNC.navigationBar.frame.height, //self.weakNC.navBarAndStatusBarHeight,
-////                width: self.view.frame.width,
-////                height: self.loadingView.frame.height
-////            )
-//        }
-//    }
-    
     func optionsButtonPressed(sender: AnyObject) {
         if self.document.filePath == nil && self.document.tempPath == nil {
             return
@@ -214,6 +143,7 @@ class DocumentPreviewViewController: ViewController, QLPreviewControllerDataSour
                 ToastManager.sharedInstance.presentInfo("Сохранено")
             }
         }
+        
         let addToFolderAction = UIAlertAction(title: "Добавить в папку", style: .Default) { (action) -> Void in
             let navControllerVc = self.storyboard!.instantiateViewControllerWithIdentifier(Const.StoryboardIDs.moveCopyViewControllerNavigationController) as! NavigationController
             let moveCopyVc = navControllerVc.viewControllers[0] as! MoveCopyViewController
@@ -280,7 +210,7 @@ class DocumentPreviewViewController: ViewController, QLPreviewControllerDataSour
     @IBAction func cancelButtonPressed(sender: AnyObject) {
         self.serviceLayer.docsService.cancelDownload(self.document)
         ToastManager.sharedInstance.presentError(Error(code: 0, message: "Загрузка отменена"))
-        self.weakNC.popToRootViewControllerAnimated(true)
+        navigationController!.popToRootViewControllerAnimated(true)
     }
     
     

@@ -82,11 +82,11 @@ class SearchDataSource: NSObject, DataSource {
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 0 {
             if savedDocumentsResult.count > 0 {
-                return "self"
+                return "В своих документах"
             }
         } else {
             if vkSearchResults.count > 0 {
-                return "all"
+                return "В документах ВК"
             }
         }
         return nil
@@ -104,12 +104,10 @@ class SearchDataSource: NSObject, DataSource {
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCellWithIdentifier(UserDocsTableViewCell.cellIdentifier, forIndexPath: indexPath) as! UserDocsTableViewCell
             cell.configureCell(savedDocumentsResult[indexPath.row], isSearchResult: false, hideButton: false)
-            print(cell.titleLabel.text)
             return cell
         } else {
             let cell = tableView.dequeueReusableCellWithIdentifier(UserDocsTableViewCell.cellIdentifier, forIndexPath: indexPath) as! UserDocsTableViewCell
             cell.configureCell(vkSearchResults[indexPath.row], isSearchResult: true, hideButton: false)
-            print(cell.titleLabel.text)
             return cell
         }
     }

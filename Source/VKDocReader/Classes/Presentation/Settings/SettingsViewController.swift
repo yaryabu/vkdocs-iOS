@@ -54,8 +54,9 @@ class SettingsViewController: ViewController, MFMailComposeViewControllerDelegat
             let label = UserNameLabel()
             label.frame = CGRect(x: 20, y: 8, width: 200, height: 40)
             label.text = user.firstName + " " + user.lastName
-//            self.userSurnameLabel.text = user.lastName
             label.transform = CGAffineTransformMakeTranslation(-38, -8)
+            //из-за особенностей NavigationItem нужно засовывать View в контейнеры,
+            //чтобы правильно их расположить
             let container = UIView(frame: label.frame)
             container.addSubview(label)
             navigationItem.titleView = container
@@ -83,7 +84,7 @@ class SettingsViewController: ViewController, MFMailComposeViewControllerDelegat
             navigationItem.leftBarButtonItem = button
 //            self.userAvatarImageBarButton = button
         } else {
-            //TODO: добавить спиннер
+            //FIXME: добавить спиннер
         }
     }
     
@@ -135,7 +136,7 @@ class SettingsViewController: ViewController, MFMailComposeViewControllerDelegat
             
             presentViewController(mail, animated: true, completion: nil)
         } else {
-            // show failure alert
+            ToastManager.sharedInstance.presentError(Error(code: 0, message: "Связь барахлит.\nПроверь настройки почты."))
         }
     }
     
