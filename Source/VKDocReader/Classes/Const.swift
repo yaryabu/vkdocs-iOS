@@ -15,7 +15,7 @@ struct Const {
         static let mainStoryboardName = "Main"
         //рандомная строка, которая добавляется ко всем папкам для документов, чтобы 
         //не было конфликтов с пользовательскими папками
-        static let directoryConflictHelper = ".h7237uigYFasdaw3w"
+        static let directoryConflictHelper = ".CONFLICT_CONSTANT"
     }
     
     struct Notifications {
@@ -68,6 +68,10 @@ struct Const {
     }
     
     struct UserDefaults {
+        
+        static let appGroupId = "group.VKDocsContainer"
+        static let userToken = "User access token"
+        
         static let userIdKey = "VK UserID"
         static let hasLaunchedOnceKey = "App has launched once"
         static let deleteDocumentsAfterPreviewKey = "Delete documents after preview"

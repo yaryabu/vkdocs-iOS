@@ -109,7 +109,7 @@ class DocumentPreviewViewController: ViewController, QLPreviewControllerDataSour
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
-        self.showNavigationBar()
+//        self.showNavigationBar()
         self.navigationBarTapView.removeFromSuperview()
     }
     
@@ -178,16 +178,16 @@ class DocumentPreviewViewController: ViewController, QLPreviewControllerDataSour
         }
     }
     
-    func showNavigationBar() {
-        self.weakNC.showNavigationBarFrame(nil) { () -> () in
-//            self.previewController.view.frame = CGRect(
-//                x: 0,
-//                y: self.weakNC.navigationBar.frame.height, //self.weakNC.navBarAndStatusBarHeight,
-//                width: self.view.frame.width,
-//                height: self.loadingView.frame.height
-//            )
-        }
-    }
+//    func showNavigationBar() {
+//        self.weakNC.showNavigationBarFrame(nil) { () -> () in
+////            self.previewController.view.frame = CGRect(
+////                x: 0,
+////                y: self.weakNC.navigationBar.frame.height, //self.weakNC.navBarAndStatusBarHeight,
+////                width: self.view.frame.width,
+////                height: self.loadingView.frame.height
+////            )
+//        }
+//    }
     
     func optionsButtonPressed(sender: AnyObject) {
         if self.document.filePath == nil && self.document.tempPath == nil {

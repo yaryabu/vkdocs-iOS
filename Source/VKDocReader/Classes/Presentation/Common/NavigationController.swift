@@ -24,11 +24,11 @@ class NavigationController: UINavigationController {
         }
     }
     
-    var navBarAndStatusBarHeight: CGFloat {
-        get {
-            return self.navigationBar.frame.height + UIApplication.sharedApplication().statusBarFrame.height
-        }
-    }
+//    var navBarAndStatusBarHeight: CGFloat {
+//        get {
+//            return self.navigationBar.frame.height + UIApplication.sharedApplication().statusBarFrame.height
+//        }
+//    }
     
     lazy var uploadProgressBarView: UIProgressView = {
         let progressView = UIProgressView(frame: CGRect(
@@ -96,19 +96,19 @@ class NavigationController: UINavigationController {
         uploadProgressBarView.progress = 0.0
     }
     
-    func showNavigationBarFrame(animationDuration: Double?, additionalAnimations: (() -> ())?) {
-        if self.navigationBarFrameHidden == false {
-            return
-        }
-        UIView.animateWithDuration(animationDuration ?? 0.3) { () -> Void in
-            self.navigationBar.frame = CGRect(
-                x: 0,
-                y: UIApplication.sharedApplication().statusBarFrame.height,
-                width: self.navigationBar.frame.width,
-                height: self.navigationBar.frame.height
-            )
-            additionalAnimations?()
-        }
-    }
+//    func showNavigationBarFrame(animationDuration: Double?, additionalAnimations: (() -> ())?) {
+//        if self.navigationBarFrameHidden == false {
+//            return
+//        }
+//        UIView.animateWithDuration(animationDuration ?? 0.3) { () -> Void in
+//            self.navigationBar.frame = CGRect(
+//                x: 0,
+//                y: UIApplication.sharedApplication().statusBarFrame.height,
+//                width: self.navigationBar.frame.width,
+//                height: self.navigationBar.frame.height
+//            )
+//            additionalAnimations?()
+//        }
+//    }
     
 }

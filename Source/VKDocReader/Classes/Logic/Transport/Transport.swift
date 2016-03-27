@@ -94,41 +94,39 @@ class Transport: Alamofire.Manager {
 //            }
 //    }
 //    
-//    func uploadFile(serverUrl: String, pathToFile: NSURL, progressClosure: (totalUploaded: Int, totalToUpload: Int) -> Void, completion: (json: JSON) -> Void, failure: (error: NSError) -> Void) {
-//        
-//        BackgroundManager.sharedManager.uploadFile(serverUrl, pathToFile: pathToFile, progressClosure: progressClosure, completion: completion, failure: failure)
-//        return
-//        
-//        upload(.POST, serverUrl, multipartFormData: { (multipart) -> Void in
-//            multipart.appendBodyPart(fileURL: pathToFile, name: "file")
-//            }) { (encodingResult) -> Void in
-//                switch encodingResult {
-//                case .Success(let upload, _, _):
-//                    upload
-//                        .progress({ (uploaded, totalUploaded, totalToUpload) -> Void in
-//                            progressClosure(totalUploaded: Int(totalUploaded), totalToUpload: Int(totalToUpload))
-//                        })
-//                        .responseJSON { (response) -> Void in
-//                            switch response.result {
-//                            case .Success:
-//                                if let value = response.result.value {
-//                                    Dispatch.defaultQueue({ () -> () in
-//                                        let json = JSON(value)
-//                                        completion(json: json)
-//                                    })
-//                                }
-//                            case .Failure(let error):
-//                                failure(error: error)
-//                            }
-//                    }
-//                case .Failure:
-//                    break
-//                }
-//                
-//        }
+    //используется только в Share Extension
+    func uploadFile(serverUrl: String, pathToFile: NSURL, progressClosure: (totalUploaded: Int, totalToUpload: Int) -> Void, completion: (json: JSON) -> Void, failure: (error: NSError) -> Void) {
+        
+        upload(.POST, serverUrl, multipartFormData: { (multipart) -> Void in
+            multipart.appendBodyPart(fileURL: pathToFile, name: "file")
+            }) { (encodingResult) -> Void in
+                switch encodingResult {
+                case .Success(let upload, _, _):
+                    upload
+                        .progress({ (uploaded, totalUploaded, totalToUpload) -> Void in
+                            progressClosure(totalUploaded: Int(totalUploaded), totalToUpload: Int(totalToUpload))
+                        })
+                        .responseJSON { (response) -> Void in
+                            switch response.result {
+                            case .Success:
+                                if let value = response.result.value {
+                                    Dispatch.defaultQueue({ () -> () in
+                                        let json = JSON(value)
+                                        completion(json: json)
+                                    })
+                                }
+                            case .Failure(let error):
+                                failure(error: error)
+                            }
+                    }
+                case .Failure:
+                    break
+                }
+                
+        }
+
+    }
 //
-//    }
-//    
 //    func requestForUrlExists(urlString: String) -> Bool {
 //        if self.downloadRequestPool[urlString] != nil {
 //            return true

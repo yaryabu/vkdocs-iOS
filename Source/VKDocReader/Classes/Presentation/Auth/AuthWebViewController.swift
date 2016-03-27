@@ -17,6 +17,11 @@ class AuthWebViewController: ViewController, UIWebViewDelegate {
         self.loadWebView()
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.Default, animated: true)
+    }
+    
     func loadWebView() {
         let urlRequest = NSURLRequest(URL: NSURL(string: Const.Network.authUrlString)!)
         self.webView.loadRequest(urlRequest)

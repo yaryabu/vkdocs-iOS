@@ -9,7 +9,7 @@
 import SSKeychain
 
 class AuthService: Service {
-    
+
     var token: String? {
         get {
             return SSKeychain.passwordForService(Const.Keychain.serviceName, account: Const.Keychain.sharedAccountName)
@@ -22,6 +22,7 @@ class AuthService: Service {
             }
         }
     }
+
     var userId: String? {
         get {
             return NSUserDefaults.standardUserDefaults().stringForKey(Const.UserDefaults.userIdKey)
@@ -41,7 +42,6 @@ class AuthService: Service {
                 self.userId = param.componentsSeparatedByString("=")[1]
             }
         }
-        print(self.token, self.userId)
     }
     
     override func deleteAllInfo() {
