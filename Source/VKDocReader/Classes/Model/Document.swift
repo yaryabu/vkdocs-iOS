@@ -22,6 +22,9 @@ class Document: Object {
     
     dynamic var accessKey: String?
 
+    /**
+     Хэш файла от ВК. Берется из urlString.
+    */
     dynamic var vkHash: String! {
         get {
             let queryParams = urlString
@@ -33,7 +36,6 @@ class Document: Object {
     }
     
     dynamic var fileDirectory: String {
-            //рандомная строка, чтобы точно не было конфликтов с пользовательскими папками
             let dir = Const.Directories.vaultDir + "/" + id + Const.Common.directoryConflictHelper
             if Bash.fileExists(dir) == false {
                 Bash.mkdir(dir)
@@ -59,6 +61,9 @@ class Document: Object {
         }
     }
     
+    /**
+     Временная директория в /tmp. Используется, если пользователь не хочет сразу загружать файлы.
+    */
     dynamic var tempDir: String {
         //рандомная строка, чтобы точно не было конфликтов с пользовательскими папками
         let dir = NSTemporaryDirectory() + id + Const.Common.directoryConflictHelper
@@ -68,6 +73,9 @@ class Document: Object {
         return dir
     }
     
+    /**
+     Путь к файлу в /tmp, если он там есть
+    */
     dynamic var tempPath: String? {
         let fileDirContents = Bash.ls(tempDir)
         if fileDirContents.count > 0 {

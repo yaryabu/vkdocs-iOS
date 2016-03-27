@@ -9,8 +9,6 @@
 import Foundation
 import SwiftyJSON
 
-
-//извините
 class UploadDocumentsService: Service {
     
     let authService: AuthService
@@ -21,6 +19,7 @@ class UploadDocumentsService: Service {
         self.userSettingsSerivce = userSettingsSerivce
     }
     
+    //FIXME: еще немого вложенных запросов и они перестанут помещаться на экран
     func uploadDocument(pathToFile: String, documentName: String, completion: () -> Void, progress: (totalUploaded: Int, bytesToUpload: Int) -> Void, failure: (error: Error) -> Void) {
         let token = ServiceLayer.sharedServiceLayer.authService.token!
         transport.getJSON(Const.Network.baseUrl + "/docs.getUploadServer", parameters: ["access_token":token], completion: { (json) -> Void in
@@ -78,6 +77,10 @@ class UploadDocumentsService: Service {
                     failure(error: error)
                 }
         }
+    }
+    
+    func isUploadingNow() -> Bool {
+        return LoadTaskManager.sharedManager.isUploadingNow
     }
     
     private func parseServerUrlResponse(json: JSON) -> String {

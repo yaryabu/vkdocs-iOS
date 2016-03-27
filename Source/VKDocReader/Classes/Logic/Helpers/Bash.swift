@@ -8,15 +8,32 @@
 
 import Foundation
 
+//TODO: нужна обработка ошибок в catch
+
+/**
+ Обертка NSFileManager в родной синтаксис командной строки
+ */
 class Bash {
-    class func cd(dir: String) -> Bool {
-        return NSFileManager.defaultManager().changeCurrentDirectoryPath(dir)
+    /**
+     Сменить текущую директорию
+    */
+    class func cd(dir: String) {
+        NSFileManager.defaultManager().changeCurrentDirectoryPath(dir)
     }
     
+    /**
+     Вывести текущую директорию
+     - returns: текущая директория в формате строки
+    */
     class func pwd() -> String {
         return NSFileManager.defaultManager().currentDirectoryPath
     }
     
+    /**
+     Вывести список элементов в директории
+     - parameter dir: директория
+     - returns: массив названий элементов директории
+    */
     class func ls(dir: String) -> [String] {
         do {
             let ls = try NSFileManager.defaultManager().contentsOfDirectoryAtPath(dir)
@@ -31,21 +48,29 @@ class Bash {
             return []
         }
     }
-    
-    class func mkdir(dir: String) -> Bool {
+    /**
+     Создать директорию
+     - parameter dir: директория, которую нужно создать
+    */
+    class func mkdir(dir: String) {
         do {
             try NSFileManager.defaultManager().createDirectoryAtPath(dir, withIntermediateDirectories: true, attributes: nil)
-            return true
         } catch {
-            return false
         }
     }
     
-    class func touch(filePath: String) -> Bool  {
-        return NSFileManager.defaultManager().createFileAtPath(filePath, contents: nil, attributes: nil)
+    /**
+     Создать пустой файл
+     -parameter filePath: путь к файлу, который нужно создать
+    */
+    class func touch(filePath: String)  {
+        NSFileManager.defaultManager().createFileAtPath(filePath, contents: nil, attributes: nil)
     }
     
-    class func cp(from: String, to: String) -> Bool {
+    /**
+     Скопировать файл
+    */
+    class func cp(from: String, to: String) {
         do {
             //если попытаться заменить существующий файл, то возвращается ошибка
             //сделано для случаев, если from и to одинаковые
@@ -56,26 +81,33 @@ class Bash {
             rm(to)
             try NSFileManager.defaultManager().copyItemAtPath(bakPath, toPath: to)
             rm(bakDir)
-            return true
         } catch {
-            return false
         }
     }
     
+    /**
+     Переместить файл
+    */
     class func mv(from: String, to: String) {
         cp(from, to: to)
         rm(from)
     }
     
-    class func rm(filePath: String) -> Bool {
+    /**
+     Удалить файл
+    */
+    class func rm(filePath: String) {
         do {
             try NSFileManager.defaultManager().removeItemAtPath(filePath)
-            return true
         } catch {
-            return false
         }
     }
     
+    /**
+    Рекурсивное удаление файла/папки
+    - parameter fromDir: директория, из которой нужно удалить все упоминания файла
+    - parameter fileName: имя файла, который нужно удалить
+    */
     class func rmRecursively(fromDir: String, fileName: String) {
         for file in ls(fromDir) {
             let filePath = fromDir + "/" + file
@@ -88,6 +120,9 @@ class Bash {
         }
     }
     
+    /**
+     Размер файла/папки и всех её детей
+    */
     class func du(path: String) -> Int {
         var totalSize: Int = 0
         

@@ -166,21 +166,32 @@ class MoveCopyViewController: ViewController, UITableViewDelegate {
     }
     
     func performActionAndDismiss() {
+        
+        var shouldShowNotification = true
+        
         for path in paths {
             let name = path.componentsSeparatedByString("/").last!
             let newPath = currentPath + "/" + name
             if actionType == .Copy {
                 Bash.cp(path, to: newPath)
-                ToastManager.sharedInstance.presentInfo("Файлы скопированы")
+                if shouldShowNotification {
+                    ToastManager.sharedInstance.presentInfo("Файлы скопированы")
+                }
+                shouldShowNotification = false
             } else if actionType == .Move {
                 Bash.mv(path, to: newPath)
-                ToastManager.sharedInstance.presentInfo("Файлы перемещены")
+                if shouldShowNotification {
+                    ToastManager.sharedInstance.presentInfo("Файлы перемещены")
+                }
+                shouldShowNotification = false
             }
         }
         
         for name in fileNames {
             Bash.touch(currentPath + "/" + name)
-            ToastManager.sharedInstance.presentInfo("Файл добавлен в папку")
+            if shouldShowNotification {
+                ToastManager.sharedInstance.presentInfo("Файлы добавлены в папку")
+            }
         }
         dismissViewControllerAnimated(true, completion: nil)
     }

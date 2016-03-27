@@ -6,5 +6,9 @@
 //  Copyright © 2016 Yaroslav Ryabukha. All rights reserved.
 //
 
+/**
+ Абстрактный парсер
+ */
 class Parser {
+//я не парсер, а маппер, но уже поздно что-то решать
 }

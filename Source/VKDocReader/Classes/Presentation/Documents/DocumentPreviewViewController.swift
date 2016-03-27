@@ -266,7 +266,7 @@ class DocumentPreviewViewController: ViewController, QLPreviewControllerDataSour
             })
             
         }
-        let deleteOnlyFileAction = UIAlertAction(title: "Удалить файл", style: .Default) { (action) -> Void in
+        let deleteOnlyFileAction = UIAlertAction(title: "Удалить с девайса", style: .Default) { (action) -> Void in
             self.document.deleteFile()
             self.navigationController!.popViewControllerAnimated(true)
         }

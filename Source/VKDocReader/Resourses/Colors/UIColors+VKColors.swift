@@ -48,4 +48,12 @@ extension UIColor {
     class func vkWarmGreyColor() -> UIColor {
         return UIColor(white: 124.0 / 255.0, alpha: 1.0)
     }
+    
+    class func vkWarmGreyTwoColor() -> UIColor {
+        return UIColor(white: 162.0 / 255.0, alpha: 1.0)
+    }
+    
+    class func vkPaleGreyColor() -> UIColor {
+        return UIColor(red: 224.0 / 255.0, green: 231.0 / 255.0, blue: 236.0 / 255.0, alpha: 1.0)
+    }
 }

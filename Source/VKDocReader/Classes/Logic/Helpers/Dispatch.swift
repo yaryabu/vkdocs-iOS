@@ -8,6 +8,9 @@
 
 import Foundation
 
+/**
+ Обертка libdispatch в синтаксис Swift
+ */
 class Dispatch {
     static func mainQueue(closure: () -> ()) {
         dispatch_async(dispatch_get_main_queue()) { () -> Void in

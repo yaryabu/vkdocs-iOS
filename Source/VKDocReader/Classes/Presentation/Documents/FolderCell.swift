@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FolderCell: UITableViewCell {
+class FolderCell: TableViewCell {
     
     static let cellIdentifier = "FolderCell"
     

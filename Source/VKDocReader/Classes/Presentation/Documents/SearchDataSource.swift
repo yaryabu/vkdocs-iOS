@@ -104,10 +104,12 @@ class SearchDataSource: NSObject, DataSource {
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCellWithIdentifier(UserDocsTableViewCell.cellIdentifier, forIndexPath: indexPath) as! UserDocsTableViewCell
             cell.configureCell(savedDocumentsResult[indexPath.row], isSearchResult: false, hideButton: false)
+            print(cell.titleLabel.text)
             return cell
         } else {
             let cell = tableView.dequeueReusableCellWithIdentifier(UserDocsTableViewCell.cellIdentifier, forIndexPath: indexPath) as! UserDocsTableViewCell
             cell.configureCell(vkSearchResults[indexPath.row], isSearchResult: true, hideButton: false)
+            print(cell.titleLabel.text)
             return cell
         }
     }

@@ -1,5 +1,5 @@
 //
-//  SettingsLabels.swift
+//  Labels.swift
 //  VKDocReader
 //
 //  Created by Yaroslav Ryabukha on 21/03/16.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-//TODO: сделать нормальные имена. А-ля "vkA1Label", "vkA3Label" итд
+//FIXME: сделать нормальные имена. А-ля "vkA1Label", "vkA3Label" итд
 class Label: UILabel {
 
     override init(frame: CGRect) {
@@ -52,6 +52,20 @@ class SettingLabel: Label {
     override func prepareLabel() {
         self.font = UIFont.defaultFont()
         self.tintColor = UIColor.vkBlackTwoColor()
+    }
+}
+
+class LoadingPercentLabel: Label {
+    override func prepareLabel() {
+        self.font = UIFont.loadingPercentFont()
+        self.tintColor = UIColor.vkDuskBlueColor()
+    }
+}
+
+class SectionHeaderLabel: Label {
+    override func prepareLabel() {
+        self.font = UIFont.sectionHeaderFont()
+        self.tintColor = UIColor.vkWarmGreyColor()
     }
 }
 

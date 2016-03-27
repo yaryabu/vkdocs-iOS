@@ -14,8 +14,12 @@
 		5703FA551C9DDF2B00C84F60 /* DocumentsPickerNavBarOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5703FA541C9DDF2B00C84F60 /* DocumentsPickerNavBarOverlay.swift */; };
 		5715AE7E1C8B863F0074C59F /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5715AE7D1C8B863F0074C59F /* ImageService.swift */; };
 		5715AE811C8BB5560074C59F /* Dispatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5715AE801C8BB5560074C59F /* Dispatch.swift */; };
-		575980F41C8F47DF009A9460 /* DocsParameterBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575980F31C8F47DF009A9460 /* DocsParameterBuilder.swift */; };
 		57687F861C8F32EE0037AF4F /* Bash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57687F851C8F32EE0037AF4F /* Bash.swift */; };
+		576ADCA31CA816FB00615FC5 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 576ADCA21CA816FB00615FC5 /* TableViewCell.swift */; };
+		576ADCA51CA825C400615FC5 /* CreateFolderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 576ADCA41CA825C400615FC5 /* CreateFolderCell.swift */; };
+		576ADCA71CA8264F00615FC5 /* CreateFolderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 576ADCA61CA8264F00615FC5 /* CreateFolderCell.xib */; };
+		576ADCA91CA86A3700615FC5 /* LoadTaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 576ADCA81CA86A3700615FC5 /* LoadTaskManager.swift */; };
+		576ADCAB1CA86BD800615FC5 /* OnboardingViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 576ADCAA1CA86BD800615FC5 /* OnboardingViewCell.swift */; };
 		577047DC1CA1DC8600A2CA98 /* SizeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577047DB1CA1DC8600A2CA98 /* SizeFormatter.swift */; };
 		577047DE1CA1EFE000A2CA98 /* FolderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 577047DD1CA1EFE000A2CA98 /* FolderCell.xib */; };
 		577047E01CA2227E00A2CA98 /* UploadDocumentsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577047DF1CA2227E00A2CA98 /* UploadDocumentsService.swift */; };
@@ -49,7 +53,7 @@
 		57ADB1AB1C9F3063001E0766 /* Lucida Grande.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 57ADB1AA1C9F3063001E0766 /* Lucida Grande.ttf */; };
 		57ADB1B01C9F3B5D001E0766 /* UIColors+VKColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57ADB1AF1C9F3B5D001E0766 /* UIColors+VKColors.swift */; };
 		57ADB1B21C9F3F21001E0766 /* UIFont+VKFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57ADB1B11C9F3F21001E0766 /* UIFont+VKFont.swift */; };
-		57ADB1B51C9F4CC3001E0766 /* SettingsLabels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57ADB1B41C9F4CC3001E0766 /* SettingsLabels.swift */; };
+		57ADB1B51C9F4CC3001E0766 /* Labels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57ADB1B41C9F4CC3001E0766 /* Labels.swift */; };
 		57ADB1B71C9F4DE3001E0766 /* Open Sans.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 57ADB1B61C9F4DE3001E0766 /* Open Sans.ttf */; };
 		57AF2CA51C97578600C5A193 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57AF2CA41C97578600C5A193 /* ShareViewController.swift */; };
 		57AF2CA81C97578600C5A193 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 57AF2CA61C97578600C5A193 /* MainInterface.storyboard */; };
@@ -103,8 +107,12 @@
 		5703FA541C9DDF2B00C84F60 /* DocumentsPickerNavBarOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentsPickerNavBarOverlay.swift; sourceTree = "<group>"; };
 		5715AE7D1C8B863F0074C59F /* ImageService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
 		5715AE801C8BB5560074C59F /* Dispatch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Dispatch.swift; path = Helpers/Dispatch.swift; sourceTree = "<group>"; };
-		575980F31C8F47DF009A9460 /* DocsParameterBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DocsParameterBuilder.swift; path = ParameterBuilders/DocsParameterBuilder.swift; sourceTree = "<group>"; };
 		57687F851C8F32EE0037AF4F /* Bash.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Bash.swift; path = Helpers/Bash.swift; sourceTree = "<group>"; };
+		576ADCA21CA816FB00615FC5 /* TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
+		576ADCA41CA825C400615FC5 /* CreateFolderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateFolderCell.swift; sourceTree = "<group>"; };
+		576ADCA61CA8264F00615FC5 /* CreateFolderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreateFolderCell.xib; sourceTree = "<group>"; };
+		576ADCA81CA86A3700615FC5 /* LoadTaskManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadTaskManager.swift; sourceTree = "<group>"; };
+		576ADCAA1CA86BD800615FC5 /* OnboardingViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingViewCell.swift; sourceTree = "<group>"; };
 		577047DB1CA1DC8600A2CA98 /* SizeFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SizeFormatter.swift; path = Helpers/SizeFormatter.swift; sourceTree = "<group>"; };
 		577047DD1CA1EFE000A2CA98 /* FolderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FolderCell.xib; sourceTree = "<group>"; };
 		577047DF1CA2227E00A2CA98 /* UploadDocumentsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadDocumentsService.swift; sourceTree = "<group>"; };
@@ -137,7 +145,7 @@
 		57ADB1AA1C9F3063001E0766 /* Lucida Grande.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lucida Grande.ttf"; sourceTree = "<group>"; };
 		57ADB1AF1C9F3B5D001E0766 /* UIColors+VKColors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColors+VKColors.swift"; sourceTree = "<group>"; };
 		57ADB1B11C9F3F21001E0766 /* UIFont+VKFont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+VKFont.swift"; sourceTree = "<group>"; };
-		57ADB1B41C9F4CC3001E0766 /* SettingsLabels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsLabels.swift; sourceTree = "<group>"; };
+		57ADB1B41C9F4CC3001E0766 /* Labels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Labels.swift; sourceTree = "<group>"; };
 		57ADB1B61C9F4DE3001E0766 /* Open Sans.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Open Sans.ttf"; sourceTree = "<group>"; };
 		57AF2CA21C97578600C5A193 /* ShareExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ShareExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		57AF2CA41C97578600C5A193 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
@@ -219,14 +227,6 @@
 			name = Helpers;
 			sourceTree = "<group>";
 		};
-		575980F21C8F47CB009A9460 /* ParameterBuilders */ = {
-			isa = PBXGroup;
-			children = (
-				575980F31C8F47DF009A9460 /* DocsParameterBuilder.swift */,
-			);
-			name = ParameterBuilders;
-			sourceTree = "<group>";
-		};
 		5775CE921C98CE1D00D2C113 /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
@@ -304,7 +304,6 @@
 		578257F01C8B173B003C3568 /* Logic */ = {
 			isa = PBXGroup;
 			children = (
-				575980F21C8F47CB009A9460 /* ParameterBuilders */,
 				5715AE7F1C8BB54A0074C59F /* Helpers */,
 				57AF969D1C8B5C8200E924C3 /* Parser */,
 				578257F11C8B173B003C3568 /* Service */,
@@ -332,6 +331,7 @@
 			isa = PBXGroup;
 			children = (
 				57AF96991C8B53FC00E924C3 /* Transport.swift */,
+				576ADCA81CA86A3700615FC5 /* LoadTaskManager.swift */,
 			);
 			path = Transport;
 			sourceTree = "<group>";
@@ -385,7 +385,7 @@
 		57ADB1B31C9F4C71001E0766 /* Labels */ = {
 			isa = PBXGroup;
 			children = (
-				57ADB1B41C9F4CC3001E0766 /* SettingsLabels.swift */,
+				57ADB1B41C9F4CC3001E0766 /* Labels.swift */,
 			);
 			path = Labels;
 			sourceTree = "<group>";
@@ -428,6 +428,7 @@
 			children = (
 				57E204171C9C8C7B009B3033 /* AuthViewController.swift */,
 				57E204181C9C8C7B009B3033 /* AuthWebViewController.swift */,
+				576ADCAA1CA86BD800615FC5 /* OnboardingViewCell.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -442,6 +443,7 @@
 				57E2041D1C9C8C7B009B3033 /* ViewController.swift */,
 				57E204361C9C9431009B3033 /* UITableViewDataSource+Refresh.swift */,
 				57ADB1A51C9F215E001E0766 /* ToastManager.swift */,
+				576ADCA21CA816FB00615FC5 /* TableViewCell.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -464,6 +466,8 @@
 				57ADB19D1C9DF25E001E0766 /* DocumentsPickerTabBarOverlay.xib */,
 				57ADB19F1C9DF265001E0766 /* DocumentsPickerTabBarOverlay.swift */,
 				57ADB1A11C9EC47A001E0766 /* MoveCopyViewController.swift */,
+				576ADCA41CA825C400615FC5 /* CreateFolderCell.swift */,
+				576ADCA61CA8264F00615FC5 /* CreateFolderCell.xib */,
 			);
 			path = Documents;
 			sourceTree = "<group>";
@@ -665,6 +669,7 @@
 				57ADB1AB1C9F3063001E0766 /* Lucida Grande.ttf in Resources */,
 				57ADB19E1C9DF25E001E0766 /* DocumentsPickerTabBarOverlay.xib in Resources */,
 				5703FA4F1C9CC5A000C84F60 /* UserDocsTableViewCell.xib in Resources */,
+				576ADCA71CA8264F00615FC5 /* CreateFolderCell.xib in Resources */,
 				57AF96961C8B4C3700E924C3 /* LaunchScreen.storyboard in Resources */,
 				578258001C8B173B003C3568 /* Assets.xcassets in Resources */,
 			);
@@ -811,6 +816,7 @@
 			files = (
 				57E204351C9C8EF8009B3033 /* EditViewController.swift in Sources */,
 				57E2042B1C9C8C7B009B3033 /* View.swift in Sources */,
+				576ADCAB1CA86BD800615FC5 /* OnboardingViewCell.swift in Sources */,
 				57E204371C9C9431009B3033 /* UITableViewDataSource+Refresh.swift in Sources */,
 				57E2042F1C9C8C7B009B3033 /* UserDocsTableViewCell.swift in Sources */,
 				57E204331C9C8C7B009B3033 /* SettingsViewController.swift in Sources */,
@@ -819,17 +825,18 @@
 				57E204301C9C8C7B009B3033 /* UserDocsViewController.swift in Sources */,
 				57E2042E1C9C8C7B009B3033 /* SearchDataSource.swift in Sources */,
 				57E204291C9C8C7B009B3033 /* NavigationController.swift in Sources */,
-				575980F41C8F47DF009A9460 /* DocsParameterBuilder.swift in Sources */,
 				5795DD661C8CCAAC0008DFA1 /* UserParser.swift in Sources */,
 				57E204391C9C9818009B3033 /* FolderCell.swift in Sources */,
 				5795DD641C8CCA280008DFA1 /* User.swift in Sources */,
 				578258051C8B1959003C3568 /* Service.swift in Sources */,
-				57ADB1B51C9F4CC3001E0766 /* SettingsLabels.swift in Sources */,
+				57ADB1B51C9F4CC3001E0766 /* Labels.swift in Sources */,
 				578258071C8B1973003C3568 /* AuthService.swift in Sources */,
+				576ADCA51CA825C400615FC5 /* CreateFolderCell.swift in Sources */,
 				57E204281C9C8C7B009B3033 /* AuthWebViewController.swift in Sources */,
 				57ADB1A21C9EC47A001E0766 /* MoveCopyViewController.swift in Sources */,
 				57AF96981C8B524800E924C3 /* Document.swift in Sources */,
 				57E2042D1C9C8C7B009B3033 /* DocumentPreviewViewController.swift in Sources */,
+				576ADCA31CA816FB00615FC5 /* TableViewCell.swift in Sources */,
 				5795DD5E1C8C9D750008DFA1 /* DateFormatter.swift in Sources */,
 				57AF96A11C8B5CB000E924C3 /* DocsParser.swift in Sources */,
 				5703FA511C9D9A6C00C84F60 /* FolderDataSource.swift in Sources */,
@@ -838,6 +845,7 @@
 				578258031C8B18FF003C3568 /* ServiceLayer.swift in Sources */,
 				5795DD621C8CC9450008DFA1 /* UserService.swift in Sources */,
 				57ADB1B21C9F3F21001E0766 /* UIFont+VKFont.swift in Sources */,
+				576ADCA91CA86A3700615FC5 /* LoadTaskManager.swift in Sources */,
 				57E204311C9C8C7B009B3033 /* UserDocsDataSource.swift in Sources */,
 				57ADB1A01C9DF265001E0766 /* DocumentsPickerTabBarOverlay.swift in Sources */,
 				577047DC1CA1DC8600A2CA98 /* SizeFormatter.swift in Sources */,

@@ -30,7 +30,7 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="onboard_background" translatesAutoresizingMaskIntoConstraints="NO" id="M1t-a4-x9N">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kym-UQ-9rS">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kym-UQ-9rS">
                                 <rect key="frame" x="16" y="518" width="568" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="YVL-Gs-E3I"/>
@@ -64,8 +64,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="598" height="278.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vYP-ab-w1j">
-                                                    <rect key="frame" x="50" y="55" width="498" height="73.5"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" image="intro1" translatesAutoresizingMaskIntoConstraints="NO" id="vYP-ab-w1j">
+                                                    <rect key="frame" x="219.5" y="75" width="159" height="78.5"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ztz-G0-lpB">
@@ -78,18 +78,16 @@
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <constraints>
-                                            <constraint firstItem="vYP-ab-w1j" firstAttribute="top" secondItem="Mfk-Xv-dXV" secondAttribute="top" constant="55" id="BbK-kP-fB6"/>
-                                            <constraint firstItem="vYP-ab-w1j" firstAttribute="leading" secondItem="Mfk-Xv-dXV" secondAttribute="leading" constant="50" id="M64-Kr-dG5"/>
-                                            <constraint firstAttribute="trailing" secondItem="vYP-ab-w1j" secondAttribute="trailing" constant="50" id="SXG-QY-Fh5"/>
-                                            <constraint firstItem="ztz-G0-lpB" firstAttribute="top" secondItem="vYP-ab-w1j" secondAttribute="bottom" constant="35" id="THE-xa-OXH"/>
+                                            <constraint firstItem="vYP-ab-w1j" firstAttribute="top" secondItem="Mfk-Xv-dXV" secondAttribute="top" constant="75" id="BbK-kP-fB6"/>
+                                            <constraint firstItem="ztz-G0-lpB" firstAttribute="top" secondItem="vYP-ab-w1j" secondAttribute="bottom" constant="10" id="THE-xa-OXH"/>
                                             <constraint firstAttribute="bottom" secondItem="ztz-G0-lpB" secondAttribute="bottom" constant="100" id="ghI-Vv-aYt"/>
+                                            <constraint firstItem="vYP-ab-w1j" firstAttribute="centerX" secondItem="Mfk-Xv-dXV" secondAttribute="centerX" id="ilH-QJ-TrU"/>
                                             <constraint firstItem="ztz-G0-lpB" firstAttribute="leading" secondItem="Mfk-Xv-dXV" secondAttribute="leading" constant="50" id="pAE-JB-uKB"/>
                                             <constraint firstAttribute="trailing" secondItem="ztz-G0-lpB" secondAttribute="trailing" constant="50" id="usv-d4-3TV"/>
                                         </constraints>
                                         <connections>
                                             <outlet property="imageView" destination="vYP-ab-w1j" id="nBP-tw-5mP"/>
-                                            <outlet property="imageViewLeadingConstraint" destination="M64-Kr-dG5" id="EPb-Ed-osa"/>
-                                            <outlet property="imageViewTrailingConstraint" destination="SXG-QY-Fh5" id="hWa-iw-h0a"/>
+                                            <outlet property="imageViewTopSpace" destination="BbK-kP-fB6" id="gXp-SQ-kyM"/>
                                             <outlet property="label" destination="ztz-G0-lpB" id="SEC-DX-DMM"/>
                                         </connections>
                                     </collectionViewCell>
@@ -100,7 +98,7 @@
                                 </connections>
                             </collectionView>
                             <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="A5d-6a-yun">
-                                <rect key="frame" x="0.0" y="381" width="600" height="37"/>
+                                <rect key="frame" x="0.0" y="401" width="600" height="37"/>
                                 <color key="pageIndicatorTintColor" red="0.75294119119644165" green="0.81568628549575806" blue="0.85882353782653809" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <color key="currentPageIndicatorTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                             </pageControl>
@@ -110,7 +108,7 @@
                             <constraint firstItem="DNl-ZY-b17" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="4Df-6T-VXH"/>
                             <constraint firstAttribute="trailing" secondItem="M1t-a4-x9N" secondAttribute="trailing" id="58g-QS-k16"/>
                             <constraint firstItem="DNl-ZY-b17" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="6HQ-Yb-y98"/>
-                            <constraint firstItem="Kym-UQ-9rS" firstAttribute="top" secondItem="A5d-6a-yun" secondAttribute="bottom" constant="100" id="9n2-Lh-eSR"/>
+                            <constraint firstItem="Kym-UQ-9rS" firstAttribute="top" secondItem="A5d-6a-yun" secondAttribute="bottom" constant="80" id="9n2-Lh-eSR"/>
                             <constraint firstItem="Kym-UQ-9rS" firstAttribute="top" secondItem="M1t-a4-x9N" secondAttribute="bottom" constant="-82" id="Kha-mG-sZ7"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Kym-UQ-9rS" secondAttribute="bottom" constant="32" id="QcK-o5-CLd"/>
                             <constraint firstItem="A5d-6a-yun" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="TPd-zN-Bbv"/>
@@ -702,7 +700,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="hwc-Bh-Pbm">
-                        <barButtonItem key="leftBarButtonItem" title="Item" style="plain" id="IEE-tq-00s"/>
+                        <barButtonItem key="leftBarButtonItem" title=" " style="plain" id="IEE-tq-00s"/>
                         <barButtonItem key="rightBarButtonItem" image="exit_app_button" id="aXC-vI-ZIO">
                             <color key="tintColor" red="0.9882352941176471" green="0.36078431372549019" blue="0.36078431372549019" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
@@ -799,6 +797,7 @@
         <image name="create_folder_button" width="17" height="16"/>
         <image name="exit_app_button" width="13" height="19"/>
         <image name="exit_cross" width="15" height="15"/>
+        <image name="intro1" width="159" height="108"/>
         <image name="onboard_background" width="320" height="568"/>
         <image name="options_button" width="5" height="18"/>
     </resources>

@@ -12,7 +12,23 @@ import RealmSwift
 class FolderDataSource: NSObject, DataSource {
     
     var elements: [String] {
-        return Bash.ls(Bash.pwd())
+        var allElements = Bash.ls(Bash.pwd())
+        
+        if allElements.count < 1 {
+            return []
+        }
+        
+        var folders: [String] = []
+        var files: [String] = []
+        for (i, element) in allElements.enumerate() {
+            if element.containsString(Const.Common.directoryConflictHelper) {
+                files.append(allElements[i])
+            } else {
+                folders.append(allElements[i])
+            }
+        }
+        
+        return folders + files
     }
     
     override init() {

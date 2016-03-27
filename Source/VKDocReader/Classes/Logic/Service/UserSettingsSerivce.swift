@@ -45,7 +45,7 @@ class UserSettingsSerivce: Service {
         }
     }
     
-    //TODO: вынести в отдельный сервис
+    //FIXME: вынести в отдельный сервис
     var isCurrentConnectionCellular: Bool {
         get {
             let connectionType = try! Reachability.reachabilityForInternetConnection().currentReachabilityStatus

@@ -11,8 +11,15 @@ import RealmSwift
 
 class UserDocsDataSource: NSObject, DataSource {
     
+    let createFolderCell = "CREATE_FOLDER_CELL_.m29voa721knv"
+    
     var folders: [String] {
-        return Bash.ls(Const.Directories.fileSystemDir)
+        let currentFolders = Bash.ls(Const.Directories.fileSystemDir)
+        if currentFolders.count > 0 {
+            return currentFolders
+        } else {
+            return [createFolderCell]
+        }
     }
     var documents: [Document]
     
@@ -119,9 +126,14 @@ class UserDocsDataSource: NSObject, DataSource {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         if indexPath.section == 0 {
-            let cell = tableView.dequeueReusableCellWithIdentifier(FolderCell.cellIdentifier, forIndexPath: indexPath) as! FolderCell
-            cell.folderNameLabel.text = folders[indexPath.row]
-            return cell
+            if folders[indexPath.row] == createFolderCell {
+                let cell = tableView.dequeueReusableCellWithIdentifier(CreateFolderCell.cellIdentifier, forIndexPath: indexPath) as! CreateFolderCell
+                return cell
+            } else {
+                let cell = tableView.dequeueReusableCellWithIdentifier(FolderCell.cellIdentifier, forIndexPath: indexPath) as! FolderCell
+                cell.folderNameLabel.text = folders[indexPath.row]
+                return cell
+            }
         } else {
             let cell = tableView.dequeueReusableCellWithIdentifier(UserDocsTableViewCell.cellIdentifier, forIndexPath: indexPath) as! UserDocsTableViewCell
             let document = self.documents[indexPath.row]
@@ -134,6 +146,11 @@ class UserDocsDataSource: NSObject, DataSource {
     }
     
     func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        
+        if indexPath.section == 0 && folders[0] == createFolderCell {
+            return false
+        }
+        
         if let _ = tableView.delegate as? UserDocsViewController {
             return true
         } else {
@@ -145,7 +162,6 @@ class UserDocsDataSource: NSObject, DataSource {
         if indexPath.section == 0 {
             if editingStyle == UITableViewCellEditingStyle.Delete {
                 Bash.rm(Const.Directories.fileSystemDir + "/" + folders[indexPath.row])
-                //это редактирование
             } else {}
         } else {
             if editingStyle == UITableViewCellEditingStyle.Delete {
@@ -159,6 +175,10 @@ class UserDocsDataSource: NSObject, DataSource {
                 self.documents.removeAtIndex(indexPath.row)
             }
         }
-        tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Bottom)
+        if folders.count == 1 && folders[0] == createFolderCell {
+            tableView.reloadData()
+        } else {
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Bottom)
+        }
     }
 }

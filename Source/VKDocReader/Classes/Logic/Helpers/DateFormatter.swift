@@ -8,19 +8,19 @@
 
 import Foundation
 
-class DateFormatter: NSDateFormatter {
-    override init() {
-        super.init()
-        self.locale = NSLocale(localeIdentifier: "ru_RU")
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
+/**
+ Обертка NSDateFormater для удобства
+ */
+class DateFormatter {
     
-    func stringFromTimestamp(timestamp: Int, formatString: String) -> String {
+    class func stringFromTimestamp(timestamp: Int, formatString: String) -> String {
+        
+        let formatter = NSDateFormatter()
+        formatter.locale = NSLocale(localeIdentifier: "ru_RU")
+        formatter.dateFormat = formatString
+        
         let date = NSDate(timeIntervalSince1970: Double(timestamp))
-        self.dateFormat = formatString
-        return self.stringFromDate(date)
+        
+        return formatter.stringFromDate(date)
     }
 }

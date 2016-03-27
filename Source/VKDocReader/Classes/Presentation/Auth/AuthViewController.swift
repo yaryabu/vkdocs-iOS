@@ -19,8 +19,7 @@ class AuthViewController: ViewController, UICollectionViewDelegate, UICollection
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: false)
-//        collectionView.registerClass(OnboardingViewCell.self, forCellWithReuseIdentifier: OnboardingViewCell.identifier)
+        
         automaticallyAdjustsScrollViewInsets = false
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = CGSize(width: view.frame.width, height: collectionView.frame.height/2 + 100)
@@ -29,13 +28,13 @@ class AuthViewController: ViewController, UICollectionViewDelegate, UICollection
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         layout.scrollDirection = UICollectionViewScrollDirection.Horizontal
         collectionView.collectionViewLayout = layout
+        
         collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: true)
-        
     }
     
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
@@ -43,6 +42,7 @@ class AuthViewController: ViewController, UICollectionViewDelegate, UICollection
         pageControl.currentPage = Int(self.collectionView.contentOffset.x / pageWidth)
     }
     
+    //MARK: CollectionViewDataSource
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 3
     }
@@ -50,38 +50,24 @@ class AuthViewController: ViewController, UICollectionViewDelegate, UICollection
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(OnboardingViewCell.identifier, forIndexPath: indexPath) as! OnboardingViewCell
         if indexPath.row == 0 {
-            cell.label.text = "Скачивай любые документы из Вконтакте"
+            cell.label.text = "Скачивай любые документы из ВКонтакте"
             cell.imageView.image = UIImage(named: "intro1")
-            cell.imageViewLeadingConstraint.constant = 80
-            cell.imageViewTrailingConstraint.constant = 80
-            cell.layoutIfNeeded()
         } else if indexPath.row == 1 {
             cell.label.text = "Создавай папки"
             cell.imageView.image = UIImage(named: "intro2")
-            cell.imageViewLeadingConstraint.constant = 80
-            cell.imageViewTrailingConstraint.constant = 80
-            cell.layoutIfNeeded()
         } else {
             cell.label.text = "Передавай документы кому и куда угодно"
             cell.imageView.image = UIImage(named: "intro3")
-            cell.imageViewLeadingConstraint.constant = 50
-            cell.imageViewTrailingConstraint.constant = 50
-            cell.layoutIfNeeded()
         }
+        
+        // iPhone 6 Plus
+        if UIScreen.mainScreen().scale > 2.9 {
+            cell.imageViewTopSpace.constant = 40
+        }
+        
+        cell.layoutIfNeeded()
         return cell
     }
     
     
 }
-
-class OnboardingViewCell: UICollectionViewCell {
-    static let identifier = "OnboardingViewCell"
-    
-    @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var imageViewLeadingConstraint: NSLayoutConstraint!
-    @IBOutlet weak var imageViewTrailingConstraint: NSLayoutConstraint!
-    
-    @IBOutlet weak var label: UILabel!
-}
-
-//class OnboardingViewController: ViewController

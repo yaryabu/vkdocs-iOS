@@ -14,6 +14,10 @@ extension UIFont {
         return UIFont(name: "Lucida Grande", size: 16)!
     }
     
+    class func loadingPercentFont() -> UIFont {
+        return UIFont(name: "Lucida Grande", size: 12)!
+    }
+    
     class func navigationBarFont() -> UIFont {
         return UIFont(name: "Open Sans", size: 18)!
     }
@@ -28,6 +32,10 @@ extension UIFont {
     
     class func defaultFont() -> UIFont {
         return UIFont(name: "Open Sans", size: 14)!
+    }
+    
+    class func sectionHeaderFont() -> UIFont {
+        return UIFont(name: "Open Sans", size: 12)!
     }
     
 }

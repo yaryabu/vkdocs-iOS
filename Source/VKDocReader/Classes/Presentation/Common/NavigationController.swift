@@ -43,8 +43,6 @@ class NavigationController: UINavigationController {
         progressView.tintColor = UIColor.clearColor()
         progressView.progress = 0.0
         
-//        UIApplication.sharedApplication().keyWindow!
-        
         return progressView
     }()
     
@@ -95,20 +93,6 @@ class NavigationController: UINavigationController {
     func uploadComplete(notification: NSNotification) {
         uploadProgressBarView.progress = 0.0
     }
-    
-//    func showNavigationBarFrame(animationDuration: Double?, additionalAnimations: (() -> ())?) {
-//        if self.navigationBarFrameHidden == false {
-//            return
-//        }
-//        UIView.animateWithDuration(animationDuration ?? 0.3) { () -> Void in
-//            self.navigationBar.frame = CGRect(
-//                x: 0,
-//                y: UIApplication.sharedApplication().statusBarFrame.height,
-//                width: self.navigationBar.frame.width,
-//                height: self.navigationBar.frame.height
-//            )
-//            additionalAnimations?()
-//        }
-//    }
+
     
 }

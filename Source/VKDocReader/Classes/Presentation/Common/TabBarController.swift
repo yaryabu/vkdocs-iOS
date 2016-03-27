@@ -11,8 +11,31 @@ import RealmSwift
 
 class TabBarController: UITabBarController {
     
-    let firstTabSelectedView = UIView()
-    let secondTabSelectedView = UIView()
+//    let firstTabSelectedView = UIView()
+//    let secondTabSelectedView = UIView()
+    
+    lazy var selectedTabIndicatorView: UIView = {
+        let view = UIView(frame: self.firstTabSelectedViewFrame)
+        view.backgroundColor = UIColor.vkDuskBlueColor()
+        return view
+    }()
+    
+    lazy var firstTabSelectedViewFrame: CGRect = {
+        return CGRect(
+            x: 0,
+            y: 0,
+            width: self.tabBar.frame.width/2,
+            height: 2
+        )
+    }()
+    lazy var secondTabSelectedViewFrame: CGRect = {
+        CGRect(
+            x: self.tabBar.frame.width/2,
+            y: 0,
+            width: self.tabBar.frame.width/2,
+            height: 2
+        )
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,15 +43,18 @@ class TabBarController: UITabBarController {
             let realm = try! Realm()
             
             if let cachedUser = realm.objects(User).first {
-                if cachedUser == user {
+                if cachedUser == user && cachedUser.photoData != nil {
                     return
                 }
             }
             
+            try! realm.write({ () -> Void in
+                realm.add(user, update: true)
+            })
+            
             self.serviceLayer.userService.getUserAvatarData(user, completion: { (data) -> Void in
-                user.photoData = data
                 try! realm.write({ () -> Void in
-                    realm.add(user, update: true)
+                    user.photoData = data
                 })
                 }, failure: { (error) -> Void in
                     self.handleError(error)
@@ -37,22 +63,22 @@ class TabBarController: UITabBarController {
                 self.handleError(error)
         }
         
-        firstTabSelectedView.frame = CGRect(
-            x: 0,
-            y: 0,
-            width: tabBar.frame.width/2,
-            height: 2
-        )
-        secondTabSelectedView.frame = CGRect(
-            x: tabBar.frame.width/2,
-            y: 0,
-            width: tabBar.frame.width/2,
-            height: 2
-        )
-        firstTabSelectedView.backgroundColor = UIColor.vkDuskBlueColor()
-        secondTabSelectedView.backgroundColor = UIColor.vkDuskBlueColor()
+//        firstTabSelectedView.frame = CGRect(
+//            x: 0,
+//            y: 0,
+//            width: tabBar.frame.width/2,
+//            height: 2
+//        )
+//        secondTabSelectedView.frame = CGRect(
+//            x: tabBar.frame.width/2,
+//            y: 0,
+//            width: tabBar.frame.width/2,
+//            height: 2
+//        )
+//        firstTabSelectedView.backgroundColor = UIColor.vkDuskBlueColor()
+//        secondTabSelectedView.backgroundColor = UIColor.vkDuskBlueColor()
         
-        tabBar.addSubview(firstTabSelectedView)
+        tabBar.addSubview(selectedTabIndicatorView)
 
         UITabBarItem.appearance().setTitleTextAttributes([
             NSFontAttributeName: UIFont.tabBarFont(),
@@ -84,11 +110,17 @@ class TabBarController: UITabBarController {
     
     override func tabBar(tabBar: UITabBar, didSelectItem item: UITabBarItem) {
         if tabBar.items!.indexOf(item) == 0 {
-            secondTabSelectedView.removeFromSuperview()
-            tabBar.addSubview(firstTabSelectedView)
+            UIView.animateWithDuration(0.3, animations: { 
+                self.selectedTabIndicatorView.frame = self.firstTabSelectedViewFrame
+            })
+//            secondTabSelectedView.removeFromSuperview()
+//            tabBar.addSubview(firstTabSelectedView)
         } else {
-            firstTabSelectedView.removeFromSuperview()
-            tabBar.addSubview(secondTabSelectedView)
+            UIView.animateWithDuration(0.3, animations: {
+                self.selectedTabIndicatorView.frame = self.secondTabSelectedViewFrame
+            })
+//            firstTabSelectedView.removeFromSuperview()
+//            tabBar.addSubview(secondTabSelectedView)
         }
     }
 

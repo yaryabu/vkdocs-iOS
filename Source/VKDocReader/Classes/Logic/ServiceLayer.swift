@@ -6,6 +6,9 @@
 //  Copyright © 2016 Yaroslav Ryabukha. All rights reserved.
 //
 
+/**
+ Сервисный слой МП. Общение других обьектов с сервисами обязательно идет только через ServiceLayer, а не с сервисами напрямую.
+ */
 class ServiceLayer {
     static let sharedServiceLayer = ServiceLayer()
     

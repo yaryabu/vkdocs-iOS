@@ -9,6 +9,14 @@
 import UIKit
 
 class View: UIView {
+    
+    @IBInspectable var cornerRadius: CGFloat = 0 {
+        didSet {
+            layer.cornerRadius = cornerRadius
+            layer.masksToBounds = cornerRadius > 0
+        }
+    }
+    
     class func loadFromNibNamed(nibNamed: String, bundle: NSBundle? = nil) -> View? {
         return UINib(
             nibName: nibNamed,

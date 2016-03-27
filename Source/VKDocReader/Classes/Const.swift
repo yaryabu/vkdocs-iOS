@@ -21,6 +21,7 @@ struct Const {
     struct Notifications {
         static let statusBarTouched = "statusBarTouchedNotification"
         static let cellButtonPressed = "UserDocsTableViewCellButtonPressedNotification"
+        
         static let uploadProgress = "uploadProgressNotification"
         static let uploadComplete = "uploadCompleteNotification"
     }
@@ -35,11 +36,7 @@ struct Const {
             static let appScope = "\(docsScope),\(offlineScope)"
         }
         
-//        struct Auth {
-//            static let baseUrl = "https://oauth.vk.com/authorize"
-//            static let redirectURI = "https://oauth.vk.com/blank.html"
         static let authUrlString = "https://oauth.vk.com/authorize?client_id=\(Const.Common.clientId)&display=mobile&redirect_uri=https://oauth.vk.com/blank.html&scope=\(Const.Network.VKScopes.appScope)&response_type=token"
-//        }
     }
     
     struct StoryboardIDs {

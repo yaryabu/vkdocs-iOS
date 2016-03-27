@@ -9,12 +9,18 @@
 import SwiftyJSON
 import RealmSwift
 
+/**
+ Абстрактный сервис
+ */
 class Service {
     let transport = Transport.sharedTransport
     let loadTaskManager = LoadTaskManager.sharedManager
     
-    //TODO: доработать специальные ошибки
+    /**
+     Проверка выдачи на специализированные ошибки ВК
+    */
     func checkError(json: JSON) -> Error? {
+        //FIXME: доработать специальные ошибки (капча, авторизация итд)
         let errorJson = json["error"]
         if errorJson != nil {
             print(errorJson)
@@ -62,6 +68,10 @@ class Service {
         }
         return nil
     }
+    
+    /**
+     Перевод из NSError от транспорта в кастомную ошибку
+    */
     func createError(error: NSError) -> Error? {
         switch error.code {
         case -999:
@@ -74,7 +84,8 @@ class Service {
         }
     }
     
-    func deleteAllInfo() {
-        
-    }
+    /**
+    Абстрактный метод для переопределения наследниками. Удаляет всю инфомрацию о сервисе. К примеру, для выхода их приложения
+    */
+    func deleteAllInfo() {}
 }

@@ -59,7 +59,14 @@ class SettingsViewController: ViewController, MFMailComposeViewControllerDelegat
             let container = UIView(frame: label.frame)
             container.addSubview(label)
             navigationItem.titleView = container
-            let avatarImageView = UIImageView(image: UIImage(data: user.photoData!))
+            
+            var image: UIImage!
+            if user.photoData != nil {
+                image = UIImage(data: user.photoData!)
+            } else {
+                image = UIImage()
+            }
+            let avatarImageView = UIImageView(image: image)
             avatarImageView.layer.masksToBounds = true
             avatarImageView.layer.cornerRadius = 15
             avatarImageView.frame = CGRect(
@@ -123,7 +130,8 @@ class SettingsViewController: ViewController, MFMailComposeViewControllerDelegat
             let mail = MFMailComposeViewController()
             mail.mailComposeDelegate = self
             mail.setToRecipients(["yaryabu@gmail.com"])
-            mail.setMessageBody("<p>You're so awesome!</p>", isHTML: true)
+            mail.setSubject("VK Docs")
+            mail.setMessageBody("", isHTML: false)
             
             presentViewController(mail, animated: true, completion: nil)
         } else {

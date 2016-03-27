@@ -68,13 +68,6 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
         return bar
     }()
     
-    let searchBarSpinner: UIActivityIndicatorView = {
-        let spinner = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
-        spinner.hidesWhenStopped = true
-        spinner.stopAnimating()
-        return spinner
-    }()
-    
     var docPickerNavBarOverlay: DocumentsPickerNavBarOverlay!
     var docPickerTabBarOverlay: DocumentsPickerTabBarOverlay!
     
@@ -88,8 +81,10 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
 
         pullToRefreshControl.addTarget(self, action: "pullToRefreshActivated", forControlEvents: UIControlEvents.ValueChanged)
         tableView.addSubview(self.pullToRefreshControl)
+        
         tableView.registerNib(UINib(nibName: "UserDocsTableViewCell", bundle: nil), forCellReuseIdentifier: UserDocsTableViewCell.cellIdentifier)
         tableView.registerNib(UINib(nibName: "FolderCell", bundle: nil), forCellReuseIdentifier: FolderCell.cellIdentifier)
+        tableView.registerNib(UINib(nibName: "CreateFolderCell", bundle: nil), forCellReuseIdentifier: CreateFolderCell.cellIdentifier)
 
         if isRootViewController {
             
@@ -100,7 +95,6 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
             navigationBarButtons = (leftButton: addDocumentButton, rightButton: optionsButton)
             navigationItem.titleView = searchBar
             searchBar.delegate = self
-            searchBar.addSubview(searchBarSpinner)
             
             refreshTableViewData()
         } else {
@@ -118,17 +112,82 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
     }
     
     func cellLongTapped(gestureRecognizer: UILongPressGestureRecognizer) {
-        let tapPoint = gestureRecognizer.locationInView(self.tableView)
-        let indexPath = tableView.indexPathForRowAtPoint(tapPoint)
-        
         if tableView.editing == false && editing == false {
+            
+            let tapPoint = gestureRecognizer.locationInView(self.tableView)
+            let indexPath = tableView.indexPathForRowAtPoint(tapPoint)!
+            
+            if let ds = currentDataSource as? UserDocsDataSource {
+                if indexPath.section == 0 && ds.folders[0] == ds.createFolderCell {
+                    return
+                }
+            }
+            
             tableView.setEditing(true, animated: true)
             setEditing(true, animated: true)
-            tableView.selectRowAtIndexPath(indexPath, animated: true, scrollPosition: UITableViewScrollPosition.None)
+            docPickerNavBarOverlay.titleLabel.text = "Выбрано: 1"
+            tableView.selectRowAtIndexPath(indexPath, animated: false, scrollPosition: UITableViewScrollPosition.None)
+            docPickerTabBarOverlay.changeButtonsState(1, isRootViewController: isRootViewController)
         }
         
     }
     
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if let _ = currentDataSource as? FolderDataSource {
+            return 0
+        }
+        
+        if let ds = currentDataSource as? SearchDataSource {
+            if section == 0 && ds.savedDocumentsResult.count == 0 {
+                return 0
+            }
+            if section == 1 && ds.vkSearchResults.count == 0 {
+                return 0
+            }
+        }
+        return 30
+    }
+    
+    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        if let _ = currentDataSource as? FolderDataSource {
+            return nil
+        }
+        
+        let view = UIView(frame: CGRect(
+            x: 0,
+            y: 0,
+            width: tableView.frame.width,
+            height: 30
+        ))
+        view.backgroundColor = UIColor.vkGrayColor()
+        
+        let label = SectionHeaderLabel()
+        
+        label.frame = CGRect(
+            x: 14,
+            y: 0,
+            width: view.frame.width,
+            height: 24
+        )
+        
+        if let ds = currentDataSource as? SearchDataSource {
+            if section == 0 {
+                label.text = "В своих документах"
+            } else {
+                label.text = "В документах ВК"
+            }
+        } else if let _ = currentDataSource as? UserDocsDataSource {
+            if section == 0 {
+                label.text = "Папки"
+            } else {
+                label.text = "Документы ВК"
+            }
+        }
+        
+        view.addSubview(label)
+        return view
+    }
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         picker.dismissViewControllerAnimated(true, completion: nil)
@@ -202,6 +261,7 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
     }
     
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        //ищем новые документы за 10 ячеек до окончания
         if let ds = currentDataSource as? SearchDataSource {
             if indexPath.row == ds.vkSearchResults.count - 10 {
                 search()
@@ -245,6 +305,14 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        if let ds = currentDataSource as? UserDocsDataSource {
+            if indexPath.section == 0 && ds.folders[0] == ds.createFolderCell {
+                performSegueWithIdentifier(Const.StoryboardSegues.createFolder, sender: nil)
+                return
+            }
+        }
+        
         if tableView.editing {
             let itemsCount = tableView.indexPathsForSelectedRows!.count
             docPickerNavBarOverlay.titleLabel.text = "Выбрано: \(itemsCount)"
@@ -337,6 +405,7 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         searchBar.resignFirstResponder()
+        
         if segue.identifier == Const.StoryboardSegues.previewDocument {
             let vc = segue.destinationViewController as! DocumentPreviewViewController
             if let ds = currentDataSource as? UserDocsDataSource {
@@ -347,6 +416,9 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
                 vc.document = ds.document(sender as! NSIndexPath)
             }
         }
+        
+        setEditing(false, animated: true)
+        tableView.setEditing(false, animated: true)
     }
     
     func pullToRefreshActivated() {
@@ -368,7 +440,6 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
     }
     
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
-        searchBarSpinner.startAnimating()
         NSObject.cancelPreviousPerformRequestsWithTarget(self, selector: "search", object: nil)
         performSelector("search", withObject: nil, afterDelay: 0.5) //ВК не позволяет больше 3 запросов в секунду. С таким delay все ОК
     }
@@ -377,14 +448,11 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
         let query = searchBar.text!
         if let ds = currentDataSource as? SearchDataSource {
             ds.startSearch(query, completion: { () -> Void in
-                self.searchBarSpinner.stopAnimating()
                 self.tableView.reloadData()
                 }) { (error) -> Void in
                     self.handleError(error)
-                    self.searchBarSpinner.stopAnimating()
             }
         } else {
-            self.searchBarSpinner.stopAnimating()
             self.tableView.reloadData()
         }
     }
@@ -394,6 +462,8 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
             ds.vkSearchResults = []
             ds.savedDocumentsResult = []
         }
+        tableView.scrollEnabled = false
+        tableView.scrollEnabled = true
         currentDataSource = vkDocumentsDataSource
         refreshTableViewData()
         
@@ -411,30 +481,39 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
 //        let indexPath = self.tableView.indexPathForRowAtPoint(buttonPosition)!
     }
     
-    @IBAction func loadButtonPressed(sender: AnyObject) {
+    func loadButtonPressed(sender: AnyObject) {
         let buttonPosition = (sender as! UIButton).convertPoint(CGPointZero, toView: self.tableView)
         let indexPath = self.tableView.indexPathForRowAtPoint(buttonPosition)!
         
         if let ds = currentDataSource as? SearchDataSource {
-            self.serviceLayer.docsService.addDocumentToUser(searchDataSource.vkSearchResults[indexPath.row], completion: { (newDocumentId) -> Void in
-                ds.removeVkSearchElement(indexPath, from: self.tableView)
-                ToastManager.sharedInstance.presentInfo("Документ добавлен")
-                }, failure: { (error) -> Void in
-                    self.handleError(error)
-            })
-            return
+            if indexPath.section == 1 {
+                self.serviceLayer.docsService.addDocumentToUser(searchDataSource.vkSearchResults[indexPath.row], completion: { (newDocumentId) -> Void in
+                    ds.removeVkSearchElement(indexPath, from: self.tableView)
+                    ToastManager.sharedInstance.presentInfo("Документ добавлен")
+                    }, failure: { (error) -> Void in
+                        self.handleError(error)
+                })
+                return
+            }
         }
         
-        var doc: Document!
         
-        if let _ = currentDataSource as? UserDocsDataSource {
-            doc = vkDocumentsDataSource.document(indexPath)
-        } else {
-            doc = folderDataSource.document(indexPath)
-        }
+        let doc = currentDataSource.document(indexPath) //Document!
+//        if let ds = currentDataSource as? UserDocsDataSource {
+//            doc = vkDocumentsDataSource.document(indexPath)
+//        } else if let  {
+//            doc = folderDataSource.document(indexPath)
+//        }
         
         if doc.tempPath != nil {
             doc.saveFromTempDir()
+            self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.None)
+            return
+        }
+        
+        if serviceLayer.docsService.downloadExists(doc) {
+            serviceLayer.docsService.cancelDownload(doc)
+            ToastManager.sharedInstance.presentError(Error(code: 0, message: "Загрузка отменена"))
             self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.None)
             return
         }
@@ -589,10 +668,12 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
         self.presentViewController(navControllerVc, animated: true, completion: nil)
     }
     
+    
     @IBAction func addDocumentButtonPressed(sender: AnyObject) {
-        
-        //TODO: добавить проверку, если сейчас уже что-то загружается
-        
+        if serviceLayer.uploadDocsService.isUploadingNow() {
+            ToastManager.sharedInstance.presentError(Error(code: 0, message: "Дождись окончания предыдущей загрузки"))
+            return
+        }
         presentViewController(imagePicker, animated: true, completion: nil)
     }
 }
