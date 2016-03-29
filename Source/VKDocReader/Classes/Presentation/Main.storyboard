@@ -30,6 +30,11 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="onboard_background" translatesAutoresizingMaskIntoConstraints="NO" id="M1t-a4-x9N">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </imageView>
+                            <pageControl opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="A5d-6a-yun">
+                                <rect key="frame" x="0.0" y="401" width="600" height="37"/>
+                                <color key="pageIndicatorTintColor" red="0.75294119119644165" green="0.81568628549575806" blue="0.85882353782653809" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <color key="currentPageIndicatorTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                            </pageControl>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kym-UQ-9rS">
                                 <rect key="frame" x="16" y="518" width="568" height="50"/>
                                 <constraints>
@@ -97,11 +102,6 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="18K-mi-MHi"/>
                                 </connections>
                             </collectionView>
-                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="A5d-6a-yun">
-                                <rect key="frame" x="0.0" y="401" width="600" height="37"/>
-                                <color key="pageIndicatorTintColor" red="0.75294119119644165" green="0.81568628549575806" blue="0.85882353782653809" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                <color key="currentPageIndicatorTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                            </pageControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>

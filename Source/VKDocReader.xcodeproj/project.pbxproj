@@ -1034,7 +1034,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ru.yaryabu.VKDocs;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "e5354664-7be1-468c-bd98-b99d7d24b252";
+				PROVISIONING_PROFILE = "1d6e0ace-2abd-4c6c-8926-7d3e5f357047";
 				TARGETED_DEVICE_FAMILY = 1;
 				WARNING_CFLAGS = (
 					"-Wextra",
@@ -1055,7 +1055,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ru.yaryabu.VKDocs;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "e5354664-7be1-468c-bd98-b99d7d24b252";
+				PROVISIONING_PROFILE = "1d6e0ace-2abd-4c6c-8926-7d3e5f357047";
 				TARGETED_DEVICE_FAMILY = 1;
 				WARNING_CFLAGS = (
 					"-Wextra",

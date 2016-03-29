@@ -83,8 +83,6 @@ class UserDocsDataSource: NSObject, DataSource {
     
     func refresh(refreshEnded: () -> Void, refreshFailed: (error: Error) -> Void) {
         ServiceLayer.sharedServiceLayer.docsService.getDocuments( { (documentsArray) -> Void in
-            if self.documents != documentsArray {
-                
                 let realm = try! Realm()
                 try! realm.write({ () -> Void in
                     //удаление для того, чтобы сохранялся порядок
@@ -94,7 +92,6 @@ class UserDocsDataSource: NSObject, DataSource {
                     
                 })
                 self.documents = documentsArray
-            }
             refreshEnded()
             }, failure: { (error) -> Void in
                 refreshFailed(error: error)
