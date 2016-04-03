@@ -42,8 +42,8 @@ class SettingsViewController: ViewController, MFMailComposeViewControllerDelegat
         
     }
     
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
         refreshCacheSize()
     }
     
@@ -79,10 +79,8 @@ class SettingsViewController: ViewController, MFMailComposeViewControllerDelegat
             avatarImageView.transform = CGAffineTransformMakeTranslation(-7, 0)
             let imageViewContainer = UIView(frame: avatarImageView.frame)
             imageViewContainer.addSubview(avatarImageView)
-//            let suggestButtonItem = UIBarButtonItem(customView: suggestButtonContainer)
             let button = UIBarButtonItem(customView: imageViewContainer)
             navigationItem.leftBarButtonItem = button
-//            self.userAvatarImageBarButton = button
         } else {
             //FIXME: добавить спиннер
         }
@@ -147,6 +145,7 @@ class SettingsViewController: ViewController, MFMailComposeViewControllerDelegat
     @IBAction func exitButtonPressed(sender: AnyObject) {
         launchExitAppSequence()
     }
+    
     @IBAction func saveDocsAutomaticallySwitchPressed(sender: AnyObject) {
         let docsSwitch = sender as! UISwitch
         if docsSwitch.on {

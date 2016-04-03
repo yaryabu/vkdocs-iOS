@@ -43,6 +43,7 @@ class AuthViewController: ViewController, UICollectionViewDelegate, UICollection
     }
     
     //MARK: CollectionViewDataSource
+    
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 3
     }

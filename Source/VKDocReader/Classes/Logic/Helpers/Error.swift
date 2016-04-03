@@ -6,14 +6,17 @@
 //  Copyright © 2016 Yaroslav Ryabukha. All rights reserved.
 //
 
+import SwiftyJSON
+
 /**
  Кастомная ошибка приложения. Все сторонние ошибки должны трансформироваться в тип Error.
  */
 struct Error {
     var code: Int = -1
-    var message: String = "Неизвестная ошибка сервера"
+    var message: String = "Неизвестная ошибка"
     var captchaId: String?
-    var captcha_img: String?
+    var captchaUrlString: String?
+    var requestParams: JSON?
     
     init() {}
     

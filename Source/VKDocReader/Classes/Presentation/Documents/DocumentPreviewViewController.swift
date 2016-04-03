@@ -58,15 +58,12 @@ class DocumentPreviewViewController: ViewController, QLPreviewControllerDataSour
         previewController!.dataSource = self
         previewController!.delegate = self
         
-        //на iOS 9 QLPreviewController отображается под навбаром
-        if #available(iOS 9, *) {
-            self.previewController!.view.frame = CGRect(
-                x: 0,
-                y: navigationController!.navigationBar.frame.height,
-                width: self.view.frame.width,
-                height: self.view.frame.height - navigationController!.navigationBar.frame.height
-            )
-        }
+        self.previewController!.view.frame = CGRect(
+            x: 0,
+            y: navigationController!.navigationBar.frame.height + UIApplication.sharedApplication().statusBarFrame.height,
+            width: self.view.frame.width,
+            height: self.view.frame.height - navigationController!.navigationBar.frame.height - UIApplication.sharedApplication().statusBarFrame.height
+        )
 
         self.previewDocument()
     }
@@ -86,14 +83,12 @@ class DocumentPreviewViewController: ViewController, QLPreviewControllerDataSour
     
     func previewDocument() {
         
-        if self.document.filePath != nil || self.document.tempPath != nil {
-            if let tempPath = self.document.tempPath {
-                if serviceLayer.userSettingsService.deleteDocumentsAfterPreview == false {
-                    let name = tempPath.componentsSeparatedByString("/").last!
-                    Bash.mv(tempPath, to: self.document.fileDirectory + "/" + name)
-                }
+        if document.filePath != nil || document.tempPath != nil {
+            if document.tempPath != nil &&
+                serviceLayer.userSettingsService.deleteDocumentsAfterPreview == false {
+                document.saveFromTempDir()
             }
-            self.loadingView.removeFromSuperview()
+            loadingView.removeFromSuperview()
             if previewController != nil {
                 self.view.addSubview(previewController!.view)
                 self.previewController!.reloadData()
@@ -139,8 +134,7 @@ class DocumentPreviewViewController: ViewController, QLPreviewControllerDataSour
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
         
         let saveAction = UIAlertAction(title: "Сохранить", style: .Default) { (action) -> Void in
-            let name = self.document.tempPath!.componentsSeparatedByString("/").last!
-            Bash.mv(self.document.tempPath!, to: self.document.fileDirectory + "/" + name)
+            self.document.saveFromTempDir()
             let realm = try! Realm()
             if realm.objects(Document).filter("id == \"\(self.document.id)\"").first == nil {
                 self.serviceLayer.docsService.addDocumentToUser(self.document, completion: { [unowned self] (newDocumentId) -> Void in
@@ -180,6 +174,7 @@ class DocumentPreviewViewController: ViewController, QLPreviewControllerDataSour
         }
         let cancelAction = UIAlertAction(title: "Отмена", style: .Cancel, handler: nil)
         
+        
         if self.document.tempPath != nil {
             actionSheet.addAction(saveAction)
         }
@@ -201,7 +196,7 @@ class DocumentPreviewViewController: ViewController, QLPreviewControllerDataSour
         let alert = UIAlertController(title: "Удалить", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
         let cancelAction = UIAlertAction(title: "Отмена", style: .Cancel, handler: nil)
         let deleteCompletelyAction = UIAlertAction(title: "Удалить из ВК", style: .Default) { (action) -> Void in
-            ServiceLayer.sharedServiceLayer.docsService.deleteDocumentFromUser(self.document, completion: { () -> Void in
+            self.serviceLayer.docsService.deleteDocumentFromUser(self.document, completion: { () -> Void in
                 self.document.deleteDocument()
                 self.navigationController!.popViewControllerAnimated(true)
                 }, failure: { (error) -> Void in

@@ -150,6 +150,7 @@ class MoveCopyViewController: ViewController, UITableViewDelegate {
                 message += "\(name)\n"
             }
             message = String(message.characters.dropLast())
+            
             let alert = UIAlertController(title: "Заменить папки?", message: message, preferredStyle: UIAlertControllerStyle.Alert)
             let yesAction = UIAlertAction(title: "Да", style: .Default, handler: { (action) in
                 self.performActionAndDismiss()
@@ -176,14 +177,14 @@ class MoveCopyViewController: ViewController, UITableViewDelegate {
                 Bash.cp(path, to: newPath)
                 if shouldShowNotification {
                     ToastManager.sharedInstance.presentInfo("Файлы скопированы")
+                    shouldShowNotification = false
                 }
-                shouldShowNotification = false
             } else if actionType == .Move {
                 Bash.mv(path, to: newPath)
                 if shouldShowNotification {
                     ToastManager.sharedInstance.presentInfo("Файлы перемещены")
+                    shouldShowNotification = false
                 }
-                shouldShowNotification = false
             }
         }
         

@@ -32,9 +32,6 @@ class NavigationController: UINavigationController {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(NavigationController.uploadProgressChanged(_:)), name: Const.Notifications.uploadProgress, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(NavigationController.uploadComplete(_:)), name: Const.Notifications.uploadComplete, object: nil)
         
-        self.navigationBar.userInteractionEnabled = true
-        self.view.userInteractionEnabled = true
-        
         navigationBar.addSubview(uploadProgressBarView)
         
         UINavigationBar.appearance().titleTextAttributes = [

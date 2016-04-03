@@ -39,7 +39,11 @@ class UserDocsDataSource: NSObject, DataSource {
     
     func folderPath(indexPath: NSIndexPath) -> String? {
         if indexPath.section == 0 {
-            return Bash.pwd() + "/" + folders[indexPath.row]
+            if folders[indexPath.row] != createFolderCell {
+                return Bash.pwd() + "/" + folders[indexPath.row]
+            } else {
+                return nil
+            }
         } else {
             return nil
         }
@@ -57,29 +61,55 @@ class UserDocsDataSource: NSObject, DataSource {
     }
     
     func deleteElements(indexPaths: [NSIndexPath], completion: () -> Void, failure: (error: Error) -> Void) {
+        
+        // нужно перераспределить объекты по другим массивам т.к. при прямом
+        // удалении из folders или documents меняется их порядок
+        var folderPathsToDelete: [String] = []
+        var docsToDelete: [Document] = []
+        
         for indexPath in indexPaths {
             if indexPath.section == 0 {
-                Bash.rm(folderPath(indexPath)!)
+                if let folderPath = folderPath(indexPath) {
+                    folderPathsToDelete.append(folderPath)
+                }
             } else {
-                let doc = document(indexPath)
-                doc.removeAllFromFileSystem()
-                // задержка, чтобы не превышать ограничения ВК
-                Dispatch.mainQueueAfter(0.7, closure: { () -> () in
-                    //TODO: сделать отдельный метод на удаление, чтобы можно было сразу удалить
-                    //доки из realm
-                    ServiceLayer.sharedServiceLayer.docsService.deleteDocumentFromUser(doc, completion: { () -> Void in
-                        doc.deleteDocument()
-                        }, failure: { (error) -> Void in
-                            failure(error: error)
-                            //TODO: NSNotification для ошибки
-                            print(error)
-                    })
-                })
-                documents.removeAtIndex(indexPath.row)
+                docsToDelete.append(document(indexPath))
             }
         }
+        
+        var dispatchDelayCounter = 0.3
+        
+        for path in folderPathsToDelete {
+            Bash.rm(path)
+        }
+        for doc in docsToDelete {
+            //FIXME: если ВК когда-нибудь сделает метод удаления нескольких объектов одновременно - нужно его встатвить сюда
+            
+            // dummy-объект, чтобы можно было сразу удалить doc из Realm
+            let newDoc = Document()
+            newDoc.id = doc.id
+            newDoc.ownerId = doc.ownerId
+            
+            doc.deleteDocument()
+            // задержка, чтобы не превышать ограничения ВК
+            Dispatch.defaultQueueAfter(dispatchDelayCounter, closure: { () -> () in
+                ServiceLayer.sharedServiceLayer.docsService.deleteDocumentFromUser(newDoc, completion: { () -> Void in
+                    }, failure: { (error) -> Void in
+                        Dispatch.defaultQueueAfter(3.0, closure: { 
+                            ServiceLayer.sharedServiceLayer.docsService.deleteDocumentFromUser(newDoc, completion: {
+                                }, failure: { (error) in
+                                    failure(error: error)
+                            })
+                        })
+                })
+            })
+            dispatchDelayCounter += 0.3
+            
+        }
+        updateCache()
         completion()
     }
+    
     
     func refresh(refreshEnded: () -> Void, refreshFailed: (error: Error) -> Void) {
         ServiceLayer.sharedServiceLayer.docsService.getDocuments( { (documentsArray) -> Void in

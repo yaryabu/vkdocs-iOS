@@ -4,7 +4,7 @@
 <dict>
 	<key>com.apple.security.application-groups</key>
 	<array>
-		<string>group.VKDocsContainer</string>
+		<string>group.ru.yaryabu.VKDocs</string>
 	</array>
 </dict>
 </plist>

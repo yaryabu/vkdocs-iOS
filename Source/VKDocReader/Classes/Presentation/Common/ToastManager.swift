@@ -21,18 +21,18 @@ class ToastManager {
     /**
      Презентует error.message в красном цвете
     */
-    func presentError(error: Error) {
-        presentToast(error.message, color: UIColor.vkGrapefruitColor())
+    func presentError(error: Error, duration: Double = 1.5) {
+        presentToast(error.message, color: UIColor.vkGrapefruitColor(), duration: duration)
     }
     
     /**
-     Презентует error.message в зеленом цвете
+     Презентует message в зеленом цвете
     */
-    func presentInfo(message: String) {
-        presentToast(message, color: UIColor.vkEmeraldColor())
+    func presentInfo(message: String, duration: Double = 1.5) {
+        presentToast(message, color: UIColor.vkEmeraldColor(), duration: duration)
     }
     
-    private func presentToast(message: String, color: UIColor) {
+    private func presentToast(message: String, color: UIColor, duration: Double) {
         if shouldShowToast(message) {
             addLatestToast(message)
         } else {
@@ -47,7 +47,7 @@ class ToastManager {
             kCRToastAnimationInDirectionKey: CRToastAnimationDirection.Top.rawValue,
             kCRToastAnimationOutDirectionKey: CRToastAnimationDirection.Top.rawValue,
             kCRToastTextAlignmentKey: NSTextAlignment.Center.rawValue,
-            kCRToastTimeIntervalKey: 1.5,
+            kCRToastTimeIntervalKey: duration,
             kCRToastInteractionRespondersKey: [responder],
             kCRToastNotificationPresentationTypeKey: CRToastPresentationType.Cover.rawValue,
             kCRToastFontKey: UIFont.createFolderFieldFont(),

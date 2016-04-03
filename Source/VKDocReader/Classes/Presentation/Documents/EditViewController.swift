@@ -59,7 +59,10 @@ class EditViewController: ViewController, UITextFieldDelegate {
             createButton.enabled = true
         }
         
-        textField.becomeFirstResponder()
+        // GCD помогает с анимацией открытия клавиатуры
+        Dispatch.mainQueue {
+            self.textField.becomeFirstResponder()
+        }
     }
     
     override func viewWillAppear(animated: Bool) {

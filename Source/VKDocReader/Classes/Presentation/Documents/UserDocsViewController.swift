@@ -52,7 +52,7 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
         return picker
     }()
     
-    let searchBar: UISearchBar = {
+    lazy var searchBar: UISearchBar = {
         let bar = UISearchBar()
         bar.sizeToFit()
         bar.placeholder = "Поиск"
@@ -68,6 +68,8 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
                 }
             }
         }
+        
+        bar.delegate = self
         return bar
     }()
     
@@ -90,23 +92,23 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
         tableView.registerNib(UINib(nibName: "UserDocsTableViewCell", bundle: nil), forCellReuseIdentifier: UserDocsTableViewCell.cellIdentifier)
         tableView.registerNib(UINib(nibName: "FolderCell", bundle: nil), forCellReuseIdentifier: FolderCell.cellIdentifier)
         tableView.registerNib(UINib(nibName: "CreateFolderCell", bundle: nil), forCellReuseIdentifier: CreateFolderCell.cellIdentifier)
+        
+        navigationBarButtons = (leftButton: addDocumentButton, rightButton: optionsButton)
 
+        
         if isRootViewController {
             
             searchDataSource = SearchDataSource()
             vkDocumentsDataSource = UserDocsDataSource()
             currentDataSource = vkDocumentsDataSource
             
-            navigationBarButtons = (leftButton: addDocumentButton, rightButton: optionsButton)
             navigationItem.titleView = searchBar
-            searchBar.delegate = self
             
             refreshTableViewData()
+            
         } else {
             folderDataSource = FolderDataSource()
             currentDataSource = folderDataSource
-            
-            navigationBarButtons = (leftButton: addDocumentButton, rightButton: optionsButton)
             
             navigationItem.leftBarButtonItem = nil
             navigationItem.title = currentPath.componentsSeparatedByString("/").last
@@ -169,7 +171,6 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
         view.backgroundColor = UIColor.vkGrayColor()
         
         let label = SectionHeaderLabel()
-        
         label.frame = CGRect(
             x: 14,
             y: 0,
@@ -183,6 +184,7 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
             } else {
                 label.text = "В документах ВК"
             }
+
         } else if let _ = currentDataSource as? UserDocsDataSource {
             if section == 0 {
                 label.text = "Папки"
@@ -197,13 +199,6 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
-        if let ds = currentDataSource as? UserDocsDataSource {
-            if indexPath.section == 0 && ds.folders[0] == ds.createFolderCell {
-                performSegueWithIdentifier(Const.StoryboardSegues.createFolder, sender: nil)
-                return
-            }
-        }
-        
         if tableView.editing {
             let itemsCount = tableView.indexPathsForSelectedRows!.count
             docPickerNavBarOverlay.titleLabel.text = "Выбрано: \(itemsCount)"
@@ -213,31 +208,35 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
         
         self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
-        if let _ = currentDataSource as? SearchDataSource {
+        if let ds = currentDataSource as? UserDocsDataSource {
+            switch indexPath.section {
+            case 0:
+                if ds.folders[0] == ds.createFolderCell {
+                    performSegueWithIdentifier(Const.StoryboardSegues.createFolder, sender: nil)
+                } else {
+                    let vc = storyboard!.instantiateViewControllerWithIdentifier(Const.StoryboardIDs.userDocsTableViewController) as! UserDocsViewController
+                    let newPath = Bash.pwd() + "/" + ds.folders[indexPath.row]
+                    vc.currentPath = newPath
+                    navigationController!.pushViewController(vc, animated: true)
+                }
+            case 1:
+                self.performSegueWithIdentifier(Const.StoryboardSegues.previewDocument, sender: indexPath)
+            default:
+                break
+            }
+            
+        } else if let _ = currentDataSource as? SearchDataSource {
             self.performSegueWithIdentifier(Const.StoryboardSegues.previewDocument, sender: indexPath)
-            return
-        }
-        
-        if let ds = currentDataSource as? FolderDataSource {
+            
+        } else if let ds = currentDataSource as? FolderDataSource {
             if ds.isDirectory(indexPath) {
-                let vc = storyboard!.instantiateViewControllerWithIdentifier(Const.StoryboardIDs.userDocsTableViewController)
+                let vc = storyboard!.instantiateViewControllerWithIdentifier(Const.StoryboardIDs.userDocsTableViewController) as! UserDocsViewController
                 let newPath = Bash.pwd() + "/" + ds.elements[indexPath.row]
-                (vc as! UserDocsViewController).currentPath = newPath
+                vc.currentPath = newPath
                 navigationController!.pushViewController(vc, animated: true)
             } else {
                 self.performSegueWithIdentifier(Const.StoryboardSegues.previewDocument, sender: indexPath)
             }
-            return
-        }
-        
-        if indexPath.section == 0 {
-            let ds = currentDataSource as! UserDocsDataSource
-            let vc = storyboard!.instantiateViewControllerWithIdentifier(Const.StoryboardIDs.userDocsTableViewController)
-            let newPath = Bash.pwd() + "/" + ds.folders[indexPath.row]
-            (vc as! UserDocsViewController).currentPath = newPath
-            navigationController!.pushViewController(vc, animated: true)
-        } else {
-            self.performSegueWithIdentifier(Const.StoryboardSegues.previewDocument, sender: indexPath)
         }
     }
     
@@ -262,12 +261,15 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
             let editViewControllerNavController = self.storyboard!.instantiateViewControllerWithIdentifier(Const.StoryboardIDs.editViewControllerNavigationController) as! NavigationController
             let editViewController = editViewControllerNavController.viewControllers[0] as! EditViewController
             if let ds = self.currentDataSource as? UserDocsDataSource {
-                if indexPath.section == 0 {
+                switch indexPath.section {
+                case 0:
                     editViewController.actionType = .EditFolder
                     editViewController.folderPathToEdit = ds.folderPath(indexPath)
-                } else {
+                case 1:
                     editViewController.actionType = .EditDocument
                     editViewController.documentToEdit = ds.document(indexPath)
+                default:
+                    break
                 }
             } else if let ds = self.currentDataSource as? FolderDataSource {
                 if ds.isDirectory(indexPath) {
@@ -309,9 +311,10 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
             }
             tableView.setEditing(true, animated: true)
             setEditing(true, animated: true)
-            docPickerNavBarOverlay.titleLabel.text = "Выбрано: 1"
             tableView.selectRowAtIndexPath(indexPath, animated: false, scrollPosition: UITableViewScrollPosition.None)
-            docPickerTabBarOverlay.changeButtonsState(1, isRootViewController: isRootViewController)
+            tableView(tableView, didSelectRowAtIndexPath: indexPath)
+//            docPickerNavBarOverlay.titleLabel.text = "Выбрано: 1"
+//            docPickerTabBarOverlay.changeButtonsState(1, isRootViewController: isRootViewController)
         }
         
     }
@@ -348,10 +351,16 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
             //FIXME: тут обязательно нужен спиннер
             self.currentDataSource.deleteElements(indexPaths, completion: { () -> Void in
                 //FIXME: анимация удаления
-                self.tableView.reloadData()
-//                self.tableView.deleteRowsAtIndexPaths(indexPaths, withRowAnimation: UITableViewRowAnimation.Automatic)
+//                if self.currentDataSource as? UserDocsDataSource != nil &&
+//                    indexPaths.contains(NSIndexPath(forRow: 0, inSection: 0)) {
+//                    // workaround для ячейки создания папки
+//                    
+//                } else {
+//                    self.tableView.deleteRowsAtIndexPaths(indexPaths, withRowAnimation: UITableViewRowAnimation.Automatic)
+//                }
                 self.tableView.setEditing(false, animated: true)
                 self.setEditing(false, animated: true)
+                self.tableView.reloadData()
                 }, failure: { (error) -> Void in
                     self.handleError(error)
             })
@@ -450,8 +459,8 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
             docPickerNavBarOverlay.titleLabel.text = "Выбрано: \(itemsCount)"
             docPickerTabBarOverlay.changeButtonsState(itemsCount, isRootViewController: isRootViewController)
             
-            docPickerNavBarOverlay.presentAnimated(newFrame, view: self.navigationController!.navigationBar)
-            docPickerTabBarOverlay.presentAnimated(tabBarFrame, view: self.tabBarController!.view)
+            docPickerNavBarOverlay.presentAnimated(newFrame, superview: self.navigationController!.navigationBar)
+            docPickerTabBarOverlay.presentAnimated(tabBarFrame, superview: self.tabBarController!.view)
         } else {
             if isRootViewController == false {
                 navigationItem.hidesBackButton = false
@@ -490,9 +499,6 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
         return true
     }
     
-    func searchBarShouldEndEditing(searchBar: UISearchBar) -> Bool {
-        return true
-    }
     
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
         NSObject.cancelPreviousPerformRequestsWithTarget(self, selector: #selector(UserDocsViewController.search), object: nil)
@@ -532,6 +538,7 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
     //MARK: Загрузка файла в ВК
     
     @IBAction func addDocumentButtonPressed(sender: AnyObject) {
+        //FIXME: нужно отдельно запрашивать разрешение на фото
         if serviceLayer.uploadDocsService.isUploadingNow() {
             ToastManager.sharedInstance.presentError(Error(code: 0, message: "Дождись окончания предыдущей загрузки"))
             return
@@ -540,8 +547,9 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
     }
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+        //FIXME: во время обработки файла нужно поставить спиннер
         picker.dismissViewControllerAnimated(true, completion: nil)
-        ToastManager.sharedInstance.presentInfo("Загружаем документ в ВК")
+        ToastManager.sharedInstance.presentInfo("Загружаем документ в ВК", duration: 3.0)
         Dispatch.defaultQueue { () -> () in
             let referenceUrl = info[UIImagePickerControllerReferenceURL] as! NSURL
             
@@ -578,15 +586,13 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
     
     func cellButtonPressed(notification: NSNotification) {
         let button = notification.object as! UIButton
-        loadButtonPressed(button)
-        //        let buttonPosition = button.convertPoint(CGPointZero, toView: self.tableView)
-        //        let indexPath = self.tableView.indexPathForRowAtPoint(buttonPosition)!
-    }
-    
-    func loadButtonPressed(sender: AnyObject) {
-        let buttonPosition = (sender as! UIButton).convertPoint(CGPointZero, toView: self.tableView)
+        let buttonPosition = button.convertPoint(CGPointZero, toView: self.tableView)
         let indexPath = self.tableView.indexPathForRowAtPoint(buttonPosition)!
         
+        buttonPressedAt(indexPath)
+    }
+    
+    func buttonPressedAt(indexPath: NSIndexPath) {
         if let ds = currentDataSource as? SearchDataSource {
             if indexPath.section == 1 {
                 self.serviceLayer.docsService.addDocumentToUser(searchDataSource.vkSearchResults[indexPath.row], completion: { (newDocumentId) -> Void in
@@ -600,7 +606,7 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
         }
         
         
-        let doc = currentDataSource.document(indexPath) //Document!
+        let doc = currentDataSource.document(indexPath)
         
         if doc.tempPath != nil {
             doc.saveFromTempDir()
@@ -628,14 +634,19 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
         self.setEditing(false, animated: true)
         
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+        
+        
         let cancelAction = UIAlertAction(title: "Отмена", style: .Cancel, handler: nil)
+        
         let createFolderAction = UIAlertAction(title: "Создать папку", style: .Default) { (action) -> Void in
             self.performSegueWithIdentifier(Const.StoryboardSegues.createFolder, sender: nil)
         }
+        
         let chooseElementsAction = UIAlertAction(title: "Выбрать", style: .Default) { (action) -> Void in
             self.tableView.setEditing(true, animated: true)
             self.setEditing(true, animated: true)
         }
+        
         let addFileToFolderAction = UIAlertAction(title: "Добавить файл", style: .Default) { (action) -> Void in
             self.docPickerChooseFileToAdd()
         }
@@ -659,13 +670,7 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
         
         if segue.identifier == Const.StoryboardSegues.previewDocument {
             let vc = segue.destinationViewController as! DocumentPreviewViewController
-            if let ds = currentDataSource as? UserDocsDataSource {
-                vc.document = ds.document(sender as! NSIndexPath)
-            } else if let ds = currentDataSource as? SearchDataSource {
-                vc.document = ds.document(sender as! NSIndexPath)
-            } else if let ds = currentDataSource as? FolderDataSource {
-                vc.document = ds.document(sender as! NSIndexPath)
-            }
+            vc.document = currentDataSource.document(sender as! NSIndexPath)
         }
         
         setEditing(false, animated: true)

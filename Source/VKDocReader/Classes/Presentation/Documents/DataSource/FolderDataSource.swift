@@ -15,7 +15,7 @@ import RealmSwift
 class FolderDataSource: NSObject, DataSource {
     
     var elements: [String] {
-        var allElements = Bash.ls(Bash.pwd())
+        let allElements = Bash.ls(Bash.pwd())
         
         if allElements.count < 1 {
             return []
@@ -32,10 +32,6 @@ class FolderDataSource: NSObject, DataSource {
         }
         
         return folders + files
-    }
-    
-    override init() {
-        super.init()
     }
     
     func refresh(refreshEnded: () -> Void, refreshFailed: (error: Error) -> Void) {}
@@ -105,7 +101,6 @@ class FolderDataSource: NSObject, DataSource {
         }
     }
     
-    //TODO: эта штука будет падать, если не чистить весь fileSystem после удаления из вк
     private func documentByFileName(fileName: String) -> Document {
         let realm = try! Realm()
         let docId = fileName.componentsSeparatedByString(Const.Common.directoryConflictHelper)[0]

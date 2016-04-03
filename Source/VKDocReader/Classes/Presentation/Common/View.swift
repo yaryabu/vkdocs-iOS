@@ -22,6 +22,9 @@ class View: UIView {
             bundle: bundle
             ).instantiateWithOwner(nil, options: nil)[0] as? View
     }
-    func presentAnimated(frame: CGRect, view: UIView) {}
+    
+    /// - parameter frame: frame, в который нужно презентовать View
+    /// - parameter superview: superview для View, который нужно презентовать
+    func presentAnimated(frame: CGRect, superview: UIView) {}
     func dismissAnimated() {}
 }

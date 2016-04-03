@@ -17,14 +17,15 @@ import SwiftyJSON
  */
 class LoadTaskManager: Alamofire.Manager {
     static let sharedManager = LoadTaskManager()
+    private static let backgroundSessionIdentifier = Const.Common.bundleIdentifier + "network.backgroundSession"
     
-    var downloadRequestPool: [Request] {
+    var downloadRequestPool: [RequestPoolItem] {
         didSet {
             if downloadRequestPool.count > 1 {
-                downloadRequestPool[0].resume()
-                downloadRequestPool[1].resume()
+                downloadRequestPool[0].request.resume()
+                downloadRequestPool[1].request.resume()
             } else if downloadRequestPool.count == 1 {
-                downloadRequestPool[0].resume()
+                downloadRequestPool[0].request.resume()
             }
         }
     }
@@ -33,46 +34,50 @@ class LoadTaskManager: Alamofire.Manager {
     
     private init() {
         downloadRequestPool = []
-        let config = NSURLSessionConfiguration.backgroundSessionConfigurationWithIdentifier("ouf'[ewuhfwae[huew[whe[hu[uhfhuoawfgouawu;")
+        let config = NSURLSessionConfiguration.backgroundSessionConfigurationWithIdentifier(LoadTaskManager.backgroundSessionIdentifier)
         super.init(configuration: config, delegate: Manager.SessionDelegate(), serverTrustPolicyManager: nil)
         super.delegate.taskWillPerformHTTPRedirection = nil
         delegate.taskWillPerformHTTPRedirection = nil
         startRequestsImmediately = false
     }
     
-    func requestForUrlString(urlString: String) -> Request? {
+    func requestForId(id: String) -> RequestPoolItem? {
         for req in downloadRequestPool {
-            if req.request!.URLString == urlString {
+            if req.docId == id {
                 return req
             }
         }
         return nil
     }
     
-    func removeRequestWithUrlString(urlString: String) {
-        for req in downloadRequestPool {
-            if req.request!.URLString == urlString {
-                
+    func removeRequestWithId(id: String) {
+        for (i, req) in downloadRequestPool.enumerate() {
+            if req.docId == id {
+                req.request.cancel()
+                downloadRequestPool.removeAtIndex(i)
+                return
             }
         }
     }
     
-    func downloadFile(urlString: String, fileDirectory: String, fileExtension: String, progress: (totalReadBytes: UInt, bytesToRead: UInt) -> Void, completion: (fileName: String, filePath: String) -> Void, failure: (error: NSError) -> Void) {
+    func downloadFile(urlString: String, fileDirectory: String, fileExtension: String, fileId: String, progress: (totalReadBytes: UInt, bytesToRead: UInt) -> Void, completion: (fileName: String, filePath: String) -> Void, failure: (error: NSError) -> Void) {
         
-        var downloadRequest: Request!
+        var downloadRequest: RequestPoolItem!
         
-        if let req = self.requestForUrlString(urlString) {
+        if let req = self.requestForId(fileId) {
             downloadRequest = req
         } else {
-            downloadRequest = self.download(.GET, urlString, destination: {(temporaryUrl, response) -> NSURL in
+            let req = self.download(.GET, urlString, destination: {(temporaryUrl, response) -> NSURL in
                 let fileNamePath = self.computeFilePath(fileDirectory, fileExtension: fileExtension, suggestedFilename: response.suggestedFilename)
                 return NSURL(fileURLWithPath: fileNamePath.filePath)
             })
+            
+            downloadRequest = RequestPoolItem(request: req, docId: fileId)
             self.downloadRequestPool.append(downloadRequest)
             //            self.downloadRequestPool[urlString] = downloadRequest
         }
         
-        downloadRequest!
+        downloadRequest.request
             .progress({ (read, totalRead, size) -> Void in
                 progress(totalReadBytes: UInt(totalRead), bytesToRead: UInt(size))
             })
@@ -80,11 +85,11 @@ class LoadTaskManager: Alamofire.Manager {
                 if (error != nil) {
                     failure(error: error!)
                     
-                    self.cancelFileDownload(urlString)
+                    self.cancelFileDownload(fileId)
                 } else {
                     let fileNamePath = self.computeFilePath(fileDirectory, fileExtension: fileExtension, suggestedFilename: response!.suggestedFilename)
                     completion(fileName: fileNamePath.fileName, filePath: fileNamePath.filePath)
-                    self.cancelFileDownload(urlString)
+                    self.cancelFileDownload(fileId)
                 }
                 
         }
@@ -124,19 +129,19 @@ class LoadTaskManager: Alamofire.Manager {
         }
     }
     
-    func requestForUrlExists(urlString: String) -> Bool {
+    func requestForIdExists(id: String) -> Bool {
         for req in downloadRequestPool {
-            if req.request!.URLString == urlString {
+            if req.docId == id {
                 return true
             }
         }
         return false
     }
     
-    func cancelFileDownload(urlString: String) {
-        for (i, req) in downloadRequestPool.enumerate() {
-            if req.request!.URLString == urlString {
-                req.cancel()
+    func cancelFileDownload(id: String) {
+        for (i, item) in downloadRequestPool.enumerate() {
+            if item.docId == id {
+                item.request.cancel()
                 downloadRequestPool.removeAtIndex(i)
                 return
             }
@@ -144,8 +149,8 @@ class LoadTaskManager: Alamofire.Manager {
     }
     
     func cancelAllDownloads() {
-        for req in downloadRequestPool {
-            req.cancel()
+        for item in downloadRequestPool {
+            item.request.cancel()
         }
         downloadRequestPool.removeAll()
     }
@@ -160,4 +165,10 @@ class LoadTaskManager: Alamofire.Manager {
             return (name, filePath)
         }
     }
+}
+
+
+struct RequestPoolItem {
+    let request: Request
+    let docId: String
 }

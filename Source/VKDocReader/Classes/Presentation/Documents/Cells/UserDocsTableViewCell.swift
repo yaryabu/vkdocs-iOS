@@ -51,10 +51,6 @@ class UserDocsTableViewCell: TableViewCell {
         accessoryView?.frame = accessoryFrame!
     }
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-    
     func configureCell(document: Document, isSearchResult: Bool, hideButton: Bool) {
         self.document = document
         self.titleLabel.text = document.title
@@ -69,18 +65,25 @@ class UserDocsTableViewCell: TableViewCell {
         } else if let url = document.thumbnailUrlString {
             ServiceLayer.sharedServiceLayer.imageService.getImage(url, completion: { (data) -> Void in
                 
-                let image = UIImage(data: data)
-                let cgImage = CGImageCreateWithImageInRect(image?.CGImage, self.thumbnailImageView.frame)!
+                let cgImage = UIImage(data: data)?.CGImage
+                let imageViewFrame = CGRect(
+                    x: (CGFloat(CGImageGetWidth(cgImage)) - self.thumbnailImageView.frame.width) / 2,
+                    y: 0,
+                    width: self.thumbnailImageView.frame.width * 2,
+                    height: self.thumbnailImageView.frame.height * 2
+                )
                 
-                self.thumbnailImageView.image = UIImage(CGImage: cgImage)
+                let newImage = UIImage(CGImage: CGImageCreateWithImageInRect(cgImage, imageViewFrame)!)
+                let newImageData = UIImageJPEGRepresentation(newImage, 0.7)
+                self.thumbnailImageView.image = newImage
                 self.thumbnailImageView.hidden = false
                 self.extensionLabel.hidden = true
                 try! Realm().write({ () -> Void in
-                    document.thumbnailData = data
+                    document.thumbnailData = newImageData
                 })
                 }, failure: { (error) -> Void in
-                    print(error)
-                    //TODO: NSNotification для ошибки
+                    NSNotificationCenter.defaultCenter().postNotificationName(Const.Notifications.errorOccured, object: Wrapper(theValue: error))
+
             })
         } else {
             self.extensionLabel.text = document.ext
@@ -89,9 +92,7 @@ class UserDocsTableViewCell: TableViewCell {
         }
         
         if isSearchResult {
-            
             let loadButton = newButton
-            
             loadButton.setTitle("", forState: .Normal)
             loadButton.setImage(UIImage(named: "plus_icon"), forState: UIControlState.Normal)
             return
@@ -99,19 +100,18 @@ class UserDocsTableViewCell: TableViewCell {
         
         if hideButton {
             accessoryView?.hidden = true
-            return
+        } else {
+            accessoryView?.hidden = false
+            refreshDownloadState()
         }
-    
-        accessoryView?.hidden = false
-        refreshDownloadState()
     }
     
     func refreshDownloadState() {
         
         let loadButton = newButton
         
-        loadButton.setTitle("", forState: .Normal)
-        loadButton.setImage(UIImage(named: "downloaded_file_icon"), forState: UIControlState.Normal)
+//        loadButton.setTitle("", forState: .Normal)
+//        loadButton.setImage(UIImage(named: "downloaded_file_icon"), forState: UIControlState.Normal)
         
         if document!.tempPath != nil {
             loadButton.setTitle("", forState: .Normal)
@@ -133,8 +133,7 @@ class UserDocsTableViewCell: TableViewCell {
                     loadButton.setTitle("", forState: .Normal)
                     loadButton.setImage(UIImage(named: "downloaded_file_icon"), forState: UIControlState.Normal)
                 }, failure: { (error) -> Void in
-                    //TODO: NSNotification для ошибки
-                    print(error)
+                    NSNotificationCenter.defaultCenter().postNotificationName(Const.Notifications.errorOccured, object: Wrapper(theValue: error))
                     loadButton.setTitle("", forState: .Normal)
                     loadButton.setImage(UIImage(named: "not_downloaded_file_icon"), forState: UIControlState.Normal)
             })

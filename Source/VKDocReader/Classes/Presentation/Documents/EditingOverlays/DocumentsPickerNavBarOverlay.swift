@@ -20,15 +20,15 @@ class DocumentsPickerNavBarOverlay: View {
         return super.loadFromNibNamed(nibNamed, bundle: bundle) as! DocumentsPickerNavBarOverlay
     }
     
-    override func presentAnimated(frame: CGRect, view: UIView) {
-        let newFrame = CGRect(
+    override func presentAnimated(frame: CGRect, superview: UIView) {
+        let originalFrame = CGRect(
             x: frame.origin.x,
             y: frame.origin.y - frame.height,
             width: frame.width,
             height: frame.height
         )
-        self.frame = newFrame
-        view.addSubview(self)
+        self.frame = originalFrame
+        superview.addSubview(self)
         
         UIView.animateWithDuration(0.3) { () -> Void in
             self.frame = frame

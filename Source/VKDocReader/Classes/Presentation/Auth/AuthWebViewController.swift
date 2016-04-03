@@ -44,7 +44,7 @@ class AuthWebViewController: ViewController, UIWebViewDelegate {
     
     func authSuccessful(paramsString: String) {
         self.serviceLayer.authService.saveAuthData(paramsString)
-        let storyboard = UIStoryboard.init(name: Const.Common.mainStoryboardName, bundle: NSBundle.mainBundle())
+        let storyboard = UIStoryboard(name: Const.Common.mainStoryboardName, bundle: NSBundle.mainBundle())
         let window = UIApplication.sharedApplication().windows[0]
         window.rootViewController = storyboard.instantiateViewControllerWithIdentifier(Const.StoryboardIDs.tabBarController)
     }
@@ -57,7 +57,7 @@ class AuthWebViewController: ViewController, UIWebViewDelegate {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     @IBAction func refreshButtonPressed(sender: AnyObject) {
-        self.loadWebView()
+        self.webView.reload()
     }
     
 }

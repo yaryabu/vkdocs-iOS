@@ -17,14 +17,48 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XWg-97-hsH">
-                                <rect key="frame" x="169" y="97" width="42" height="21"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FFU-Dq-7wz">
+                                <rect key="frame" x="0.0" y="20" width="600" height="44"/>
+                                <items>
+                                    <navigationItem title="Title" id="VDu-J1-yYT">
+                                        <barButtonItem key="leftBarButtonItem" image="exit_cross" id="E0R-h4-vza">
+                                            <color key="tintColor" red="0.20000000298023224" green="0.20000000298023224" blue="0.20000000298023224" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                            <connections>
+                                                <action selector="exitButtonPressed:" destination="wpz-84-XBg" id="oMW-kf-83x"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="TnK-Xw-Xtp">
+                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ShareCell" id="C1S-ti-WC0">
+                                        <rect key="frame" x="0.0" y="28" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="C1S-ti-WC0" id="1Hd-ZB-sKJ">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="wpz-84-XBg" id="WlK-x7-IoB"/>
+                                    <outlet property="delegate" destination="wpz-84-XBg" id="ljG-8z-ROV"/>
+                                </connections>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="i4N-wK-Mj2" firstAttribute="top" secondItem="TnK-Xw-Xtp" secondAttribute="bottom" id="249-qU-rNm"/>
+                            <constraint firstItem="TnK-Xw-Xtp" firstAttribute="leading" secondItem="gOG-s2-LjH" secondAttribute="leading" id="7np-hf-6s3"/>
+                            <constraint firstAttribute="trailing" secondItem="TnK-Xw-Xtp" secondAttribute="trailing" id="Fj6-l3-MAN"/>
+                            <constraint firstItem="TnK-Xw-Xtp" firstAttribute="top" secondItem="FFU-Dq-7wz" secondAttribute="bottom" id="Zpp-L5-f7F"/>
+                            <constraint firstItem="FFU-Dq-7wz" firstAttribute="top" secondItem="spI-LR-b1T" secondAttribute="bottom" id="h2A-kp-eue"/>
+                            <constraint firstItem="FFU-Dq-7wz" firstAttribute="leading" secondItem="gOG-s2-LjH" secondAttribute="leading" id="iXv-Ry-uC5"/>
+                            <constraint firstAttribute="trailing" secondItem="FFU-Dq-7wz" secondAttribute="trailing" id="qWo-Vy-PUv"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UTi-09-wAk" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -32,4 +66,7 @@
             <point key="canvasLocation" x="3626" y="-1281"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="exit_cross" width="15" height="15"/>
+    </resources>
 </document>

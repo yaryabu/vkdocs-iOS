@@ -11,15 +11,6 @@ import RealmSwift
 
 class TabBarController: UITabBarController {
     
-//    let firstTabSelectedView = UIView()
-//    let secondTabSelectedView = UIView()
-    
-    lazy var selectedTabIndicatorView: UIView = {
-        let view = UIView(frame: self.firstTabSelectedViewFrame)
-        view.backgroundColor = UIColor.vkDuskBlueColor()
-        return view
-    }()
-    
     lazy var firstTabSelectedViewFrame: CGRect = {
         return CGRect(
             x: 0,
@@ -28,6 +19,7 @@ class TabBarController: UITabBarController {
             height: 2
         )
     }()
+    
     lazy var secondTabSelectedViewFrame: CGRect = {
         CGRect(
             x: self.tabBar.frame.width/2,
@@ -37,31 +29,16 @@ class TabBarController: UITabBarController {
         )
     }()
     
+    lazy var selectedTabIndicatorView: UIView = {
+        let view = UIView(frame: self.firstTabSelectedViewFrame)
+        view.backgroundColor = UIColor.vkDuskBlueColor()
+        return view
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.serviceLayer.userService.getUserInfo({ (user) -> Void in
-            let realm = try! Realm()
-            
-            if let cachedUser = realm.objects(User).first {
-                if cachedUser == user && cachedUser.photoData != nil {
-                    return
-                }
-            }
-            
-            try! realm.write({ () -> Void in
-                realm.add(user, update: true)
-            })
-            
-            self.serviceLayer.userService.getUserAvatarData(user, completion: { (data) -> Void in
-                try! realm.write({ () -> Void in
-                    user.photoData = data
-                })
-                }, failure: { (error) -> Void in
-                    self.handleError(error)
-            })
-            }) { (error) -> Void in
-                self.handleError(error)
-        }
+        
+        loadUserData()
         
         tabBar.addSubview(selectedTabIndicatorView)
 
@@ -102,6 +79,32 @@ class TabBarController: UITabBarController {
             UIView.animateWithDuration(0.3, animations: {
                 self.selectedTabIndicatorView.frame = self.secondTabSelectedViewFrame
             })
+        }
+    }
+    
+    func loadUserData() {
+        self.serviceLayer.userService.getUserInfo({ (user) -> Void in
+            let realm = try! Realm()
+            
+            if let cachedUser = realm.objects(User).first {
+                if cachedUser == user && cachedUser.photoData != nil {
+                    return
+                }
+            }
+            
+            try! realm.write({ () -> Void in
+                realm.add(user, update: true)
+            })
+            
+            self.serviceLayer.userService.getUserAvatarData(user, completion: { (data) -> Void in
+                try! realm.write({ () -> Void in
+                    user.photoData = data
+                })
+                }, failure: { (error) -> Void in
+                    self.handleError(error)
+            })
+        }) { (error) -> Void in
+            self.handleError(error)
         }
     }
 }

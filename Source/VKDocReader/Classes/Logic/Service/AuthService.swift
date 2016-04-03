@@ -12,14 +12,39 @@ class AuthService: Service {
 
     var token: String? {
         get {
-            return SSKeychain.passwordForService(Const.Keychain.serviceName, account: Const.Keychain.sharedAccountName)
+            let defaults = NSUserDefaults(suiteName: Const.UserDefaults.appGroupId)
+            return defaults?.stringForKey(Const.UserDefaults.userToken)
+//            return SSKeychain.passwordForService(Const.Keychain.serviceName, account: Const.Keychain.sharedAccountName)
         }
         set {
-            if newValue != nil {
-                SSKeychain.setPassword(newValue, forService: Const.Keychain.serviceName, account: Const.Keychain.sharedAccountName)
-            } else {
-                SSKeychain.deletePasswordForService(Const.Keychain.serviceName, account: Const.Keychain.sharedAccountName)
-            }
+            let defaults = NSUserDefaults(suiteName: Const.UserDefaults.appGroupId)
+            defaults?.setObject(newValue, forKey: Const.UserDefaults.userToken)
+            
+            
+//            let query = SSKeychainQuery()
+//            query.account = Const.Keychain.sharedAccountName
+//            query.service = Const.Keychain.serviceName
+//            query.accessGroup = "SH46XG936M.ru.yaryabu.VKDocs"
+//            if newValue != nil {
+//                query.password = newValue
+//                do {
+//                    try query.save()
+//                } catch {
+//                    print("saveError")
+//                }
+//            } else {
+//                do {
+//                    try query.deleteItem()
+//                } catch {
+//                    print("deleteError")
+//                }
+//            }
+            
+//            if newValue != nil {
+//                SSKeychain.setPassword(newValue, forService: Const.Keychain.serviceName, account: Const.Keychain.sharedAccountName)
+//            } else {
+//                SSKeychain.deletePasswordForService(Const.Keychain.serviceName, account: Const.Keychain.sharedAccountName)
+//            }
         }
     }
 

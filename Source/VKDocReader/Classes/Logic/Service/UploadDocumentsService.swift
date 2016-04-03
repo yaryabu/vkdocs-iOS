@@ -80,12 +80,11 @@ class UploadDocumentsService: Service {
     }
     
     func isUploadingNow() -> Bool {
-        return LoadTaskManager.sharedManager.isUploadingNow
+        return loadTaskManager.isUploadingNow
     }
     
     private func parseServerUrlResponse(json: JSON) -> String {
-        let serverUrl = json["response"]["upload_url"].string!
-        return serverUrl
+        return json["response"]["upload_url"].string!
     }
     
     private func parseUploadResponse(json: JSON) -> String {

@@ -23,6 +23,11 @@ class Service {
         //FIXME: доработать специальные ошибки (капча, авторизация итд)
         let errorJson = json["error"]
         if errorJson != nil {
+            print("====VK_ERROR====")
+            print("====Code: \(errorJson["error_code"].int)====")
+            print("====Message: \(errorJson["error_msg"].string)====")
+            print("====Params: \(errorJson["request_params"]) ====")
+            print("====END====")
             switch errorJson["error_code"] {
             case 1:
                 return Error(code: 1, message: "Неизвестная ошибка")
@@ -48,7 +53,11 @@ class Service {
 //                print("Ошибка 14 (нужна капча)")
 //                let error = Error(code: 14, message: "Необходимо ввести код с картинки")
 //                error.captchaId = json[]
-                return Error(code: 14, message: "Необходимо ввести код с картинки")
+                var newError =  Error(code: 14, message: "Необходимо ввести код с картинки")
+                newError.captchaId = errorJson["captcha_sid"].string!
+                newError.captchaUrlString = errorJson["captcha_img"].string!
+                newError.requestParams = errorJson["request_params"]
+                return newError
             case 23:
 //                print("Ошибка 23 (метод выключен)")
                 return Error(code: 1, message: "Неизвестная ошибка")
@@ -68,10 +77,13 @@ class Service {
         return nil
     }
     
-    /**
-     Перевод из NSError от транспорта в кастомную ошибку
-    */
+    /// Перевод из NSError от транспорта в кастомную ошибку
     func createError(error: NSError) -> Error? {
+        print("====NSERROR====")
+        print("====Code: \(error.code))====")
+        print("====Message: \(error.localizedDescription)====")
+        print("====Error: \(error))====")
+        print("====END====")
         switch error.code {
         case -999:
             return nil
@@ -80,6 +92,10 @@ class Service {
             let newError = Error(code: error.code, message: error.localizedDescription)
             return newError
         }
+    }
+    
+    func retryRequest(error: Error, captchaText: String) {
+        
     }
     
     /**

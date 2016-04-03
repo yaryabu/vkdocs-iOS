@@ -13,17 +13,20 @@ struct Const {
         static let clientId = "5295261"
         static let bundleIdentifier = NSBundle.mainBundle().bundleIdentifier!
         static let mainStoryboardName = "Main"
-        //рандомная строка, которая добавляется ко всем папкам для документов, чтобы 
+        static let errorDomain = bundleIdentifier + ".error"
+        //рандомная строка, которая добавляется ко всем папкам для документов, чтобы
         //не было конфликтов с пользовательскими папками
         static let directoryConflictHelper = ".CONFLICT_CONSTANT"
     }
     
     struct Notifications {
-        static let statusBarTouched = "statusBarTouchedNotification"
-        static let cellButtonPressed = "UserDocsTableViewCellButtonPressedNotification"
+        static let statusBarTouched = Common.bundleIdentifier + ".statusBarTouchedNotification"
+        static let cellButtonPressed = Common.bundleIdentifier + ".UserDocsTableViewCellButtonPressedNotification"
         
-        static let uploadProgress = "uploadProgressNotification"
-        static let uploadComplete = "uploadCompleteNotification"
+        static let uploadProgress = Common.bundleIdentifier + ".uploadProgressNotification"
+        static let uploadComplete = Common.bundleIdentifier + ".uploadCompleteNotification"
+        
+        static let errorOccured = Common.bundleIdentifier + ".errorOccuredNotification"
     }
     
     struct Network {
@@ -66,7 +69,7 @@ struct Const {
     
     struct UserDefaults {
         
-        static let appGroupId = "group.VKDocsContainer"
+        static let appGroupId = "group.ru.yaryabu.VKDocs"
         static let userToken = "User access token"
         
         static let userIdKey = "VK UserID"

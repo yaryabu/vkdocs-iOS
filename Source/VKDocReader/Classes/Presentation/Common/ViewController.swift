@@ -20,6 +20,18 @@ class ViewController: UIViewController {
         return self.navigationController?.viewControllers[0] == self
     }()
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.errorOccured(_:)), name: Const.Notifications.errorOccured, object: nil)
+    }
+    
+    
+    func errorOccured(notification: NSNotification) {
+        if let wrapper = notification.object as? Wrapper<Error> {
+            handleError(wrapper.wrappedValue)
+        }
+    }
+    
 }
 
 extension UIViewController {
@@ -45,7 +57,7 @@ extension UIViewController {
             
             self.presentViewController(alert, animated: true, completion: nil)
         case 14:
-            //TODO:
+            //TODO: капча
             ToastManager.sharedInstance.presentError(error)
         case -999:
             //Загрузка отменена (пользователем или чем-нибудь еще)
@@ -64,11 +76,12 @@ extension UIViewController {
             try! realm.write({ () -> Void in
                 realm.deleteAll()
             })
-            let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
             Bash.rm(Const.Directories.fileSystemDir)
             Bash.mkdir(Const.Directories.fileSystemDir)
             Bash.rm(Const.Directories.vaultDir)
             Bash.mkdir(Const.Directories.vaultDir)
+            
+            let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
             appDelegate.chooseInitialViewCotroller()
         }
         alert.addAction(noAction)

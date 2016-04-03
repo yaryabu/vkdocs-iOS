@@ -134,7 +134,7 @@ class DocsService: Service {
             return
         }
         
-        self.loadTaskManager.downloadFile(document.urlString, fileDirectory: document.fileDirectory, fileExtension: document.ext, progress: { (totalRead, bytesToRead) -> Void in
+        self.loadTaskManager.downloadFile(document.urlString, fileDirectory: document.fileDirectory, fileExtension: document.ext, fileId: document.id, progress: { (totalRead, bytesToRead) -> Void in
             Dispatch.mainQueue({ () -> () in
                 progress(totalRead: totalRead, bytesToRead: bytesToRead)
             })
@@ -150,11 +150,11 @@ class DocsService: Service {
     }
     
     func downloadExists(document: Document) -> Bool {
-        return self.loadTaskManager.requestForUrlExists(document.urlString)
+        return self.loadTaskManager.requestForIdExists(document.id)
     }
     
     func cancelDownload(document: Document) {
-        self.loadTaskManager.cancelFileDownload(document.urlString)
+        self.loadTaskManager.cancelFileDownload(document.id)
     }
     
     func searchDocuments(query: String, offset: Int, completion: ([Document]) -> Void, failure: (error: Error) -> Void) {
