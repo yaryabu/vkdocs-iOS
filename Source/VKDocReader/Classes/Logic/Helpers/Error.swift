@@ -12,7 +12,7 @@ import SwiftyJSON
  Кастомная ошибка приложения. Все сторонние ошибки должны трансформироваться в тип Error.
  */
 struct Error {
-    var code: Int = -1
+    var code: Int = 0
     var message: String = "Неизвестная ошибка"
     var captchaId: String?
     var captchaUrlString: String?

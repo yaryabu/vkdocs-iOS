@@ -4,6 +4,11 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="Open Sans.ttf">
+            <string>OpenSans</string>
+        </mutableArray>
+    </customFonts>
     <scenes>
         <!--Share View Controller-->
         <scene sceneID="I7P-Pf-ri6">
@@ -17,8 +22,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FFU-Dq-7wz">
+                            <navigationBar contentMode="scaleToFill" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="FFU-Dq-7wz">
                                 <rect key="frame" x="0.0" y="20" width="600" height="44"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <color key="barTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <items>
                                     <navigationItem title="Title" id="VDu-J1-yYT">
                                         <barButtonItem key="leftBarButtonItem" image="exit_cross" id="E0R-h4-vza">
@@ -30,17 +37,43 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="TnK-Xw-Xtp">
+                            <tableView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="46" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="TnK-Xw-Xtp">
                                 <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ShareCell" id="C1S-ti-WC0">
-                                        <rect key="frame" x="0.0" y="28" width="600" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="UploadingFileCell" rowHeight="46" id="C1S-ti-WC0" customClass="UploadingFileCell" customModule="ShareExtension" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="600" height="46"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="C1S-ti-WC0" id="1Hd-ZB-sKJ">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="45.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="FileName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jp1-Qw-UXu">
+                                                    <rect key="frame" x="8" y="8" width="79" height="27.5"/>
+                                                    <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="18"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="0 %" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r8u-5m-RTv">
+                                                    <rect key="frame" x="564" y="8" width="28" height="27.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="jp1-Qw-UXu" firstAttribute="leading" secondItem="1Hd-ZB-sKJ" secondAttribute="leading" constant="8" id="1lY-hV-fSf"/>
+                                                <constraint firstAttribute="bottom" secondItem="r8u-5m-RTv" secondAttribute="bottom" constant="8" id="5hz-eJ-BrH"/>
+                                                <constraint firstAttribute="trailing" secondItem="r8u-5m-RTv" secondAttribute="trailing" constant="8" id="9bH-kr-GkT"/>
+                                                <constraint firstItem="jp1-Qw-UXu" firstAttribute="top" secondItem="1Hd-ZB-sKJ" secondAttribute="top" constant="8" id="GqV-LW-JuB"/>
+                                                <constraint firstItem="r8u-5m-RTv" firstAttribute="top" secondItem="1Hd-ZB-sKJ" secondAttribute="top" constant="8" id="Ivr-ek-wfl"/>
+                                                <constraint firstAttribute="bottom" secondItem="jp1-Qw-UXu" secondAttribute="bottom" constant="8" id="L6P-Qk-0wZ"/>
+                                            </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="fileNameLabel" destination="jp1-Qw-UXu" id="Kuh-xb-U0S"/>
+                                            <outlet property="progressLabel" destination="r8u-5m-RTv" id="6Bx-5N-v79"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -60,6 +93,10 @@
                             <constraint firstAttribute="trailing" secondItem="FFU-Dq-7wz" secondAttribute="trailing" id="qWo-Vy-PUv"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="shareNavigationItem" destination="VDu-J1-yYT" id="jxE-HP-mwL"/>
+                        <outlet property="tableView" destination="TnK-Xw-Xtp" id="MGv-jg-swa"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UTi-09-wAk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

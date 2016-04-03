@@ -85,9 +85,6 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
         tableView.addGestureRecognizer(longTapGestureRecognizer)
 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(UserDocsViewController.cellButtonPressed(_:)), name: Const.Notifications.cellButtonPressed, object: nil)
-
-        pullToRefreshControl.addTarget(self, action: #selector(UserDocsViewController.pullToRefreshActivated), forControlEvents: UIControlEvents.ValueChanged)
-        tableView.addSubview(self.pullToRefreshControl)
         
         tableView.registerNib(UINib(nibName: "UserDocsTableViewCell", bundle: nil), forCellReuseIdentifier: UserDocsTableViewCell.cellIdentifier)
         tableView.registerNib(UINib(nibName: "FolderCell", bundle: nil), forCellReuseIdentifier: FolderCell.cellIdentifier)
@@ -103,6 +100,9 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
             currentDataSource = vkDocumentsDataSource
             
             navigationItem.titleView = searchBar
+            
+            pullToRefreshControl.addTarget(self, action: #selector(UserDocsViewController.pullToRefreshActivated), forControlEvents: UIControlEvents.ValueChanged)
+            tableView.addSubview(self.pullToRefreshControl)
             
             refreshTableViewData()
             
