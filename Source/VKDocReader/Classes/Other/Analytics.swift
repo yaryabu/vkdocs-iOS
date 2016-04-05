@@ -138,7 +138,8 @@ class Analytics {
         Answers.logCustomEventWithName(
             "VK API Error",
             customAttributes: [
-                "Error": "CODE:\(code) MESSAGE:\(message)"
+                "Code": String(code),
+                "Message": message
             ])
     }
     
@@ -146,7 +147,7 @@ class Analytics {
         Answers.logCustomEventWithName(
             "Network NSError",
             customAttributes: [
-                "Code": error.code,
+                "Code": String(error.code),
                 "Description": error.localizedDescription
             ])
     }
