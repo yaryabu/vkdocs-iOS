@@ -27,13 +27,13 @@ struct FileToUpload {
 }
 
 func logShareExtensionDocuments(fileNames: [String]) {
+    var extensions: [String] = []
     for name in fileNames {
-        Answers.logCustomEventWithName(
-            "Document to upload",
-            customAttributes: [
-                "Extension":name.componentsSeparatedByString(".").last ?? "error",
-            ])
+        extensions.append(name.componentsSeparatedByString(".").last ?? "error")
     }
+    let defaults = NSUserDefaults(suiteName: Const.UserDefaults.appGroupId)
+    defaults?.synchronize()
+    defaults?.setObject(extensions, forKey: Const.UserDefaults.shareExtensionDocumentsExtensions)
 }
 
 class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
@@ -99,6 +99,7 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         
         UINavigationBar.appearance().titleTextAttributes = [
             NSFontAttributeName: UIFont(name: "Open Sans", size: 18)!,

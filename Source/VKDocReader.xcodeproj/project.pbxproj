@@ -20,12 +20,11 @@
 		574093991CB3140D003C156F /* CaptchaViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 574093971CB3140D003C156F /* CaptchaViewController.storyboard */; };
 		5740939A1CB3140D003C156F /* CaptchaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574093981CB3140D003C156F /* CaptchaViewController.swift */; };
 		574093A51CB34D6F003C156F /* Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574093A41CB34D6F003C156F /* Analytics.swift */; };
+		574093A81CB466F3003C156F /* NavBarOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574093A71CB466F3003C156F /* NavBarOverlay.swift */; };
+		574093AA1CB4670F003C156F /* NavBarOverlay.xib in Resources */ = {isa = PBXBuildFile; fileRef = 574093A91CB4670F003C156F /* NavBarOverlay.xib */; };
 		5759286A1CAFF7720082E3BF /* SwiftWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575928691CAFF7720082E3BF /* SwiftWrapper.swift */; };
 		5759286B1CB004A40082E3BF /* ShareExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 57AF2CA21C97578600C5A193 /* ShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		575928781CB1290A0082E3BF /* RetryErrorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575928771CB1290A0082E3BF /* RetryErrorService.swift */; };
-		575928791CB150CF0082E3BF /* Assets.xcassets in Sources */ = {isa = PBXBuildFile; fileRef = 578257FA1C8B173B003C3568 /* Assets.xcassets */; };
-		5759287A1CB160470082E3BF /* Open Sans.ttf in Sources */ = {isa = PBXBuildFile; fileRef = 57ADB1B61C9F4DE3001E0766 /* Open Sans.ttf */; };
-		5759287B1CB160470082E3BF /* Lucida Grande.ttf in Sources */ = {isa = PBXBuildFile; fileRef = 57ADB1AA1C9F3063001E0766 /* Lucida Grande.ttf */; };
 		57687F861C8F32EE0037AF4F /* Bash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57687F851C8F32EE0037AF4F /* Bash.swift */; };
 		576ADCA91CA86A3700615FC5 /* LoadTaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 576ADCA81CA86A3700615FC5 /* LoadTaskManager.swift */; };
 		576AF2701CA8A35100C93E60 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 576AF24C1CA8A35100C93E60 /* AuthViewController.swift */; };
@@ -147,6 +146,8 @@
 		574093971CB3140D003C156F /* CaptchaViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CaptchaViewController.storyboard; sourceTree = "<group>"; };
 		574093981CB3140D003C156F /* CaptchaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptchaViewController.swift; sourceTree = "<group>"; };
 		574093A41CB34D6F003C156F /* Analytics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Analytics.swift; sourceTree = "<group>"; };
+		574093A71CB466F3003C156F /* NavBarOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavBarOverlay.swift; sourceTree = "<group>"; };
+		574093A91CB4670F003C156F /* NavBarOverlay.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NavBarOverlay.xib; sourceTree = "<group>"; };
 		575928691CAFF7720082E3BF /* SwiftWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftWrapper.swift; path = Helpers/SwiftWrapper.swift; sourceTree = "<group>"; };
 		575928771CB1290A0082E3BF /* RetryErrorService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RetryErrorService.swift; sourceTree = "<group>"; };
 		57687F851C8F32EE0037AF4F /* Bash.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Bash.swift; path = Helpers/Bash.swift; sourceTree = "<group>"; };
@@ -372,6 +373,8 @@
 			isa = PBXGroup;
 			children = (
 				576AF26F1CA8A35100C93E60 /* SettingsViewController.swift */,
+				574093A71CB466F3003C156F /* NavBarOverlay.swift */,
+				574093A91CB4670F003C156F /* NavBarOverlay.xib */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -753,6 +756,7 @@
 				576AF2881CA8A35100C93E60 /* DocumentsPickerTabBarOverlay.xib in Resources */,
 				576AF27C1CA8A35100C93E60 /* CreateFolderCell.xib in Resources */,
 				57AF96961C8B4C3700E924C3 /* LaunchScreen.storyboard in Resources */,
+				574093AA1CB4670F003C156F /* NavBarOverlay.xib in Resources */,
 				578258001C8B173B003C3568 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -919,6 +923,7 @@
 				578258031C8B18FF003C3568 /* ServiceLayer.swift in Sources */,
 				5795DD621C8CC9450008DFA1 /* UserService.swift in Sources */,
 				57ADB1B21C9F3F21001E0766 /* UIFont+VKFont.swift in Sources */,
+				574093A81CB466F3003C156F /* NavBarOverlay.swift in Sources */,
 				576AF2851CA8A35100C93E60 /* DocumentsPickerNavBarOverlay.swift in Sources */,
 				576AF28A1CA8A35100C93E60 /* MoveCopyViewController.swift in Sources */,
 				576ADCA91CA86A3700615FC5 /* LoadTaskManager.swift in Sources */,
@@ -974,10 +979,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5740938C1CB1989F003C156F /* Error.swift in Sources */,
-				5759287A1CB160470082E3BF /* Open Sans.ttf in Sources */,
 				5740939A1CB3140D003C156F /* CaptchaViewController.swift in Sources */,
-				5759287B1CB160470082E3BF /* Lucida Grande.ttf in Sources */,
-				575928791CB150CF0082E3BF /* Assets.xcassets in Sources */,
 				57A56A6F1CA6D6FE00E57677 /* UIColors+VKColors.swift in Sources */,
 				5740938E1CB1C7C4003C156F /* AuthWebViewController.swift in Sources */,
 				574093891CB16A59003C156F /* UploadingFileCell.swift in Sources */,

@@ -12,15 +12,6 @@ import SwiftyJSON
 import Crashlytics
 
 
-func logCaptcha(successful: Bool, canceled: Bool) {
-    Answers.logCustomEventWithName(
-        "Uploading Captcha",
-        customAttributes: [
-            "Successful":successful,
-            "Canceled":canceled
-        ])
-}
-
 class CaptchaViewController: UIViewController, UITextFieldDelegate {
     
     var captchaError: Error!
@@ -75,9 +66,7 @@ class CaptchaViewController: UIViewController, UITextFieldDelegate {
         
         submitCaptcha(captchaError, captchaText: textField.text!, completion: {
             self.captchaSuccessClosure()
-            logCaptcha(true, canceled: false)
             }) { (error) in
-                logCaptcha(false, canceled: false)
                 self.captchaDelegate.handleError(error, retryClosure: self.captchaSuccessClosure)
         }
         self.dismissViewControllerAnimated(true, completion: nil)
@@ -101,7 +90,6 @@ class CaptchaViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func cancelButtonPressed(sender: AnyObject) {
-        logCaptcha(false, canceled: true)
         dismissViewControllerAnimated(true, completion: nil)
     }
     

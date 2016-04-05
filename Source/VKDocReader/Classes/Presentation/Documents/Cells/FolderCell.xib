@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="Open Sans.ttf">
@@ -19,11 +20,11 @@
                 <rect key="frame" x="0.0" y="0.0" width="600" height="57.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="folder_cell_image" translatesAutoresizingMaskIntoConstraints="NO" id="15C-e8-771">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="251" image="folder_cell_image" translatesAutoresizingMaskIntoConstraints="NO" id="15C-e8-771">
                         <rect key="frame" x="16" y="17" width="28" height="22"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ikU-5e-Kxn">
-                        <rect key="frame" x="56" y="18" width="38" height="20.5"/>
+                        <rect key="frame" x="56" y="18" width="536" height="20.5"/>
                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -34,6 +35,7 @@
                     <constraint firstItem="ikU-5e-Kxn" firstAttribute="leading" secondItem="15C-e8-771" secondAttribute="trailing" constant="12" id="5eg-DX-gAE"/>
                     <constraint firstItem="ikU-5e-Kxn" firstAttribute="centerY" secondItem="15C-e8-771" secondAttribute="centerY" id="Ob8-Mv-4WQ"/>
                     <constraint firstItem="15C-e8-771" firstAttribute="top" secondItem="oVz-fZ-9BL" secondAttribute="top" constant="17" id="Xid-Bu-GLO"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="ikU-5e-Kxn" secondAttribute="trailing" id="rZj-cg-4Tz"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>

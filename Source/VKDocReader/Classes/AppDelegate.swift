@@ -25,6 +25,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //TODO: при запуске надо бы почистить tmp
         
+        let defaults = NSUserDefaults(suiteName: Const.UserDefaults.appGroupId)
+        defaults?.synchronize()
+        if let extensions = defaults?.stringArrayForKey(Const.UserDefaults.shareExtensionDocumentsExtensions) {
+            Analytics.logShareExtensionInfo(extensions)
+            defaults?.removeObjectForKey(Const.UserDefaults.shareExtensionDocumentsExtensions)
+        }
+        
+        
         if Bash.fileExists(Const.Directories.vaultDir) == false {
             Bash.mkdir(Const.Directories.vaultDir)
         }
@@ -33,7 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
 
         Bash.cd(Const.Directories.fileSystemDir)
-        self.chooseInitialViewCotroller()
+        chooseInitialViewCotroller()
         
         return true
     }

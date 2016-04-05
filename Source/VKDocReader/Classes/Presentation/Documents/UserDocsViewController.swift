@@ -526,6 +526,7 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
     
     func search() {
         let query = searchBar.text!
+        Analytics.logSearchQuery(query)
         if let ds = currentDataSource as? SearchDataSource {
             ds.startSearch(query, completion: { () -> Void in
                 self.tableView.reloadData()

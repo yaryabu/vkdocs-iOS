@@ -10,7 +10,6 @@ import UIKit
 import QuickLook
 
 import RealmSwift
-import Crashlytics
 
 class DocumentPreviewViewController: ViewController, QLPreviewControllerDataSource, QLPreviewControllerDelegate, UIDocumentInteractionControllerDelegate, UIGestureRecognizerDelegate {
     
@@ -168,10 +167,12 @@ class DocumentPreviewViewController: ViewController, QLPreviewControllerDataSour
             actionSheet.dismissViewControllerAnimated(false, completion: nil)
             self.documentInteractionsController.URL = NSURL(fileURLWithPath: self.document.filePath ?? "")
             self.documentInteractionsController.presentOptionsMenuFromBarButtonItem(self.optionsButton, animated: true)
+            Analytics.logDocumentShareOpened()
         }
         let copyLinkAction = UIAlertAction(title: "Копировать ссылку", style: .Default) { (action) -> Void in
             UIPasteboard.generalPasteboard().string = self.document.urlString
             ToastManager.sharedInstance.presentInfo("Ссылка скопирована")
+            Analytics.logDocumentLinkCopied()
         }
         let deleteAction = UIAlertAction(title: "Удалить", style: .Destructive) { (action) -> Void in
             self.presentDeleteAlert()

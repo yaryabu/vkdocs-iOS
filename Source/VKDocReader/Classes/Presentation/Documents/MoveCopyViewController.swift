@@ -29,8 +29,8 @@ class MoveCopyViewController: ViewController, UITableViewDelegate {
     
     var finalDirectory: String!
 
-    let userDocsDataSource = UserDocsDataSource()
-    let folderDataSource = FolderDataSource()
+    lazy var userDocsDataSource = UserDocsDataSource()
+    lazy var folderDataSource = FolderDataSource()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,8 +40,11 @@ class MoveCopyViewController: ViewController, UITableViewDelegate {
         if actionType == .ChooseFileToAdd {
             if isRootViewController {
                 tableView.dataSource = userDocsDataSource
+                //FIXME:
+//                userDocsDataSource.updateCache()
             } else {
                 tableView.dataSource = folderDataSource
+//                folderDataSource.updateCache()
             }
             navigationItem.rightBarButtonItem = nil
         } else {
@@ -49,6 +52,11 @@ class MoveCopyViewController: ViewController, UITableViewDelegate {
                 saveButton.enabled = false
             }
             tableView.dataSource = folderDataSource
+//            folderDataSource.updateCache()
+        }
+        
+        if let ds = tableView.dataSource as? DataSource {
+            ds.updateCache()
         }
         
         if isRootViewController {

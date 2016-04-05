@@ -12,10 +12,7 @@ import SwiftyJSON
 
 import Crashlytics
 
-// поиск
-// ссылка и отправить
 //FIXME: вынести аналитику из share extension сюда
-
 class Analytics {
     
     class func logUserAuthorized() {
@@ -30,6 +27,34 @@ class Analytics {
             customAttributes: [
                 "Extension":document.ext,
                 "Size":Int(document.size)!
+            ])
+    }
+    
+    class func logSearchQuery(query: String) {
+        Answers.logCustomEventWithName(
+            "Search",
+            customAttributes: [
+                "Query":query
+            ])
+    }
+    
+    class func logDocumentShareOpened() {
+        Answers.logCustomEventWithName(
+            "Document share opened",
+            customAttributes: nil)
+    }
+    
+    class func logDocumentLinkCopied() {
+        Answers.logCustomEventWithName(
+            "Document link copied",
+            customAttributes: nil)
+    }
+    
+    class func logDocumentsCount(count: Int) {
+        Answers.logCustomEventWithName(
+            "Documents count",
+            customAttributes: [
+                "Count":count
             ])
     }
     
@@ -151,4 +176,24 @@ class Analytics {
                 "Description": error.localizedDescription
             ])
     }
+    
+    //MARK: - Share Extension
+    
+    class func logShareExtensionInfo(fileExtensions: [String]) {
+        
+        for ext in fileExtensions {
+            Answers.logCustomEventWithName(
+                "Share extension",
+                customAttributes: [
+                    "File extension":ext
+                ])
+        }
+        Answers.logCustomEventWithName(
+            "Share extension",
+            customAttributes: [
+                "Count": fileExtensions.count
+            ])
+        
+    }
+    
 }

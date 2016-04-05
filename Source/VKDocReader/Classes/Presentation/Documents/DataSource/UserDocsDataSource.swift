@@ -27,7 +27,11 @@ class UserDocsDataSource: NSObject, DataSource {
             return [createFolderCell]
         }
     }
-    var documents: [Document]
+    var documents: [Document] {
+        didSet {
+            Analytics.logDocumentsCount(documents.count)
+        }
+    }
     
     override init() {
         self.documents = try! Array(Realm().objects(Document))

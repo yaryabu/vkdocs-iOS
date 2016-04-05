@@ -77,6 +77,8 @@ struct Const {
         static let deleteDocumentsAfterPreviewKey = "Delete documents after preview"
         static let currentDocumentsCount = "Current documents count"
         static let useWifiOnly = "Use Wi-Fi only"
+        
+        static let shareExtensionDocumentsExtensions = "Share extension documents extensions"
 
     }
     
