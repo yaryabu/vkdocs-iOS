@@ -65,10 +65,6 @@ class EditViewController: ViewController, UITextFieldDelegate {
         }
     }
     
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-    }
-    
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         textField.resignFirstResponder()
@@ -113,6 +109,7 @@ class EditViewController: ViewController, UITextFieldDelegate {
         case .CreateFolder:
             Bash.mkdir(text)
             ToastManager.sharedInstance.presentInfo("Папка создана")
+            Analytics.logUserCreatedFolder(Bash.pwd() + "/" + text)
             dismissViewControllerAnimated(true, completion: nil)
         case .EditFolder:
             Bash.mv(folderPathToEdit, to: Bash.pwd() + "/" + text)

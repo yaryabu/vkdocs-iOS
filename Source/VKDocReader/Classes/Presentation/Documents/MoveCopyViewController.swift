@@ -34,7 +34,6 @@ class MoveCopyViewController: ViewController, UITableViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         tableView.registerNib(UINib(nibName: "UserDocsTableViewCell", bundle: nil), forCellReuseIdentifier: UserDocsTableViewCell.cellIdentifier)
         tableView.registerNib(UINib(nibName: "FolderCell", bundle: nil), forCellReuseIdentifier: FolderCell.cellIdentifier)
         
@@ -138,7 +137,7 @@ class MoveCopyViewController: ViewController, UITableViewDelegate {
         var conflictingPaths: [String] = []
         for path in paths {
             let name = path.componentsSeparatedByString("/").last!
-            if currentDirectoryItems.contains(name) {
+            if currentDirectoryItems.contains(name) && name.containsString(Const.Common.directoryConflictHelper) == false {
                 conflictingPaths.append(path)
             }
         }

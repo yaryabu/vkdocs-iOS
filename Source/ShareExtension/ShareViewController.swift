@@ -11,8 +11,8 @@ import Social
 import MobileCoreServices
 
 import SwiftyJSON
-import SSKeychain
 import Alamofire
+import Crashlytics
 
 struct FileToUpload {
     let name: String
@@ -26,7 +26,19 @@ struct FileToUpload {
     }
 }
 
+func logShareExtensionDocuments(fileNames: [String]) {
+    for name in fileNames {
+        Answers.logCustomEventWithName(
+            "Document to upload",
+            customAttributes: [
+                "Extension":name.componentsSeparatedByString(".").last ?? "error",
+            ])
+    }
+}
+
 class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
+    static let authSegueIdentifier = "authWebView"
     
     @IBOutlet weak var shareNavigationItem: UINavigationItem!
     
@@ -34,33 +46,35 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     var token: String? {
         get {
-            
             let defaults = NSUserDefaults(suiteName: Const.UserDefaults.appGroupId)
             defaults?.synchronize()
-            print(defaults?.stringForKey(Const.UserDefaults.userToken))
             return defaults?.stringForKey(Const.UserDefaults.userToken)
         }
+        set {
+            let defaults = NSUserDefaults(suiteName: Const.UserDefaults.appGroupId)
+            defaults?.synchronize()
+            defaults?.setObject(newValue, forKey: Const.UserDefaults.userToken)
+        }
     }
+    
+    var userId: String? {
+        get {
+            let defaults = NSUserDefaults(suiteName: Const.UserDefaults.appGroupId)
+            defaults?.synchronize()
+            return defaults?.stringForKey(Const.UserDefaults.userIdKey)
+        }
+        set {
+            let defaults = NSUserDefaults(suiteName: Const.UserDefaults.appGroupId)
+            defaults?.synchronize()
+            defaults?.setObject(newValue, forKey: Const.UserDefaults.userIdKey)
+        }
+    }
+    
     @IBOutlet weak var tableView: UITableView!
     
     var attachmentsCount: Int = -1
     
-    var filesToUpload: [FileToUpload] = [] {
-        didSet {
-//            if filesToUpload.count == attachmentsCount {
-//                print("BEGIN")
-//                beginUploading()
-                //begin
-//                if filesToUpload.count > 0 {
-//                    for file in filesToUpload {
-//                        if file.isUploadComplete == false {
-//                            file.uploadRequest?.resume()
-//                        }
-//                    }
-//                }
-//            }
-        }
-    }
+    var filesToUpload: [FileToUpload] = []
     
     
     var uploadedDocumentsCount: Int = 0 {
@@ -86,8 +100,6 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        Transport.sharedTransport.startRequestsImmediately = false
-        
         UINavigationBar.appearance().titleTextAttributes = [
             NSFontAttributeName: UIFont(name: "Open Sans", size: 18)!,
             NSForegroundColorAttributeName: UIColor.vkBlackColor()
@@ -111,10 +123,17 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
                 })
             }
         }
+        
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        
+        if token == nil {
+            self.performSegueWithIdentifier(ShareViewController.authSegueIdentifier, sender: nil)
+            return
+        }
+        
         if filesToUpload.count == attachmentsCount {
             print("BEGIN")
             beginUploading()
@@ -123,26 +142,38 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
         shareNavigationItem.title = String.localizedStringWithFormat(titleTemplate, uploadedDocumentsCount, attachmentsCount)
     }
     
-//    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-//        if attachmentsCount == filesToUpload.count {
-//        
-//            tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.None)
-//        }
-//    }
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == ShareViewController.authSegueIdentifier {
+            let destinationVC = segue.destinationViewController as! UINavigationController
+            let authWebView = destinationVC.viewControllers[0] as! AuthWebViewController
+            authWebView.authDelegate = self
+        }
+    }
+    
+    func saveAuthData(paramsString: String) {
+        let params = paramsString.componentsSeparatedByString("&")
+        
+        for param in params {
+            if param.containsString("access_token") {
+                self.token = param.componentsSeparatedByString("=")[1]
+            } else if param.containsString("user_id") {
+                self.userId = param.componentsSeparatedByString("=")[1]
+            }
+        }
+        
+        if filesToUpload.count == attachmentsCount {
+            beginUploading()
+        }
+        
+        shareNavigationItem.title = String.localizedStringWithFormat(titleTemplate, uploadedDocumentsCount, attachmentsCount)
+    }
     
     func beginUploadingNextFile() {
         var fileToUpload: FileToUpload?
         var cellIndex: Int?
         if filesToUpload.count > 0 {
-            for (i, file) in filesToUpload.enumerate() {
-                if file.isUploadComplete == false {
-//                    file.uploadRequest?.resume()
-                    fileToUpload = file
-                    cellIndex = i
-                    print("FILE", cellIndex!, fileToUpload!.name)
-                    break
-                }
-            }
+            fileToUpload = filesToUpload.first!
+            cellIndex = 0
         }
         
         if fileToUpload == nil || cellIndex == nil {
@@ -181,6 +212,14 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
     func beginUploading() {
         self.tableView.reloadData()
         beginUploadingNextFile()
+        
+        var filenames: [String] = []
+        
+        for file in filesToUpload {
+            filenames.append(file.name)
+        }
+        logShareExtensionDocuments(filenames)
+        
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -191,7 +230,8 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
         let cell = tableView.dequeueReusableCellWithIdentifier(UploadingFileCell.cellIdentifier, forIndexPath: indexPath) as! UploadingFileCell
         
         let file = filesToUpload[indexPath.row]
-        cell.fileNameLabel.text = file.name
+        cell.fileNameLabel.text = "  \(file.name)"
+        cell.progressLabel.text = "0 %"
         
         return cell
     }
@@ -199,40 +239,18 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
     func handleError(error: Error, retryClosure: () -> ()) {
         switch error.code {
         case 14:
-//            print("")
-            // captcha
-            print("RETRY")
-            retryClosure()
+            CaptchaViewController.presentCaptchaViewController(error, captchaSuccessClosure: retryClosure, presentingViewController: self)
         default:
-            let alert = UIAlertController(title: "Ошибка", message: "Неизвестная ошибка", preferredStyle: UIAlertControllerStyle.Alert)
+            let alert = UIAlertController(title: "Ошибка", message: error.message, preferredStyle: UIAlertControllerStyle.Alert)
             presentViewController(alert, animated: true, completion: { 
                 Dispatch.mainQueueAfter(2.0, closure: {
-                    alert.removeFromParentViewController()
-                    retryClosure()
+                    alert.dismissViewControllerAnimated(true, completion: nil)
+                    //TODO: надо еще подумать, нужен ли повторный запрос
+                    self.beginUploadingNextFile()
                 })
             })
         }
     }
-
-//    override func isContentValid() -> Bool {
-//        // Do validation of contentText and/or NSExtensionContext attachments here
-//        return true
-//    }
-//
-//    override func didSelectPost() {
-//        return
-//        // This is called after the user selects Post. Do the upload of contentText and/or NSExtensionContext attachments.
-//    
-//        // Inform the host that we're done, so it un-blocks its UI. Note: Alternatively you could call super's -didSelectPost, which will similarly complete the extension context.
-//        self.extensionContext!.completeRequestReturningItems([], completionHandler: nil)
-//    }
-//    
-//
-//
-//    override func configurationItems() -> [AnyObject]! {
-//        // To add configuration options via table cells at the bottom of the sheet, return an array of SLComposeSheetConfigurationItem here.
-//        return [SLComposeSheetConfigurationItem()]
-//    }
     
     func uploadDocument(fileUrl: NSURL, documentName: String, completion: () -> Void, progress: (totalUploaded: Int, bytesToUpload: Int) -> Void, failure: (error: Error) -> Void) {
         Transport.sharedTransport.getJSON(Const.Network.baseUrl + "/docs.getUploadServer", parameters: ["access_token":token!], completion: { (json) -> Void in
@@ -262,6 +280,14 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
                                     if let value = response.result.value {
                                         Dispatch.defaultQueue({ () -> () in
                                             let json = JSON(value)
+                                            
+                                            if let error = self.checkError(json) {
+                                                Dispatch.mainQueue({ () -> () in
+                                                    failure(error: error)
+                                                })
+                                                return
+                                            }
+                                            
                                             Transport.sharedTransport.getJSON(Const.Network.baseUrl + "/docs.save", parameters: self.saveParameters(documentName, vkFileParam: self.parseUploadResponse(json)), completion: { (json) -> Void in
                                                 if let error = self.checkError(json) {
                                                     Dispatch.mainQueue({ () -> () in
@@ -277,8 +303,8 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
                                             })
                                         })
                                     }
-                                case .Failure:
-                                    failure(error: self.createError())
+                                case .Failure(let error):
+                                    failure(error: self.createError(error))
                                 }
                         }
                     case .Failure:
@@ -292,8 +318,8 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func createError(error: NSError? = nil) -> Error {
-        print(error)
-        return Error(code: 0, message: "Неизвестная ошибка")
+        print("NS_ERROR", error)
+        return Error(code: 0, message: "Неизвестная ошибка\nПовторяем загрузку")
     }
     
     @IBAction func exitButtonPressed(sender: AnyObject) {
@@ -302,7 +328,6 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
         let yesAction = UIAlertAction(title: "Да", style: .Default) { (action) in
             let error = NSError(domain: Const.Common.errorDomain, code: 0, userInfo: [NSLocalizedDescriptionKey : "User cancelled upload"])
             self.extensionContext?.cancelRequestWithError(error)
-//            self.extensionContext?.completeRequestReturningItems(nil, completionHandler: nil)
         }
         
         let noAction = UIAlertAction(title: "Нет", style: UIAlertActionStyle.Cancel, handler: nil)
@@ -313,7 +338,7 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
         presentViewController(alert, animated: true, completion: nil)
     }
     
-    private func checkError(json: JSON) -> Error? {
+    func checkError(json: JSON) -> Error? {
         if json["error"] != nil {
             print("========JSON ERROR========")
             print(json)

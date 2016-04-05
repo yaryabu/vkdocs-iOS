@@ -13,9 +13,6 @@ class AuthViewController: ViewController, UICollectionViewDelegate, UICollection
     @IBOutlet weak var collectionView: UICollectionView!
     
     @IBOutlet weak var pageControl: UIPageControl!
-    @IBAction func logInButtonPressed(sender: AnyObject) {
-        self.performSegueWithIdentifier(Const.StoryboardSegues.logInButtonPressed, sender: self)
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,5 +67,8 @@ class AuthViewController: ViewController, UICollectionViewDelegate, UICollection
         return cell
     }
     
+    @IBAction func logInButtonPressed(sender: AnyObject) {
+        self.performSegueWithIdentifier(Const.StoryboardSegues.logInButtonPressed, sender: self)
+    }
     
 }

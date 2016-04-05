@@ -103,7 +103,7 @@ class UserDocsDataSource: NSObject, DataSource {
                         })
                 })
             })
-            dispatchDelayCounter += 0.3
+            dispatchDelayCounter += 0.4
             
         }
         updateCache()
@@ -143,7 +143,6 @@ class UserDocsDataSource: NSObject, DataSource {
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
         if section == 0 {
-            //TODO: создать ячейку типа "Создай папку"
             if folders.count == 0 {
                 return nil
             } else {

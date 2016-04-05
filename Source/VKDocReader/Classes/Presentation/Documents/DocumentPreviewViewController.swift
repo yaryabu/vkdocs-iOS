@@ -10,6 +10,7 @@ import UIKit
 import QuickLook
 
 import RealmSwift
+import Crashlytics
 
 class DocumentPreviewViewController: ViewController, QLPreviewControllerDataSource, QLPreviewControllerDelegate, UIDocumentInteractionControllerDelegate, UIGestureRecognizerDelegate {
     
@@ -64,6 +65,8 @@ class DocumentPreviewViewController: ViewController, QLPreviewControllerDataSour
             width: self.view.frame.width,
             height: self.view.frame.height - navigationController!.navigationBar.frame.height - UIApplication.sharedApplication().statusBarFrame.height
         )
+        
+        Analytics.logDocumentPreview(document)
 
         self.previewDocument()
     }
@@ -80,6 +83,7 @@ class DocumentPreviewViewController: ViewController, QLPreviewControllerDataSour
 //    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
 //        return UIInterfaceOrientationMask.All
 //    }
+
     
     func previewDocument() {
         

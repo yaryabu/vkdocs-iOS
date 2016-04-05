@@ -24,19 +24,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Fabric.with([Crashlytics.self])
         
         //TODO: при запуске надо бы почистить tmp
-        //
+        
         if Bash.fileExists(Const.Directories.vaultDir) == false {
             Bash.mkdir(Const.Directories.vaultDir)
         }
         if Bash.fileExists(Const.Directories.fileSystemDir) == false {
             Bash.mkdir(Const.Directories.fileSystemDir)
         }
-        //пока что не нужно особых действий при первом запуске
-//        if ServiceLayer.sharedServiceLayer.userSettingsService.hasLaunchedOnce == false {
 
-            SSKeychain.setAccessibilityType(kSecAttrAccessibleAlwaysThisDeviceOnly)
-//            ServiceLayer.sharedServiceLayer.userSettingsService.hasLaunchedOnce = true
-//        }
         Bash.cd(Const.Directories.fileSystemDir)
         self.chooseInitialViewCotroller()
         
@@ -44,6 +39,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(application: UIApplication, handleEventsForBackgroundURLSession identifier: String, completionHandler: () -> Void) {
+    }
+    
+    func applicationDidEnterBackground(application: UIApplication) {
+        Analytics.logBackgroundSessionBegan(
+            LoadTaskManager.sharedManager.isUploadingNow,
+            isDownloading: LoadTaskManager.sharedManager.downloadRequestPool.count > 0)
     }
 
     func chooseInitialViewCotroller() {

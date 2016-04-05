@@ -22,7 +22,7 @@ class Transport: Alamofire.Manager {
     }
     
     func getJSON(urlString: String, parameters: [String:AnyObject]?, completion: (json: JSON) -> Void, failure: (error: NSError) -> Void) {
-        //TODO вынести добалвение параметра на уровень сервисов
+        //TODO: вынести добалвение параметра на уровень сервисов
         var newParams = parameters ?? [:]
         newParams["v"] = Const.Network.apiVersion
         self.request(.GET, urlString, parameters: newParams, encoding: .URL, headers: nil)

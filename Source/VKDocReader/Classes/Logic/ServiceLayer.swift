@@ -18,6 +18,7 @@ class ServiceLayer {
     let docsService: DocsService
     let imageService: ImageService
     let uploadDocsService: UploadDocumentsService
+    let retryErrorService: RetryErrorService
     
     private init() {
         self.authService = AuthService()
@@ -25,6 +26,7 @@ class ServiceLayer {
         self.userService = UserService(authService: self.authService, userSettingsSerivce: self.userSettingsService)
         self.docsService = DocsService(authService: self.authService, userSettingsSerivce: self.userSettingsService)
         self.uploadDocsService = UploadDocumentsService(authService: self.authService, userSettingsSerivce: self.userSettingsService)
+        self.retryErrorService = RetryErrorService(authService: authService, userSettingsSerivce: userSettingsService)
         self.imageService = ImageService()
     }
     

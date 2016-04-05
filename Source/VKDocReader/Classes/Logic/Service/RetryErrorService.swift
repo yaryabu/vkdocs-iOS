@@ -40,16 +40,18 @@ class RetryErrorService: Service {
     
     
     func retryRequestParameters(error: Error, captchaText: String) -> (method: String, queryParams: [String:String]) {
-        let method = "/" + error.requestParams!["method"].string!
         
+        var method: String!
         var params: [String:String] = [:]
         
-        for (key,subJson):(String, JSON) in error.requestParams! {
-            if key == "method" || key == "oauth" {
+        for (_,subJson):(String, JSON) in error.requestParams! {
+            if subJson["key"].string! == "oauth" {
                 continue
+            } else if subJson["key"].string! == "method" {
+                method = "/" + subJson["value"].string!
+            } else {
+                params[subJson["key"].string!] = subJson["value"].string!
             }
-            
-            params[key] = subJson.string!
         }
         params["captcha_key"] = captchaText
         params["captcha_sid"] = error.captchaId

@@ -8,6 +8,7 @@
 
 import UIKit
 
+@IBDesignable
 class View: UIView {
     @IBInspectable var cornerRadius: CGFloat = 0 {
         didSet {
@@ -27,4 +28,8 @@ class View: UIView {
     /// - parameter superview: superview для View, который нужно презентовать
     func presentAnimated(frame: CGRect, superview: UIView) {}
     func dismissAnimated() {}
+}
+
+extension UIView {
+    
 }

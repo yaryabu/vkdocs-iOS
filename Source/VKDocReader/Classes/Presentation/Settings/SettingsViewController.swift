@@ -36,7 +36,6 @@ class SettingsViewController: ViewController, MFMailComposeViewControllerDelegat
         
         let realm = try! Realm()
         self.notificationToken = realm.objects(User).addNotificationBlock { results, error in
-            //TODO: убрать спиннер
             self.updateUserData()
         }
         
@@ -117,11 +116,8 @@ class SettingsViewController: ViewController, MFMailComposeViewControllerDelegat
     
     @IBAction func onlyWifiLoadSwitchChanged(sender: AnyObject) {
         let wifiLoadSwitch = sender as! UISwitch
-        if wifiLoadSwitch.on {
-            self.serviceLayer.userSettingsService.useWifiOnly = true
-        } else {
-            self.serviceLayer.userSettingsService.useWifiOnly = false
-        }
+        self.serviceLayer.userSettingsService.useWifiOnly = wifiLoadSwitch.on
+        Analytics.logUseWifiOnlySetting(wifiLoadSwitch.on)
     }
     
     @IBAction func contactButtonPressed(sender: AnyObject) {
@@ -148,16 +144,17 @@ class SettingsViewController: ViewController, MFMailComposeViewControllerDelegat
     
     @IBAction func saveDocsAutomaticallySwitchPressed(sender: AnyObject) {
         let docsSwitch = sender as! UISwitch
-        if docsSwitch.on {
-            self.serviceLayer.userSettingsService.deleteDocumentsAfterPreview = false
-        } else {
-            self.serviceLayer.userSettingsService.deleteDocumentsAfterPreview = true
-        }
-
+        self.serviceLayer.userSettingsService.deleteDocumentsAfterPreview = !docsSwitch.on
+        Analytics.logSaveDocsAfterPreviewSetting(docsSwitch.on)
     }
     
     func refreshCacheSize() {
-        let cacheSize = SizeFormatter.closestFormatFromBytes(Bash.du(Const.Directories.vaultDir))
+        
+        let bytes = Bash.du(Const.Directories.vaultDir)
+        
+        Analytics.logCacheSize(bytes)
+        
+        let cacheSize = SizeFormatter.closestFormatFromBytes(bytes)
         let cacheSizeString = String(cacheSize.number) + " " + cacheSize.unitTypeName
         self.clearCacheButton.setTitle("Очистить кэш – \(cacheSizeString) занято", forState: UIControlState.Normal)
     }

@@ -2,24 +2,21 @@
 //  AuthWebViewController.swift
 //  VKDocReader
 //
-//  Created by Yaroslav Ryabukha on 05/03/16.
+//  Created by Yaroslav Ryabukha on 04/04/16.
 //  Copyright © 2016 Yaroslav Ryabukha. All rights reserved.
 //
 
 import UIKit
 
-class AuthWebViewController: ViewController, UIWebViewDelegate {
-
+class AuthWebViewController: UIViewController, UIWebViewDelegate {
+    
     @IBOutlet weak var webView: UIWebView!
+    
+    var authDelegate: ShareViewController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.loadWebView()
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.Default, animated: true)
     }
     
     func loadWebView() {
@@ -32,10 +29,10 @@ class AuthWebViewController: ViewController, UIWebViewDelegate {
         
         if urlString.containsString("access_token") {
             let paramsString = urlString.componentsSeparatedByString("#")[1]
-            self.authSuccessful(paramsString)
+            authSuccessful(paramsString)
             return false
         } else if urlString.containsString("error_reason=user_denied") {
-            self.userDeniedAuth()
+            userDeniedAuth()
             return false
         }
         
@@ -43,22 +40,23 @@ class AuthWebViewController: ViewController, UIWebViewDelegate {
     }
     
     func authSuccessful(paramsString: String) {
-        self.serviceLayer.authService.saveAuthData(paramsString)
-        let storyboard = UIStoryboard(name: Const.Common.mainStoryboardName, bundle: NSBundle.mainBundle())
-        let window = UIApplication.sharedApplication().windows[0]
-        window.rootViewController = storyboard.instantiateViewControllerWithIdentifier(Const.StoryboardIDs.tabBarController)
-        Analytics.logUserAuthorized()
+        authDelegate.saveAuthData(paramsString)
+        dismissViewControllerAnimated(true, completion: nil)
     }
     
     func userDeniedAuth() {
-        self.dismissViewControllerAnimated(true, completion: nil)
+        let error = NSError(domain: Const.Common.errorDomain, code: 0, userInfo: [NSLocalizedDescriptionKey : "User cancelled upload"])
+        authDelegate.extensionContext?.cancelRequestWithError(error)
     }
     
     @IBAction func cancelButtonPressed(sender: AnyObject) {
-        self.dismissViewControllerAnimated(true, completion: nil)
+        let error = NSError(domain: Const.Common.errorDomain, code: 0, userInfo: [NSLocalizedDescriptionKey : "User cancelled upload"])
+        authDelegate.extensionContext?.cancelRequestWithError(error)
     }
+    
     @IBAction func refreshButtonPressed(sender: AnyObject) {
-        self.webView.reload()
+        webView.reload()
     }
     
 }
+

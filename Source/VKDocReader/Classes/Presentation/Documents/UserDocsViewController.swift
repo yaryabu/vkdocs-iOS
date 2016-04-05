@@ -83,8 +83,6 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
         configureEditingMode()
         
         tableView.addGestureRecognizer(longTapGestureRecognizer)
-
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(UserDocsViewController.cellButtonPressed(_:)), name: Const.Notifications.cellButtonPressed, object: nil)
         
         tableView.registerNib(UINib(nibName: "UserDocsTableViewCell", bundle: nil), forCellReuseIdentifier: UserDocsTableViewCell.cellIdentifier)
         tableView.registerNib(UINib(nibName: "FolderCell", bundle: nil), forCellReuseIdentifier: FolderCell.cellIdentifier)
@@ -113,6 +111,7 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
             navigationItem.leftBarButtonItem = nil
             navigationItem.title = currentPath.componentsSeparatedByString("/").last
         }
+        
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -131,6 +130,17 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
         }
     }
     
+    // поскольку эти VC появляются постоянно и остаются в памяти нужно переставить ловить уведомления
+    // т.к. неизвестно, кто именно их поймает
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(UserDocsViewController.cellButtonPressed(_:)), name: Const.Notifications.cellButtonPressed, object: nil)
+    }
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: Const.Notifications.cellButtonPressed, object: nil)
+    }
+    
     override func willMoveToParentViewController(parent: UIViewController?) {
         super.willMoveToParentViewController(parent)
         if parent == nil {
@@ -141,6 +151,11 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
     //MARK: UITableViewDelegate
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        
+        if let _ = currentDataSource as? UserDocsDataSource {
+            return 30
+        }
+        
         if let _ = currentDataSource as? FolderDataSource {
             return 0
         }
@@ -152,8 +167,9 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
             if section == 1 && ds.vkSearchResults.count == 0 {
                 return 0
             }
+            return 30
         }
-        return 30
+        return 0
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -339,6 +355,9 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
         
         if let ds = currentDataSource as? FolderDataSource {
             ds.deleteElements(indexPaths, completion: { () -> Void in
+                self.tableView.deleteRowsAtIndexPaths(indexPaths, withRowAnimation: UITableViewRowAnimation.Automatic)
+                self.tableView.setEditing(false, animated: true)
+                self.setEditing(false, animated: true)
                 }, failure: { (error) -> Void in
                     self.handleError(error)
             })
@@ -538,12 +557,27 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
     //MARK: Загрузка файла в ВК
     
     @IBAction func addDocumentButtonPressed(sender: AnyObject) {
-        //FIXME: нужно отдельно запрашивать разрешение на фото
         if serviceLayer.uploadDocsService.isUploadingNow() {
             ToastManager.sharedInstance.presentError(Error(code: 0, message: "Дождись окончания предыдущей загрузки"))
             return
         }
-        presentViewController(imagePicker, animated: true, completion: nil)
+        
+        switch PHPhotoLibrary.authorizationStatus() {
+        case .Authorized:
+            presentViewController(imagePicker, animated: true, completion: nil)
+        case .NotDetermined:
+            PHPhotoLibrary.requestAuthorization({ (status) in
+                Dispatch.mainQueue({ 
+                    if status == .Authorized {
+                        self.presentViewController(self.imagePicker, animated: true, completion: nil)
+                    } else {
+                        ToastManager.sharedInstance.presentError(Error(code: 0, message: ":c"))
+                    }
+                })
+            })
+        default:
+            ToastManager.sharedInstance.presentError(Error(code: 0, message: "Нет доступа к фото\n Невозможно загрузить фото в ВК"))
+        }
     }
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {

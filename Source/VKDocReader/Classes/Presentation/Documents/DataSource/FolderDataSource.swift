@@ -30,16 +30,24 @@ class FolderDataSource: NSObject, DataSource {
                 folders.append(allElements[i])
             }
         }
+        let result = folders + files
         
-        return folders + files
+        return result
     }
     
     func refresh(refreshEnded: () -> Void, refreshFailed: (error: Error) -> Void) {}
     
     func deleteElements(indexPaths: [NSIndexPath], completion: () -> Void, failure: (error: Error) -> Void) {
+        
+        var elements: [String] = []
         for indexPath in indexPaths {
-            Bash.rm(elementPath(indexPath))
+            elements.append(elementPath(indexPath))
         }
+        
+        for element in elements {
+            Bash.rm(element)
+        }
+        
         completion()
     }
     

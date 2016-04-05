@@ -42,7 +42,6 @@ extension UIViewController {
     func handleError(error: Error) {
         switch error.code {
         case 5:
-            //TODO:
             let authWebView = storyboard!.instantiateViewControllerWithIdentifier("AuthWebViewController") as! AuthWebViewController
             authWebView.navigationItem.leftBarButtonItem = nil
             self.presentViewController(authWebView, animated: true, completion: nil)
@@ -57,8 +56,8 @@ extension UIViewController {
             
             self.presentViewController(alert, animated: true, completion: nil)
         case 14:
-            //TODO: капча
             ToastManager.sharedInstance.presentError(error)
+            CaptchaViewController.presentCaptchaViewController(error)
         case -999:
             //Загрузка отменена (пользователем или чем-нибудь еще)
             break
@@ -71,6 +70,7 @@ extension UIViewController {
         let alert = UIAlertController(title: "Вы точно хотите выйти?", message: "Все документы и папки будут удалены из приложения", preferredStyle: UIAlertControllerStyle.Alert)
         let noAction = UIAlertAction(title: "Нет", style: .Cancel, handler: nil)
         let yesAction = UIAlertAction(title: "Да", style: .Default) { (action) -> Void in
+            Analytics.logExitApp()
             self.serviceLayer.deleteAllInfo()
             let realm = try! Realm()
             try! realm.write({ () -> Void in

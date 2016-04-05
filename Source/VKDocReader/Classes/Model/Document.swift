@@ -18,7 +18,6 @@ class Document: Object {
     dynamic var date: String!
     
     dynamic var thumbnailUrlString: String?
-    dynamic var thumbnailData: NSData?
     
     dynamic var accessKey: String?
 

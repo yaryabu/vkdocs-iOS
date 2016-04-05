@@ -419,8 +419,8 @@
                                             <constraint firstItem="8CZ-9n-PQ0" firstAttribute="top" secondItem="FhS-Ig-L9F" secondAttribute="bottom" constant="10" id="bgm-1T-dfd"/>
                                         </constraints>
                                     </view>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d2o-oo-ioB">
-                                        <rect key="frame" x="0.0" y="329" width="600" height="20.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d2o-oo-ioB">
+                                        <rect key="frame" x="0.0" y="329" width="600" height="19.5"/>
                                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="14"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -489,58 +489,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="y86-Bn-tX8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3127" y="315"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="T56-jY-JGv">
-            <objects>
-                <viewController storyboardIdentifier="azaza" definesPresentationContext="YES" modalTransitionStyle="crossDissolve" modalPresentationStyle="overCurrentContext" hidesBottomBarWhenPushed="YES" id="eXb-X2-g7V" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="8Tb-aF-DIm"/>
-                        <viewControllerLayoutGuide type="bottom" id="s1I-nq-xjq"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="0V6-u3-QmN">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SMs-lj-gc6">
-                                <rect key="frame" x="180" y="100" width="240" height="230"/>
-                                <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="intro1" translatesAutoresizingMaskIntoConstraints="NO" id="vqe-0O-569">
-                                        <rect key="frame" x="58" y="51" width="125" height="98"/>
-                                    </imageView>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tCU-cx-Axm">
-                                        <rect key="frame" x="72" y="180" width="97" height="30"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
-                                </subviews>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstItem="tCU-cx-Axm" firstAttribute="leading" secondItem="SMs-lj-gc6" secondAttribute="leading" constant="72" id="CTT-nF-lkX"/>
-                                    <constraint firstItem="tCU-cx-Axm" firstAttribute="top" secondItem="vqe-0O-569" secondAttribute="bottom" constant="31" id="Efa-w0-Ueo"/>
-                                    <constraint firstAttribute="trailing" secondItem="tCU-cx-Axm" secondAttribute="trailing" constant="71" id="HC0-rP-9AQ"/>
-                                    <constraint firstAttribute="trailing" secondItem="vqe-0O-569" secondAttribute="trailing" constant="57" id="TM7-Iy-BNX"/>
-                                    <constraint firstAttribute="bottom" secondItem="vqe-0O-569" secondAttribute="bottom" constant="81" id="Viw-Y4-sB1"/>
-                                    <constraint firstItem="vqe-0O-569" firstAttribute="leading" secondItem="SMs-lj-gc6" secondAttribute="leading" constant="58" id="aJ5-lU-6y5"/>
-                                    <constraint firstItem="vqe-0O-569" firstAttribute="top" secondItem="SMs-lj-gc6" secondAttribute="top" constant="51" id="anX-cf-35B"/>
-                                    <constraint firstAttribute="height" constant="230" id="d19-ep-PQv"/>
-                                    <constraint firstAttribute="width" constant="240" id="gaM-49-hx2"/>
-                                </constraints>
-                            </view>
-                        </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="0.21503232758620688" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="SMs-lj-gc6" firstAttribute="centerX" secondItem="0V6-u3-QmN" secondAttribute="centerX" id="CNc-Tg-dHi"/>
-                            <constraint firstItem="SMs-lj-gc6" firstAttribute="top" secondItem="8Tb-aF-DIm" secondAttribute="bottom" constant="100" id="IL8-AK-peA"/>
-                        </constraints>
-                    </view>
-                    <nil key="simulatedStatusBarMetrics"/>
-                    <nil key="simulatedTopBarMetrics"/>
-                    <nil key="simulatedBottomBarMetrics"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="USe-Eo-jmA" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1017" y="-398"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="8Tv-Bf-FX7">

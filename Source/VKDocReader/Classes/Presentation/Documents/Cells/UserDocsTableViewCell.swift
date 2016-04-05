@@ -58,11 +58,7 @@ class UserDocsTableViewCell: TableViewCell {
         let sizeFormat = SizeFormatter.closestFormatFromBytes(Int(document.size)!)
         self.sizeDateLabel.text = "\(sizeFormat.number) \(sizeFormat.unitTypeName), \(dateString)"
         
-        if document.thumbnailData != nil {
-            self.thumbnailImageView.image = UIImage(data: document.thumbnailData!)
-            self.thumbnailImageView.hidden = false
-            self.extensionLabel.hidden = true
-        } else if let url = document.thumbnailUrlString {
+        if let url = document.thumbnailUrlString {
             ServiceLayer.sharedServiceLayer.imageService.getImage(url, completion: { (data) -> Void in
                 
                 let cgImage = UIImage(data: data)?.CGImage
@@ -74,13 +70,13 @@ class UserDocsTableViewCell: TableViewCell {
                 )
                 
                 let newImage = UIImage(CGImage: CGImageCreateWithImageInRect(cgImage, imageViewFrame)!)
-                let newImageData = UIImageJPEGRepresentation(newImage, 0.7)
+//                let newImageData = UIImageJPEGRepresentation(newImage, 0.7)
                 self.thumbnailImageView.image = newImage
                 self.thumbnailImageView.hidden = false
                 self.extensionLabel.hidden = true
-                try! Realm().write({ () -> Void in
-                    document.thumbnailData = newImageData
-                })
+//                try! Realm().write({ () -> Void in
+//                    document.thumbnailData = newImageData
+//                })
                 }, failure: { (error) -> Void in
                     NSNotificationCenter.defaultCenter().postNotificationName(Const.Notifications.errorOccured, object: Wrapper(theValue: error))
 
@@ -109,9 +105,6 @@ class UserDocsTableViewCell: TableViewCell {
     func refreshDownloadState() {
         
         let loadButton = newButton
-        
-//        loadButton.setTitle("", forState: .Normal)
-//        loadButton.setImage(UIImage(named: "downloaded_file_icon"), forState: UIControlState.Normal)
         
         if document!.tempPath != nil {
             loadButton.setTitle("", forState: .Normal)

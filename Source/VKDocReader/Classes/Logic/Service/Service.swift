@@ -20,9 +20,14 @@ class Service {
      Проверка выдачи на специализированные ошибки ВК
     */
     func checkError(json: JSON) -> Error? {
-        //FIXME: доработать специальные ошибки (капча, авторизация итд)
         let errorJson = json["error"]
         if errorJson != nil {
+            
+            Analytics.logVKApiError(
+                errorJson["error_code"].int ?? -1,
+                message: errorJson["error_msg"].string ?? "No msg"
+            )
+            
             print("====VK_ERROR====")
             print("====Code: \(errorJson["error_code"].int)====")
             print("====Message: \(errorJson["error_msg"].string)====")
@@ -84,6 +89,9 @@ class Service {
         print("====Message: \(error.localizedDescription)====")
         print("====Error: \(error))====")
         print("====END====")
+        
+        Analytics.logError(error)
+        
         switch error.code {
         case -999:
             return nil
