@@ -42,12 +42,12 @@ extension UIViewController {
     func handleError(error: Error) {
         switch error.code {
         case 5:
-            let authWebView = storyboard!.instantiateViewControllerWithIdentifier("AuthWebViewController") as! AuthWebViewController
-            authWebView.navigationItem.leftBarButtonItem = nil
-            self.presentViewController(authWebView, animated: true, completion: nil)
-            
             let alert = UIAlertController(title: "Сессия устарела", message: "Необходима повторная авторизация", preferredStyle: UIAlertControllerStyle.Alert)
-            let okAction = UIAlertAction(title: "ОК", style: .Default, handler: nil)
+            let okAction = UIAlertAction(title: "ОК", style: .Default, handler: { (action) in
+                let authWebViewNc = self.storyboard!.instantiateViewControllerWithIdentifier(Const.StoryboardIDs.authWebViewControllerNavigationController) as! NavigationController
+                self.presentViewController(authWebViewNc, animated: true, completion: nil)
+                
+                })
             let logOutAction = UIAlertAction(title: "Выйти из приложения", style: .Default, handler: { (action) in
                 self.launchExitAppSequence()
             })

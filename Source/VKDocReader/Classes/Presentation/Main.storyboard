@@ -491,7 +491,7 @@
         <!--Navigation Controller-->
         <scene sceneID="8Tv-Bf-FX7">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="p2k-Sa-eZz" customClass="NavigationController" customModule="VKDocReader" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="AuthWebViewControllerNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="p2k-Sa-eZz" customClass="NavigationController" customModule="VKDocReader" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Fjv-Zj-cCO">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>

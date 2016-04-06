@@ -33,6 +33,8 @@ class UserDocsDataSource: NSObject, DataSource {
         }
     }
     
+    private var documentsToDelete: [Document] = []
+    
     override init() {
         self.documents = try! Array(Realm().objects(Document))
     }
@@ -54,7 +56,8 @@ class UserDocsDataSource: NSObject, DataSource {
     }
     
     func updateCache() {
-        let docs = try! Array(Realm().objects(Document))
+        let realm = try! Realm()
+        let docs = Array(realm.objects(Document))
         self.documents = docs.sort({ (doc1, doc2) -> Bool in
             if doc1.order < doc2.order {
                 return true
@@ -62,6 +65,12 @@ class UserDocsDataSource: NSObject, DataSource {
                 return false
             }
         })
+        
+        //FIXME: добавить удаление доков, которые были удалены с других девайсов
+//        try! realm.write {
+//            realm.delete(self.documentsToDelete)
+//        }
+//        documentsToDelete = []
     }
     
     func deleteElements(indexPaths: [NSIndexPath], completion: () -> Void, failure: (error: Error) -> Void) {
@@ -117,15 +126,25 @@ class UserDocsDataSource: NSObject, DataSource {
     
     func refresh(refreshEnded: () -> Void, refreshFailed: (error: Error) -> Void) {
         ServiceLayer.sharedServiceLayer.docsService.getDocuments( { (documentsArray) -> Void in
-                let realm = try! Realm()
-                try! realm.write({ () -> Void in
-                    //удаление для того, чтобы сохранялся порядок
-                    //обычно при добавлении элементы падают в самый конец таблицы базы
-                    realm.delete(self.documents)
-                    realm.add(documentsArray, update: true)
-                    
-                })
-                self.documents = documentsArray
+            let realm = try! Realm()
+            try! realm.write({ () -> Void in
+                realm.add(documentsArray, update: true)
+                
+            })
+            self.documents = documentsArray
+            
+            //FIXME: добавить удаление доков, которые были удалены с других девайсов
+//            self.documentsToDelete = documentsArray
+//            
+//            for globalDoc in Array(realm.objects(Document)) {
+//                for (i, currentDoc) in self.documents.enumerate() {
+//                    if currentDoc.id == globalDoc.id {
+//                        self.documentsToDelete.removeAtIndex(i)
+//                        break
+//                    }
+//                }
+//            }
+            
             refreshEnded()
             }, failure: { (error) -> Void in
                 refreshFailed(error: error)

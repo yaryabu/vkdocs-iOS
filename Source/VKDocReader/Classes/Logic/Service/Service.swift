@@ -84,6 +84,7 @@ class Service {
     
     /// Перевод из NSError от транспорта в кастомную ошибку
     func createError(error: NSError) -> Error? {
+        //FIXME: сделать обработку too many http redirects
         print("====NSERROR====")
         print("====Code: \(error.code))====")
         print("====Message: \(error.localizedDescription)====")
