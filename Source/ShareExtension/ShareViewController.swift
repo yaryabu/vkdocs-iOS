@@ -110,6 +110,7 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
         //present loader
         for item: AnyObject in self.extensionContext!.inputItems {
             let inputItem = item as! NSExtensionItem
+            
             attachmentsCount = inputItem.attachments!.count
             for provider: AnyObject in inputItem.attachments! {
                 let itemProvider = provider as! NSItemProvider

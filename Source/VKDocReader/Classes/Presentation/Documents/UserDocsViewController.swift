@@ -189,7 +189,7 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
         let label = SectionHeaderLabel()
         label.frame = CGRect(
             x: 14,
-            y: 0,
+            y: 2,
             width: view.frame.width,
             height: 24
         )
@@ -216,6 +216,16 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         if tableView.editing {
+            
+            if let ds = currentDataSource as? UserDocsDataSource {
+                if ds.folders[0] == ds.createFolderCell &&
+                    indexPath.row == 0 &&
+                    indexPath.section == 0 {
+                    tableView.deselectRowAtIndexPath(indexPath, animated: true)
+                    return
+                }
+            }
+            
             let itemsCount = tableView.indexPathsForSelectedRows!.count
             docPickerNavBarOverlay.titleLabel.text = "Выбрано: \(itemsCount)"
             docPickerTabBarOverlay.changeButtonsState(itemsCount, isRootViewController: isRootViewController)

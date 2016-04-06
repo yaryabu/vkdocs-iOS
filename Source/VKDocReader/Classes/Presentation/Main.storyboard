@@ -36,7 +36,7 @@
                                 <color key="currentPageIndicatorTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                             </pageControl>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kym-UQ-9rS">
-                                <rect key="frame" x="16" y="518" width="568" height="50"/>
+                                <rect key="frame" x="156" y="518" width="288" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="YVL-Gs-E3I"/>
                                 </constraints>
@@ -70,11 +70,11 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" image="intro1" translatesAutoresizingMaskIntoConstraints="NO" id="vYP-ab-w1j">
-                                                    <rect key="frame" x="219.5" y="75" width="159" height="78.5"/>
+                                                    <rect key="frame" x="219" y="75" width="159" height="78.5"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ztz-G0-lpB">
-                                                    <rect key="frame" x="50" y="163.5" width="498" height="15"/>
+                                                    <rect key="frame" x="50" y="163" width="498" height="15"/>
                                                     <fontDescription key="fontDescription" name="LucidaGrande" family="Lucida Grande" pointSize="16"/>
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -84,7 +84,7 @@
                                         </view>
                                         <constraints>
                                             <constraint firstItem="vYP-ab-w1j" firstAttribute="top" secondItem="Mfk-Xv-dXV" secondAttribute="top" constant="75" id="BbK-kP-fB6"/>
-                                            <constraint firstItem="ztz-G0-lpB" firstAttribute="top" secondItem="vYP-ab-w1j" secondAttribute="bottom" constant="10" id="THE-xa-OXH"/>
+                                            <constraint firstItem="ztz-G0-lpB" firstAttribute="top" relation="greaterThanOrEqual" secondItem="vYP-ab-w1j" secondAttribute="bottom" constant="10" id="THE-xa-OXH"/>
                                             <constraint firstAttribute="bottom" secondItem="ztz-G0-lpB" secondAttribute="bottom" constant="100" id="ghI-Vv-aYt"/>
                                             <constraint firstItem="vYP-ab-w1j" firstAttribute="centerX" secondItem="Mfk-Xv-dXV" secondAttribute="centerX" id="ilH-QJ-TrU"/>
                                             <constraint firstItem="ztz-G0-lpB" firstAttribute="leading" secondItem="Mfk-Xv-dXV" secondAttribute="leading" constant="50" id="pAE-JB-uKB"/>
@@ -92,7 +92,6 @@
                                         </constraints>
                                         <connections>
                                             <outlet property="imageView" destination="vYP-ab-w1j" id="nBP-tw-5mP"/>
-                                            <outlet property="imageViewTopSpace" destination="BbK-kP-fB6" id="gXp-SQ-kyM"/>
                                             <outlet property="label" destination="ztz-G0-lpB" id="SEC-DX-DMM"/>
                                         </connections>
                                     </collectionViewCell>
@@ -108,6 +107,7 @@
                             <constraint firstItem="DNl-ZY-b17" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="4Df-6T-VXH"/>
                             <constraint firstAttribute="trailing" secondItem="M1t-a4-x9N" secondAttribute="trailing" id="58g-QS-k16"/>
                             <constraint firstItem="DNl-ZY-b17" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="6HQ-Yb-y98"/>
+                            <constraint firstItem="Kym-UQ-9rS" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="7jC-XU-AVQ"/>
                             <constraint firstItem="Kym-UQ-9rS" firstAttribute="top" secondItem="A5d-6a-yun" secondAttribute="bottom" constant="80" id="9n2-Lh-eSR"/>
                             <constraint firstItem="Kym-UQ-9rS" firstAttribute="top" secondItem="M1t-a4-x9N" secondAttribute="bottom" constant="-82" id="Kha-mG-sZ7"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Kym-UQ-9rS" secondAttribute="bottom" constant="32" id="QcK-o5-CLd"/>
@@ -116,9 +116,7 @@
                             <constraint firstAttribute="trailing" secondItem="A5d-6a-yun" secondAttribute="trailing" id="kAd-dL-6fE"/>
                             <constraint firstItem="M1t-a4-x9N" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="mIt-1F-Esz"/>
                             <constraint firstAttribute="trailing" secondItem="DNl-ZY-b17" secondAttribute="trailing" id="pts-ev-GG5"/>
-                            <constraint firstAttribute="trailing" secondItem="Kym-UQ-9rS" secondAttribute="trailing" constant="16" id="tg0-xu-fpG"/>
                             <constraint firstItem="M1t-a4-x9N" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="-20" id="tkg-ny-bN4"/>
-                            <constraint firstItem="Kym-UQ-9rS" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="16" id="ydr-fk-lIh"/>
                         </constraints>
                     </view>
                     <connections>
@@ -700,25 +698,18 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="hwc-Bh-Pbm">
-                        <barButtonItem key="leftBarButtonItem" title=" " style="plain" id="IEE-tq-00s"/>
-                        <barButtonItem key="rightBarButtonItem" image="exit_app_button" id="aXC-vI-ZIO">
-                            <color key="tintColor" red="0.9882352941176471" green="0.36078431372549019" blue="0.36078431372549019" alpha="1" colorSpace="calibratedRGB"/>
-                            <connections>
-                                <action selector="exitButtonPressed:" destination="qI0-HP-mX1" id="1qL-y7-fes"/>
-                            </connections>
-                        </barButtonItem>
+                        <nil key="title"/>
                     </navigationItem>
                     <connections>
                         <outlet property="clearCacheButton" destination="2zi-Zt-WTm" id="a07-k2-d2x"/>
                         <outlet property="contactDeveloperButton" destination="y87-cI-1hi" id="WWb-VU-Eca"/>
                         <outlet property="onlyWifiLoadSwitch" destination="vbI-jq-NY7" id="yRO-vg-iZo"/>
                         <outlet property="saveDocsAutomaticallySwitch" destination="Rh8-pl-0vz" id="AqA-zu-HKB"/>
-                        <outlet property="userAvatarImageBarButton" destination="IEE-tq-00s" id="eML-Rt-NhA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fab-xa-LEx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2439" y="1621.5"/>
+            <point key="canvasLocation" x="2439" y="1621"/>
         </scene>
         <!--Настройки-->
         <scene sceneID="2u8-v5-XEP">
@@ -775,31 +766,12 @@
             </objects>
             <point key="canvasLocation" x="4597" y="315"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="DDh-MM-77Z">
-            <objects>
-                <viewController id="zZU-Mj-9j1" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="eVS-F1-uff"/>
-                        <viewControllerLayoutGuide type="bottom" id="OSm-3l-Kxc"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Wb1-UK-GeC">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="rn5-H3-kjN" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="245" y="918"/>
-        </scene>
     </scenes>
     <resources>
         <image name="auth_button" width="288" height="48"/>
         <image name="auth_button_pressed" width="288" height="48"/>
         <image name="cancel_load_button" width="20" height="19"/>
         <image name="create_folder_button" width="17" height="16"/>
-        <image name="exit_app_button" width="13" height="19"/>
         <image name="exit_cross" width="15" height="15"/>
         <image name="intro1" width="159" height="108"/>
         <image name="onboard_background" width="320" height="568"/>

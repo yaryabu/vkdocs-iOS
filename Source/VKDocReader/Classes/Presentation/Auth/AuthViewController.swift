@@ -58,11 +58,6 @@ class AuthViewController: ViewController, UICollectionViewDelegate, UICollection
             cell.imageView.image = UIImage(named: "intro3")
         }
         
-        // iPhone 6 Plus
-        if UIScreen.mainScreen().scale > 2.9 {
-            cell.imageViewTopSpace.constant = 40
-        }
-        
         cell.layoutIfNeeded()
         return cell
     }

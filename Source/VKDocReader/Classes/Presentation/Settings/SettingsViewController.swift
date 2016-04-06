@@ -16,14 +16,33 @@ class SettingsViewController: ViewController, MFMailComposeViewControllerDelegat
     var notificationToken: NotificationToken?
     
     @IBOutlet weak var clearCacheButton: UIButton!
-    @IBOutlet weak var userAvatarImageBarButton: UIBarButtonItem!
+//    @IBOutlet weak var userAvatarImageView: UIImageView!
     
+//    @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var contactDeveloperButton: UIButton!
     @IBOutlet weak var onlyWifiLoadSwitch: UISwitch!
+    
+    lazy var navBarOverlay: NavBarOverlay = {
+        let overay = NavBarOverlay.loadFromNibNamed("NavBarOverlay")
+        overay.frame = CGRect(
+            x: 0,
+            y: 0,
+            width: self.navigationController!.navigationBar.frame.width,
+            height: self.navigationController!.navigationBar.frame.height - 2 // для лоудера загрузки в вк
+        )
+        
+        overay.exitAppButton.addTarget(self, action: #selector(SettingsViewController.exitButtonPressed(_:)), forControlEvents: .TouchUpInside)
+
+        
+        self.navigationController!.navigationBar.addSubview(overay)
+        
+        return overay
+    }()
     
     @IBOutlet weak var saveDocsAutomaticallySwitch: UISwitch!
     override func viewDidLoad() {
         super.viewDidLoad()
+        let _ = navBarOverlay
         self.clearCacheButton.setTitleColor(UIColor.vkBlackTwoColor(), forState: UIControlState.Normal)
         self.clearCacheButton.titleLabel!.font = UIFont.defaultFont()
         
@@ -48,38 +67,14 @@ class SettingsViewController: ViewController, MFMailComposeViewControllerDelegat
     
     
     func updateUserData() {
-        let realm = try! Realm()
-        if let user = realm.objects(User).first {
-            let label = UserNameLabel()
-            label.frame = CGRect(x: 20, y: 8, width: 200, height: 40)
-            label.text = user.firstName + " " + user.lastName
-            label.transform = CGAffineTransformMakeTranslation(-38, -8)
-            //из-за особенностей NavigationItem нужно засовывать View в контейнеры,
-            //чтобы правильно их расположить
-            let container = UIView(frame: label.frame)
-            container.addSubview(label)
-            navigationItem.titleView = container
+        if let user = try! Realm().objects(User).first {
+            navBarOverlay.usernameLabel.text = user.firstName + " " + user.lastName
             
-            var image: UIImage!
             if user.photoData != nil {
-                image = UIImage(data: user.photoData!)
+                navBarOverlay.userAvatarImageView.image = UIImage(data: user.photoData!)
             } else {
-                image = UIImage()
+                navBarOverlay.userAvatarImageView.image = UIImage()
             }
-            let avatarImageView = UIImageView(image: image)
-            avatarImageView.layer.masksToBounds = true
-            avatarImageView.layer.cornerRadius = 15
-            avatarImageView.frame = CGRect(
-                x: 0,
-                y: 0,
-                width: 30,
-                height: 30
-            )
-            avatarImageView.transform = CGAffineTransformMakeTranslation(-7, 0)
-            let imageViewContainer = UIView(frame: avatarImageView.frame)
-            imageViewContainer.addSubview(avatarImageView)
-            let button = UIBarButtonItem(customView: imageViewContainer)
-            navigationItem.leftBarButtonItem = button
         } else {
             //FIXME: добавить спиннер
         }
@@ -138,7 +133,7 @@ class SettingsViewController: ViewController, MFMailComposeViewControllerDelegat
         controller.dismissViewControllerAnimated(true, completion: nil)
     }
     
-    @IBAction func exitButtonPressed(sender: AnyObject) {
+    func exitButtonPressed(sender: AnyObject) {
         launchExitAppSequence()
     }
     

@@ -12,7 +12,6 @@ class OnboardingViewCell: UICollectionViewCell {
     static let identifier = "OnboardingViewCell"
     
     @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var imageViewTopSpace: NSLayoutConstraint!
     
     @IBOutlet weak var label: UILabel!
 }

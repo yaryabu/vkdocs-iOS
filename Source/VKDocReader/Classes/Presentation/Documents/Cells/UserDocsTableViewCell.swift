@@ -70,13 +70,9 @@ class UserDocsTableViewCell: TableViewCell {
                 )
                 
                 let newImage = UIImage(CGImage: CGImageCreateWithImageInRect(cgImage, imageViewFrame)!)
-//                let newImageData = UIImageJPEGRepresentation(newImage, 0.7)
                 self.thumbnailImageView.image = newImage
                 self.thumbnailImageView.hidden = false
                 self.extensionLabel.hidden = true
-//                try! Realm().write({ () -> Void in
-//                    document.thumbnailData = newImageData
-//                })
                 }, failure: { (error) -> Void in
                     NSNotificationCenter.defaultCenter().postNotificationName(Const.Notifications.errorOccured, object: Wrapper(theValue: error))
 

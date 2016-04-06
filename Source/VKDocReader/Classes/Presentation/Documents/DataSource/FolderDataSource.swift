@@ -61,7 +61,24 @@ class FolderDataSource: NSObject, DataSource {
         return path
     }
     
-    func updateCache() {}
+    func updateCache() {
+        
+        let realm = try! Realm()
+        let savedDocs = realm.objects(Document)
+        
+        let currentDocs = elements.filter { (elem) -> Bool in
+            return elem.containsString(Const.Common.directoryConflictHelper)
+        }
+        
+        for elem in currentDocs {
+        
+            let docId = elem.componentsSeparatedByString(Const.Common.directoryConflictHelper)[0]
+            if savedDocs.filter("id == \"\(docId)\"").first == nil {
+                // если документ удалился не через приложение, то он все равно остался в файловой системе и нужно его убрать
+                Bash.rm(Bash.pwd() + "/" + elem)
+            }
+        }
+    }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1

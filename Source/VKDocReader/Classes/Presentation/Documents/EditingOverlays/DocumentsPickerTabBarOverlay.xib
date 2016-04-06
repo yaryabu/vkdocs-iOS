@@ -18,19 +18,10 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="62"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" horizontalCompressionResistancePriority="1" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BvS-jV-Muo">
-                    <rect key="frame" x="8" y="0.0" width="66" height="62"/>
-                    <fontDescription key="fontDescription" name="LucidaGrande" family="Lucida Grande" pointSize="16"/>
-                    <state key="normal" title="Удалить">
-                        <color key="titleColor" red="0.98823529481887817" green="0.36078432202339172" blue="0.36078432202339172" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                    </state>
-                    <state key="disabled">
-                        <color key="titleColor" red="0.75294119120000003" green="0.8156862855" blue="0.85882353779999998" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                    </state>
-                </button>
                 <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kaP-9U-MF8">
-                    <rect key="frame" x="74" y="0.0" width="263" height="62"/>
+                    <rect key="frame" x="95" y="0.0" width="252.5" height="62"/>
                     <fontDescription key="fontDescription" name="LucidaGrande" family="Lucida Grande" pointSize="16"/>
+                    <inset key="contentEdgeInsets" minX="-5" minY="0.0" maxX="0.0" maxY="0.0"/>
                     <state key="normal" title="Переместить">
                         <color key="titleColor" red="0.20000000298023224" green="0.20000000298023224" blue="0.20000000298023224" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                     </state>
@@ -39,10 +30,24 @@
                     </state>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nqS-Sn-FE0">
-                    <rect key="frame" x="337" y="0.0" width="263" height="62"/>
+                    <rect key="frame" x="347.5" y="0.0" width="252.5" height="62"/>
                     <fontDescription key="fontDescription" name="LucidaGrande" family="Lucida Grande" pointSize="16"/>
                     <state key="normal" title="Скопировать">
                         <color key="titleColor" red="0.0" green="0.62745100259780884" blue="0.40000000596046448" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                    </state>
+                    <state key="disabled">
+                        <color key="titleColor" red="0.75294119120000003" green="0.8156862855" blue="0.85882353779999998" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                    </state>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" horizontalCompressionResistancePriority="1" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BvS-jV-Muo">
+                    <rect key="frame" x="0.0" y="0.0" width="95" height="62"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="95" id="t2E-ja-UL8"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="LucidaGrande" family="Lucida Grande" pointSize="16"/>
+                    <inset key="titleEdgeInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    <state key="normal" title="Удалить">
+                        <color key="titleColor" red="0.98823529481887817" green="0.36078432202339172" blue="0.36078432202339172" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                     </state>
                     <state key="disabled">
                         <color key="titleColor" red="0.75294119120000003" green="0.8156862855" blue="0.85882353779999998" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
@@ -59,7 +64,7 @@
                 <constraint firstItem="nqS-Sn-FE0" firstAttribute="leading" secondItem="kaP-9U-MF8" secondAttribute="trailing" id="jAq-n4-Yqs"/>
                 <constraint firstItem="kaP-9U-MF8" firstAttribute="leading" secondItem="BvS-jV-Muo" secondAttribute="trailing" id="lpg-MN-194"/>
                 <constraint firstItem="kaP-9U-MF8" firstAttribute="width" secondItem="nqS-Sn-FE0" secondAttribute="width" id="oDO-cG-zeG"/>
-                <constraint firstItem="BvS-jV-Muo" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="sW6-JH-0vB"/>
+                <constraint firstItem="BvS-jV-Muo" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="sW6-JH-0vB"/>
                 <constraint firstAttribute="bottom" secondItem="kaP-9U-MF8" secondAttribute="bottom" id="wLH-6Q-GRJ"/>
                 <constraint firstAttribute="bottom" secondItem="BvS-jV-Muo" secondAttribute="bottom" id="zZf-Fe-fBy"/>
             </constraints>

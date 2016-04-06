@@ -90,7 +90,9 @@ class Bash {
     */
     class func mv(from: String, to: String) {
         cp(from, to: to)
-        rm(from)
+        if from != to {
+            rm(from)
+        }
     }
     
     /**
