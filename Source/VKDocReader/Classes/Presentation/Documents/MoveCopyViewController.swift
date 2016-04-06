@@ -40,19 +40,18 @@ class MoveCopyViewController: ViewController, UITableViewDelegate {
         if actionType == .ChooseFileToAdd {
             if isRootViewController {
                 tableView.dataSource = userDocsDataSource
-                //FIXME:
-//                userDocsDataSource.updateCache()
             } else {
                 tableView.dataSource = folderDataSource
-//                folderDataSource.updateCache()
             }
             navigationItem.rightBarButtonItem = nil
         } else {
             if isRootViewController {
                 saveButton.enabled = false
+                if Bash.ls(currentPath).isEmpty {
+                    presentCreateFolderViewController()
+                }
             }
             tableView.dataSource = folderDataSource
-//            folderDataSource.updateCache()
         }
         
         if let ds = tableView.dataSource as? DataSource {
@@ -82,6 +81,7 @@ class MoveCopyViewController: ViewController, UITableViewDelegate {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         Bash.cd(currentPath)
+        tableView.reloadData()
     }
     
     override func willMoveToParentViewController(parent: UIViewController?) {
@@ -204,13 +204,22 @@ class MoveCopyViewController: ViewController, UITableViewDelegate {
         dismissViewControllerAnimated(true, completion: nil)
     }
     
+    func presentCreateFolderViewController() {
+        let createFolderVC = storyboard!.instantiateViewControllerWithIdentifier(Const.StoryboardIDs.editViewControllerNavigationController)
+        
+        Dispatch.mainQueueAfter(0.5, closure: {
+            ToastManager.sharedInstance.presentError(Error(code: 0, message: "Сначала нужно создать папку"))
+            
+            Dispatch.mainQueueAfter(0.5, closure: {
+                self.presentViewController(createFolderVC, animated: true, completion: nil)
+            })
+        })
+    }
+    
     
     @IBAction func exitButtonPressed(sender: AnyObject) {
         dismissViewControllerAnimated(true, completion: nil)
     }
-    
-    
-    
     
     
 }

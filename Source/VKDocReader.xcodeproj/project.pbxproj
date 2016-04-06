@@ -652,7 +652,6 @@
 				57AF2C9E1C97578600C5A193 /* Sources */,
 				57AF2C9F1C97578600C5A193 /* Frameworks */,
 				57AF2CA01C97578600C5A193 /* Resources */,
-				52911F425266B84BC26FE582 /* Embed Pods Frameworks */,
 				AAED08BDE8CE598EDBFFB6E1 /* Copy Pods Resources */,
 				574093AB1CB492A3003C156F /* Clean */,
 			);
@@ -804,21 +803,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-VKDocReader/Pods-VKDocReader-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		52911F425266B84BC26FE582 /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ShareExtension/Pods-ShareExtension-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		574093AB1CB492A3003C156F /* Clean */ = {

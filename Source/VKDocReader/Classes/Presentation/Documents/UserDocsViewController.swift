@@ -327,6 +327,11 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
     func cellLongTapped(gestureRecognizer: UILongPressGestureRecognizer) {
         if tableView.editing == false && editing == false {
             
+            if let _ = currentDataSource as? SearchDataSource {
+                return
+            }
+            
+            
             let tapPoint = gestureRecognizer.locationInView(self.tableView)
             let indexPath = tableView.indexPathForRowAtPoint(tapPoint)!
             
