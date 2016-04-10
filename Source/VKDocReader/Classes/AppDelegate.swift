@@ -23,7 +23,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         Fabric.with([Crashlytics.self])
         
-        //TODO: при запуске надо бы почистить tmp
+        Dispatch.defaultQueue { 
+            for file in Bash.ls(NSTemporaryDirectory()) {
+                if file.containsString(Const.Common.directoryConflictHelper) {
+                    Bash.rm(NSTemporaryDirectory() + file)
+                }
+            }
+        }
         
         let defaults = NSUserDefaults(suiteName: Const.UserDefaults.appGroupId)
         defaults?.synchronize()

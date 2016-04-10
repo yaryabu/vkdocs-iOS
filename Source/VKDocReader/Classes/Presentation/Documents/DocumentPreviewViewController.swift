@@ -165,7 +165,7 @@ class DocumentPreviewViewController: ViewController, QLPreviewControllerDataSour
         }
         let shareAction = UIAlertAction(title: "Отправить", style: .Default) { (action) -> Void in
             actionSheet.dismissViewControllerAnimated(false, completion: nil)
-            self.documentInteractionsController.URL = NSURL(fileURLWithPath: self.document.filePath ?? "")
+            self.documentInteractionsController.URL = NSURL(fileURLWithPath: self.document.filePath ?? self.document.tempPath!)
             self.documentInteractionsController.presentOptionsMenuFromBarButtonItem(self.optionsButton, animated: true)
             Analytics.logDocumentShareOpened()
         }
