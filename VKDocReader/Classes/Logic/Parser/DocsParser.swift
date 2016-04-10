@@ -34,12 +34,6 @@ class DocsParser: Parser {
         var documentsArray: [Document] = []
         ServiceLayer.sharedServiceLayer.userSettingsService.currentDocumentsCount = json["response"]["count"].int!
         for (index ,subJson):(String, JSON) in json["response"]["items"] {
-            // пропускаем счетчик элементов
-            
-//            if index == "0" && subJson.int != nil {
-//                ServiceLayer.sharedServiceLayer.userSettingsService.currentDocumentsCount = subJson.int!
-//                continue
-//            }
             let newDoc = self.parseDocument(subJson)
             newDoc.order = Int(index)!
             documentsArray.append(newDoc)

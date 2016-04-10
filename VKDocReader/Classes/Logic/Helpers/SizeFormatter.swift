@@ -21,19 +21,19 @@ class SizeFormatter {
     class func closestFormatFromBytes(bytes: Int) -> (number: Int, unitTypeName: String) {
         let doubleBytes = Double(bytes)
         if doubleBytes < 1000 {
-            return (Int(doubleBytes), "Байт")
+            return (Int(doubleBytes), "BYTE".localized)
         }
         let roundedKb = Int(round(doubleBytes/1000.0))
         if roundedKb < 1000 {
-            return (roundedKb, "КБ")
+            return (roundedKb, "KB".localized)
         }
         let roundedMb = Int(round(doubleBytes/1000.0/1000.0))
         if roundedMb < 1000 {
-            return (roundedMb, "МБ")
+            return (roundedMb, "MB".localized)
         }
         let roundedGb = Int(round(doubleBytes/1000.0/1000.0/1000.0))
         if roundedGb < 1000 {
-            return (roundedGb, "ГБ")
+            return (roundedGb, "GB".localized)
         }
         return (0, "")
     }

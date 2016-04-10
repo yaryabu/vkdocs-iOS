@@ -21,9 +21,7 @@ class Document: Object {
     
     dynamic var accessKey: String?
 
-    /**
-     Хэш файла от ВК. Берется из urlString.
-    */
+    /// Хэш файла от ВК. Берется из urlString.
     dynamic var vkHash: String! {
         get {
             let queryParams = urlString

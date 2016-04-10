@@ -10,6 +10,7 @@ import Foundation
 
 struct Const {
     struct Common {
+        //FIXME: вынести куда-нибудь в Keys.swift или типа того
         static let clientId = "5295261"
         static let bundleIdentifier = NSBundle.mainBundle().bundleIdentifier!
         static let mainStoryboardName = "Main"

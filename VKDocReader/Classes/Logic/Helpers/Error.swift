@@ -13,7 +13,7 @@ import SwiftyJSON
  */
 struct Error {
     var code: Int = 0
-    var message: String = "Неизвестная ошибка"
+    var message: String = "UNKNOWN_ERROR".localized
     var captchaId: String?
     var captchaUrlString: String?
     var requestParams: JSON?

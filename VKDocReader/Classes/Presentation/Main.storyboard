@@ -121,6 +121,7 @@
                     </view>
                     <connections>
                         <outlet property="collectionView" destination="DNl-ZY-b17" id="fye-zU-Evt"/>
+                        <outlet property="enterButton" destination="Kym-UQ-9rS" id="ZSh-kS-aSn"/>
                         <outlet property="pageControl" destination="A5d-6a-yun" id="9jj-U1-Dfs"/>
                         <segue destination="p2k-Sa-eZz" kind="presentation" identifier="logInButtonPressed" id="Nhj-10-fq4"/>
                     </connections>
@@ -313,7 +314,6 @@
                         <outlet property="tableView" destination="aH8-lc-tdi" id="AHT-hm-b2z"/>
                         <segue destination="fbH-G0-N1P" kind="show" identifier="previewDocument" id="Pou-qO-h7y"/>
                         <segue destination="rb2-KS-Aae" kind="presentation" identifier="createFolder" id="gDm-nq-f8c"/>
-                        <segue destination="E4y-mH-JKJ" kind="presentation" id="X4o-Lq-5h5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JkX-iK-1O9" userLabel="First Responder" sceneMemberID="firstResponder"/>

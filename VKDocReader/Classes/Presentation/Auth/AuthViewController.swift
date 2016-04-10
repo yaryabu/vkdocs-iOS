@@ -12,6 +12,12 @@ class AuthViewController: ViewController, UICollectionViewDelegate, UICollection
 
     @IBOutlet weak var collectionView: UICollectionView!
     
+    @IBOutlet weak var enterButton: UIButton! {
+        didSet {
+            enterButton.titleLabel!.text = "AUTH_BUTTON_TEXT".localized
+        }
+    }
+    
     @IBOutlet weak var pageControl: UIPageControl!
     
     override func viewDidLoad() {
@@ -48,13 +54,13 @@ class AuthViewController: ViewController, UICollectionViewDelegate, UICollection
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(OnboardingViewCell.identifier, forIndexPath: indexPath) as! OnboardingViewCell
         if indexPath.row == 0 {
-            cell.label.text = "Скачивай любые документы из ВКонтакте"
+            cell.label.text = "ONBOARDING_FIRST_SLIDE".localized
             cell.imageView.image = UIImage(named: "intro1")
         } else if indexPath.row == 1 {
-            cell.label.text = "Создавай папки"
+            cell.label.text = "ONBOARDING_SECOND_SLIDE".localized
             cell.imageView.image = UIImage(named: "intro2")
         } else {
-            cell.label.text = "Передавай документы кому и куда угодно"
+            cell.label.text = "ONBOARDING_THIRD_SLIDE".localized
             cell.imageView.image = UIImage(named: "intro3")
         }
         

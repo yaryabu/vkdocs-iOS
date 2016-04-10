@@ -33,50 +33,46 @@ class Service {
             print("====Message: \(errorJson["error_msg"].string)====")
             print("====Params: \(errorJson["request_params"]) ====")
             print("====END====")
+            
             switch errorJson["error_code"] {
             case 1:
-                return Error(code: 1, message: "Неизвестная ошибка")
+                return Error()
             case 2:
-//                print("Ошибка 2 (приложение выключено)")
-                return Error(code: 1, message: "Неизвестная ошибка")
+                // приложение выключено
+                return Error()
             case 3:
-//                print("Ошибка 3 (неизвестный метод)")
-                return Error(code: 1, message: "Неизвестная ошибка")
+                // неизвестный метод
+                return Error()
             case 4:
-//                print("Ошибка 4 (неверная подпись)")
-                return Error(code: 1, message: "Неизвестная ошибка")
+                // неверная подпись
+                return Error()
             case 5:
-//                print("Ошибка 5 (авторизация не удалась)")
-                return Error(code: 5, message: "Авторизация не удалась")
+                return Error(code: 5, message: "BAD_AUTH".localized)
             case 7:
-//                print("Ошибка 7 (нет прав)")
-                return Error(code: 7, message: "Ошибка доступа")
+                return Error(code: 7, message: "BAD_ACCESS".localized)
             case 10:
-//                print("Ошибка 10 (внутренняя ошибка сервера)")
-                return Error(code: 1, message: "Неизвестная ошибка")
+                // внутренняя ошибка сервера
+                return Error(code: 10, message: "UNKNOWN_VK_SERVER_ERROR".localized)
             case 14:
-//                print("Ошибка 14 (нужна капча)")
-//                let error = Error(code: 14, message: "Необходимо ввести код с картинки")
-//                error.captchaId = json[]
-                var newError =  Error(code: 14, message: "Необходимо ввести код с картинки")
+                var newError =  Error(code: 14, message: "NEED_CAPTCHA".localized)
                 newError.captchaId = errorJson["captcha_sid"].string!
                 newError.captchaUrlString = errorJson["captcha_img"].string!
                 newError.requestParams = errorJson["request_params"]
                 return newError
             case 23:
-//                print("Ошибка 23 (метод выключен)")
-                return Error(code: 1, message: "Неизвестная ошибка")
+                // метод выключен
+                return Error()
             case 100:
-//                print("Ошибка 100 (неверный параметр)")
-                return Error(code: 1, message: "Неизвестная ошибка")
+                // неверный параметр
+                return Error()
             case 101:
-//                print("Ошибка 101 (неверный API ID)")
-                return Error(code: 1, message: "Неизвестная ошибка")
+                // неверный API ID
+                return Error()
             case 113:
-//                print("Ошибка 113 (неверный user ID)")
-                return Error(code: 113, message: "Ошибка авторизации. Попробуйте перезапустить приложение")
+                // неверный user ID
+                return Error(code: 113, message: "WRONG_USER_ID".localized)
             default:
-                return Error(code: 1, message: "Неизвестная ошибка")
+                return Error()
             }
         }
         return nil
@@ -85,7 +81,7 @@ class Service {
     /// Перевод из NSError от транспорта в кастомную ошибку
     func createError(error: NSError) -> Error? {
         //FIXME: сделать обработку too many http redirects
-        print("====NSERROR====")
+        print("====NS_ERROR====")
         print("====Code: \(error.code))====")
         print("====Message: \(error.localizedDescription)====")
         print("====Error: \(error))====")
@@ -95,8 +91,8 @@ class Service {
         
         switch error.code {
         case -999:
+            // Загрузка отменена пользователем
             return nil
-//            return Error(code: -999, message: "Загрузка отменена пользователем")
         default:
             let newError = Error(code: error.code, message: error.localizedDescription)
             return newError
@@ -107,8 +103,6 @@ class Service {
         
     }
     
-    /**
-    Абстрактный метод для переопределения наследниками. Удаляет всю инфомрацию о сервисе. К примеру, для выхода их приложения
-    */
+    /// Абстрактный метод для переопределения наследниками. Удаляет всю инфомрацию о сервисе. К примеру, для выхода их приложения
     func deleteAllInfo() {}
 }

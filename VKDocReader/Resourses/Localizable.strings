@@ -1,0 +1,38 @@
+/* 
+  Localizable.strings
+  VKDocReader
+
+  Created by Yaroslav Ryabukha on 11/04/16.
+  Copyright © 2016 Yaroslav Ryabukha. All rights reserved.
+*/
+
+
+//MARK: Сообщения ошибок
+
+"UNKNOWN_ERROR" = "Неизвестная ошибка";
+"NO_INTERNET" = "Вероятно, соединение с Интернетом прервано.";
+"ONLY_WIFI_USE_AVAILABLE" = "Загрузка через мобильный интернет запрещена в настройках";
+"BAD_AUTH" = "Авторизация не удалась";
+"BAD_ACCESS" = "Ошибка доступа";
+"UNKNOWN_VK_SERVER_ERROR" = "Неизвестная ошибка сервера";
+"NEED_CAPTCHA" = "Необходимо ввести код с картинки";
+"WRONG_USER_ID" = "Ошибка авторизации\nПопробуйте перезапустить приложение";
+
+//MARK: SizeFormatter
+
+"BYTE" = "Байт";
+"KB" = "КБ";
+"MB" = "МБ";
+"GB" = "ГБ";
+
+
+//MARK: Авторизация
+
+"ONBOARDING_FIRST_SLIDE" = "Скачивай любые документы из ВКонтакте";
+"ONBOARDING_SECOND_SLIDE" = "Создавай папки";
+"ONBOARDING_THIRD_SLIDE" = "Передавай документы кому и куда угодно";
+
+"AUTH_BUTTON_TEXT" = "Войти через ВКонтакте";
+
+"WEBVIEW_AUTH_TITLE" = "Авторизация";
+

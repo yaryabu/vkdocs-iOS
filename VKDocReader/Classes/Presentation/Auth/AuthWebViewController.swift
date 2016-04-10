@@ -10,7 +10,11 @@ import UIKit
 
 class AuthWebViewController: ViewController, UIWebViewDelegate {
 
-    @IBOutlet weak var webView: UIWebView!
+    @IBOutlet weak var webView: UIWebView! {
+        didSet {
+            navigationItem.title = "WEBVIEW_AUTH_TITLE".localized
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
