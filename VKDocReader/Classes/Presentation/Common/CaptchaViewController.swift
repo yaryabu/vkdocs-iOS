@@ -13,9 +13,10 @@ class CaptchaViewController: UIViewController, UITextFieldDelegate {
     var captchaError: Error!
     
     var captchaSuccessClosure: () -> () = {
-        ToastManager.sharedInstance.presentInfo("Ты не робот\n(☞ﾟヮﾟ)☞")
+        ToastManager.sharedInstance.presentInfo("CAPTCHA_SUCCESS_MESSAGE".localized)
     }
     
+    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var textField: UITextField! {
         didSet {
@@ -28,14 +29,19 @@ class CaptchaViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var doneButton: UIButton! {
         didSet {
             doneButton.enabled = false
+            doneButton.setTitle("CAPTCHA_OK_BUTTON".localized, forState: .Normal)
         }
     }
-    @IBOutlet weak var cancelButton: UIButton!
+    @IBOutlet weak var cancelButton: UIButton! {
+        didSet {
+            cancelButton.setTitle("CAPTCHA_CANCEL_BUTTON".localized, forState: .Normal)
+        }
+    }
     
     
     class func presentCaptchaViewController(error: Error) {
         let storyboard = UIStoryboard(name: "CaptchaViewController", bundle: nil)
-        let captchaVC = storyboard.instantiateViewControllerWithIdentifier("azaza") as! CaptchaViewController
+        let captchaVC = storyboard.instantiateViewControllerWithIdentifier(Const.StoryboardIDs.captchaViewController) as! CaptchaViewController
         
         captchaVC.captchaError = error
         let rootVC = UIApplication.sharedApplication().keyWindow!.rootViewController!
@@ -45,6 +51,8 @@ class CaptchaViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        titleLabel.text = "CAPTCHA_TITLE".localized
         
         serviceLayer.imageService.getImage(captchaError.captchaUrlString!, completion: { (imageData) in
             let image = UIImage(data: imageData)

@@ -38,6 +38,9 @@ class TabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tabBar.items![0].title = "FIRST_TAB_TITLE".localized
+        tabBar.items![1].title = "SECOND_TAB_TITLE".localized
+        
         loadUserData()
         
         tabBar.addSubview(selectedTabIndicatorView)

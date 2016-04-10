@@ -13,7 +13,7 @@
         <!--Captcha View Controller-->
         <scene sceneID="EB2-3m-Kh5">
             <objects>
-                <viewController storyboardIdentifier="azaza" definesPresentationContext="YES" modalTransitionStyle="crossDissolve" modalPresentationStyle="overCurrentContext" hidesBottomBarWhenPushed="YES" id="NTM-BT-7jP" customClass="CaptchaViewController" customModule="VKDocReader" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CaptchaViewController" definesPresentationContext="YES" modalTransitionStyle="crossDissolve" modalPresentationStyle="overCurrentContext" hidesBottomBarWhenPushed="YES" id="NTM-BT-7jP" customClass="CaptchaViewController" customModule="VKDocReader" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="E6F-4f-B42"/>
                         <viewControllerLayoutGuide type="bottom" id="cd8-MN-lkK"/>
@@ -69,7 +69,7 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Введи код с картинки" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wyx-PN-fc4">
                                         <rect key="frame" x="10" y="13" width="220" height="22"/>
                                         <fontDescription key="fontDescription" name="LucidaGrande" family="Lucida Grande" pointSize="16"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bzb-rh-OhH">
@@ -137,6 +137,7 @@
                         <outlet property="doneButton" destination="4vq-eU-atc" id="Ozf-hi-xiR"/>
                         <outlet property="imageView" destination="TG8-kS-m6T" id="6pf-0e-W2g"/>
                         <outlet property="textField" destination="qC9-jP-ODH" id="2Xq-3f-Fp0"/>
+                        <outlet property="titleLabel" destination="wyx-PN-fc4" id="icf-A5-nc8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1eM-XN-WXY" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -14,7 +14,7 @@ class AuthViewController: ViewController, UICollectionViewDelegate, UICollection
     
     @IBOutlet weak var enterButton: UIButton! {
         didSet {
-            enterButton.titleLabel!.text = "AUTH_BUTTON_TEXT".localized
+            enterButton.setTitle("AUTH_BUTTON_TEXT".localized, forState: UIControlState.Normal)
         }
     }
     

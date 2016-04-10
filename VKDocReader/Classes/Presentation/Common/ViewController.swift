@@ -42,13 +42,13 @@ extension UIViewController {
     func handleError(error: Error) {
         switch error.code {
         case 5:
-            let alert = UIAlertController(title: "Сессия устарела", message: "Необходима повторная авторизация", preferredStyle: UIAlertControllerStyle.Alert)
-            let okAction = UIAlertAction(title: "ОК", style: .Default, handler: { (action) in
+            let alert = UIAlertController(title: "NEED_NEW_SESSION_TITLE".localized, message: "NEED_NEW_SESSION_MESSAGE".localized, preferredStyle: UIAlertControllerStyle.Alert)
+            let okAction = UIAlertAction(title: "NEED_NEW_SESSION_OK_BUTTON".localized, style: .Default, handler: { (action) in
                 let authWebViewNc = self.storyboard!.instantiateViewControllerWithIdentifier(Const.StoryboardIDs.authWebViewControllerNavigationController) as! NavigationController
                 self.presentViewController(authWebViewNc, animated: true, completion: nil)
                 
                 })
-            let logOutAction = UIAlertAction(title: "Выйти из приложения", style: .Default, handler: { (action) in
+            let logOutAction = UIAlertAction(title: "NEED_NEW_SESSION_EXIT_APP_BUTTON".localized, style: .Default, handler: { (action) in
                 self.launchExitAppSequence()
             })
             alert.addAction(okAction)
@@ -67,9 +67,9 @@ extension UIViewController {
     }
     
     func launchExitAppSequence() {
-        let alert = UIAlertController(title: "Вы точно хотите выйти?", message: "Все документы и папки будут удалены из приложения", preferredStyle: UIAlertControllerStyle.Alert)
-        let noAction = UIAlertAction(title: "Нет", style: .Cancel, handler: nil)
-        let yesAction = UIAlertAction(title: "Да", style: .Default) { (action) -> Void in
+        let alert = UIAlertController(title: "EXIT_APP_ALERT_TITLE".localized, message: "EXIT_APP_ALERT_MESSAGE".localized, preferredStyle: UIAlertControllerStyle.Alert)
+        let noAction = UIAlertAction(title: "NO".localized, style: .Cancel, handler: nil)
+        let yesAction = UIAlertAction(title: "YES".localized, style: .Default) { (action) -> Void in
             Analytics.logExitApp()
             self.serviceLayer.deleteAllInfo()
             let realm = try! Realm()

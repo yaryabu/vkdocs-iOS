@@ -6,13 +6,9 @@
 //  Copyright © 2016 Yaroslav Ryabukha. All rights reserved.
 //
 
-import Foundation
-
 import SwiftyJSON
-
 import Crashlytics
 
-//FIXME: вынести аналитику из share extension сюда
 class Analytics {
     
     class func logUserAuthorized() {

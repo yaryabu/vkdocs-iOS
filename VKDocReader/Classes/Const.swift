@@ -58,6 +58,8 @@ struct Const {
         
         static let editViewController = "EditViewController"
         static let editViewControllerNavigationController = "EditViewControllerNavigationController"
+        
+        static let captchaViewController = "CaptchaViewController"
 
     }
     

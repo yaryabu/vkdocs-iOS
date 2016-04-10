@@ -9,9 +9,7 @@
 import UIKit
 import CRToast
 
-/**
- Менеджер нотификаций на навбаре.
- */
+/// Менеджер нотификаций на навбаре.
 class ToastManager {
     static let sharedInstance = ToastManager()
     private init() {}

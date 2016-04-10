@@ -7,7 +7,12 @@
 */
 
 
-//MARK: Сообщения ошибок
+//MARK: Общее
+"YES" = "Да";
+"NO" = "Нет";
+
+
+//MARK: Сообщения ошибок Error
 
 "UNKNOWN_ERROR" = "Неизвестная ошибка";
 "NO_INTERNET" = "Вероятно, соединение с Интернетом прервано.";
@@ -25,6 +30,14 @@
 "MB" = "МБ";
 "GB" = "ГБ";
 
+//MARK: Базовый ViewController
+"NEED_NEW_SESSION_TITLE" = "Сессия устарела";
+"NEED_NEW_SESSION_MESSAGE" = "Необходима повторная авторизация";
+"NEED_NEW_SESSION_OK_BUTTON" = "Хорошо";
+"NEED_NEW_SESSION_EXIT_APP_BUTTON" = "Выйти из приложения";
+
+"EXIT_APP_ALERT_TITLE" = "Вы точно хотите выйти?";
+"EXIT_APP_ALERT_MESSAGE" = "Все документы и папки будут удалены из приложения";
 
 //MARK: Авторизация
 
@@ -36,3 +49,14 @@
 
 "WEBVIEW_AUTH_TITLE" = "Авторизация";
 
+//MARK: Tab Bar
+
+"FIRST_TAB_TITLE" = "Документы";
+"SECOND_TAB_TITLE" = "Настройки";
+
+//MARK: Captcha
+
+"CAPTCHA_SUCCESS_MESSAGE" = "Ты не робот\n(☞ﾟヮﾟ)☞";
+"CAPTCHA_TITLE" = "Введи код с картинки";
+"CAPTCHA_OK_BUTTON" = "Готово";
+"CAPTCHA_CANCEL_BUTTON" = "Отмена";
