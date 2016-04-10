@@ -14,6 +14,4 @@ end
 target 'ShareExtension' do
   pod 'SwiftyJSON'
   pod 'Alamofire'
-  pod 'Fabric'
-  pod 'Crashlytics'
 end
