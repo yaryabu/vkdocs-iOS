@@ -9,8 +9,6 @@
 import UIKit
 
 import SwiftyJSON
-import Crashlytics
-
 
 class CaptchaViewController: UIViewController, UITextFieldDelegate {
     

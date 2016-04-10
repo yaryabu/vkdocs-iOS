@@ -12,7 +12,6 @@ import MobileCoreServices
 
 import SwiftyJSON
 import Alamofire
-import Crashlytics
 
 struct FileToUpload {
     let name: String
