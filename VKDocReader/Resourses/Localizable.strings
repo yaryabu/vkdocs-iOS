@@ -12,7 +12,7 @@
 "NO" = "Нет";
 
 
-//MARK: Сообщения ошибок Error
+//MARK: Сообщения ошибок Network
 
 "UNKNOWN_ERROR" = "Неизвестная ошибка";
 "NO_INTERNET" = "Вероятно, соединение с Интернетом прервано.";
@@ -60,3 +60,7 @@
 "CAPTCHA_TITLE" = "Введи код с картинки";
 "CAPTCHA_OK_BUTTON" = "Готово";
 "CAPTCHA_CANCEL_BUTTON" = "Отмена";
+
+//MARK: TableViewCell
+
+"CREATE_FOLDERS" = "Создавай папки";

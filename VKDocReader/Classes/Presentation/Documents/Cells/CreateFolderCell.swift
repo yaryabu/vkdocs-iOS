@@ -10,4 +10,10 @@ import UIKit
 
 class CreateFolderCell: TableViewCell {
     static let cellIdentifier = "CreateFolderCell"
+    
+    @IBOutlet weak var titleLabel: UILabel! {
+        didSet {
+            titleLabel.text = "CREATE_FOLDERS".localized
+        }
+    }
 }

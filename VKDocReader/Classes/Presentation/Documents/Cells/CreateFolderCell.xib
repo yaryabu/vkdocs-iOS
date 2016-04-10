@@ -41,6 +41,9 @@
                     <constraint firstItem="76k-mM-D9B" firstAttribute="centerY" secondItem="s3W-c8-AJ5" secondAttribute="centerY" id="wHF-ca-qyV"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="titleLabel" destination="76k-mM-D9B" id="zhM-IR-hfc"/>
+            </connections>
             <point key="canvasLocation" x="208" y="191"/>
         </tableViewCell>
     </objects>
