@@ -18,7 +18,11 @@ enum MoveCopyActionType {
 class MoveCopyViewController: ViewController, UITableViewDelegate {
     
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var saveButton: UIBarButtonItem!
+    @IBOutlet weak var saveButton: UIBarButtonItem! {
+        didSet {
+            saveButton.title = "MOVECOPY_VIEW_CONTROLLER_SAVE_BAR_BUTTON_TITLE".localized
+        }
+    }
     
     @IBOutlet weak var exitButton: UIBarButtonItem!
     var currentPath: String! = Const.Directories.fileSystemDir
@@ -62,13 +66,13 @@ class MoveCopyViewController: ViewController, UITableViewDelegate {
             var title: String!
             switch actionType {
             case .Copy:
-                title = "Копировать"
+                title = "MOVECOPY_VIEW_CONTROLLER_COPY_TITLE".localized
             case .Move:
-                title = "Переместить"
+                title = "MOVECOPY_VIEW_CONTROLLER_MOVE_TITLE".localized
             case .AddToFolder:
-                title = "Добавить в папку"
+                title = "MOVECOPY_VIEW_CONTROLLER_ADD_TO_FOLDER_TITLE".localized
             case .ChooseFileToAdd:
-                title = "Выбрать файл"
+                title = "MOVECOPY_VIEW_CONTROLLER_CHOOSE_FILE_TO_ADD_TITLE".localized
             }
             navigationItem.title = title
         } else {
@@ -106,7 +110,7 @@ class MoveCopyViewController: ViewController, UITableViewDelegate {
             } else {
                 let docName = userDocsDataSource.document(indexPath).fileDirectory.componentsSeparatedByString("/").last!
                 if Bash.ls(finalDirectory).contains(docName) {
-                    let error = Error(code: 0, message: "В папке уже есть этот файл")
+                    let error = Error(code: 0, message: "MOVECOPY_VIEW_CONTROLLER_FILE_ADDED_ALREADY_ERROR".localized)
                     ToastManager.sharedInstance.presentError(error)
                     return
                 }
@@ -119,7 +123,7 @@ class MoveCopyViewController: ViewController, UITableViewDelegate {
         if folderDataSource.isDirectory(indexPath) {
             let newPath = Bash.pwd() + "/" + folderDataSource.elements[indexPath.row]
             if paths.contains(newPath) {
-                let error = Error(code: 0, message: "Нельзя копировать папку в себя")
+                let error = Error(code: 0, message: "MOVECOPY_VIEW_CONTROLLER_CANNOT_COPY_THYSELF_ERROR".localized)
                 ToastManager.sharedInstance.presentError(error)
                 return
             }
@@ -158,11 +162,11 @@ class MoveCopyViewController: ViewController, UITableViewDelegate {
             }
             message = String(message.characters.dropLast())
             
-            let alert = UIAlertController(title: "Заменить папки?", message: message, preferredStyle: UIAlertControllerStyle.Alert)
-            let yesAction = UIAlertAction(title: "Да", style: .Default, handler: { (action) in
+            let alert = UIAlertController(title: "MOVECOPY_VIEW_CONTROLLER_REPLACE_FOLDERS_QUESTION".localized, message: message, preferredStyle: UIAlertControllerStyle.Alert)
+            let yesAction = UIAlertAction(title: "YES".localized, style: .Default, handler: { (action) in
                 self.performActionAndDismiss()
             })
-            let noAction = UIAlertAction(title: "Нет", style: .Cancel, handler: nil)
+            let noAction = UIAlertAction(title: "NO".localized, style: .Cancel, handler: nil)
             alert.addAction(yesAction)
             alert.addAction(noAction)
             
@@ -183,13 +187,13 @@ class MoveCopyViewController: ViewController, UITableViewDelegate {
             if actionType == .Copy {
                 Bash.cp(path, to: newPath)
                 if shouldShowNotification {
-                    ToastManager.sharedInstance.presentInfo("Файлы скопированы")
+                    ToastManager.sharedInstance.presentInfo("MOVECOPY_VIEW_CONTROLLER_FILES_COPIED_SUCCESS".localized)
                     shouldShowNotification = false
                 }
             } else if actionType == .Move {
                 Bash.mv(path, to: newPath)
                 if shouldShowNotification {
-                    ToastManager.sharedInstance.presentInfo("Файлы перемещены")
+                    ToastManager.sharedInstance.presentInfo("MOVECOPY_VIEW_CONTROLLER_FILES_MOVED_SUCCESS".localized)
                     shouldShowNotification = false
                 }
             }
@@ -198,7 +202,7 @@ class MoveCopyViewController: ViewController, UITableViewDelegate {
         for name in fileNames {
             Bash.touch(currentPath + "/" + name)
             if shouldShowNotification {
-                ToastManager.sharedInstance.presentInfo("Файлы добавлены в папку")
+                ToastManager.sharedInstance.presentInfo("MOVECOPY_VIEW_CONTROLLER_FILES_ADDED_TO_FOLDER_SUCCESS".localized)
             }
         }
         dismissViewControllerAnimated(true, completion: nil)
@@ -208,7 +212,7 @@ class MoveCopyViewController: ViewController, UITableViewDelegate {
         let createFolderVC = storyboard!.instantiateViewControllerWithIdentifier(Const.StoryboardIDs.editViewControllerNavigationController)
         
         Dispatch.mainQueueAfter(0.5, closure: {
-            ToastManager.sharedInstance.presentError(Error(code: 0, message: "Сначала нужно создать папку"))
+            ToastManager.sharedInstance.presentError(Error(code: 0, message: "MOVECOPY_VIEW_CONTROLLER_NO_FOLDERS_ERROR".localized))
             
             Dispatch.mainQueueAfter(0.5, closure: {
                 self.presentViewController(createFolderVC, animated: true, completion: nil)
