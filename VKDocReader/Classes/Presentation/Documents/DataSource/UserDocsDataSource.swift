@@ -9,15 +9,12 @@
 import UIKit
 import RealmSwift
 
-/**
- DataSource документов из ВК и корневых папок файловой системы.
- */
+
+/// DataSource документов из ВК и корневых папок файловой системы.
 class UserDocsDataSource: NSObject, DataSource {
     
-    /**
-    Название ячейки, которая создает папки
-    */
-    let createFolderCell = "CREATE_FOLDER_CELL_.m29voa721knv"
+    /// Название ячейки, которая создает папки
+    let createFolderCell = Const.Common.bundleIdentifier + "CREATE_FOLDER_CELL_.m29voa721knv"
     
     var folders: [String] {
         let currentFolders = Bash.ls(Const.Directories.fileSystemDir)
