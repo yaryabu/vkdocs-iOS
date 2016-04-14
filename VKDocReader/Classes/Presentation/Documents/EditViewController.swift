@@ -47,15 +47,18 @@ class EditViewController: ViewController, UITextFieldDelegate {
 
         switch actionType {
         case .CreateFolder:
-            navigationItem.title = "Новая папка"
+            navigationItem.title = "EDIT_VIEW_CONTROLLER_NEW_FOLDER_TITLE".localized
             textField.text = ""
+            textField.placeholder = "EDIT_VIEW_CONTROLLER_NEW_FOLDER_PLACEHOLDER".localized
         case .EditDocument:
-            navigationItem.title = "Изменить документ"
-            createButton.enabled = true
+            navigationItem.title = "EDIT_VIEW_CONTROLLER_EDIT_DOCUMENT_TITLE".localized
             textField.text = documentToEdit.title
+            textField.placeholder = "EDIT_VIEW_CONTROLLER_EDIT_DOCUMENT_PLACEHOLDER".localized
+            createButton.enabled = true
         case .EditFolder:
-            navigationItem.title = "Изменить папку"
+            navigationItem.title = "EDIT_VIEW_CONTROLLER_EDIT_FOLDER_TITLE".localized
             textField.text = folderPathToEdit.componentsSeparatedByString("/").last!
+            textField.placeholder = "EDIT_VIEW_CONTROLLER_EDIT_FOLDER_PLACEHOLDER".localized
             createButton.enabled = true
         }
         
@@ -94,13 +97,13 @@ class EditViewController: ViewController, UITextFieldDelegate {
         let text = self.textField.text!
         
         if text.containsString("/") {
-            let error = Error(code: 0, message: "Символ / не допускается")
+            let error = Error(code: 0, message: "EDIT_VIEW_CONTROLLER_FORBIDDEN_SYMBOL_ERROR".localized)
             ToastManager.sharedInstance.presentError(error)
             return
         }
         
         if folderCreatedAlready(text) {
-            let error = Error(code: 0, message: "Папка уже существует")
+            let error = Error(code: 0, message: "EDIT_VIEW_CONTROLLER_FORBIDDEN_FOLDER_CREATED_ALREADY_ERROR".localized)
             ToastManager.sharedInstance.presentError(error)
             return
         }
@@ -108,12 +111,12 @@ class EditViewController: ViewController, UITextFieldDelegate {
         switch actionType {
         case .CreateFolder:
             Bash.mkdir(text)
-            ToastManager.sharedInstance.presentInfo("Папка создана")
+            ToastManager.sharedInstance.presentInfo("EDIT_VIEW_CONTROLLER_FORBIDDEN_FOLDER_CREATED_TOAST".localized)
             Analytics.logUserCreatedFolder(Bash.pwd() + "/" + text)
             dismissViewControllerAnimated(true, completion: nil)
         case .EditFolder:
             Bash.mv(folderPathToEdit, to: Bash.pwd() + "/" + text)
-            ToastManager.sharedInstance.presentInfo("Папка изменена")
+            ToastManager.sharedInstance.presentInfo("EDIT_VIEW_CONTROLLER_FORBIDDEN_FOLDER_CHANGED_TOAST".localized)
             dismissViewControllerAnimated(true, completion: nil)
         case .EditDocument:
             serviceLayer.docsService.editDocument(documentToEdit, newDocumentName: text, completion: {
@@ -121,7 +124,7 @@ class EditViewController: ViewController, UITextFieldDelegate {
                 try! realm.write({ 
                     self.documentToEdit.title = text
                 })
-                ToastManager.sharedInstance.presentInfo("Документ изменен")
+                ToastManager.sharedInstance.presentInfo("EDIT_VIEW_CONTROLLER_FORBIDDEN_DOCUMENT_CHANGED_TOAST".localized)
                 self.dismissViewControllerAnimated(true, completion: nil)
                 }, failure: { (error) in
                     self.handleError(error)
