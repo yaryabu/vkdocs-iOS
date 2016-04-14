@@ -121,7 +121,6 @@ class SettingsViewController: ViewController, MFMailComposeViewControllerDelegat
             mail.mailComposeDelegate = self
             mail.setToRecipients(["yaryabu@gmail.com"])
             mail.setSubject("VK Docs")
-            mail.setMessageBody("", isHTML: false)
             
             presentViewController(mail, animated: true, completion: nil)
         } else {
