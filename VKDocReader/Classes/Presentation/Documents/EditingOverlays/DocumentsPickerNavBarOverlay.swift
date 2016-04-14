@@ -9,8 +9,14 @@
 import UIKit
 
 class DocumentsPickerNavBarOverlay: View {
-
-    @IBOutlet weak var titleLabel: UILabel!
+    
+    let titleTemplate = "EDITING_NAVBAR_OVERLAY_PICKED_TEMPLATE".localized
+    
+    @IBOutlet weak var titleLabel: UILabel! {
+        didSet {
+            titleLabel.text = String(format: titleTemplate, 0)
+        }
+    }
     @IBOutlet weak var exitButton: UIButton!
     
     @IBAction func exitButtonPressed(sender: AnyObject) {

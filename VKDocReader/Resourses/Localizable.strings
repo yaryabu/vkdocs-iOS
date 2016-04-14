@@ -64,3 +64,22 @@
 //MARK: TableViewCell
 
 "CREATE_FOLDERS" = "Создавай папки";
+
+//MARK: Главный экран
+
+"FOLDERS_SECTION_NAME" = "Папки";
+"DOCUMENTS_SECTION_NAME" = "Документы";
+
+
+// Editing mode tabbar overlay
+"EDITING_TAB_OVERLAY_DELETE" = "Удалить";
+"EDITING_TAB_OVERLAY_MOVE" = "Переместить";
+"EDITING_TAB_OVERLAY_COPY" = "Скопировать";
+
+// Editing mode navbar overlay
+"EDITING_NAVBAR_OVERLAY_PICKED_TEMPLATE" = "Выбрано: %d";
+
+//MARK: Поиск
+
+"PERCONAL_DOCUMENTS_SEARCH_RESULTS" = "В своих документах";
+"VK_DOCUMENTS_SEARCH_RESULTS" = "В документах ВК";

@@ -10,9 +10,21 @@ import UIKit
 
 class DocumentsPickerTabBarOverlay: View {
     
-    @IBOutlet weak var deleteButton: UIButton!
-    @IBOutlet weak var moveButton: UIButton!
-    @IBOutlet weak var copyButton: UIButton!
+    @IBOutlet weak var deleteButton: UIButton! {
+        didSet {
+            deleteButton.setTitle("EDITING_TAB_OVERLAY_DELETE".localized, forState: UIControlState.Normal)
+        }
+    }
+    @IBOutlet weak var moveButton: UIButton! {
+        didSet {
+            moveButton.setTitle("EDITING_TAB_OVERLAY_MOVE".localized, forState: UIControlState.Normal)
+        }
+    }
+    @IBOutlet weak var copyButton: UIButton! {
+        didSet {
+            copyButton.setTitle("EDITING_TAB_OVERLAY_COPY".localized, forState: UIControlState.Normal)
+        }
+    }
     
     
     override class func loadFromNibNamed(nibNamed: String, bundle: NSBundle? = nil) -> DocumentsPickerTabBarOverlay {

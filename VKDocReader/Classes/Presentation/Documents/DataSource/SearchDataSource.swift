@@ -82,11 +82,11 @@ class SearchDataSource: NSObject, DataSource {
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 0 {
             if savedDocumentsResult.count > 0 {
-                return "В своих документах"
+                return "PERCONAL_DOCUMENTS_SEARCH_RESULTS".localized
             }
         } else {
             if vkSearchResults.count > 0 {
-                return "В документах ВК"
+                return "VK_DOCUMENTS_SEARCH_RESULTS".localized
             }
         }
         return nil

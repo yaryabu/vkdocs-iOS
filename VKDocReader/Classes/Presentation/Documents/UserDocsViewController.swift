@@ -227,7 +227,7 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
             }
             
             let itemsCount = tableView.indexPathsForSelectedRows!.count
-            docPickerNavBarOverlay.titleLabel.text = "Выбрано: \(itemsCount)"
+            docPickerNavBarOverlay.titleLabel.text = String(format: docPickerNavBarOverlay.titleTemplate, itemsCount)
             docPickerTabBarOverlay.changeButtonsState(itemsCount, isRootViewController: isRootViewController)
             return
         }
@@ -269,7 +269,7 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
     func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
         if tableView.editing {
             let itemsCount = tableView.indexPathsForSelectedRows?.count ?? 0
-            docPickerNavBarOverlay.titleLabel.text = "Выбрано: \(itemsCount)"
+            docPickerNavBarOverlay.titleLabel.text = String(format: docPickerNavBarOverlay.titleTemplate, itemsCount)
             docPickerTabBarOverlay.changeButtonsState(itemsCount, isRootViewController: isRootViewController)
         }
     }
@@ -490,7 +490,7 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
             
             let itemsCount = tableView.indexPathsForSelectedRows?.count ?? 0
             
-            docPickerNavBarOverlay.titleLabel.text = "Выбрано: \(itemsCount)"
+            docPickerNavBarOverlay.titleLabel.text = String(format: docPickerNavBarOverlay.titleTemplate, itemsCount)
             docPickerTabBarOverlay.changeButtonsState(itemsCount, isRootViewController: isRootViewController)
             
             docPickerNavBarOverlay.presentAnimated(newFrame, superview: self.navigationController!.navigationBar)
@@ -501,7 +501,7 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
             }
             docPickerNavBarOverlay.dismissAnimated()
             docPickerTabBarOverlay.dismissAnimated()
-            docPickerNavBarOverlay.titleLabel.text = "Выбрано: 0"
+            docPickerNavBarOverlay.titleLabel.text = String(format: docPickerNavBarOverlay.titleTemplate, 0)
         }
     }
     

@@ -166,10 +166,10 @@ class UserDocsDataSource: NSObject, DataSource {
             if folders.count == 0 {
                 return nil
             } else {
-            return "Папки"
+            return "FOLDERS_SECTION_NAME".localized
             }
         } else {
-            return "Документы"
+            return "DOCUMENTS_SECTION_NAME".localized
         }
     }
     
