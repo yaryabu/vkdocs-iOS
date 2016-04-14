@@ -99,6 +99,7 @@ class DocumentPreviewViewController: ViewController, QLPreviewControllerDataSour
         } else {
             self.serviceLayer.docsService.downloadDocument(self.document, progress: {(totalRead, totalSize) -> Void in
                 let percent10k = Double(totalRead)/Double(totalSize)
+                //TODO: можно локализовать, но зачем
                 self.percentLabel.text = String(Int(percent10k*100)) + " %"
                 self.kbytesLabel.text = "\(totalRead/1024) КБ/\(totalSize/1024) КБ"
                 self.progressBar.progress = Float(percent10k)
@@ -136,7 +137,7 @@ class DocumentPreviewViewController: ViewController, QLPreviewControllerDataSour
         
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
         
-        let saveAction = UIAlertAction(title: "Сохранить", style: .Default) { (action) -> Void in
+        let saveAction = UIAlertAction(title: "DOCUMENTS_PREVIEW_VIEW_CONTROLLER_SAVE_OPTION".localized, style: .Default) { (action) -> Void in
             self.document.saveFromTempDir()
             let realm = try! Realm()
             if realm.objects(Document).filter("id == \"\(self.document.id)\"").first == nil {
@@ -145,16 +146,16 @@ class DocumentPreviewViewController: ViewController, QLPreviewControllerDataSour
                         realm.add(self.document)
                     })
                     self.document.isSearchResult = false
-                    ToastManager.sharedInstance.presentInfo("Документ добавлен")
+                    ToastManager.sharedInstance.presentInfo("DOCUMENTS_PREVIEW_VIEW_CONTROLLER_ADDED_SUCCESS".localized)
                     }, failure: { [unowned self] (error) -> Void in
                         self.handleError(error)
                 })
             } else {
-                ToastManager.sharedInstance.presentInfo("Сохранено")
+                ToastManager.sharedInstance.presentInfo("DOCUMENTS_PREVIEW_VIEW_CONTROLLER_SAVED_SUCCESS".localized)
             }
         }
         
-        let addToFolderAction = UIAlertAction(title: "Добавить в папку", style: .Default) { (action) -> Void in
+        let addToFolderAction = UIAlertAction(title: "DOCUMENTS_PREVIEW_VIEW_CONTROLLER_ADD_TO_FOLDER_OPTION".localized, style: .Default) { (action) -> Void in
             let navControllerVc = self.storyboard!.instantiateViewControllerWithIdentifier(Const.StoryboardIDs.moveCopyViewControllerNavigationController) as! NavigationController
             let moveCopyVc = navControllerVc.viewControllers[0] as! MoveCopyViewController
             
@@ -163,21 +164,21 @@ class DocumentPreviewViewController: ViewController, QLPreviewControllerDataSour
             
             self.presentViewController(navControllerVc, animated: true, completion: nil)
         }
-        let shareAction = UIAlertAction(title: "Отправить", style: .Default) { (action) -> Void in
+        let shareAction = UIAlertAction(title: "DOCUMENTS_PREVIEW_VIEW_CONTROLLER_SHARE_DOCUMENT_OPTION".localized, style: .Default) { (action) -> Void in
             actionSheet.dismissViewControllerAnimated(false, completion: nil)
             self.documentInteractionsController.URL = NSURL(fileURLWithPath: self.document.filePath ?? self.document.tempPath!)
             self.documentInteractionsController.presentOptionsMenuFromBarButtonItem(self.optionsButton, animated: true)
             Analytics.logDocumentShareOpened()
         }
-        let copyLinkAction = UIAlertAction(title: "Копировать ссылку", style: .Default) { (action) -> Void in
+        let copyLinkAction = UIAlertAction(title: "DOCUMENTS_PREVIEW_VIEW_CONTROLLER_COPY_LINK_OPTION".localized, style: .Default) { (action) -> Void in
             UIPasteboard.generalPasteboard().string = self.document.urlString
-            ToastManager.sharedInstance.presentInfo("Ссылка скопирована")
+            ToastManager.sharedInstance.presentInfo("DOCUMENTS_PREVIEW_VIEW_CONTROLLER_LINK_COPIED_SUCCESS".localized)
             Analytics.logDocumentLinkCopied()
         }
-        let deleteAction = UIAlertAction(title: "Удалить", style: .Destructive) { (action) -> Void in
+        let deleteAction = UIAlertAction(title: "DOCUMENTS_PREVIEW_VIEW_CONTROLLER_DELETE_OPTION".localized, style: .Destructive) { (action) -> Void in
             self.presentDeleteAlert()
         }
-        let cancelAction = UIAlertAction(title: "Отмена", style: .Cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: "CANCEL".localized, style: .Cancel, handler: nil)
         
         
         if self.document.tempPath != nil {
@@ -198,9 +199,9 @@ class DocumentPreviewViewController: ViewController, QLPreviewControllerDataSour
     }
     
     func presentDeleteAlert() {
-        let alert = UIAlertController(title: "Удалить", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
-        let cancelAction = UIAlertAction(title: "Отмена", style: .Cancel, handler: nil)
-        let deleteCompletelyAction = UIAlertAction(title: "Удалить из ВК", style: .Default) { (action) -> Void in
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+        let cancelAction = UIAlertAction(title: "CANCEL".localized, style: .Cancel, handler: nil)
+        let deleteCompletelyAction = UIAlertAction(title: "DOCUMENTS_PREVIEW_VIEW_CONTROLLER_DELETE_FROM_VK_ALERT_ACTION".localized, style: .Default) { (action) -> Void in
             self.serviceLayer.docsService.deleteDocumentFromUser(self.document, completion: { () -> Void in
                 self.document.deleteDocument()
                 self.navigationController!.popViewControllerAnimated(true)
@@ -209,7 +210,7 @@ class DocumentPreviewViewController: ViewController, QLPreviewControllerDataSour
             })
             
         }
-        let deleteOnlyFileAction = UIAlertAction(title: "Удалить с девайса", style: .Default) { (action) -> Void in
+        let deleteOnlyFileAction = UIAlertAction(title: "DOCUMENTS_PREVIEW_VIEW_CONTROLLER_DELETE_FROM_DEVICE_ALERT_ACTION".localized, style: .Default) { (action) -> Void in
             self.document.deleteFile()
             self.navigationController!.popViewControllerAnimated(true)
         }
@@ -222,7 +223,7 @@ class DocumentPreviewViewController: ViewController, QLPreviewControllerDataSour
     
     @IBAction func cancelButtonPressed(sender: AnyObject) {
         self.serviceLayer.docsService.cancelDownload(self.document)
-        ToastManager.sharedInstance.presentError(Error(code: 0, message: "Загрузка отменена"))
+        ToastManager.sharedInstance.presentError(Error(code: 0, message: "DOCUMENTS_PREVIEW_VIEW_CONTROLLER_LOADING_CANCELED_MESSAGE".localized))
         navigationController!.popToRootViewControllerAnimated(true)
     }
     
