@@ -703,8 +703,11 @@
                     <connections>
                         <outlet property="clearCacheButton" destination="2zi-Zt-WTm" id="a07-k2-d2x"/>
                         <outlet property="contactDeveloperButton" destination="y87-cI-1hi" id="WWb-VU-Eca"/>
+                        <outlet property="onlyWifiLoadLabel" destination="WZ0-sv-1NE" id="Mim-ac-9ID"/>
                         <outlet property="onlyWifiLoadSwitch" destination="vbI-jq-NY7" id="yRO-vg-iZo"/>
+                        <outlet property="saveDocsAutomaticallyLabel" destination="Cgf-kS-X26" id="yM7-di-pcb"/>
                         <outlet property="saveDocsAutomaticallySwitch" destination="Rh8-pl-0vz" id="AqA-zu-HKB"/>
+                        <outlet property="settingHeaderLabel" destination="DBB-1E-Ldx" id="rJx-Oo-Qdz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fab-xa-LEx" userLabel="First Responder" sceneMemberID="firstResponder"/>

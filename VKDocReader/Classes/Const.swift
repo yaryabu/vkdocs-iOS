@@ -15,6 +15,7 @@ struct Const {
         static let bundleIdentifier = NSBundle.mainBundle().bundleIdentifier!
         static let appVersion = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleShortVersionString") as! String
         static let appBuildNumber = NSBundle.mainBundle().objectForInfoDictionaryKey(kCFBundleVersionKey as String) as! String
+        static let fullVersion = "\(appVersion) (\(appBuildNumber))"
         static let mainStoryboardName = "Main"
         static let errorDomain = bundleIdentifier + ".error"
         //рандомная строка, которая добавляется ко всем папкам для документов, чтобы
@@ -25,6 +26,7 @@ struct Const {
     struct DeviceInfo {
         static let modelName = getModelName()
         static let systemVersion = UIDevice.currentDevice().systemVersion
+        static let fullInfo = "\(modelName) (iOS \(systemVersion))"
     }
     
     struct Notifications {

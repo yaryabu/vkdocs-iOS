@@ -14,13 +14,39 @@ import RealmSwift
 class SettingsViewController: ViewController, MFMailComposeViewControllerDelegate {
     
     var notificationToken: NotificationToken?
+    let cacheButtonTemplate = "SETTINGS_VIEW_CONTROLLER_CLEAR_CACHE_TEMPLATE_TEXT".localized
     
-    @IBOutlet weak var clearCacheButton: UIButton!
-//    @IBOutlet weak var userAvatarImageView: UIImageView!
+    @IBOutlet weak var settingHeaderLabel: SettingHeaderLabel! {
+        didSet {
+            settingHeaderLabel.text = "SETTINGS_VIEW_CONTROLLER_HEADER_TITLE".localized
+        }
+    }
+    @IBOutlet weak var clearCacheButton: UIButton! {
+        didSet {
+            clearCacheButton.setTitle("SETTINGS_VIEW_CONTROLLER_CLEAR_CACHE_DEFAULT_TEXT".localized, forState: UIControlState.Normal)
+        }
+    }
     
-//    @IBOutlet weak var usernameLabel: UILabel!
-    @IBOutlet weak var contactDeveloperButton: UIButton!
+    @IBOutlet weak var onlyWifiLoadLabel: SettingLabel! {
+        didSet {
+            onlyWifiLoadLabel.text = "SETTINGS_VIEW_CONTROLLER_ONLY_WIFI_LOAD".localized
+        }
+    }
+    
+    @IBOutlet weak var saveDocsAutomaticallyLabel: SettingLabel! {
+        didSet {
+            saveDocsAutomaticallyLabel.text = "SETTINGS_VIEW_CONTROLLER_SAVE_DOCUMENTS_AUTOMATICALLY".localized
+        }
+    }
+    
     @IBOutlet weak var onlyWifiLoadSwitch: UISwitch!
+    @IBOutlet weak var saveDocsAutomaticallySwitch: UISwitch!
+    
+    @IBOutlet weak var contactDeveloperButton: UIButton! {
+        didSet {
+            contactDeveloperButton.setTitle("SETTINGS_VIEW_CONTROLLER_CONTACT_DEVELOPER".localized, forState: UIControlState.Normal)
+        }
+    }
     
     lazy var navBarOverlay: NavBarOverlay = {
         let overay = NavBarOverlay.loadFromNibNamed("NavBarOverlay")
@@ -32,14 +58,11 @@ class SettingsViewController: ViewController, MFMailComposeViewControllerDelegat
         )
         
         overay.exitAppButton.addTarget(self, action: #selector(SettingsViewController.exitButtonPressed(_:)), forControlEvents: .TouchUpInside)
-
-        
         self.navigationController!.navigationBar.addSubview(overay)
         
         return overay
     }()
     
-    @IBOutlet weak var saveDocsAutomaticallySwitch: UISwitch!
     override func viewDidLoad() {
         super.viewDidLoad()
         let _ = navBarOverlay
@@ -81,8 +104,8 @@ class SettingsViewController: ViewController, MFMailComposeViewControllerDelegat
     }
     
     @IBAction func clearCacheButtonPressed(sender: AnyObject) {
-        let alert = UIAlertController(title: "Что хотите удалить?", message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
-        let deleteAllAction = UIAlertAction(title: "Загруженные документы и папки", style: UIAlertActionStyle.Destructive) { (action) -> Void in
+        let alert = UIAlertController(title: "SETTINGS_VIEW_CONTROLLER_DELETE_ALERT_TITLE".localized, message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
+        let deleteAllAction = UIAlertAction(title: "SETTINGS_VIEW_CONTROLLER_DELETE_ALERT_DELETE_FOLDERS_AND_DOCS_ACTION".localized, style: UIAlertActionStyle.Destructive) { (action) -> Void in
             LoadTaskManager.sharedManager.cancelAllDownloads()
 
             Bash.rm(Const.Directories.fileSystemDir)
@@ -90,18 +113,18 @@ class SettingsViewController: ViewController, MFMailComposeViewControllerDelegat
             Bash.rm(Const.Directories.vaultDir)
             Bash.mkdir(Const.Directories.vaultDir)
             self.refreshCacheSize()
-            ToastManager.sharedInstance.presentInfo("Документы и папки удалены")
+            ToastManager.sharedInstance.presentInfo("SETTINGS_VIEW_CONTROLLER_FOLDERS_AND_DOCS_DELETED_SUCCESS".localized)
         }
-        let deleteOnlyFilesAction = UIAlertAction(title: "Только загруженные документы", style: .Default) { (action) -> Void in
+        let deleteOnlyFilesAction = UIAlertAction(title: "SETTINGS_VIEW_CONTROLLER_DELETE_ALERT_ONLY_SAVED_DOCUMENTS_ACTION".localized, style: .Default) { (action) -> Void in
             LoadTaskManager.sharedManager.cancelAllDownloads()
 
             Bash.rm(Const.Directories.vaultDir)
             Bash.mkdir(Const.Directories.vaultDir)
             self.refreshCacheSize()
-            ToastManager.sharedInstance.presentInfo("Кэш удален")
+            ToastManager.sharedInstance.presentInfo("SETTINGS_VIEW_CONTROLLER_ONLY_SAVED_DOCS_DELETED_SUCCESS".localized)
 
         }
-        let cancelAction = UIAlertAction(title: "Отмена", style: .Cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: "CANCEL".localized, style: .Cancel, handler: nil)
         alert.addAction(deleteAllAction)
         alert.addAction(deleteOnlyFilesAction)
         alert.addAction(cancelAction)
@@ -121,10 +144,11 @@ class SettingsViewController: ViewController, MFMailComposeViewControllerDelegat
             mail.mailComposeDelegate = self
             mail.setToRecipients(["yaryabu@gmail.com"])
             mail.setSubject("VK Docs")
+            mail.setMessageBody("\n\n\n\n Device: \(Const.DeviceInfo.fullInfo)\nApp Version: \(Const.Common.fullVersion)", isHTML: false)
             
             presentViewController(mail, animated: true, completion: nil)
         } else {
-            ToastManager.sharedInstance.presentError(Error(code: 0, message: "Связь барахлит.\nПроверь настройки почты."))
+            ToastManager.sharedInstance.presentError(Error(code: 0, message: "SETTINGS_VIEW_CONTROLLER_EMAIL_NOT_SET_ERROR".localized))
         }
     }
     
@@ -143,13 +167,13 @@ class SettingsViewController: ViewController, MFMailComposeViewControllerDelegat
     }
     
     func refreshCacheSize() {
-        
         let bytes = Bash.du(Const.Directories.vaultDir)
-        
         Analytics.logCacheSize(bytes)
         
         let cacheSize = SizeFormatter.closestFormatFromBytes(bytes)
         let cacheSizeString = String(cacheSize.number) + " " + cacheSize.unitTypeName
-        self.clearCacheButton.setTitle("Очистить кэш – \(cacheSizeString) занято", forState: UIControlState.Normal)
+        let buttonTitle = String(format: cacheButtonTemplate, cacheSizeString)
+        
+        self.clearCacheButton.setTitle(buttonTitle, forState: UIControlState.Normal)
     }
 }
