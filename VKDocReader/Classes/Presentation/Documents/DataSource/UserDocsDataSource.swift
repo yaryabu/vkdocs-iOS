@@ -160,19 +160,6 @@ class UserDocsDataSource: NSObject, DataSource {
         }
     }
     
-    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        
-        if section == 0 {
-            if folders.count == 0 {
-                return nil
-            } else {
-            return "FOLDERS_SECTION_NAME".localized
-            }
-        } else {
-            return "DOCUMENTS_SECTION_NAME".localized
-        }
-    }
-    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         if indexPath.section == 0 {

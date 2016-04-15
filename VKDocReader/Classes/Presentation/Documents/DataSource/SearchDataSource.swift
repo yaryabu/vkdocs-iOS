@@ -79,19 +79,6 @@ class SearchDataSource: NSObject, DataSource {
         return 2
     }
     
-    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if section == 0 {
-            if savedDocumentsResult.count > 0 {
-                return "PERCONAL_DOCUMENTS_SEARCH_RESULTS".localized
-            }
-        } else {
-            if vkSearchResults.count > 0 {
-                return "VK_DOCUMENTS_SEARCH_RESULTS".localized
-            }
-        }
-        return nil
-    }
-    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
             return self.savedDocumentsResult.count

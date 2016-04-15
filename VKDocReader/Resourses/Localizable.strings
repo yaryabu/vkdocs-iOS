@@ -23,6 +23,7 @@
 "UNKNOWN_VK_SERVER_ERROR" = "Неизвестная ошибка сервера";
 "NEED_CAPTCHA" = "Необходимо ввести код с картинки";
 "WRONG_USER_ID" = "Ошибка авторизации\nПопробуйте перезапустить приложение";
+"LOADING_CANCELLED_ERROR_MESSAGE" = "Загрузка отменена";
 
 //MARK: SizeFormatter
 
@@ -68,9 +69,20 @@
 
 //MARK: UserDocsViewController
 
+// options menu
+"CREATE_FOLDER_OPTION" = "Создать папку";
+"CHOOSE_ELEMENTS_OPTION" = "Выбрать";
+"ADD_FILE_TO_FOLDER_OPTION" = "Добавить файл";
+
+
+// section names
 "FOLDERS_SECTION_NAME" = "Папки";
 "DOCUMENTS_SECTION_NAME" = "Документы";
+"PERCONAL_DOCUMENTS_SEARCH_RESULTS" = "В своих документах";
+"VK_DOCUMENTS_SEARCH_RESULTS" = "В документах ВК";
 
+"EDIT_CELL_EDIT_ACTION" = "Изменить",
+"EDIT_CELL_DELETE_ACTION" = "Удалить";
 
 // Editing mode tabbar overlay
 "EDITING_TAB_OVERLAY_DELETE" = "Удалить";
@@ -80,10 +92,19 @@
 // Editing mode navbar overlay
 "EDITING_NAVBAR_OVERLAY_PICKED_TEMPLATE" = "Выбрано: %d";
 
-//MARK: Поиск
+"EDITING_MODE_DELETE_ALERT_TITLE" = "Удалить из ВК?";
+"EDITING_MODE_DELETE_ALERT_MESSAGE" = "Выбранные документы удалятся из ВК";
 
-"PERCONAL_DOCUMENTS_SEARCH_RESULTS" = "В своих документах";
-"VK_DOCUMENTS_SEARCH_RESULTS" = "В документах ВК";
+// file upload & image picker
+"UPLOAD_IN_PROGRESS_ERROR_MESSAGE" = "Дождись окончания предыдущей загрузки";
+"PHOTO_ACCESS_FORBIDDEN_ERROR_MESSAGE" = "Нет доступа к фото\n Невозможно загрузить фото в ВК";
+
+"UPLOAD_BEGAN_TOAST_MESSAGE" = "Загружаем документ в ВК";
+
+// search
+"SEARCH_BAR_PLACEHOLDER" = "Поиск";
+
+"DOCUMENT_ADDED_TOAST_MESSAGE" = "Документ добавлен";
 
 //MARK: EditViewController
 

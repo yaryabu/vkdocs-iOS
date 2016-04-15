@@ -55,7 +55,7 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
     lazy var searchBar: UISearchBar = {
         let bar = UISearchBar()
         bar.sizeToFit()
-        bar.placeholder = "Поиск"
+        bar.placeholder = "SEARCH_BAR_PLACEHOLDER".localized
         bar.barTintColor = UIColor.vkWhiteColor()
         
         for view in bar.subviews {
@@ -196,16 +196,16 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
         
         if let _ = currentDataSource as? SearchDataSource {
             if section == 0 {
-                label.text = "В своих документах"
+                label.text = "PERCONAL_DOCUMENTS_SEARCH_RESULTS".localized
             } else {
-                label.text = "В документах ВК"
+                label.text = "VK_DOCUMENTS_SEARCH_RESULTS".localized
             }
 
         } else if let _ = currentDataSource as? UserDocsDataSource {
             if section == 0 {
-                label.text = "Папки"
+                label.text = "FOLDERS_SECTION_NAME".localized
             } else {
-                label.text = "Документы ВК"
+                label.text = "DOCUMENTS_SECTION_NAME".localized
             }
         }
         
@@ -276,12 +276,12 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
     
     func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
         
-        let deleteAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "Удалить") { (action, indexPath) in
+        let deleteAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "EDIT_CELL_DELETE_ACTION".localized) { (action, indexPath) in
             tableView.dataSource!.tableView!(tableView, commitEditingStyle: UITableViewCellEditingStyle.Delete, forRowAtIndexPath: indexPath)
         }
         deleteAction.backgroundColor = UIColor.vkGrapefruitColor()
         
-        let editAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "Изменить") { (action, indexPath) in
+        let editAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "EDIT_CELL_EDIT_ACTION".localized) { (action, indexPath) in
             self.setEditing(false, animated: true)
             self.tableView.setEditing(false, animated: true)
             let editViewControllerNavController = self.storyboard!.instantiateViewControllerWithIdentifier(Const.StoryboardIDs.editViewControllerNavigationController) as! NavigationController
@@ -331,7 +331,6 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
                 return
             }
             
-            
             let tapPoint = gestureRecognizer.locationInView(self.tableView)
             let indexPath = tableView.indexPathForRowAtPoint(tapPoint)!
             
@@ -344,8 +343,6 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
             setEditing(true, animated: true)
             tableView.selectRowAtIndexPath(indexPath, animated: false, scrollPosition: UITableViewScrollPosition.None)
             tableView(tableView, didSelectRowAtIndexPath: indexPath)
-//            docPickerNavBarOverlay.titleLabel.text = "Выбрано: 1"
-//            docPickerTabBarOverlay.changeButtonsState(1, isRootViewController: isRootViewController)
         }
         
     }
@@ -379,8 +376,8 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
             return
         }
         
-        let alert = UIAlertController(title: "Удалить из ВК?", message: "Выбранные документы удалятся из ВК", preferredStyle: .Alert)
-        let yesAction = UIAlertAction(title: "Да", style: .Destructive) { (action) -> Void in
+        let alert = UIAlertController(title: "EDITING_MODE_DELETE_ALERT_TITLE".localized, message: "EDITING_MODE_DELETE_ALERT_MESSAGE".localized, preferredStyle: .Alert)
+        let yesAction = UIAlertAction(title: "YES".localized, style: .Destructive) { (action) -> Void in
             
             //FIXME: тут обязательно нужен спиннер
             self.currentDataSource.deleteElements(indexPaths, completion: { () -> Void in
@@ -399,7 +396,7 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
                     self.handleError(error)
             })
         }
-        let noAction = UIAlertAction(title: "Нет", style: .Cancel, handler: nil)
+        let noAction = UIAlertAction(title: "NO".localized, style: .Cancel, handler: nil)
         
         alert.addAction(yesAction)
         alert.addAction(noAction)
@@ -574,7 +571,7 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
     
     @IBAction func addDocumentButtonPressed(sender: AnyObject) {
         if serviceLayer.uploadDocsService.isUploadingNow() {
-            ToastManager.sharedInstance.presentError(Error(code: 0, message: "Дождись окончания предыдущей загрузки"))
+            ToastManager.sharedInstance.presentError(Error(code: 0, message: "UPLOAD_IN_PROGRESS_ERROR_MESSAGE".localized))
             return
         }
         
@@ -592,14 +589,14 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
                 })
             })
         default:
-            ToastManager.sharedInstance.presentError(Error(code: 0, message: "Нет доступа к фото\n Невозможно загрузить фото в ВК"))
+            ToastManager.sharedInstance.presentError(Error(code: 0, message: "PHOTO_ACCESS_FORBIDDEN_ERROR_MESSAGE".localized))
         }
     }
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         //FIXME: во время обработки файла нужно поставить спиннер
         picker.dismissViewControllerAnimated(true, completion: nil)
-        ToastManager.sharedInstance.presentInfo("Загружаем документ в ВК", duration: 3.0)
+        ToastManager.sharedInstance.presentInfo("UPLOAD_BEGAN_TOAST_MESSAGE".localized, duration: 3.0)
         Dispatch.defaultQueue { () -> () in
             let referenceUrl = info[UIImagePickerControllerReferenceURL] as! NSURL
             
@@ -647,7 +644,7 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
             if indexPath.section == 1 {
                 self.serviceLayer.docsService.addDocumentToUser(searchDataSource.vkSearchResults[indexPath.row], completion: { (newDocumentId) -> Void in
                     ds.removeVkSearchElement(indexPath, from: self.tableView)
-                    ToastManager.sharedInstance.presentInfo("Документ добавлен")
+                    ToastManager.sharedInstance.presentInfo("DOCUMENT_ADDED_TOAST_MESSAGE".localized)
                     }, failure: { (error) -> Void in
                         self.handleError(error)
                 })
@@ -666,7 +663,7 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
         
         if serviceLayer.docsService.downloadExists(doc) {
             serviceLayer.docsService.cancelDownload(doc)
-            ToastManager.sharedInstance.presentError(Error(code: 0, message: "Загрузка отменена"))
+            ToastManager.sharedInstance.presentError(Error(code: 0, message: "LOADING_CANCELLED_ERROR_MESSAGE".localized))
             self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.None)
             return
         }
@@ -686,18 +683,18 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
         
         
-        let cancelAction = UIAlertAction(title: "Отмена", style: .Cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: "CANCEL".localized, style: .Cancel, handler: nil)
         
-        let createFolderAction = UIAlertAction(title: "Создать папку", style: .Default) { (action) -> Void in
+        let createFolderAction = UIAlertAction(title: "CREATE_FOLDER_OPTION".localized, style: .Default) { (action) -> Void in
             self.performSegueWithIdentifier(Const.StoryboardSegues.createFolder, sender: nil)
         }
         
-        let chooseElementsAction = UIAlertAction(title: "Выбрать", style: .Default) { (action) -> Void in
+        let chooseElementsAction = UIAlertAction(title: "CHOOSE_ELEMENTS_OPTION".localized, style: .Default) { (action) -> Void in
             self.tableView.setEditing(true, animated: true)
             self.setEditing(true, animated: true)
         }
         
-        let addFileToFolderAction = UIAlertAction(title: "Добавить файл", style: .Default) { (action) -> Void in
+        let addFileToFolderAction = UIAlertAction(title: "ADD_FILE_TO_FOLDER_OPTION".localized, style: .Default) { (action) -> Void in
             self.docPickerChooseFileToAdd()
         }
         
