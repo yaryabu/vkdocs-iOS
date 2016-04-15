@@ -1,0 +1,183 @@
+/* 
+  Localizable.strings
+  VKDocReader
+
+  Created by Yaroslav Ryabukha on 11/04/16.
+  Copyright © 2016 Yaroslav Ryabukha. All rights reserved.
+*/
+
+
+//MARK: Общее
+"YES" = "Да";
+"NO" = "Нет";
+"CANCEL" = "Отмена";
+
+
+//MARK: Сообщения ошибок Network
+
+"UNKNOWN_ERROR" = "Неизвестная ошибка";
+"NO_INTERNET" = "Вероятно, соединение с Интернетом прервано.";
+"ONLY_WIFI_USE_AVAILABLE" = "Загрузка через мобильный интернет запрещена в настройках";
+"BAD_AUTH" = "Авторизация не удалась";
+"BAD_ACCESS" = "Ошибка доступа";
+"UNKNOWN_VK_SERVER_ERROR" = "Неизвестная ошибка сервера";
+"NEED_CAPTCHA" = "Необходимо ввести код с картинки";
+"WRONG_USER_ID" = "Ошибка авторизации\nПопробуйте перезапустить приложение";
+"LOADING_CANCELLED_ERROR_MESSAGE" = "Загрузка отменена";
+
+//MARK: SizeFormatter
+
+"BYTE" = "Байт";
+"KB" = "КБ";
+"MB" = "МБ";
+"GB" = "ГБ";
+
+//MARK: Базовый ViewController
+"NEED_NEW_SESSION_TITLE" = "Сессия устарела";
+"NEED_NEW_SESSION_MESSAGE" = "Необходима повторная авторизация";
+"NEED_NEW_SESSION_OK_BUTTON" = "Хорошо";
+"NEED_NEW_SESSION_EXIT_APP_BUTTON" = "Выйти из приложения";
+
+"EXIT_APP_ALERT_TITLE" = "Вы точно хотите выйти?";
+"EXIT_APP_ALERT_MESSAGE" = "Все документы и папки будут удалены из приложения";
+
+//MARK: Авторизация
+
+"ONBOARDING_FIRST_SLIDE" = "Скачивай любые документы из ВКонтакте";
+"ONBOARDING_SECOND_SLIDE" = "Создавай папки";
+"ONBOARDING_THIRD_SLIDE" = "Передавай документы кому и куда угодно";
+
+"AUTH_BUTTON_TEXT" = "Войти через ВКонтакте";
+
+"WEBVIEW_AUTH_TITLE" = "Авторизация";
+
+//MARK: Tab Bar
+
+"FIRST_TAB_TITLE" = "Документы";
+"SECOND_TAB_TITLE" = "Настройки";
+
+//MARK: Captcha
+
+"CAPTCHA_SUCCESS_MESSAGE" = "Ты не робот\n(☞ﾟヮﾟ)☞";
+"CAPTCHA_TITLE" = "Введи код с картинки";
+"CAPTCHA_OK_BUTTON" = "Готово";
+"CAPTCHA_CANCEL_BUTTON" = "Отмена";
+
+//MARK: TableViewCell
+
+"CREATE_FOLDERS" = "Создавай папки";
+
+//MARK: UserDocsViewController
+
+// options menu
+"CREATE_FOLDER_OPTION" = "Создать папку";
+"CHOOSE_ELEMENTS_OPTION" = "Выбрать";
+"ADD_FILE_TO_FOLDER_OPTION" = "Добавить файл";
+
+
+// section names
+"FOLDERS_SECTION_NAME" = "Папки";
+"DOCUMENTS_SECTION_NAME" = "Документы";
+"PERCONAL_DOCUMENTS_SEARCH_RESULTS" = "В своих документах";
+"VK_DOCUMENTS_SEARCH_RESULTS" = "В документах ВК";
+
+"EDIT_CELL_EDIT_ACTION" = "Изменить";
+"EDIT_CELL_DELETE_ACTION" = "Удалить";
+
+// Editing mode tabbar overlay
+"EDITING_TAB_OVERLAY_DELETE" = "Удалить";
+"EDITING_TAB_OVERLAY_MOVE" = "Переместить";
+"EDITING_TAB_OVERLAY_COPY" = "Скопировать";
+
+// Editing mode navbar overlay
+"EDITING_NAVBAR_OVERLAY_PICKED_TEMPLATE" = "Выбрано: %d";
+
+"EDITING_MODE_DELETE_ALERT_TITLE" = "Удалить из ВК?";
+"EDITING_MODE_DELETE_ALERT_MESSAGE" = "Выбранные документы удалятся из ВК";
+
+// file upload & image picker
+"UPLOAD_IN_PROGRESS_ERROR_MESSAGE" = "Дождись окончания предыдущей загрузки";
+"PHOTO_ACCESS_FORBIDDEN_ERROR_MESSAGE" = "Нет доступа к фото\n Невозможно загрузить фото в ВК";
+
+"UPLOAD_BEGAN_TOAST_MESSAGE" = "Загружаем документ в ВК";
+
+// search
+"SEARCH_BAR_PLACEHOLDER" = "Поиск";
+
+"DOCUMENT_ADDED_TOAST_MESSAGE" = "Документ добавлен";
+
+//MARK: EditViewController
+
+"EDIT_VIEW_CONTROLLER_NEW_FOLDER_TITLE" = "Новая папка";
+"EDIT_VIEW_CONTROLLER_EDIT_FOLDER_TITLE" = "Изменить папку";
+"EDIT_VIEW_CONTROLLER_EDIT_DOCUMENT_TITLE" = "Изменить документ";
+
+"EDIT_VIEW_CONTROLLER_NEW_FOLDER_PLACEHOLDER" = "Имя новой папки";
+"EDIT_VIEW_CONTROLLER_EDIT_FOLDER_PLACEHOLDER" = "Имя папки";
+"EDIT_VIEW_CONTROLLER_EDIT_DOCUMENT_PLACEHOLDER" = "Имя документа";
+
+"EDIT_VIEW_CONTROLLER_FORBIDDEN_SYMBOL_ERROR" = "Символ / не допускается";
+"EDIT_VIEW_CONTROLLER_FORBIDDEN_FOLDER_CREATED_ALREADY_ERROR" = "Папка уже существует";
+
+"EDIT_VIEW_CONTROLLER_FORBIDDEN_FOLDER_CREATED_TOAST" = "Папка создана";
+"EDIT_VIEW_CONTROLLER_FORBIDDEN_FOLDER_CHANGED_TOAST" = "Папка изменена";
+"EDIT_VIEW_CONTROLLER_FORBIDDEN_DOCUMENT_CHANGED_TOAST" = "Документ изменен";
+
+//MARK: MoveCopyViewController
+
+"MOVECOPY_VIEW_CONTROLLER_SAVE_BAR_BUTTON_TITLE" = "Сохранить";
+
+"MOVECOPY_VIEW_CONTROLLER_COPY_TITLE" = "Копировать";
+"MOVECOPY_VIEW_CONTROLLER_MOVE_TITLE" = "Переместить";
+"MOVECOPY_VIEW_CONTROLLER_ADD_TO_FOLDER_TITLE" = "Добавить в папку";
+"MOVECOPY_VIEW_CONTROLLER_CHOOSE_FILE_TO_ADD_TITLE" = "Выбрать файл";
+
+"MOVECOPY_VIEW_CONTROLLER_FILE_ADDED_ALREADY_ERROR" = "В папке уже есть этот файл";
+"MOVECOPY_VIEW_CONTROLLER_CANNOT_COPY_THYSELF_ERROR" = "Нельзя копировать папку в себя";
+"MOVECOPY_VIEW_CONTROLLER_NO_FOLDERS_ERROR" = "Сначала нужно создать папку";
+
+"MOVECOPY_VIEW_CONTROLLER_REPLACE_FOLDERS_QUESTION" = "Заменить папки?";
+
+"MOVECOPY_VIEW_CONTROLLER_FILES_COPIED_SUCCESS" = "Файлы скопированы";
+"MOVECOPY_VIEW_CONTROLLER_FILES_MOVED_SUCCESS" = "Файлы перемещены";
+"MOVECOPY_VIEW_CONTROLLER_FILES_ADDED_TO_FOLDER_SUCCESS" = "Файлы добавлены в папку";
+
+
+//MARK: DocumentPreviewViewController
+
+"DOCUMENTS_PREVIEW_VIEW_CONTROLLER_SAVE_OPTION" = "Сохранить";
+"DOCUMENTS_PREVIEW_VIEW_CONTROLLER_ADD_TO_FOLDER_OPTION" = "Добавить в папку";
+"DOCUMENTS_PREVIEW_VIEW_CONTROLLER_SHARE_DOCUMENT_OPTION" = "Отправить";
+"DOCUMENTS_PREVIEW_VIEW_CONTROLLER_COPY_LINK_OPTION" = "Копировать ссылку";
+"DOCUMENTS_PREVIEW_VIEW_CONTROLLER_DELETE_OPTION" = "Удалить";
+
+"DOCUMENTS_PREVIEW_VIEW_CONTROLLER_DELETE_FROM_VK_ALERT_ACTION" = "Удалить из ВК";
+"DOCUMENTS_PREVIEW_VIEW_CONTROLLER_DELETE_FROM_DEVICE_ALERT_ACTION" = "Удалить c девайса";
+
+"DOCUMENTS_PREVIEW_VIEW_CONTROLLER_SAVED_SUCCESS" = "Сохранено";
+"DOCUMENTS_PREVIEW_VIEW_CONTROLLER_ADDED_SUCCESS" = "Документ добавлен";
+"DOCUMENTS_PREVIEW_VIEW_CONTROLLER_LINK_COPIED_SUCCESS" = "Ссылка скопирована";
+
+"DOCUMENTS_PREVIEW_VIEW_CONTROLLER_LOADING_CANCELED_MESSAGE" = "Загрузка отменена";
+
+//MARK: SettingsViewController
+
+"SETTINGS_VIEW_CONTROLLER_HEADER_TITLE" = "Основные настройки";
+"SETTINGS_VIEW_CONTROLLER_CLEAR_CACHE_DEFAULT_TEXT" = "Очистить кэш";
+"SETTINGS_VIEW_CONTROLLER_CLEAR_CACHE_TEMPLATE_TEXT" = "Очистить кэш – %@ занято";
+"SETTINGS_VIEW_CONTROLLER_ONLY_WIFI_LOAD" = "Загрузка файлов только по Wi-Fi";
+"SETTINGS_VIEW_CONTROLLER_SAVE_DOCUMENTS_AUTOMATICALLY" = "Сохранять файлы после просмотра";
+"SETTINGS_VIEW_CONTROLLER_CONTACT_DEVELOPER" = "Связь с разработчиком";
+
+"SETTINGS_VIEW_CONTROLLER_DELETE_ALERT_TITLE" = "Что хотите удалить?";
+"SETTINGS_VIEW_CONTROLLER_DELETE_ALERT_DELETE_FOLDERS_AND_DOCS_ACTION" = "Загруженные документы и папки";
+"SETTINGS_VIEW_CONTROLLER_DELETE_ALERT_ONLY_SAVED_DOCUMENTS_ACTION" = "Только загруженные документы";
+
+"SETTINGS_VIEW_CONTROLLER_FOLDERS_AND_DOCS_DELETED_SUCCESS" = "Документы и папки удалены";
+"SETTINGS_VIEW_CONTROLLER_ONLY_SAVED_DOCS_DELETED_SUCCESS" = "Кэш удален";
+
+"SETTINGS_VIEW_CONTROLLER_EMAIL_NOT_SET_ERROR" = "Связь барахлит.\nПроверь настройки почты.";
+
+
+
+

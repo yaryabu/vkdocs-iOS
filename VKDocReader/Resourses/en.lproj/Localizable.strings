@@ -8,9 +8,10 @@
 
 
 //MARK: Общее
-"YES" = "Да";
-"NO" = "Нет";
-"CANCEL" = "Отмена";
+
+"YES" = "Yes";
+"NO" = "No";
+"CANCEL" = "Cancel";
 
 
 //MARK: Сообщения ошибок Network
@@ -43,7 +44,7 @@
 
 //MARK: Авторизация
 
-"ONBOARDING_FIRST_SLIDE" = "Скачивай любые документы из ВКонтакте";
+"ONBOARDING_FIRST_SLIDE" = "Download any folders blabla";
 "ONBOARDING_SECOND_SLIDE" = "Создавай папки";
 "ONBOARDING_THIRD_SLIDE" = "Передавай документы кому и куда угодно";
 
@@ -81,7 +82,7 @@
 "PERCONAL_DOCUMENTS_SEARCH_RESULTS" = "В своих документах";
 "VK_DOCUMENTS_SEARCH_RESULTS" = "В документах ВК";
 
-"EDIT_CELL_EDIT_ACTION" = "Изменить",
+"EDIT_CELL_EDIT_ACTION" = "Изменить";
 "EDIT_CELL_DELETE_ACTION" = "Удалить";
 
 // Editing mode tabbar overlay
