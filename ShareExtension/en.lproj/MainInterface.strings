@@ -1,0 +1,12 @@
+
+/* Class = "UINavigationItem"; title = "Title"; ObjectID = "VDu-J1-yYT"; */
+"VDu-J1-yYT.title" = "Title";
+
+/* Class = "UILabel"; text = "FileName"; ObjectID = "jp1-Qw-UXu"; */
+"jp1-Qw-UXu.text" = "FileName";
+
+/* Class = "UINavigationItem"; title = "Авторизация"; ObjectID = "o2Y-lB-te6"; */
+"o2Y-lB-te6.title" = "Authorization";
+
+/* Class = "UILabel"; text = "0 %"; ObjectID = "r8u-5m-RTv"; */
+"r8u-5m-RTv.text" = "0 %";

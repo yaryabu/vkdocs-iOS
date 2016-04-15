@@ -152,10 +152,11 @@
 		574093A41CB34D6F003C156F /* Analytics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Analytics.swift; sourceTree = "<group>"; };
 		574093A71CB466F3003C156F /* NavBarOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavBarOverlay.swift; sourceTree = "<group>"; };
 		574093A91CB4670F003C156F /* NavBarOverlay.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NavBarOverlay.xib; sourceTree = "<group>"; };
-		574B1B3C1CC0787300EE607F /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/MainInterface.strings; sourceTree = "<group>"; };
 		574B1B3E1CC0787E00EE607F /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		574B1B401CC0788100EE607F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		574B1B411CC0798400EE607F /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
+		574B1B481CC07F5100EE607F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/MainInterface.strings; sourceTree = "<group>"; };
+		574B1B491CC07F5600EE607F /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/MainInterface.strings; sourceTree = "<group>"; };
 		575928691CAFF7720082E3BF /* SwiftWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftWrapper.swift; path = Helpers/SwiftWrapper.swift; sourceTree = "<group>"; };
 		575928771CB1290A0082E3BF /* RetryErrorService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RetryErrorService.swift; sourceTree = "<group>"; };
 		57687F851C8F32EE0037AF4F /* Bash.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Bash.swift; path = Helpers/Bash.swift; sourceTree = "<group>"; };
@@ -221,7 +222,6 @@
 		57ADB1B61C9F4DE3001E0766 /* Open Sans.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Open Sans.ttf"; sourceTree = "<group>"; };
 		57AF2CA21C97578600C5A193 /* ShareExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ShareExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		57AF2CA41C97578600C5A193 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
-		57AF2CA71C97578600C5A193 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		57AF2CA91C97578600C5A193 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		57AF96951C8B4C3700E924C3 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		57AF96971C8B524800E924C3 /* Document.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
@@ -1055,8 +1055,8 @@
 		57AF2CA61C97578600C5A193 /* MainInterface.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				57AF2CA71C97578600C5A193 /* Base */,
-				574B1B3C1CC0787300EE607F /* ru */,
+				574B1B481CC07F5100EE607F /* en */,
+				574B1B491CC07F5600EE607F /* ru */,
 			);
 			name = MainInterface.storyboard;
 			sourceTree = "<group>";
