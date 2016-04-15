@@ -20,7 +20,7 @@ struct Const {
         static let errorDomain = bundleIdentifier + ".error"
         //рандомная строка, которая добавляется ко всем папкам для документов, чтобы
         //не было конфликтов с пользовательскими папками
-        static let directoryConflictHelper = bundleIdentifier + ".CONFLICT_CONSTANT.faseffaojvbwbou"
+        static let directoryConflictHelper = bundleIdentifier + ".CONFLICT_CONSTANT"
     }
     
     struct DeviceInfo {
