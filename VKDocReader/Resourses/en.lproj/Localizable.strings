@@ -35,7 +35,7 @@
 
 //MARK: Базовый ViewController
 "NEED_NEW_SESSION_TITLE" = "Session has expired";
-"NEED_NEW_SESSION_MESSAGE" = "Please, repeat authorization process";
+"NEED_NEW_SESSION_MESSAGE" = "Please repeat authorization process";
 "NEED_NEW_SESSION_OK_BUTTON" = "OK";
 "NEED_NEW_SESSION_EXIT_APP_BUTTON" = "Exit the application";
 

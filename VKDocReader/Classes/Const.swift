@@ -47,6 +47,7 @@ struct Const {
             static let docsScope = "docs"
             static let offlineScope = "offline"
             static let appScope = "\(docsScope),\(offlineScope)"
+            static let vkSdkAppScope = [docsScope, offlineScope]
         }
         
         static let authUrlString = "https://oauth.vk.com/authorize?client_id=\(Const.Common.clientId)&display=mobile&redirect_uri=https://oauth.vk.com/blank.html&scope=\(Const.Network.VKScopes.appScope)&response_type=token"

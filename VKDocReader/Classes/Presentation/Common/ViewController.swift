@@ -44,9 +44,9 @@ extension UIViewController {
         case 5:
             let alert = UIAlertController(title: "NEED_NEW_SESSION_TITLE".localized, message: "NEED_NEW_SESSION_MESSAGE".localized, preferredStyle: UIAlertControllerStyle.Alert)
             let okAction = UIAlertAction(title: "NEED_NEW_SESSION_OK_BUTTON".localized, style: .Default, handler: { (action) in
-                let authWebViewNc = self.storyboard!.instantiateViewControllerWithIdentifier(Const.StoryboardIDs.authWebViewControllerNavigationController) as! NavigationController
-                self.presentViewController(authWebViewNc, animated: true, completion: nil)
-                
+//                let authWebViewNc = self.storyboard!.instantiateViewControllerWithIdentifier(Const.StoryboardIDs.authWebViewControllerNavigationController) as! NavigationController
+//                self.presentViewController(authWebViewNc, animated: true, completion: nil)
+                self.serviceLayer.authService.beginAuth()
                 })
             let logOutAction = UIAlertAction(title: "NEED_NEW_SESSION_EXIT_APP_BUTTON".localized, style: .Default, handler: { (action) in
                 self.launchExitAppSequence()

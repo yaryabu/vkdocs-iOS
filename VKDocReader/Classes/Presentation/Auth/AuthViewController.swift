@@ -71,10 +71,7 @@ class AuthViewController: ViewController, UICollectionViewDelegate, UICollection
     }
     
     @IBAction func logInButtonPressed(sender: AnyObject) {
-        if VKSdk
-//        VKSdk.authorize([], withOptions: VKAuthorizationOptions)
-        VKSdk.authorize(["docs", "offline"])
-//        self.performSegueWithIdentifier(Const.StoryboardSegues.logInButtonPressed, sender: self)
+        serviceLayer.authService.beginAuth()
+//        VKSdk.authorize(["docs", "offline"], withOptions: VKAuthorizationOptions.DisableSafariController)
     }
-    
 }

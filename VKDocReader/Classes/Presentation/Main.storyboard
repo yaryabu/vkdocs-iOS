@@ -124,11 +124,12 @@
                         <outlet property="enterButton" destination="Kym-UQ-9rS" id="ZSh-kS-aSn"/>
                         <outlet property="pageControl" destination="A5d-6a-yun" id="9jj-U1-Dfs"/>
                         <segue destination="p2k-Sa-eZz" kind="presentation" identifier="logInButtonPressed" id="Nhj-10-fq4"/>
+                        <segue destination="haa-4U-vSC" kind="presentation" identifier="123123123" modalPresentationStyle="fullScreen" modalTransitionStyle="flipHorizontal" id="NW4-HQ-Zog"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="245" y="315"/>
+            <point key="canvasLocation" x="1129" y="1030"/>
         </scene>
         <!--Авторизация-->
         <scene sceneID="cBq-6V-WVd">
@@ -780,4 +781,7 @@
         <image name="onboard_background" width="320" height="568"/>
         <image name="options_button" width="5" height="18"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="NW4-HQ-Zog"/>
+    </inferredMetricsTieBreakers>
 </document>

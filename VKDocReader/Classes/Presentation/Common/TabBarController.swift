@@ -38,6 +38,8 @@ class TabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.Default, animated: true)
+        
         tabBar.items![0].title = "FIRST_TAB_TITLE".localized
         tabBar.items![1].title = "SECOND_TAB_TITLE".localized
         

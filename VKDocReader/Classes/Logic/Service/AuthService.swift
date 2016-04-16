@@ -7,6 +7,7 @@
 //
 
 import SSKeychain
+import VK_ios_sdk
 
 class AuthService: Service {
 
@@ -32,6 +33,24 @@ class AuthService: Service {
         }
     }
     
+    func beginAuth() {
+        
+        if VKSdk.accessToken() != nil {
+            VKSdk.wakeUpSession(Const.Network.VKScopes.vkSdkAppScope, completeBlock: { (state, error) in
+                if state == VKAuthorizationState.Authorized {
+                    self.saveAuthData(VKSdk.accessToken())
+                    let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
+                    delegate.beginTransitionToTabBar()
+                } else {
+                    VKSdk.authorize(Const.Network.VKScopes.vkSdkAppScope, withOptions: VKAuthorizationOptions.DisableSafariController)
+                }
+            })
+        } else {
+            VKSdk.authorize(Const.Network.VKScopes.vkSdkAppScope, withOptions: VKAuthorizationOptions.DisableSafariController)
+        }
+        
+    }
+    
     func saveAuthData(paramsString: String) {
         let params = paramsString.componentsSeparatedByString("&")
 
@@ -42,6 +61,11 @@ class AuthService: Service {
                 self.userId = param.componentsSeparatedByString("=")[1]
             }
         }
+    }
+    
+    func saveAuthData(tokenInfo: VKAccessToken) {
+        token = tokenInfo.accessToken
+        userId = tokenInfo.userId
     }
     
     override func deleteAllInfo() {

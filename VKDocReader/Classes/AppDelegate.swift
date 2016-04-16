@@ -26,6 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, VKSdkDelegate, VKSdkUIDel
         
         let vkSdk = VKSdk.initializeWithAppId(Const.Common.clientId)
         vkSdk.registerDelegate(self)
+        vkSdk.uiDelegate = self
         
         Dispatch.defaultQueue { 
             for file in Bash.ls(NSTemporaryDirectory()) {
@@ -56,22 +57,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate, VKSdkDelegate, VKSdkUIDel
         return true
     }
     
-    func vkSdkAccessAuthorizationFinishedWithResult(result: VKAuthorizationResult!) {
-        print("result", result.token.userId)
-        print("result", result.token.accessToken)
+    func beginTransitionToTabBar() {
+        if let rootVC = window!.rootViewController as? AuthViewController {
+            rootVC.performSegueWithIdentifier("123123123", sender: nil)
+            Dispatch.mainQueueAfter(0.8, closure: {
+                self.chooseInitialViewCotroller()
+            })
+        }
     }
     
-    func vkSdkUserAuthorizationFailed() {
-        print("VK_SDK_ERROR")
+    func vkSdkAccessAuthorizationFinishedWithResult(result: VKAuthorizationResult!) {
+        if result.error == nil {
+            ServiceLayer.sharedServiceLayer.authService.saveAuthData(result.token)
+            Analytics.logUserAuthorized()
+            beginTransitionToTabBar()
+        } else {
+            // игнорируем ошибки, потому что от VK sdk приходят странные вещи
+        }
     }
+    
+    func vkSdkUserAuthorizationFailed() {}
     
     func vkSdkShouldPresentViewController(controller: UIViewController!) {
-        print("SSSSSS")
+        window!.rootViewController!.presentViewController(controller, animated: true, completion: nil)
     }
     
-    func vkSdkNeedCaptchaEnter(captchaError: VKError!) {
-        print("CCCCCC")
-    }
+    func vkSdkNeedCaptchaEnter(captchaError: VKError!) {}
     
     
     func application(application: UIApplication, handleEventsForBackgroundURLSession identifier: String, completionHandler: () -> Void) {}
@@ -94,14 +105,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, VKSdkDelegate, VKSdkUIDel
     }
 
     func chooseInitialViewCotroller() {
+        window = UIWindow()
+        
         let storyboard = UIStoryboard(name: Const.Common.mainStoryboardName, bundle: NSBundle.mainBundle())
         if (ServiceLayer.sharedServiceLayer.authService.token != nil) {
             self.window?.rootViewController = storyboard.instantiateViewControllerWithIdentifier(Const.StoryboardIDs.tabBarController)
         } else {
             self.window?.rootViewController = storyboard.instantiateViewControllerWithIdentifier(Const.StoryboardIDs.authViewController)
         }
-        window?.makeKeyAndVisible()
         
+        window?.makeKeyAndVisible()
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
