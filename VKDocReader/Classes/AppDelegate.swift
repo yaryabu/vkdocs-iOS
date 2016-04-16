@@ -10,18 +10,22 @@ import UIKit
 
 import SSKeychain
 import RealmSwift
+import VK_ios_sdk
 
 import Fabric
 import Crashlytics
 
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, VKSdkDelegate, VKSdkUIDelegate {
     
     var window: UIWindow?
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         Fabric.with([Crashlytics.self])
+        
+        let vkSdk = VKSdk.initializeWithAppId(Const.Common.clientId)
+        vkSdk.registerDelegate(self)
         
         Dispatch.defaultQueue { 
             for file in Bash.ls(NSTemporaryDirectory()) {
@@ -52,7 +56,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
-    func application(application: UIApplication, handleEventsForBackgroundURLSession identifier: String, completionHandler: () -> Void) {
+    func vkSdkAccessAuthorizationFinishedWithResult(result: VKAuthorizationResult!) {
+        print("result", result.token.userId)
+        print("result", result.token.accessToken)
+    }
+    
+    func vkSdkUserAuthorizationFailed() {
+        print("VK_SDK_ERROR")
+    }
+    
+    func vkSdkShouldPresentViewController(controller: UIViewController!) {
+        print("SSSSSS")
+    }
+    
+    func vkSdkNeedCaptchaEnter(captchaError: VKError!) {
+        print("CCCCCC")
+    }
+    
+    
+    func application(application: UIApplication, handleEventsForBackgroundURLSession identifier: String, completionHandler: () -> Void) {}
+    
+    @available(iOS 9.0, *)
+    func application(app: UIApplication, openURL url: NSURL, options: [String : AnyObject]) -> Bool {
+        VKSdk.processOpenURL(url, fromApplication: options[UIApplicationOpenURLOptionsSourceApplicationKey] as! String)
+        return true
+    }
+    
+    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
+        VKSdk.processOpenURL(url, fromApplication: sourceApplication)
+        return true
     }
     
     func applicationDidEnterBackground(application: UIApplication) {

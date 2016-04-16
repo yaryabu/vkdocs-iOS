@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import VK_ios_sdk
 
 class AuthViewController: ViewController, UICollectionViewDelegate, UICollectionViewDataSource, UIScrollViewDelegate {
 
@@ -15,6 +16,7 @@ class AuthViewController: ViewController, UICollectionViewDelegate, UICollection
     @IBOutlet weak var enterButton: UIButton! {
         didSet {
             enterButton.setTitle("AUTH_BUTTON_TEXT".localized, forState: UIControlState.Normal)
+            enterButton.setTitle("AUTH_BUTTON_TEXT".localized, forState: UIControlState.Highlighted)
         }
     }
     
@@ -69,7 +71,10 @@ class AuthViewController: ViewController, UICollectionViewDelegate, UICollection
     }
     
     @IBAction func logInButtonPressed(sender: AnyObject) {
-        self.performSegueWithIdentifier(Const.StoryboardSegues.logInButtonPressed, sender: self)
+        if VKSdk
+//        VKSdk.authorize([], withOptions: VKAuthorizationOptions)
+        VKSdk.authorize(["docs", "offline"])
+//        self.performSegueWithIdentifier(Const.StoryboardSegues.logInButtonPressed, sender: self)
     }
     
 }

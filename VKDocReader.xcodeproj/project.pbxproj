@@ -23,6 +23,7 @@
 		574093A81CB466F3003C156F /* NavBarOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574093A71CB466F3003C156F /* NavBarOverlay.swift */; };
 		574093AA1CB4670F003C156F /* NavBarOverlay.xib in Resources */ = {isa = PBXBuildFile; fileRef = 574093A91CB4670F003C156F /* NavBarOverlay.xib */; };
 		574B1B3D1CC0787E00EE607F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 574B1B3F1CC0787E00EE607F /* Localizable.strings */; };
+		574B1B501CC1731300EE607F /* VK_ios_sdk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 574B1B4F1CC1731300EE607F /* VK_ios_sdk.framework */; };
 		5759286A1CAFF7720082E3BF /* SwiftWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575928691CAFF7720082E3BF /* SwiftWrapper.swift */; };
 		5759286B1CB004A40082E3BF /* ShareExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 57AF2CA21C97578600C5A193 /* ShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		575928781CB1290A0082E3BF /* RetryErrorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575928771CB1290A0082E3BF /* RetryErrorService.swift */; };
@@ -157,6 +158,7 @@
 		574B1B411CC0798400EE607F /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		574B1B481CC07F5100EE607F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/MainInterface.strings; sourceTree = "<group>"; };
 		574B1B491CC07F5600EE607F /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/MainInterface.strings; sourceTree = "<group>"; };
+		574B1B4F1CC1731300EE607F /* VK_ios_sdk.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VK_ios_sdk.framework; path = "../../Library/Developer/Xcode/DerivedData/VKDocReader-gehyuweoxnoijmaubaremtspikcg/Build/Products/Debug-iphoneos/VK_ios_sdk.framework"; sourceTree = "<group>"; };
 		575928691CAFF7720082E3BF /* SwiftWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftWrapper.swift; path = Helpers/SwiftWrapper.swift; sourceTree = "<group>"; };
 		575928771CB1290A0082E3BF /* RetryErrorService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RetryErrorService.swift; sourceTree = "<group>"; };
 		57687F851C8F32EE0037AF4F /* Bash.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Bash.swift; path = Helpers/Bash.swift; sourceTree = "<group>"; };
@@ -241,6 +243,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				574B1B501CC1731300EE607F /* VK_ios_sdk.framework in Frameworks */,
 				8FEBB0456EC5586BE2BDFC30 /* Pods_VKDocReader.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -576,6 +579,7 @@
 		A6853E1B165B4ED768EBD6E8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				574B1B4F1CC1731300EE607F /* VK_ios_sdk.framework */,
 				CEB8F83F2C0DE4A927EC806B /* Pods_VKDocReader.framework */,
 				5E7508356EF612C7BA64AE06 /* Pods_ShareExtension.framework */,
 			);
@@ -1163,6 +1167,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = ru.yaryabu.VKDocs;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_INSTALL_OBJC_HEADER = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				WARNING_CFLAGS = (
 					"-Wextra",
@@ -1186,6 +1192,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = ru.yaryabu.VKDocs;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_INSTALL_OBJC_HEADER = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				WARNING_CFLAGS = (
 					"-Wextra",

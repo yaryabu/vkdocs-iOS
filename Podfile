@@ -8,7 +8,8 @@ target 'VKDocReader' do
   pod 'CRToast'
   pod 'Fabric'
   pod 'Crashlytics'
-  pod 'SSKeychain'
+  #pod 'SSKeychain'
+  pod "VK-ios-sdk"
 end
 
 target 'ShareExtension' do

@@ -9,8 +9,8 @@ PODS:
   - Realm/Headers (0.98.3)
   - RealmSwift (0.98.3):
     - Realm (= 0.98.3)
-  - SSKeychain (1.3.1)
   - SwiftyJSON (2.3.2)
+  - VK-ios-sdk (1.3.16)
 
 DEPENDENCIES:
   - Alamofire
@@ -18,8 +18,8 @@ DEPENDENCIES:
   - CRToast
   - Fabric
   - RealmSwift
-  - SSKeychain
   - SwiftyJSON
+  - VK-ios-sdk
 
 SPEC CHECKSUMS:
   Alamofire: f11d8624a05f5d39e0c99309b3e600a3ba64298a
@@ -28,7 +28,7 @@ SPEC CHECKSUMS:
   Fabric: caf7580c725e64db144f610ac65cd60956911dc7
   Realm: c6a7d00221a2d5177810a674aebd40c5e0b70b0f
   RealmSwift: d6ecad6e4c2a645d6ac956c2c7e9efb375f39c31
-  SSKeychain: 04c4ec40f4c3deda524e269bc76e5f30e638a174
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
+  VK-ios-sdk: 7804776d9947cf9b6f54a259fac589b9212156f1
 
 COCOAPODS: 0.39.0
