@@ -99,6 +99,7 @@
 // file upload & image picker
 "UPLOAD_IN_PROGRESS_ERROR_MESSAGE" = "Wait for the upload to finish";
 "PHOTO_ACCESS_FORBIDDEN_ERROR_MESSAGE" = "Photo access forbidden\n Cannot load photo to VK";
+"DOCUMENT_UPLOAD_SUCCESS_TOAST_MESSAGE" = "Document uploaded";
 
 "UPLOAD_BEGAN_TOAST_MESSAGE" = "Uploading to VK";
 

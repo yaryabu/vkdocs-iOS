@@ -154,7 +154,6 @@
 		574093A91CB4670F003C156F /* NavBarOverlay.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NavBarOverlay.xib; sourceTree = "<group>"; };
 		574B1B3E1CC0787E00EE607F /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		574B1B401CC0788100EE607F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		574B1B411CC0798400EE607F /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		574B1B481CC07F5100EE607F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/MainInterface.strings; sourceTree = "<group>"; };
 		574B1B491CC07F5600EE607F /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/MainInterface.strings; sourceTree = "<group>"; };
 		574B1B4F1CC1731300EE607F /* VK_ios_sdk.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VK_ios_sdk.framework; path = "../../Library/Developer/Xcode/DerivedData/VKDocReader-gehyuweoxnoijmaubaremtspikcg/Build/Products/Debug-iphoneos/VK_ios_sdk.framework"; sourceTree = "<group>"; };
@@ -1047,7 +1046,6 @@
 			children = (
 				574B1B3E1CC0787E00EE607F /* ru */,
 				574B1B401CC0788100EE607F /* en */,
-				574B1B411CC0798400EE607F /* Base */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";

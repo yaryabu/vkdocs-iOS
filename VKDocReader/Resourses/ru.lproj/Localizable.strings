@@ -98,6 +98,8 @@
 // file upload & image picker
 "UPLOAD_IN_PROGRESS_ERROR_MESSAGE" = "Дождись окончания предыдущей загрузки";
 "PHOTO_ACCESS_FORBIDDEN_ERROR_MESSAGE" = "Нет доступа к фото\n Невозможно загрузить фото в ВК";
+"DOCUMENT_UPLOAD_SUCCESS_TOAST_MESSAGE" = "Документ загружен";
+
 
 "UPLOAD_BEGAN_TOAST_MESSAGE" = "Загружаем документ в ВК";
 

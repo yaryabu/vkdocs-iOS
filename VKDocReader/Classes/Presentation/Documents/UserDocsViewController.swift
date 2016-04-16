@@ -620,7 +620,7 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
     
     func uploadMediaFile(path: String, fileName: String) {
         self.serviceLayer.uploadDocsService.uploadDocument(path, documentName: fileName, completion: { () -> Void in
-            ToastManager.sharedInstance.presentInfo("Документ загружен")
+            ToastManager.sharedInstance.presentInfo("DOCUMENT_UPLOAD_SUCCESS_TOAST_MESSAGE".localized)
             self.refreshTableViewData()
             }, progress: { (totalUploaded, bytesToUpload) -> Void in
                 //прогресс ловится в NavigationController

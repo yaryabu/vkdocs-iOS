@@ -105,6 +105,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, VKSdkDelegate, VKSdkUIDel
     }
 
     func chooseInitialViewCotroller() {
+        //FIXME: старые window не влияют на UI но все равно остаются в памяти
         window = UIWindow()
         
         let storyboard = UIStoryboard(name: Const.Common.mainStoryboardName, bundle: NSBundle.mainBundle())
