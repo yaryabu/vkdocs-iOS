@@ -59,7 +59,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, VKSdkDelegate, VKSdkUIDel
     
     func beginTransitionToTabBar() {
         if let rootVC = window!.rootViewController as? AuthViewController {
-            rootVC.performSegueWithIdentifier("123123123", sender: nil)
+            rootVC.performSegueWithIdentifier(Const.StoryboardSegues.logInSuccess, sender: nil)
             Dispatch.mainQueueAfter(0.8, closure: {
                 self.chooseInitialViewCotroller()
             })

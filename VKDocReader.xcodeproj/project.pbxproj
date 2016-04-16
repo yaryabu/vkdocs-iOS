@@ -30,7 +30,6 @@
 		57687F861C8F32EE0037AF4F /* Bash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57687F851C8F32EE0037AF4F /* Bash.swift */; };
 		576ADCA91CA86A3700615FC5 /* LoadTaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 576ADCA81CA86A3700615FC5 /* LoadTaskManager.swift */; };
 		576AF2701CA8A35100C93E60 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 576AF24C1CA8A35100C93E60 /* AuthViewController.swift */; };
-		576AF2711CA8A35100C93E60 /* AuthWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 576AF24D1CA8A35100C93E60 /* AuthWebViewController.swift */; };
 		576AF2721CA8A35100C93E60 /* OnboardingViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 576AF24E1CA8A35100C93E60 /* OnboardingViewCell.swift */; };
 		576AF2731CA8A35100C93E60 /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 576AF2501CA8A35100C93E60 /* DataSource.swift */; };
 		576AF2741CA8A35100C93E60 /* Labels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 576AF2511CA8A35100C93E60 /* Labels.swift */; };
@@ -164,7 +163,6 @@
 		57687F851C8F32EE0037AF4F /* Bash.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Bash.swift; path = Helpers/Bash.swift; sourceTree = "<group>"; };
 		576ADCA81CA86A3700615FC5 /* LoadTaskManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadTaskManager.swift; sourceTree = "<group>"; };
 		576AF24C1CA8A35100C93E60 /* AuthViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
-		576AF24D1CA8A35100C93E60 /* AuthWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthWebViewController.swift; sourceTree = "<group>"; };
 		576AF24E1CA8A35100C93E60 /* OnboardingViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingViewCell.swift; sourceTree = "<group>"; };
 		576AF2501CA8A35100C93E60 /* DataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
 		576AF2511CA8A35100C93E60 /* Labels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Labels.swift; sourceTree = "<group>"; };
@@ -311,7 +309,6 @@
 			isa = PBXGroup;
 			children = (
 				576AF24C1CA8A35100C93E60 /* AuthViewController.swift */,
-				576AF24D1CA8A35100C93E60 /* AuthWebViewController.swift */,
 				576AF24E1CA8A35100C93E60 /* OnboardingViewCell.swift */,
 			);
 			path = Auth;
@@ -945,7 +942,6 @@
 				5795DD5E1C8C9D750008DFA1 /* DateFormatter.swift in Sources */,
 				57AF96A11C8B5CB000E924C3 /* DocsParser.swift in Sources */,
 				5759286A1CAFF7720082E3BF /* SwiftWrapper.swift in Sources */,
-				576AF2711CA8A35100C93E60 /* AuthWebViewController.swift in Sources */,
 				576AF2721CA8A35100C93E60 /* OnboardingViewCell.swift in Sources */,
 				576AF2791CA8A35100C93E60 /* View.swift in Sources */,
 				576AF2701CA8A35100C93E60 /* AuthViewController.swift in Sources */,

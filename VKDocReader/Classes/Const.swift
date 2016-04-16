@@ -74,7 +74,6 @@ struct Const {
     }
     
     struct StoryboardSegues {
-        static let logInButtonPressed = "logInButtonPressed"
         static let logInSuccess = "logInSuccess"
         static let previewDocument = "previewDocument"
         static let createFolder = "createFolder"

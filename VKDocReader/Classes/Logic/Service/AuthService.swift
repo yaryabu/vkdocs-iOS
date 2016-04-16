@@ -51,18 +51,6 @@ class AuthService: Service {
         
     }
     
-    func saveAuthData(paramsString: String) {
-        let params = paramsString.componentsSeparatedByString("&")
-
-        for param in params {
-            if param.containsString("access_token") {
-                self.token = param.componentsSeparatedByString("=")[1]
-            } else if param.containsString("user_id") {
-                self.userId = param.componentsSeparatedByString("=")[1]
-            }
-        }
-    }
-    
     func saveAuthData(tokenInfo: VKAccessToken) {
         token = tokenInfo.accessToken
         userId = tokenInfo.userId

@@ -123,62 +123,12 @@
                         <outlet property="collectionView" destination="DNl-ZY-b17" id="fye-zU-Evt"/>
                         <outlet property="enterButton" destination="Kym-UQ-9rS" id="ZSh-kS-aSn"/>
                         <outlet property="pageControl" destination="A5d-6a-yun" id="9jj-U1-Dfs"/>
-                        <segue destination="p2k-Sa-eZz" kind="presentation" identifier="logInButtonPressed" id="Nhj-10-fq4"/>
-                        <segue destination="haa-4U-vSC" kind="presentation" identifier="123123123" modalPresentationStyle="fullScreen" modalTransitionStyle="flipHorizontal" id="NW4-HQ-Zog"/>
+                        <segue destination="haa-4U-vSC" kind="presentation" identifier="logInSuccess" modalPresentationStyle="fullScreen" modalTransitionStyle="flipHorizontal" id="NW4-HQ-Zog"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1129" y="1030"/>
-        </scene>
-        <!--Авторизация-->
-        <scene sceneID="cBq-6V-WVd">
-            <objects>
-                <viewController storyboardIdentifier="AuthWebViewController" id="eYz-of-vJg" customClass="AuthWebViewController" customModule="VKDocReader" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="bO7-r0-0aE"/>
-                        <viewControllerLayoutGuide type="bottom" id="ZAl-QD-7LI"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="eeV-De-SOJ">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UU4-bT-8aL">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
-                                <connections>
-                                    <outlet property="delegate" destination="eYz-of-vJg" id="we7-wU-kkm"/>
-                                </connections>
-                            </webView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="trailing" secondItem="UU4-bT-8aL" secondAttribute="trailing" id="20p-cw-Amc"/>
-                            <constraint firstItem="UU4-bT-8aL" firstAttribute="leading" secondItem="eeV-De-SOJ" secondAttribute="leading" id="2TE-rX-cFs"/>
-                            <constraint firstItem="UU4-bT-8aL" firstAttribute="top" secondItem="eeV-De-SOJ" secondAttribute="top" id="Bif-EW-RHQ"/>
-                            <constraint firstItem="ZAl-QD-7LI" firstAttribute="top" secondItem="UU4-bT-8aL" secondAttribute="bottom" id="LAu-qa-eco"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" title="Авторизация" id="F5m-p2-sYD">
-                        <barButtonItem key="leftBarButtonItem" systemItem="stop" id="L9X-ZS-pyy">
-                            <connections>
-                                <action selector="cancelButtonPressed:" destination="eYz-of-vJg" id="hHe-dw-r9a"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="fSx-pc-a5i">
-                            <connections>
-                                <action selector="refreshButtonPressed:" destination="eYz-of-vJg" id="j3e-zo-yAY"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="webView" destination="UU4-bT-8aL" id="qKz-QS-1bc"/>
-                        <segue destination="haa-4U-vSC" kind="presentation" identifier="logInSuccess" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="VCl-jw-hCK"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="x9w-BK-ydg" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1695" y="315"/>
+            <point key="canvasLocation" x="1249" y="315"/>
         </scene>
         <!--Новая папка-->
         <scene sceneID="VRm-36-KGG">
@@ -489,24 +439,6 @@
             </objects>
             <point key="canvasLocation" x="3127" y="315"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="8Tv-Bf-FX7">
-            <objects>
-                <navigationController storyboardIdentifier="AuthWebViewControllerNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="p2k-Sa-eZz" customClass="NavigationController" customModule="VKDocReader" customModuleProvider="target" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Fjv-Zj-cCO">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="eYz-of-vJg" kind="relationship" relationship="rootViewController" id="u6W-ni-YWU"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="8BJ-dJ-B3I" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="951" y="315"/>
-        </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="HwD-Us-lzc">
             <objects>
@@ -781,7 +713,4 @@
         <image name="onboard_background" width="320" height="568"/>
         <image name="options_button" width="5" height="18"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="NW4-HQ-Zog"/>
-    </inferredMetricsTieBreakers>
 </document>
