@@ -45,6 +45,7 @@ class Bash {
                 }
             })
         } catch {
+            debugLog(error)
             return []
         }
     }
@@ -56,6 +57,7 @@ class Bash {
         do {
             try NSFileManager.defaultManager().createDirectoryAtPath(dir, withIntermediateDirectories: true, attributes: nil)
         } catch {
+            debugLog(error)
         }
     }
     
@@ -82,6 +84,7 @@ class Bash {
             try NSFileManager.defaultManager().copyItemAtPath(bakPath, toPath: to)
             rm(bakDir)
         } catch {
+            debugLog(error)
         }
     }
     
@@ -102,6 +105,7 @@ class Bash {
         do {
             try NSFileManager.defaultManager().removeItemAtPath(filePath)
         } catch {
+            debugLog(error)
         }
     }
     

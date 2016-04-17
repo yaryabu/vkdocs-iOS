@@ -11,6 +11,11 @@ import Foundation
 import Alamofire
 import SwiftyJSON
 
+func += <KeyType, ValueType> (inout left: Dictionary<KeyType, ValueType>, right: Dictionary<KeyType, ValueType>) {
+    for (k, v) in right {
+        left.updateValue(v, forKey: k)
+    }
+}
 
 /**
  Транспорт для загрузки и аплоада файлов. Вынесен в отдельный класс из-за использования в бэкграунде.
@@ -19,8 +24,10 @@ class LoadTaskManager: Alamofire.Manager {
     static let sharedManager = LoadTaskManager()
     private static let backgroundSessionIdentifier = Const.Common.bundleIdentifier + "network.backgroundSession"
     
-    var downloadRequestPool: [RequestPoolItem] {
+    var downloadRequestPool: [RequestPoolItem] = [] {
         didSet {
+            debugLog(downloadRequestPool)
+            
             if downloadRequestPool.count > 1 {
                 downloadRequestPool[0].request.resume()
                 downloadRequestPool[1].request.resume()
@@ -33,11 +40,13 @@ class LoadTaskManager: Alamofire.Manager {
     var isUploadingNow = false
     
     private init() {
-        downloadRequestPool = []
         let config = NSURLSessionConfiguration.backgroundSessionConfigurationWithIdentifier(LoadTaskManager.backgroundSessionIdentifier)
-        super.init(configuration: config, delegate: Manager.sharedInstance.delegate, serverTrustPolicyManager: nil)
         
-        delegate.taskWillPerformHTTPRedirection = nil
+        config.HTTPAdditionalHeaders = Manager.defaultHTTPHeaders
+        config.URLCache = NSURLCache.sharedURLCache()
+        config.HTTPShouldSetCookies = false
+        
+        super.init(configuration: config)
         startRequestsImmediately = false
     }
     
@@ -81,6 +90,7 @@ class LoadTaskManager: Alamofire.Manager {
                 progress(totalReadBytes: UInt(totalRead), bytesToRead: UInt(size))
             })
             .response { (request, response, data, error) -> Void in
+                debugLog(downloadRequest.request)
                 if (error != nil) {
                     failure(error: error!)
                     

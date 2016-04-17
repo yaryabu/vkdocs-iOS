@@ -13,7 +13,7 @@ import Foundation
  */
 class Dispatch {
     
-    static let defaultQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
+    private static let defaultQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
     
     static func mainQueue(closure: () -> ()) {
         dispatch_async(dispatch_get_main_queue()) { () -> Void in

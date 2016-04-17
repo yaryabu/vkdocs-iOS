@@ -10,6 +10,7 @@
 		4003D13748E2AACA6F9F4C9B /* Pods_ShareExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E7508356EF612C7BA64AE06 /* Pods_ShareExtension.framework */; };
 		5715AE7E1C8B863F0074C59F /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5715AE7D1C8B863F0074C59F /* ImageService.swift */; };
 		5715AE811C8BB5560074C59F /* Dispatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5715AE801C8BB5560074C59F /* Dispatch.swift */; };
+		571C2A441CC335D40032565B /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57AE6A431CC3145500443C67 /* Logger.swift */; };
 		573DF38A1CAFE6D400C52624 /* DocumentPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573DF3891CAFE6D400C52624 /* DocumentPreviewViewController.swift */; };
 		574093891CB16A59003C156F /* UploadingFileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574093881CB16A59003C156F /* UploadingFileCell.swift */; };
 		5740938B1CB16C1A003C156F /* FileUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5740938A1CB16C1A003C156F /* FileUploader.swift */; };
@@ -88,6 +89,7 @@
 		57ADB1B01C9F3B5D001E0766 /* UIColors+VKColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57ADB1AF1C9F3B5D001E0766 /* UIColors+VKColors.swift */; };
 		57ADB1B21C9F3F21001E0766 /* UIFont+VKFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57ADB1B11C9F3F21001E0766 /* UIFont+VKFont.swift */; };
 		57ADB1B71C9F4DE3001E0766 /* Open Sans.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 57ADB1B61C9F4DE3001E0766 /* Open Sans.ttf */; };
+		57AE6A441CC3145500443C67 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57AE6A431CC3145500443C67 /* Logger.swift */; };
 		57AF2CA51C97578600C5A193 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57AF2CA41C97578600C5A193 /* ShareViewController.swift */; };
 		57AF2CA81C97578600C5A193 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 57AF2CA61C97578600C5A193 /* MainInterface.storyboard */; };
 		57AF96961C8B4C3700E924C3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 57AF96951C8B4C3700E924C3 /* LaunchScreen.storyboard */; };
@@ -219,6 +221,7 @@
 		57ADB1AF1C9F3B5D001E0766 /* UIColors+VKColors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColors+VKColors.swift"; sourceTree = "<group>"; };
 		57ADB1B11C9F3F21001E0766 /* UIFont+VKFont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+VKFont.swift"; sourceTree = "<group>"; };
 		57ADB1B61C9F4DE3001E0766 /* Open Sans.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Open Sans.ttf"; sourceTree = "<group>"; };
+		57AE6A431CC3145500443C67 /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		57AF2CA21C97578600C5A193 /* ShareExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ShareExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		57AF2CA41C97578600C5A193 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		57AF2CA91C97578600C5A193 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -288,6 +291,7 @@
 			children = (
 				574093A41CB34D6F003C156F /* Analytics.swift */,
 				578641241CBB064D00BF6362 /* Localize.swift */,
+				57AE6A431CC3145500443C67 /* Logger.swift */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -931,6 +935,7 @@
 			files = (
 				577047E01CA2227E00A2CA98 /* UploadDocumentsService.swift in Sources */,
 				576AF2761CA8A35100C93E60 /* TabBarController.swift in Sources */,
+				57AE6A441CC3145500443C67 /* Logger.swift in Sources */,
 				5795DD661C8CCAAC0008DFA1 /* UserParser.swift in Sources */,
 				5795DD641C8CCA280008DFA1 /* User.swift in Sources */,
 				578258051C8B1959003C3568 /* Service.swift in Sources */,
@@ -1013,6 +1018,7 @@
 				574093891CB16A59003C156F /* UploadingFileCell.swift in Sources */,
 				57A56A6E1CA6059800E57677 /* Const.swift in Sources */,
 				57A56A6D1CA6058B00E57677 /* Dispatch.swift in Sources */,
+				571C2A441CC335D40032565B /* Logger.swift in Sources */,
 				5740938B1CB16C1A003C156F /* FileUploader.swift in Sources */,
 				57A56A6B1CA6054700E57677 /* Transport.swift in Sources */,
 				57AF2CA51C97578600C5A193 /* ShareViewController.swift in Sources */,
@@ -1158,6 +1164,7 @@
 				INFOPLIST_FILE = VKDocReader/Other/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -DDEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = ru.yaryabu.VKDocs;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

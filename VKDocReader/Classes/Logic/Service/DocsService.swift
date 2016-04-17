@@ -120,6 +120,9 @@ class DocsService: Service {
             return
         }
         
+        // если не чистить куки, то можно попасть в редирект луп из за старых remixsid итд
+        NSHTTPCookieStorage.sharedHTTPCookieStorage().removeCookiesSinceDate(NSDate.init(timeIntervalSince1970: -5000))
+        
         if try! Reachability.reachabilityForInternetConnection().isReachable() == false {
             Dispatch.mainQueue({ () -> () in
                 failure(error: Error(code: 0, message: "NO_INTERNET".localized))

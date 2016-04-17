@@ -8,6 +8,8 @@
 
 import UIKit
 
+import Alamofire
+import AlamofireImage
 import RealmSwift
 
 class UserDocsTableViewCell: TableViewCell {
@@ -57,28 +59,28 @@ class UserDocsTableViewCell: TableViewCell {
         let dateString = DateFormatter.stringFromTimestamp(Int(document.date)!, formatString: self.dateFormat)
         let sizeFormat = SizeFormatter.closestFormatFromBytes(Int(document.size)!)
         self.sizeDateLabel.text = "\(sizeFormat.number) \(sizeFormat.unitTypeName), \(dateString)"
+        self.extensionLabel.text = document.ext
         
-        if let url = document.thumbnailUrlString {
-            ServiceLayer.sharedServiceLayer.imageService.getImage(url, completion: { (data) -> Void in
-                
-                let cgImage = UIImage(data: data)?.CGImage
-                let imageViewFrame = CGRect(
-                    x: (CGFloat(CGImageGetWidth(cgImage)) - self.thumbnailImageView.frame.width) / 2,
-                    y: 0,
-                    width: self.thumbnailImageView.frame.width * 2,
-                    height: self.thumbnailImageView.frame.height * 2
-                )
-                
-                let newImage = UIImage(CGImage: CGImageCreateWithImageInRect(cgImage, imageViewFrame)!)
-                self.thumbnailImageView.image = newImage
-                self.thumbnailImageView.hidden = false
-                self.extensionLabel.hidden = true
-                }, failure: { (error) -> Void in
-                    NSNotificationCenter.defaultCenter().postNotificationName(Const.Notifications.errorOccured, object: Wrapper(theValue: error))
-
+        if let urlString = document.thumbnailUrlString {
+            
+            let filter = AspectScaledToFillSizeFilter(size: thumbnailImageView.frame.size)
+            
+            thumbnailImageView.af_setImageWithURL(NSURL(string: urlString)!, filter: filter, completion: { (response) in
+                switch response.result {
+                case .Success:
+                    self.extensionLabel.hidden = true
+                    self.thumbnailImageView.hidden = false
+                case .Failure(let error):
+                    self.extensionLabel.text = document.ext
+                    self.thumbnailImageView.hidden = true
+                    self.extensionLabel.hidden = false
+                    
+                    let newError = ServiceLayer.sharedServiceLayer.userService.createError(error)
+                    
+                    NSNotificationCenter.defaultCenter().postNotificationName(Const.Notifications.errorOccured, object: Wrapper(theValue: newError))
+                }
             })
         } else {
-            self.extensionLabel.text = document.ext
             self.thumbnailImageView.hidden = true
             self.extensionLabel.hidden = false
         }

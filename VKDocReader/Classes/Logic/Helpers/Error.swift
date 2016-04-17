@@ -18,11 +18,12 @@ struct Error {
     var captchaUrlString: String?
     var requestParams: JSON?
     
-    init() {}
+    init() { debugLog(self) }
     
     init(code: Int, message: String) {
         self.code = code
         self.message = message
+        debugLog(self)
     }
     
 }

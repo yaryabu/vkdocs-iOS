@@ -16,17 +16,24 @@ class Transport: Alamofire.Manager {
     static let sharedTransport = Transport()
 
     private init() {
-        super.init()
-        session.configuration.timeoutIntervalForRequest = 10
-        session.configuration.timeoutIntervalForResource = 10
+        let config = NSURLSessionConfiguration.defaultSessionConfiguration()
+        config.timeoutIntervalForRequest = 10
+        config.timeoutIntervalForResource = 10
+        config.HTTPShouldSetCookies = false
+        
+        config.HTTPAdditionalHeaders = Manager.defaultHTTPHeaders
+        
+        super.init(configuration: config)
     }
     
     func getJSON(urlString: String, parameters: [String:AnyObject]?, completion: (json: JSON) -> Void, failure: (error: NSError) -> Void) {
         //TODO: вынести добалвение параметра на уровень сервисов
         var newParams = parameters ?? [:]
         newParams["v"] = Const.Network.apiVersion
+
         self.request(.GET, urlString, parameters: newParams, encoding: .URL, headers: nil)
             .responseJSON { (response) -> Void in
+                debugLog(response)
             switch response.result {
             case .Success:
                 if let value = response.result.value {
@@ -44,6 +51,7 @@ class Transport: Alamofire.Manager {
     func getData(urlString: String, completion: (data: NSData) -> Void, failure: (error: NSError) -> Void) {
         self.request(.GET, urlString, parameters: nil, encoding: .URL, headers: nil)
             .responseData { (response) -> Void in
+                debugLog(response)
             switch response.result {
             case .Success:
                 Dispatch.defaultQueue({ () -> () in

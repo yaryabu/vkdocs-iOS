@@ -42,11 +42,6 @@ class AuthViewController: ViewController, UICollectionViewDelegate, UICollection
         UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: true)
     }
     
-//    override func viewDidDisappear(animated: Bool) {
-//        super.viewDidDisappear(animated)
-//        UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.Default, animated: true)
-//    }
-    
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.Default, animated: true)
@@ -82,6 +77,5 @@ class AuthViewController: ViewController, UICollectionViewDelegate, UICollection
     
     @IBAction func logInButtonPressed(sender: AnyObject) {
         serviceLayer.authService.beginAuth()
-//        VKSdk.authorize(["docs", "offline"], withOptions: VKAuthorizationOptions.DisableSafariController)
     }
 }

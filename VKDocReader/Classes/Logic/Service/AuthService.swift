@@ -42,11 +42,11 @@ class AuthService: Service {
                     let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
                     delegate.chooseInitialViewCotroller()
                 } else {
-                    VKSdk.authorize(Const.Network.VKScopes.vkSdkAppScope, withOptions: VKAuthorizationOptions.DisableSafariController)
+                    VKSdk.authorize(Const.Network.VKScopes.vkSdkAppScope)
                 }
             })
         } else {
-            VKSdk.authorize(Const.Network.VKScopes.vkSdkAppScope, withOptions: VKAuthorizationOptions.DisableSafariController)
+            VKSdk.authorize(Const.Network.VKScopes.vkSdkAppScope)
         }
         
     }

@@ -5,6 +5,7 @@ target 'VKDocReader' do
   pod 'SwiftyJSON'
   pod 'Alamofire'
   pod 'RealmSwift'
+  pod 'AlamofireImage'
   pod 'CRToast'
   pod 'Fabric'
   pod 'Crashlytics'

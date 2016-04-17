@@ -24,6 +24,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, VKSdkDelegate, VKSdkUIDel
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         Fabric.with([Crashlytics.self])
         
+        NSHTTPCookieStorage.sharedHTTPCookieStorage().cookieAcceptPolicy = NSHTTPCookieAcceptPolicy.Never
+        
         let vkSdk = VKSdk.initializeWithAppId(Const.Common.clientId)
         vkSdk.registerDelegate(self)
         vkSdk.uiDelegate = self

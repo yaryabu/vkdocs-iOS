@@ -211,6 +211,8 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func beginUploading() {
+        NSHTTPCookieStorage.sharedHTTPCookieStorage().removeCookiesSinceDate(NSDate.init(timeIntervalSince1970: -1000))
+        
         self.tableView.reloadData()
         beginUploadingNextFile()
         

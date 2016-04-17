@@ -1,5 +1,7 @@
 PODS:
-  - Alamofire (3.2.1)
+  - Alamofire (3.3.1)
+  - AlamofireImage (2.4.0):
+    - Alamofire (~> 3.3)
   - Crashlytics (3.7.0):
     - Fabric (~> 1.6.3)
   - CRToast (0.0.9)
@@ -14,6 +16,7 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire
+  - AlamofireImage
   - Crashlytics
   - CRToast
   - Fabric
@@ -22,7 +25,8 @@ DEPENDENCIES:
   - VK-ios-sdk
 
 SPEC CHECKSUMS:
-  Alamofire: f11d8624a05f5d39e0c99309b3e600a3ba64298a
+  Alamofire: 369bc67b6f5ac33ded3648d7bd21c5bfb91c2ecc
+  AlamofireImage: 87408b652e0f5ae5fe364035f15aea8b9b24c77e
   Crashlytics: c3a2333dea9e2733d2777f730910321fc9e25c0d
   CRToast: 5a78c22b921c5ed3487488af605bc403a9c92fed
   Fabric: caf7580c725e64db144f610ac65cd60956911dc7

@@ -28,11 +28,7 @@ class Service {
                 message: errorJson["error_msg"].string ?? "No msg"
             )
             
-            print("====VK_ERROR====")
-            print("====Code: \(errorJson["error_code"].int)====")
-            print("====Message: \(errorJson["error_msg"].string)====")
-            print("====Params: \(errorJson["request_params"]) ====")
-            print("====END====")
+            debugLog(errorJson)
             
             switch errorJson["error_code"] {
             case 1:
@@ -80,12 +76,8 @@ class Service {
     
     /// Перевод из NSError от транспорта в кастомную ошибку
     func createError(error: NSError) -> Error? {
+        debugLog(error)
         //FIXME: сделать обработку too many http redirects
-        print("====NS_ERROR====")
-        print("====Code: \(error.code))====")
-        print("====Message: \(error.localizedDescription)====")
-        print("====Error: \(error))====")
-        print("====END====")
         
         Analytics.logError(error)
         

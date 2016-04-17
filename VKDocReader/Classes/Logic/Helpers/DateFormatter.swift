@@ -23,4 +23,5 @@ class DateFormatter {
         
         return formatter.stringFromDate(date)
     }
+    
 }
