@@ -42,6 +42,16 @@ class AuthViewController: ViewController, UICollectionViewDelegate, UICollection
         UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: true)
     }
     
+//    override func viewDidDisappear(animated: Bool) {
+//        super.viewDidDisappear(animated)
+//        UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.Default, animated: true)
+//    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.Default, animated: true)
+    }
+    
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
         let pageWidth = self.collectionView.frame.size.width
         pageControl.currentPage = Int(self.collectionView.contentOffset.x / pageWidth)

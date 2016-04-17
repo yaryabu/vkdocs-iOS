@@ -6,7 +6,7 @@
 //  Copyright © 2016 Yaroslav Ryabukha. All rights reserved.
 //
 
-import SSKeychain
+//import SSKeychain
 import VK_ios_sdk
 
 class AuthService: Service {
@@ -40,7 +40,7 @@ class AuthService: Service {
                 if state == VKAuthorizationState.Authorized {
                     self.saveAuthData(VKSdk.accessToken())
                     let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
-                    delegate.beginTransitionToTabBar()
+                    delegate.chooseInitialViewCotroller()
                 } else {
                     VKSdk.authorize(Const.Network.VKScopes.vkSdkAppScope, withOptions: VKAuthorizationOptions.DisableSafariController)
                 }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-import SSKeychain
+//import SSKeychain
 import RealmSwift
 import VK_ios_sdk
 
@@ -57,20 +57,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, VKSdkDelegate, VKSdkUIDel
         return true
     }
     
-    func beginTransitionToTabBar() {
-        if let rootVC = window!.rootViewController as? AuthViewController {
-            rootVC.performSegueWithIdentifier(Const.StoryboardSegues.logInSuccess, sender: nil)
-            Dispatch.mainQueueAfter(0.8, closure: {
-                self.chooseInitialViewCotroller()
-            })
-        }
-    }
-    
     func vkSdkAccessAuthorizationFinishedWithResult(result: VKAuthorizationResult!) {
         if result.error == nil {
             ServiceLayer.sharedServiceLayer.authService.saveAuthData(result.token)
             Analytics.logUserAuthorized()
-            beginTransitionToTabBar()
+            self.chooseInitialViewCotroller()
         } else {
             // игнорируем ошибки, потому что от VK sdk приходят странные вещи
         }
@@ -105,17 +96,41 @@ class AppDelegate: UIResponder, UIApplicationDelegate, VKSdkDelegate, VKSdkUIDel
     }
 
     func chooseInitialViewCotroller() {
-        //FIXME: старые window не влияют на UI но все равно остаются в памяти
-        window = UIWindow()
+        var newRootVC: UIViewController?
         
         let storyboard = UIStoryboard(name: Const.Common.mainStoryboardName, bundle: NSBundle.mainBundle())
-        if (ServiceLayer.sharedServiceLayer.authService.token != nil) {
-            self.window?.rootViewController = storyboard.instantiateViewControllerWithIdentifier(Const.StoryboardIDs.tabBarController)
+        
+        if ServiceLayer.sharedServiceLayer.authService.token != nil &&
+            window?.rootViewController as? AuthViewController != nil {
+            newRootVC = storyboard.instantiateViewControllerWithIdentifier(Const.StoryboardIDs.tabBarController)
         } else {
-            self.window?.rootViewController = storyboard.instantiateViewControllerWithIdentifier(Const.StoryboardIDs.authViewController)
+            if window?.rootViewController as? TabBarController != nil {
+                newRootVC = storyboard.instantiateViewControllerWithIdentifier(Const.StoryboardIDs.authViewController)
+            }
+            
         }
         
-        window?.makeKeyAndVisible()
+        if let newRootVC = newRootVC {
+            let previousViewController = window?.rootViewController
+            
+            let tr = CATransition()
+            tr.duration = 0.5
+            tr.type = "flip"
+            tr.subtype = kCATransitionFromRight
+            window?.layer.addAnimation(tr, forKey: kCATransition)
+            
+            window?.rootViewController = newRootVC
+            
+            UIView.animateWithDuration(CATransaction.animationDuration()) {
+                newRootVC.setNeedsStatusBarAppearanceUpdate()
+            }
+            
+            if let previousViewController = previousViewController {
+                previousViewController.dismissViewControllerAnimated(false) {
+                    previousViewController.view.removeFromSuperview()
+                }
+            }
+        }
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -127,4 +142,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate, VKSdkDelegate, VKSdkUIDel
     }
     
 }
+
 
