@@ -35,8 +35,8 @@ class LoadTaskManager: Alamofire.Manager {
     private init() {
         downloadRequestPool = []
         let config = NSURLSessionConfiguration.backgroundSessionConfigurationWithIdentifier(LoadTaskManager.backgroundSessionIdentifier)
-        super.init(configuration: config, delegate: Manager.SessionDelegate(), serverTrustPolicyManager: nil)
-        super.delegate.taskWillPerformHTTPRedirection = nil
+        super.init(configuration: config, delegate: Manager.sharedInstance.delegate, serverTrustPolicyManager: nil)
+        
         delegate.taskWillPerformHTTPRedirection = nil
         startRequestsImmediately = false
     }
@@ -74,7 +74,6 @@ class LoadTaskManager: Alamofire.Manager {
             
             downloadRequest = RequestPoolItem(request: req, docId: fileId)
             self.downloadRequestPool.append(downloadRequest)
-            //            self.downloadRequestPool[urlString] = downloadRequest
         }
         
         downloadRequest.request
