@@ -25,6 +25,7 @@
 		574093AA1CB4670F003C156F /* NavBarOverlay.xib in Resources */ = {isa = PBXBuildFile; fileRef = 574093A91CB4670F003C156F /* NavBarOverlay.xib */; };
 		574B1B3D1CC0787E00EE607F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 574B1B3F1CC0787E00EE607F /* Localizable.strings */; };
 		574B1B501CC1731300EE607F /* VK_ios_sdk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 574B1B4F1CC1731300EE607F /* VK_ios_sdk.framework */; };
+		57527EE51CE0CDFB002003E3 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 57527EE41CE0CDFB002003E3 /* MainInterface.storyboard */; };
 		5759286A1CAFF7720082E3BF /* SwiftWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575928691CAFF7720082E3BF /* SwiftWrapper.swift */; };
 		5759286B1CB004A40082E3BF /* ShareExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 57AF2CA21C97578600C5A193 /* ShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		575928781CB1290A0082E3BF /* RetryErrorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575928771CB1290A0082E3BF /* RetryErrorService.swift */; };
@@ -91,7 +92,6 @@
 		57ADB1B71C9F4DE3001E0766 /* Open Sans.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 57ADB1B61C9F4DE3001E0766 /* Open Sans.ttf */; };
 		57AE6A441CC3145500443C67 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57AE6A431CC3145500443C67 /* Logger.swift */; };
 		57AF2CA51C97578600C5A193 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57AF2CA41C97578600C5A193 /* ShareViewController.swift */; };
-		57AF2CA81C97578600C5A193 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 57AF2CA61C97578600C5A193 /* MainInterface.storyboard */; };
 		57AF96961C8B4C3700E924C3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 57AF96951C8B4C3700E924C3 /* LaunchScreen.storyboard */; };
 		57AF96981C8B524800E924C3 /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57AF96971C8B524800E924C3 /* Document.swift */; };
 		57AF969A1C8B53FC00E924C3 /* Transport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57AF96991C8B53FC00E924C3 /* Transport.swift */; };
@@ -156,9 +156,8 @@
 		574093A91CB4670F003C156F /* NavBarOverlay.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NavBarOverlay.xib; sourceTree = "<group>"; };
 		574B1B3E1CC0787E00EE607F /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		574B1B401CC0788100EE607F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		574B1B481CC07F5100EE607F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/MainInterface.strings; sourceTree = "<group>"; };
-		574B1B491CC07F5600EE607F /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/MainInterface.strings; sourceTree = "<group>"; };
 		574B1B4F1CC1731300EE607F /* VK_ios_sdk.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VK_ios_sdk.framework; path = "../../Library/Developer/Xcode/DerivedData/VKDocReader-gehyuweoxnoijmaubaremtspikcg/Build/Products/Debug-iphoneos/VK_ios_sdk.framework"; sourceTree = "<group>"; };
+		57527EE41CE0CDFB002003E3 /* MainInterface.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainInterface.storyboard; sourceTree = "<group>"; };
 		575928691CAFF7720082E3BF /* SwiftWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftWrapper.swift; path = Helpers/SwiftWrapper.swift; sourceTree = "<group>"; };
 		575928771CB1290A0082E3BF /* RetryErrorService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RetryErrorService.swift; sourceTree = "<group>"; };
 		57687F851C8F32EE0037AF4F /* Bash.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Bash.swift; path = Helpers/Bash.swift; sourceTree = "<group>"; };
@@ -553,11 +552,11 @@
 		57AF2CA31C97578600C5A193 /* ShareExtension */ = {
 			isa = PBXGroup;
 			children = (
+				57527EE41CE0CDFB002003E3 /* MainInterface.storyboard */,
 				574093971CB3140D003C156F /* CaptchaViewController.storyboard */,
 				574093981CB3140D003C156F /* CaptchaViewController.swift */,
 				57A56A7F1CA6E10500E57677 /* ShareExtension.entitlements */,
 				57AF2CA41C97578600C5A193 /* ShareViewController.swift */,
-				57AF2CA61C97578600C5A193 /* MainInterface.storyboard */,
 				57AF2CA91C97578600C5A193 /* Info.plist */,
 				574093881CB16A59003C156F /* UploadingFileCell.swift */,
 				5740938A1CB16C1A003C156F /* FileUploader.swift */,
@@ -798,10 +797,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				57A56A731CA6D74C00E57677 /* Open Sans.ttf in Resources */,
+				57527EE51CE0CDFB002003E3 /* MainInterface.storyboard in Resources */,
 				57A56A741CA6D74C00E57677 /* Lucida Grande.ttf in Resources */,
 				574093991CB3140D003C156F /* CaptchaViewController.storyboard in Resources */,
 				57A56A751CA6D74C00E57677 /* Assets.xcassets in Resources */,
-				57AF2CA81C97578600C5A193 /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1054,15 +1053,6 @@
 				574B1B401CC0788100EE607F /* en */,
 			);
 			name = Localizable.strings;
-			sourceTree = "<group>";
-		};
-		57AF2CA61C97578600C5A193 /* MainInterface.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				574B1B481CC07F5100EE607F /* en */,
-				574B1B491CC07F5600EE607F /* ru */,
-			);
-			name = MainInterface.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
