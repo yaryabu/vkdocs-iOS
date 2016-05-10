@@ -24,6 +24,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, VKSdkDelegate, VKSdkUIDel
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         Fabric.with([Crashlytics.self])
         
+        // VK пытается присунуть свои странные токены в cookies
+        // если эти токены протухают, то документы становится невозможно просматривать
         NSHTTPCookieStorage.sharedHTTPCookieStorage().cookieAcceptPolicy = NSHTTPCookieAcceptPolicy.Never
         
         let vkSdk = VKSdk.initializeWithAppId(Const.Common.clientId)

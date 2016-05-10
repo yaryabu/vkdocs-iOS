@@ -54,6 +54,12 @@ class UserDocsDataSource: NSObject, DataSource {
     
     func updateCache() {
         let realm = try! Realm()
+        
+        try! realm.write {
+            realm.delete(self.documentsToDelete)
+        }
+        documentsToDelete = []
+        
         let docs = Array(realm.objects(Document))
         self.documents = docs.sort({ (doc1, doc2) -> Bool in
             if doc1.order < doc2.order {
@@ -62,12 +68,6 @@ class UserDocsDataSource: NSObject, DataSource {
                 return false
             }
         })
-        
-        //FIXME: добавить удаление доков, которые были удалены с других девайсов
-//        try! realm.write {
-//            realm.delete(self.documentsToDelete)
-//        }
-//        documentsToDelete = []
     }
     
     func deleteElements(indexPaths: [NSIndexPath], completion: () -> Void, failure: (error: Error) -> Void) {
@@ -130,17 +130,20 @@ class UserDocsDataSource: NSObject, DataSource {
             })
             self.documents = documentsArray
             
-            //FIXME: добавить удаление доков, которые были удалены с других девайсов
-//            self.documentsToDelete = documentsArray
-//            
-//            for globalDoc in Array(realm.objects(Document)) {
-//                for (i, currentDoc) in self.documents.enumerate() {
-//                    if currentDoc.id == globalDoc.id {
-//                        self.documentsToDelete.removeAtIndex(i)
-//                        break
-//                    }
-//                }
-//            }
+            self.documentsToDelete = [Document]()//documentsArray
+            
+            for globalDoc in Array(realm.objects(Document)) {
+                var shouldDeleteDocument = true
+                for currentDoc in self.documents {
+                    if currentDoc.id == globalDoc.id {
+                        shouldDeleteDocument = false
+                        break
+                    }
+                }
+                if shouldDeleteDocument {
+                    self.documentsToDelete.append(globalDoc)
+                }
+            }
             
             refreshEnded()
             }, failure: { (error) -> Void in
