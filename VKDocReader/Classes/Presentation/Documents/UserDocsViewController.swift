@@ -286,12 +286,21 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
             self.tableView.setEditing(false, animated: true)
             let editViewControllerNavController = self.storyboard!.instantiateViewControllerWithIdentifier(Const.StoryboardIDs.editViewControllerNavigationController) as! NavigationController
             let editViewController = editViewControllerNavController.viewControllers[0] as! EditViewController
+            
             if let ds = self.currentDataSource as? UserDocsDataSource {
                 switch indexPath.section {
                 case 0:
                     editViewController.actionType = .EditFolder
                     editViewController.folderPathToEdit = ds.folderPath(indexPath)
                 case 1:
+                    editViewController.actionType = .EditDocument
+                    editViewController.documentToEdit = ds.document(indexPath)
+                default:
+                    break
+                }
+            } else if let ds = self.currentDataSource as? SearchDataSource {
+                switch indexPath.section {
+                case 0:
                     editViewController.actionType = .EditDocument
                     editViewController.documentToEdit = ds.document(indexPath)
                 default:

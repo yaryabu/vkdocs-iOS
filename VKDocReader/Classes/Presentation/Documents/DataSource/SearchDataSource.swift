@@ -88,7 +88,25 @@ class SearchDataSource: NSObject, DataSource {
     }
     
     func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return false
+        if indexPath.section == 0 {
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == UITableViewCellEditingStyle.Delete &&
+           indexPath.section == 0 {
+            let document = self.savedDocumentsResult[indexPath.row]
+            ServiceLayer.sharedServiceLayer.docsService.deleteDocumentFromUser(document, completion: { () -> Void in
+                document.deleteDocument()
+                }, failure: { (error) -> Void in
+                    (tableView.delegate as! ViewController).handleError(error)
+            })
+            self.savedDocumentsResult.removeAtIndex(indexPath.row)
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Bottom)
+        }
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
