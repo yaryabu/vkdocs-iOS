@@ -130,7 +130,7 @@ class UserDocsDataSource: NSObject, DataSource {
             })
             self.documents = documentsArray
             
-            self.documentsToDelete = [Document]()
+            self.documentsToDelete = []
             
             for globalDoc in Array(realm.objects(Document)) {
                 var shouldDeleteDocument = true
