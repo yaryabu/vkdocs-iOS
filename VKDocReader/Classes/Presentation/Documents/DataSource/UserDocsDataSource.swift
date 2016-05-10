@@ -30,8 +30,6 @@ class UserDocsDataSource: NSObject, DataSource {
         }
     }
     
-    private var documentsToDelete: [Document] = []
-    
     override init() {
         self.documents = try! Array(Realm().objects(Document))
     }
@@ -54,11 +52,6 @@ class UserDocsDataSource: NSObject, DataSource {
     
     func updateCache() {
         let realm = try! Realm()
-        
-        try! realm.write {
-            realm.delete(self.documentsToDelete)
-        }
-        documentsToDelete = []
         
         let docs = Array(realm.objects(Document))
         self.documents = docs.sort({ (doc1, doc2) -> Bool in
@@ -130,8 +123,6 @@ class UserDocsDataSource: NSObject, DataSource {
             })
             self.documents = documentsArray
             
-            self.documentsToDelete = []
-            
             for globalDoc in Array(realm.objects(Document)) {
                 var shouldDeleteDocument = true
                 for currentDoc in self.documents {
@@ -141,7 +132,7 @@ class UserDocsDataSource: NSObject, DataSource {
                     }
                 }
                 if shouldDeleteDocument {
-                    self.documentsToDelete.append(globalDoc)
+                    globalDoc.deleteDocument()
                 }
             }
             
