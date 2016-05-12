@@ -12,6 +12,12 @@ import SwiftyJSON
 
 class CaptchaViewController: UIViewController, UITextFieldDelegate {
     
+    @IBOutlet weak var titleLabel: UILabel! {
+        didSet {
+            titleLabel.text = "CAPTCHA_TITLE".localized
+        }
+    }
+    
     var captchaError: Error!
     var captchaDelegate: ShareViewController!
     var captchaSuccessClosure: (() -> ())!
@@ -28,10 +34,15 @@ class CaptchaViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var doneButton: UIButton! {
         didSet {
             doneButton.enabled = false
+            cancelButton.setTitle("CAPTCHA_OK_BUTTON".localized, forState: .Normal)
         }
     }
     
-    @IBOutlet weak var cancelButton: UIButton!
+    @IBOutlet weak var cancelButton: UIButton! {
+        didSet {
+            cancelButton.setTitle("CAPTCHA_CANCEL_BUTTON".localized, forState: .Normal)
+        }
+    }
     
     class func presentCaptchaViewController(error: Error, captchaSuccessClosure: () -> (), presentingViewController: ShareViewController) {
         let storyboard = UIStoryboard(name: "CaptchaViewController", bundle: nil)

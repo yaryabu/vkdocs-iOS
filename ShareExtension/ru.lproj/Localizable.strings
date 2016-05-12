@@ -1,0 +1,31 @@
+/* 
+  Localizable.strings
+  VKDocReader
+
+  Created by Yaroslav Ryabukha on 12/05/16.
+  Copyright © 2016 Yaroslav Ryabukha. All rights reserved.
+*/
+
+"YES" = "Да";
+"NO" = "Нет";
+
+//MARK: Main screen
+
+"TITLE_TEMPLATE" = "Загружено %d из %d";
+"SUCCESS_ALERT_TITLE" = "Документы успешно загружены в ВК";
+"SUCCESS_ALERT_FIRST_BUTTON" = "Ясно";
+"SUCCESS_ALERT_SECOND_BUTTON" = "Понятно";
+
+"UNKNOWN_ERROR_OCCURED_REPEATING_UPLOAD" = "Неизвестная ошибка\nПовторяем загрузку";
+"ERROR_ALERT_TITLE" = "Ошибка";
+
+"ARE_YOU_SURE_YOU_WANT_TO_EXIT" = "Вы точно хотите прервать загрузку в ВК?";
+
+"PROCESSING_FILE_CELL_TEXT" = "Обработка";
+"FILE_UPLOADED_CELL_TEXT" = "Загружено";
+
+//MARK: Captcha
+
+"CAPTCHA_TITLE" = "Введи код с картинки";
+"CAPTCHA_OK_BUTTON" = "Готово";
+"CAPTCHA_CANCEL_BUTTON" = "Отмена";

@@ -104,7 +104,7 @@
             </objects>
             <point key="canvasLocation" x="3626" y="-1281"/>
         </scene>
-        <!--Авторизация-->
+        <!--Authorization-->
         <scene sceneID="Ptb-5C-zDF">
             <objects>
                 <viewController storyboardIdentifier="AuthWebViewController" id="1JR-yT-4F0" customClass="AuthWebViewController" customModule="ShareExtension" customModuleProvider="target" sceneMemberID="viewController">
@@ -132,7 +132,7 @@
                             <constraint firstItem="r4B-8D-4Z1" firstAttribute="top" secondItem="A8A-Tv-yZ6" secondAttribute="top" id="y4I-rI-BgO"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Авторизация" id="o2Y-lB-te6">
+                    <navigationItem key="navigationItem" title="Authorization" id="o2Y-lB-te6">
                         <barButtonItem key="leftBarButtonItem" systemItem="stop" id="a8f-py-xnp">
                             <connections>
                                 <action selector="cancelButtonPressed:" destination="1JR-yT-4F0" id="J2y-uu-6fU"/>

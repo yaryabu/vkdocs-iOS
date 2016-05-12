@@ -34,7 +34,7 @@
                                             <constraint firstAttribute="height" constant="42" id="oER-Ev-ukn"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
-                                        <state key="normal" title="Готово">
+                                        <state key="normal" title="Done">
                                             <color key="titleColor" red="0.0" green="0.62745100259999997" blue="0.40000000600000002" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                         </state>
                                         <state key="disabled">
@@ -49,7 +49,7 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="41" id="knY-Q7-RZ2"/>
                                         </constraints>
-                                        <state key="normal" title="Отмена">
+                                        <state key="normal" title="Cancel">
                                             <color key="titleColor" red="0.98823529480000005" green="0.36078432199999999" blue="0.36078432199999999" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
@@ -66,7 +66,7 @@
                                             <outlet property="delegate" destination="NTM-BT-7jP" id="ujf-st-5Ha"/>
                                         </connections>
                                     </textField>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Введите код с картинки" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wyx-PN-fc4">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter captcha" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wyx-PN-fc4">
                                         <rect key="frame" x="10" y="13" width="220" height="22"/>
                                         <fontDescription key="fontDescription" name="LucidaGrande" family="Lucida Grande" pointSize="16"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -132,6 +132,7 @@
                         <outlet property="doneButton" destination="4vq-eU-atc" id="Ozf-hi-xiR"/>
                         <outlet property="imageView" destination="TG8-kS-m6T" id="6pf-0e-W2g"/>
                         <outlet property="textField" destination="qC9-jP-ODH" id="2Xq-3f-Fp0"/>
+                        <outlet property="titleLabel" destination="wyx-PN-fc4" id="l9g-qz-BBt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1eM-XN-WXY" userLabel="First Responder" sceneMemberID="firstResponder"/>

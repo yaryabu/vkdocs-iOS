@@ -14,17 +14,4 @@ class UploadingFileCell: UITableViewCell {
     @IBOutlet weak var fileNameLabel: UILabel!
     
     @IBOutlet weak var progressLabel: UILabel!
-    
-//    func configureCell(fileToUpload: FileToUpload) {
-//        fileNameLabel.text = fileToUpload.name
-//        
-//        uploadDocument(fileToUpload.fileSystemUrl, documentName: fileToUpload.name, completion: {
-//            
-//            self.uploadedDocumentsCount += 1
-//            }, progress: { (totalUploaded, bytesToUpload) in
-//                print("PROG", totalUploaded, bytesToUpload)
-//            }, failure: { (error) in
-//                print("ERROR", error)
-//        })
-//    }
 }

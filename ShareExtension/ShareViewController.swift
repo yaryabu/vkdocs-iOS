@@ -41,7 +41,7 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     @IBOutlet weak var shareNavigationItem: UINavigationItem!
     
-    let titleTemplate = "Загружено %d из %d"
+    let titleTemplate = "TITLE_TEMPLATE".localized
     
     var token: String? {
         get {
@@ -81,14 +81,14 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
             shareNavigationItem.title = String(format: titleTemplate, uploadedDocumentsCount, attachmentsCount)
 
             if uploadedDocumentsCount == attachmentsCount {
-                let okAction = UIAlertAction(title: "Ясно", style: UIAlertActionStyle.Default, handler: { (action) in
+                let okAction = UIAlertAction(title: "SUCCESS_ALERT_FIRST_BUTTON".localized, style: UIAlertActionStyle.Default, handler: { (action) in
                     self.extensionContext?.completeRequestReturningItems(nil, completionHandler: nil)
                 })
-                let ok2Action = UIAlertAction(title: "Понятно", style: UIAlertActionStyle.Default, handler: { (action) in
+                let ok2Action = UIAlertAction(title: "SUCCESS_ALERT_SECOND_BUTTON".localized, style: UIAlertActionStyle.Default, handler: { (action) in
                     self.extensionContext?.completeRequestReturningItems(nil, completionHandler: nil)
                 })
                 
-                let alert = UIAlertController(title: nil, message: "Документы успешно загружены в ВК", preferredStyle: UIAlertControllerStyle.Alert)
+                let alert = UIAlertController(title: nil, message: "SUCCESS_ALERT_TITLE".localized, preferredStyle: UIAlertControllerStyle.Alert)
                 alert.addAction(okAction)
                 alert.addAction(ok2Action)
                 presentViewController(alert, animated: true, completion: nil)
@@ -136,7 +136,6 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
         }
         
         if filesToUpload.count == attachmentsCount {
-            print("BEGIN")
             beginUploading()
         }
         
@@ -170,6 +169,7 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func beginUploadingNextFile() {
+        
         var fileToUpload: FileToUpload?
         var cellIndex: Int?
         if filesToUpload.count > 0 {
@@ -184,7 +184,7 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
         let cell = tableView.dequeueReusableCellWithIdentifier(UploadingFileCell.cellIdentifier, forIndexPath: NSIndexPath(forRow: cellIndex!, inSection: 0)) as! UploadingFileCell
         
         let completion: () -> () = {
-            cell.progressLabel.text = "Загружено"
+            cell.progressLabel.text = "FILE_UPLOADED_CELL_TEXT".localized
             
             self.uploadedDocumentsCount += 1
             
@@ -198,12 +198,11 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
         self.uploadDocument(fileToUpload!.fileSystemUrl, documentName: fileToUpload!.name, completion: completion, progress: { (totalUploaded, bytesToUpload) in
                 let percent = Int((Double(totalUploaded)/Double(bytesToUpload))*100)
                 if percent == 100 {
-                    cell.progressLabel.text = "Обработка"
+                    cell.progressLabel.text = "PROCESSING_FILE_CELL_TEXT".localized
                 } else {
                     cell.progressLabel.text = "\(percent) %"
                 }
             }, failure: { (error) in
-                print("EPIC ERROR", error)
                 self.handleError(error, retryClosure: completion)
                 
         })
@@ -244,7 +243,7 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
         case 14:
             CaptchaViewController.presentCaptchaViewController(error, captchaSuccessClosure: retryClosure, presentingViewController: self)
         default:
-            let alert = UIAlertController(title: "Ошибка", message: error.message, preferredStyle: UIAlertControllerStyle.Alert)
+            let alert = UIAlertController(title: "ERROR_ALERT_TITLE".localized, message: error.message, preferredStyle: UIAlertControllerStyle.Alert)
             presentViewController(alert, animated: true, completion: { 
                 Dispatch.mainQueueAfter(2.0, closure: {
                     alert.dismissViewControllerAnimated(true, completion: nil)
@@ -322,18 +321,18 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     func createError(error: NSError? = nil) -> Error {
         print("NS_ERROR", error)
-        return Error(code: 0, message: "Неизвестная ошибка\nПовторяем загрузку")
+        return Error(code: 0, message: "UNKNOWN_ERROR_OCCURED_REPEATING_UPLOAD".localized)
     }
     
     @IBAction func exitButtonPressed(sender: AnyObject) {
-        let alert = UIAlertController(title: nil, message: "Вы точно хотите прервать загрузку в ВК?", preferredStyle: UIAlertControllerStyle.Alert)
+        let alert = UIAlertController(title: nil, message: "ARE_YOU_SURE_YOU_WANT_TO_EXIT".localized, preferredStyle: UIAlertControllerStyle.Alert)
         
-        let yesAction = UIAlertAction(title: "Да", style: .Default) { (action) in
+        let yesAction = UIAlertAction(title: "YES".localized, style: .Default) { (action) in
             let error = NSError(domain: Const.Common.errorDomain, code: 0, userInfo: [NSLocalizedDescriptionKey : "User cancelled upload"])
             self.extensionContext?.cancelRequestWithError(error)
         }
         
-        let noAction = UIAlertAction(title: "Нет", style: UIAlertActionStyle.Cancel, handler: nil)
+        let noAction = UIAlertAction(title: "NO".localized, style: UIAlertActionStyle.Cancel, handler: nil)
         
         alert.addAction(yesAction)
         alert.addAction(noAction)
