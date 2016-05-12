@@ -18,6 +18,7 @@ class DocumentsPickerNavBarOverlay: View {
         }
     }
     @IBOutlet weak var exitButton: UIButton!
+    @IBOutlet weak var shareButton: UIButton!
     
     @IBAction func exitButtonPressed(sender: AnyObject) {
     }

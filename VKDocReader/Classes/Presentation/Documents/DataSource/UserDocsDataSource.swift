@@ -89,17 +89,17 @@ class UserDocsDataSource: NSObject, DataSource {
             //FIXME: если ВК когда-нибудь сделает метод удаления нескольких объектов одновременно - нужно его встатвить сюда
             
             // dummy-объект, чтобы можно было сразу удалить doc из Realm
-            let newDoc = Document()
-            newDoc.id = doc.id
-            newDoc.ownerId = doc.ownerId
+            let dummyDoc = Document()
+            dummyDoc.id = doc.id
+            dummyDoc.ownerId = doc.ownerId
             
             doc.deleteDocument()
             // задержка, чтобы не превышать ограничения ВК
             Dispatch.defaultQueueAfter(dispatchDelayCounter, closure: { () -> () in
-                ServiceLayer.sharedServiceLayer.docsService.deleteDocumentFromUser(newDoc, completion: { () -> Void in
+                ServiceLayer.sharedServiceLayer.docsService.deleteDocumentFromUser(dummyDoc, completion: { () -> Void in
                     }, failure: { (error) -> Void in
                         Dispatch.defaultQueueAfter(3.0, closure: { 
-                            ServiceLayer.sharedServiceLayer.docsService.deleteDocumentFromUser(newDoc, completion: {
+                            ServiceLayer.sharedServiceLayer.docsService.deleteDocumentFromUser(dummyDoc, completion: {
                                 }, failure: { (error) in
                                     failure(error: error)
                             })
@@ -167,7 +167,11 @@ class UserDocsDataSource: NSObject, DataSource {
             }
         } else {
             let cell = tableView.dequeueReusableCellWithIdentifier(UserDocsTableViewCell.cellIdentifier, forIndexPath: indexPath) as! UserDocsTableViewCell
-            let document = self.documents[indexPath.row]
+            var document = self.documents[indexPath.row]
+            while document.invalidated {
+                self.documents.removeAtIndex(indexPath.row)
+                document = self.documents[indexPath.row]
+            }
             
             let shouldHideButton = tableView.delegate as? MoveCopyViewController != nil
             
@@ -197,8 +201,17 @@ class UserDocsDataSource: NSObject, DataSource {
         } else {
             if editingStyle == UITableViewCellEditingStyle.Delete {
                 let document = self.documents[indexPath.row]
-                ServiceLayer.sharedServiceLayer.docsService.deleteDocumentFromUser(document, completion: { () -> Void in
-                    document.deleteDocument()
+                
+                // dummy-объект, чтобы можно было сразу удалить doc из Realm
+                let dummyDoc = Document()
+                dummyDoc.id = document.id
+                dummyDoc.ownerId = document.ownerId
+                
+                //FIXME: пришлось вынести удаление документа из файловой системы
+                // ДО его удаления из ВК
+                document.deleteDocument()
+                ServiceLayer.sharedServiceLayer.docsService.deleteDocumentFromUser(dummyDoc, completion: { () -> Void in
+//                    document.deleteDocument()
                     }, failure: { (error) -> Void in
                         (tableView.delegate as! ViewController).handleError(error)
                 })

@@ -228,6 +228,7 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
             
             let itemsCount = tableView.indexPathsForSelectedRows!.count
             docPickerNavBarOverlay.titleLabel.text = String(format: docPickerNavBarOverlay.titleTemplate, itemsCount)
+            docPickerNavBarOverlay.shareButton.enabled = isShareButtonEnabled(tableView.indexPathsForSelectedRows!)
             docPickerTabBarOverlay.changeButtonsState(itemsCount, isRootViewController: isRootViewController)
             return
         }
@@ -270,6 +271,7 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
         if tableView.editing {
             let itemsCount = tableView.indexPathsForSelectedRows?.count ?? 0
             docPickerNavBarOverlay.titleLabel.text = String(format: docPickerNavBarOverlay.titleTemplate, itemsCount)
+            docPickerNavBarOverlay.shareButton.enabled = isShareButtonEnabled(tableView.indexPathsForSelectedRows ?? [])
             docPickerTabBarOverlay.changeButtonsState(itemsCount, isRootViewController: isRootViewController)
         }
     }
@@ -359,6 +361,7 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
     func configureEditingMode() {
         docPickerNavBarOverlay = DocumentsPickerNavBarOverlay.loadFromNibNamed("DocumentsPickerNavBarOverlay")
         docPickerNavBarOverlay.exitButton.addTarget(self, action: #selector(UserDocsViewController.docPickerExitButtonPressed(_:)), forControlEvents: .TouchUpInside)
+        docPickerNavBarOverlay.shareButton.addTarget(self, action: #selector(UserDocsViewController.docPickerShareButtonPressed(_:)), forControlEvents: .TouchUpInside)
         
         docPickerTabBarOverlay = DocumentsPickerTabBarOverlay.loadFromNibNamed("DocumentsPickerTabBarOverlay")
         docPickerTabBarOverlay.deleteButton.addTarget(self, action: #selector(UserDocsViewController.docPickerDeleteButtonPressed(_:)), forControlEvents: .TouchUpInside)
@@ -367,6 +370,46 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
     }
     
     func docPickerExitButtonPressed(sender: AnyObject?) {
+        tableView.setEditing(false, animated: true)
+        setEditing(false, animated: true)
+    }
+    
+    func isShareButtonEnabled(indexPaths: [NSIndexPath]) -> Bool {
+        
+        if indexPaths.isEmpty {
+            return false
+        }
+        
+        if let _ = currentDataSource as? UserDocsDataSource {
+            for ip in indexPaths {
+                if ip.section == 0 {
+                    return false
+                }
+            }
+        } else if let ds = currentDataSource as? FolderDataSource {
+            for ip in indexPaths {
+                if ds.isDirectory(ip) {
+                    return false
+                }
+            }
+        }
+        
+        return true
+    }
+    
+    func docPickerShareButtonPressed(sender: AnyObject?) {
+        let indexPaths = self.tableView.indexPathsForSelectedRows!
+        
+        var urls: [String] = []
+        for ip in indexPaths {
+            // Тут не учитываются папки.
+            // Кнопка share должна быть задизайблена, если выбрана папка
+            urls.append(currentDataSource.document(ip).urlString)
+        }
+        
+        let activityVC = UIActivityViewController(activityItems: urls, applicationActivities: nil)
+        presentViewController(activityVC, animated: true, completion: nil)
+        
         tableView.setEditing(false, animated: true)
         setEditing(false, animated: true)
     }
@@ -514,6 +557,8 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
     //MARK: Refresh
     
     func refreshTableViewData(refreshEnded: (() -> Void)? = nil) {
+        currentDataSource.updateCache()
+        tableView.reloadData()
         currentDataSource.refresh({ () -> Void in
             refreshEnded?()
             self.tableView.reloadData()

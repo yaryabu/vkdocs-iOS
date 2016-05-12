@@ -99,8 +99,19 @@ class SearchDataSource: NSObject, DataSource {
         if editingStyle == UITableViewCellEditingStyle.Delete &&
            indexPath.section == 0 {
             let document = self.savedDocumentsResult[indexPath.row]
-            ServiceLayer.sharedServiceLayer.docsService.deleteDocumentFromUser(document, completion: { () -> Void in
-                document.deleteDocument()
+
+            // dummy-объект, чтобы можно было сразу удалить doc из Realm
+            let dummyDoc = Document()
+            dummyDoc.id = document.id
+            dummyDoc.ownerId = document.ownerId
+            
+            //FIXME: пришлось вынести удаление документа из файловой системы
+            // ДО его удаления из ВК
+            document.deleteDocument()
+            
+            
+            ServiceLayer.sharedServiceLayer.docsService.deleteDocumentFromUser(dummyDoc, completion: { () -> Void in
+//                document.deleteDocument()
                 }, failure: { (error) -> Void in
                     (tableView.delegate as! ViewController).handleError(error)
             })

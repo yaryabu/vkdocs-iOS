@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DocumentPreviewViewController" customModule="VKDocReader" customModuleProvider="target"/>
@@ -28,6 +29,13 @@
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WGv-1Q-CVo">
+                    <rect key="frame" x="539.5" y="0.0" width="60.5" height="60.5"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="WGv-1Q-CVo" secondAttribute="height" multiplier="1:1" id="ZFM-f2-C8P"/>
+                    </constraints>
+                    <state key="normal" image="share_button"/>
+                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
@@ -35,20 +43,18 @@
                 <constraint firstItem="Z6a-dB-WKE" firstAttribute="centerY" secondItem="jKr-2f-2ud" secondAttribute="centerY" id="FBA-eN-uti"/>
                 <constraint firstAttribute="bottom" secondItem="vr6-Yv-a3y" secondAttribute="bottom" id="NdB-hL-3El"/>
                 <constraint firstItem="vr6-Yv-a3y" firstAttribute="top" secondItem="jKr-2f-2ud" secondAttribute="top" id="QhY-YY-ppD"/>
+                <constraint firstAttribute="bottom" secondItem="WGv-1Q-CVo" secondAttribute="bottom" id="V3p-Z6-uKA"/>
                 <constraint firstItem="Z6a-dB-WKE" firstAttribute="centerX" secondItem="jKr-2f-2ud" secondAttribute="centerX" id="ViI-er-hv0"/>
-                <constraint firstItem="vr6-Yv-a3y" firstAttribute="centerY" secondItem="jKr-2f-2ud" secondAttribute="centerY" id="fYx-LY-yCD"/>
+                <constraint firstAttribute="trailing" secondItem="WGv-1Q-CVo" secondAttribute="trailing" id="YEd-S9-afC"/>
+                <constraint firstItem="WGv-1Q-CVo" firstAttribute="top" secondItem="jKr-2f-2ud" secondAttribute="top" id="pil-9i-rEM"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <variation key="default">
-                <mask key="constraints">
-                    <exclude reference="fYx-LY-yCD"/>
-                </mask>
-            </variation>
             <connections>
                 <outlet property="exitButton" destination="vr6-Yv-a3y" id="JvP-Il-Zjf"/>
+                <outlet property="shareButton" destination="WGv-1Q-CVo" id="G2y-Ug-EkF"/>
                 <outlet property="titleLabel" destination="Z6a-dB-WKE" id="0Wz-DM-Maa"/>
             </connections>
             <point key="canvasLocation" x="307" y="-1.75"/>
@@ -56,5 +62,6 @@
     </objects>
     <resources>
         <image name="exit_cross" width="15" height="15"/>
+        <image name="share_button" width="13" height="16"/>
     </resources>
 </document>

@@ -25,6 +25,7 @@
 		574093AA1CB4670F003C156F /* NavBarOverlay.xib in Resources */ = {isa = PBXBuildFile; fileRef = 574093A91CB4670F003C156F /* NavBarOverlay.xib */; };
 		574B1B3D1CC0787E00EE607F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 574B1B3F1CC0787E00EE607F /* Localizable.strings */; };
 		574B1B501CC1731300EE607F /* VK_ios_sdk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 574B1B4F1CC1731300EE607F /* VK_ios_sdk.framework */; };
+		574FFC491CE5165C0021D501 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 574FFC4B1CE5165C0021D501 /* Localizable.strings */; };
 		57527EE51CE0CDFB002003E3 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 57527EE41CE0CDFB002003E3 /* MainInterface.storyboard */; };
 		5759286A1CAFF7720082E3BF /* SwiftWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575928691CAFF7720082E3BF /* SwiftWrapper.swift */; };
 		5759286B1CB004A40082E3BF /* ShareExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 57AF2CA21C97578600C5A193 /* ShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -157,6 +158,8 @@
 		574B1B3E1CC0787E00EE607F /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		574B1B401CC0788100EE607F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		574B1B4F1CC1731300EE607F /* VK_ios_sdk.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VK_ios_sdk.framework; path = "../../Library/Developer/Xcode/DerivedData/VKDocReader-gehyuweoxnoijmaubaremtspikcg/Build/Products/Debug-iphoneos/VK_ios_sdk.framework"; sourceTree = "<group>"; };
+		574FFC4A1CE5165C0021D501 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		574FFC4C1CE5165D0021D501 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		57527EE41CE0CDFB002003E3 /* MainInterface.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainInterface.storyboard; sourceTree = "<group>"; };
 		575928691CAFF7720082E3BF /* SwiftWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftWrapper.swift; path = Helpers/SwiftWrapper.swift; sourceTree = "<group>"; };
 		575928771CB1290A0082E3BF /* RetryErrorService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RetryErrorService.swift; sourceTree = "<group>"; };
@@ -561,6 +564,7 @@
 				574093881CB16A59003C156F /* UploadingFileCell.swift */,
 				5740938A1CB16C1A003C156F /* FileUploader.swift */,
 				5740938D1CB1C7C4003C156F /* AuthWebViewController.swift */,
+				574FFC4B1CE5165C0021D501 /* Localizable.strings */,
 			);
 			path = ShareExtension;
 			sourceTree = "<group>";
@@ -742,6 +746,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ru,
 			);
 			mainGroup = 578257B31C8AFA6F003C3568;
 			productRefGroup = 578257BD1C8AFA6F003C3568 /* Products */;
@@ -797,6 +802,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				57A56A731CA6D74C00E57677 /* Open Sans.ttf in Resources */,
+				574FFC491CE5165C0021D501 /* Localizable.strings in Resources */,
 				57527EE51CE0CDFB002003E3 /* MainInterface.storyboard in Resources */,
 				57A56A741CA6D74C00E57677 /* Lucida Grande.ttf in Resources */,
 				574093991CB3140D003C156F /* CaptchaViewController.storyboard in Resources */,
@@ -1051,6 +1057,15 @@
 			children = (
 				574B1B3E1CC0787E00EE607F /* ru */,
 				574B1B401CC0788100EE607F /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		574FFC4B1CE5165C0021D501 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				574FFC4A1CE5165C0021D501 /* en */,
+				574FFC4C1CE5165D0021D501 /* ru */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
