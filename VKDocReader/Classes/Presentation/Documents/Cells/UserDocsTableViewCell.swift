@@ -28,21 +28,14 @@ class UserDocsTableViewCell: TableViewCell {
     //Поскольку кнопка загрузки является accessoryView, появляются самые интересные
     //проблемы реиспользования ячеек и вызова closure на них (к примеру, прогресс загрузки).
     //Поэтому при каждом появлении ячейки на экране ей выдается новая кнопка, а не старая.
-    var newButton: UIButton {
-        get {
-            self.accessoryView = nil
-            let button = UIButton(type: UIButtonType.Custom)
-            button.frame = CGRect(x: 0, y: 0, width: 60, height: 30)
-            button.addTarget(self, action: #selector(UserDocsTableViewCell.buttonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-            
-            self.accessoryView = button
-            
-            button.titleLabel?.font = UIFont.loadingPercentFont()
-            button.titleLabel?.textColor = UIColor.vkDuskBlueColor()
-            button.titleLabel?.tintColor = UIColor.vkDuskBlueColor()
-            button.setTitleColor(UIColor.vkDuskBlueColor(), forState: .Normal)
-            return button
-        }
+    var newButton: DocumentCellButton {
+        self.accessoryView = nil
+        let button = DocumentCellButton(type: UIButtonType.Custom)
+        button.frame = CGRect(x: 0, y: 0, width: 60, height: 30)
+        button.addTarget(self, action: #selector(UserDocsTableViewCell.buttonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        
+        self.accessoryView = button
+        return button
     }
     
     override func layoutSubviews() {
@@ -87,8 +80,7 @@ class UserDocsTableViewCell: TableViewCell {
         
         if isSearchResult {
             let loadButton = newButton
-            loadButton.setTitle("", forState: .Normal)
-            loadButton.setImage(UIImage(named: "plus_icon"), forState: UIControlState.Normal)
+            loadButton.setAddDocumentIcon()
             return
         }
         
@@ -105,28 +97,24 @@ class UserDocsTableViewCell: TableViewCell {
         let loadButton = newButton
         
         if document!.tempPath != nil {
-            loadButton.setTitle("", forState: .Normal)
-            loadButton.setImage(UIImage(named: "not_downloaded_file_icon"), forState: UIControlState.Normal)
+            loadButton.setNotDownloadedFileIcon()
         } else if document!.fileName != nil {
-            loadButton.setTitle("", forState: .Normal)
-            loadButton.setImage(UIImage(named: "downloaded_file_icon"), forState: UIControlState.Normal)
+            loadButton.setDownloadedFileIcon()
         } else if ServiceLayer.sharedServiceLayer.docsService.downloadExists(document!) == false {
-            loadButton.setTitle("", forState: .Normal)
-            loadButton.setImage(UIImage(named: "not_downloaded_file_icon"), forState: UIControlState.Normal)
+            loadButton.setNotDownloadedFileIcon()
         } else {
-            loadButton.setTitle("0 %", forState: .Normal)
-            loadButton.setImage(nil, forState: .Normal)
-            ServiceLayer.sharedServiceLayer.docsService.downloadDocument(document!, progress: { (totalRead, bytesToRead) -> Void in
-                let percent = Int((Double(totalRead)/Double(bytesToRead))*100)
-                loadButton.setTitle(String(percent) + " %", forState: .Normal)
-                loadButton.setImage(nil, forState: .Normal)
+            loadButton.progress = 0
+            ServiceLayer.sharedServiceLayer.docsService.downloadDocument(document!,
+                progress: { (totalRead, bytesToRead) -> Void in
+                    
+                    let percent = Int((Double(totalRead)/Double(bytesToRead))*100)
+                    loadButton.progress = percent
+                
                 }, completion: { (document) -> Void in
-                    loadButton.setTitle("", forState: .Normal)
-                    loadButton.setImage(UIImage(named: "downloaded_file_icon"), forState: UIControlState.Normal)
+                    loadButton.setDownloadedFileIcon()
                 }, failure: { (error) -> Void in
                     NSNotificationCenter.defaultCenter().postNotificationName(Const.Notifications.errorOccured, object: Wrapper(theValue: error))
-                    loadButton.setTitle("", forState: .Normal)
-                    loadButton.setImage(UIImage(named: "not_downloaded_file_icon"), forState: UIControlState.Normal)
+                    loadButton.setNotDownloadedFileIcon()
             })
         }
     }
