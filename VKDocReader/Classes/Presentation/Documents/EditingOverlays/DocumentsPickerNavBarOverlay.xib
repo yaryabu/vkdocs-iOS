@@ -34,6 +34,7 @@
                     <constraints>
                         <constraint firstAttribute="width" secondItem="WGv-1Q-CVo" secondAttribute="height" multiplier="1:1" id="ZFM-f2-C8P"/>
                     </constraints>
+                    <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="10" maxY="0.0"/>
                     <state key="normal" image="share_button"/>
                 </button>
             </subviews>
@@ -62,6 +63,6 @@
     </objects>
     <resources>
         <image name="exit_cross" width="15" height="15"/>
-        <image name="share_button" width="13" height="16"/>
+        <image name="share_button" width="20" height="19"/>
     </resources>
 </document>
