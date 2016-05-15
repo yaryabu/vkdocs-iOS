@@ -22,6 +22,8 @@ class DocumentPreviewViewController: ViewController, QLPreviewControllerDataSour
     
     @IBOutlet var loadingView: UIView!
     
+    @IBOutlet weak var loadingViewSpinner: UIActivityIndicatorView!
+    
     @IBOutlet weak var cancelButton: UIBarButtonItem!
     
     lazy var optionsButton: UIBarButtonItem = {
@@ -98,10 +100,10 @@ class DocumentPreviewViewController: ViewController, QLPreviewControllerDataSour
             }
         } else {
             self.serviceLayer.docsService.downloadDocument(self.document, progress: {(totalRead, totalSize) -> Void in
+                self.loadingViewSpinner.stopAnimating()
                 let percent10k = Double(totalRead)/Double(totalSize)
-                //TODO: можно локализовать, но зачем
                 self.percentLabel.text = String(Int(percent10k*100)) + " %"
-                self.kbytesLabel.text = "\(totalRead/1024) КБ/\(totalSize/1024) КБ"
+                self.kbytesLabel.text = "\(totalRead/1024) \("KB".localized)/\(totalSize/1024) \("KB".localized)"
                 self.progressBar.progress = Float(percent10k)
                 }, completion: { (document) -> Void in
                     self.document = document

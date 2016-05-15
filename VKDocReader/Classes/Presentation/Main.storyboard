@@ -374,13 +374,18 @@
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="A6Z-he-0l5">
+                                        <rect key="frame" x="290" y="329" width="20" height="20"/>
+                                    </activityIndicatorView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="SKI-bR-XVh" secondAttribute="trailing" constant="56" id="2bZ-8c-NmP"/>
                                     <constraint firstItem="d2o-oo-ioB" firstAttribute="top" secondItem="SKI-bR-XVh" secondAttribute="bottom" constant="33" id="CTX-wc-QeO"/>
                                     <constraint firstItem="SKI-bR-XVh" firstAttribute="leading" secondItem="DGh-hE-c3y" secondAttribute="leading" constant="56" id="R0j-xg-6Bh"/>
+                                    <constraint firstItem="A6Z-he-0l5" firstAttribute="centerX" secondItem="DGh-hE-c3y" secondAttribute="centerX" id="SrW-M1-dzz"/>
                                     <constraint firstAttribute="bottom" secondItem="SKI-bR-XVh" secondAttribute="bottom" constant="240" id="VD3-zp-L1M"/>
+                                    <constraint firstItem="A6Z-he-0l5" firstAttribute="top" secondItem="SKI-bR-XVh" secondAttribute="bottom" constant="33" id="bUC-WY-nKh"/>
                                     <constraint firstItem="SKI-bR-XVh" firstAttribute="top" secondItem="DGh-hE-c3y" secondAttribute="top" constant="240" id="rKz-J5-PrS"/>
                                     <constraint firstItem="d2o-oo-ioB" firstAttribute="leading" secondItem="DGh-hE-c3y" secondAttribute="leading" id="sgX-6e-Bfo"/>
                                     <constraint firstAttribute="trailing" secondItem="d2o-oo-ioB" secondAttribute="trailing" id="tck-3t-Mmw"/>
@@ -408,6 +413,7 @@
                         <outlet property="cancelButton" destination="vWY-yN-ra7" id="ZtV-lp-Ppn"/>
                         <outlet property="kbytesLabel" destination="d2o-oo-ioB" id="ahY-VE-d1l"/>
                         <outlet property="loadingView" destination="DGh-hE-c3y" id="pxm-Vq-JKr"/>
+                        <outlet property="loadingViewSpinner" destination="A6Z-he-0l5" id="C5i-jK-NPk"/>
                         <outlet property="percentLabel" destination="FhS-Ig-L9F" id="CpM-Dg-jaY"/>
                         <outlet property="progressBar" destination="8CZ-9n-PQ0" id="H3E-x0-dmo"/>
                     </connections>
