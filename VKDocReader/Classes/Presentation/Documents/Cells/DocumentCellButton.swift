@@ -47,16 +47,19 @@ class DocumentCellButton: UIButton {
     }
     
     func setDownloadedFileIcon() {
+        spinner.stopAnimating()
         setTitle("", forState: .Normal)
         setImage(UIImage(named: "downloaded_file_icon"), forState: UIControlState.Normal)
     }
     
     func setNotDownloadedFileIcon() {
+        spinner.stopAnimating()
         setTitle("", forState: .Normal)
         setImage(UIImage(named: "not_downloaded_file_icon"), forState: UIControlState.Normal)
     }
     
     func setAddDocumentIcon() {
+        spinner.stopAnimating()
         setTitle("", forState: .Normal)
         setImage(UIImage(named: "plus_icon"), forState: UIControlState.Normal)
     }
