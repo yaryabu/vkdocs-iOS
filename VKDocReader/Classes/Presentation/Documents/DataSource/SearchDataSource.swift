@@ -12,6 +12,7 @@ import RealmSwift
 class SearchDataSource: NSObject, DataSource {
     var savedDocumentsResult: [Document] = []
     var vkSearchResults: [Document] = []
+    var vkSearchResultsCount = 0
     
     private var latestQuery: String = ""
     
@@ -42,10 +43,11 @@ class SearchDataSource: NSObject, DataSource {
     
     func startSearch(query: String, completion: () -> Void, failure: (error: Error) -> Void) {
         
-        //нельзя отсылать на сервер пустые строки в get запросе
+        //нельзя отсылать на сервер пустые строки в GET запросе
         if query == "" {
             savedDocumentsResult = []
             vkSearchResults = []
+            vkSearchResultsCount = 0
             completion()
             return
         }
@@ -59,7 +61,7 @@ class SearchDataSource: NSObject, DataSource {
             }
         }
         
-        ServiceLayer.sharedServiceLayer.docsService.searchDocuments(query, offset: vkSearchResults.count, completion: { (documents) -> Void in
+        ServiceLayer.sharedServiceLayer.docsService.searchDocuments(query, offset: vkSearchResults.count, completion: { (documents, count) -> Void in
             for doc in documents {
                 doc.isSearchResult = true
             }
@@ -68,6 +70,8 @@ class SearchDataSource: NSObject, DataSource {
             } else {
                 self.vkSearchResults = documents
             }
+            
+            self.vkSearchResultsCount = count
             completion()
             self.latestQuery = query
             }) { (error) -> Void in

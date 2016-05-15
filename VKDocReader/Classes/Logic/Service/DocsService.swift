@@ -31,8 +31,9 @@ class DocsService: Service {
                 return
             }
             let parsedDocs = DocsParser.parseDocuments(json)
+            self.userSettingsSerivce.currentDocumentsCount = parsedDocs.count
             Dispatch.mainQueue({ () -> () in
-                completion(parsedDocs)
+                completion(parsedDocs.documentsArray)
             })
         }) { (error) -> Void in
             if let error = self.createError(error) {
@@ -41,24 +42,24 @@ class DocsService: Service {
         }
     }
     
-    func refreshDocument(document: Document, completion: (document: Document) -> Void, failure: (error: Error) -> Void) {
-        self.transport.getJSON(Const.Network.baseUrl + "/docs.getById", parameters: self.refreshDocumentParameters(document), completion: { (json) -> Void in
-            if let error = self.checkError(json) {
-                Dispatch.mainQueue({ () -> () in
-                    failure(error: error)
-                })
-                return
-            }
-            let parsedDocs = DocsParser.parseDocuments(json)
-            Dispatch.mainQueue({ () -> () in
-                completion(document: parsedDocs[0])
-            })
-            }) { (error) -> Void in
-                if let error = self.createError(error) {
-                    failure(error: error)
-                }
-        }
-    }
+//    func refreshDocument(document: Document, completion: (document: Document) -> Void, failure: (error: Error) -> Void) {
+//        self.transport.getJSON(Const.Network.baseUrl + "/docs.getById", parameters: self.refreshDocumentParameters(document), completion: { (json) -> Void in
+//            if let error = self.checkError(json) {
+//                Dispatch.mainQueue({ () -> () in
+//                    failure(error: error)
+//                })
+//                return
+//            }
+//            let parsedDocs = DocsParser.parseDocuments(json)
+//            Dispatch.mainQueue({ () -> () in
+//                completion(document: parsedDocs.documentsArray[0])
+//            })
+//            }) { (error) -> Void in
+//                if let error = self.createError(error) {
+//                    failure(error: error)
+//                }
+//        }
+//    }
     
     func addDocumentToUser(document: Document, completion: (newDocumentId: String) -> Void, failure: (error: Error) -> Void) {
         self.transport.getJSON(Const.Network.baseUrl + "/docs.add", parameters: self.addDocumentToUserParameters(document), completion: { (json) -> Void in
@@ -160,7 +161,7 @@ class DocsService: Service {
         self.loadTaskManager.cancelFileDownload(document.id)
     }
     
-    func searchDocuments(query: String, offset: Int, completion: ([Document]) -> Void, failure: (error: Error) -> Void) {
+    func searchDocuments(query: String, offset: Int, completion: ([Document], count: Int) -> Void, failure: (error: Error) -> Void) {
         self.transport.getJSON(Const.Network.baseUrl + "/docs.search", parameters: self.searchDocumentsParameters(query, offset: String(offset)), completion: { (json) -> Void in
             if let error = self.checkError(json) {
                 Dispatch.mainQueue({ () -> () in
@@ -170,7 +171,7 @@ class DocsService: Service {
             }
             let parsedDocs = DocsParser.parseDocuments(json)
             Dispatch.mainQueue({ () -> () in
-                completion(parsedDocs)
+                completion(parsedDocs.documentsArray, count: parsedDocs.count)
             })
             }) { (error) -> Void in
                 if let error = self.createError(error) {

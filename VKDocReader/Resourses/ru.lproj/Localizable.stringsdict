@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>USER_DOCS_COUNT_TEMPLATE</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@key@</string>
+		<key>key</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>zero</key>
+			<string>Нет документов</string>
+			<key>one</key>
+			<string>%d документ</string>
+            <key>few</key>
+            <string>%d документа</string>
+			<key>other</key>
+			<string>%d документов</string>
+		</dict>
+	</dict>
+	<key>USER_ROOT_FOLDERS_COUNT_TEMPLATE</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@key@</string>
+		<key>key</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+            <key>zero</key>
+            <string>Нет папок</string>
+            <key>one</key>
+            <string>%d папка</string>
+            <key>few</key>
+            <string>%d папки</string>
+            <key>other</key>
+            <string>%d папок</string>
+		</dict>
+	</dict>
+	<key>PERSONAL_SEARCH_COUNT_TEMPLATE</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@key@</string>
+		<key>key</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+            <key>zero</key>
+            <string>Нет результатов в личных документах</string>
+            <key>one</key>
+            <string>%d личный документ</string>
+            <key>few</key>
+            <string>%d личных документа</string>
+            <key>other</key>
+            <string>%d личных документов</string>
+		</dict>
+	</dict>
+	<key>VK_SEARCH_COUNT_TEMPLATE</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@key@</string>
+		<key>key</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+            <key>zero</key>
+            <string>Нет результатов в документах ВКонтакте</string>
+            <key>one</key>
+            <string>%d документ ВКонтакте</string>
+            <key>few</key>
+            <string>%d документа ВКонтакте</string>
+            <key>other</key>
+            <string>%d документов ВКонтакте</string>
+		</dict>
+	</dict>
+</dict>
+</plist>

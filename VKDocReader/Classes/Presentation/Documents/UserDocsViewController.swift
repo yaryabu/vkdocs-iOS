@@ -194,18 +194,20 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
             height: 24
         )
         
-        if let _ = currentDataSource as? SearchDataSource {
+        if let ds = currentDataSource as? SearchDataSource {
             if section == 0 {
-                label.text = "PERCONAL_DOCUMENTS_SEARCH_RESULTS".localized
+                label.text = "PERSONAL_SEARCH_COUNT_TEMPLATE".localizedStringsDict(ds.savedDocumentsResult.count)
+//                label.text = "PERCONAL_DOCUMENTS_SEARCH_RESULTS".localized + " \(ds.savedDocumentsResult.count)"
             } else {
-                label.text = "VK_DOCUMENTS_SEARCH_RESULTS".localized
+                label.text = "VK_SEARCH_COUNT_TEMPLATE".localizedStringsDict(ds.vkSearchResultsCount)
+//                label.text = "VK_DOCUMENTS_SEARCH_RESULTS".localized + " \(ds.vkSearchResultsCount)"
             }
 
-        } else if let _ = currentDataSource as? UserDocsDataSource {
+        } else if let ds = currentDataSource as? UserDocsDataSource {
             if section == 0 {
-                label.text = "FOLDERS_SECTION_NAME".localized
+                label.text = "USER_ROOT_FOLDERS_COUNT_TEMPLATE".localizedStringsDict(ds.foldersCount)
             } else {
-                label.text = "DOCUMENTS_SECTION_NAME".localized
+                label.text = "USER_DOCS_COUNT_TEMPLATE".localizedStringsDict(ds.documents.count)
             }
         }
         

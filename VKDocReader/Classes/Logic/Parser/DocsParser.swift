@@ -29,16 +29,16 @@ class DocsParser: Parser {
         return document
     }
     
-    class func parseDocuments(json: JSON) -> [Document] {
+    class func parseDocuments(json: JSON) -> (documentsArray: [Document], count: Int) {
         
         var documentsArray: [Document] = []
-        ServiceLayer.sharedServiceLayer.userSettingsService.currentDocumentsCount = json["response"]["count"].int!
+        let count = json["response"]["count"].int!
         for (index ,subJson):(String, JSON) in json["response"]["items"] {
             let newDoc = self.parseDocument(subJson)
             newDoc.order = Int(index)!
             documentsArray.append(newDoc)
         }
         
-        return documentsArray
+        return (documentsArray, count)
     }
 }

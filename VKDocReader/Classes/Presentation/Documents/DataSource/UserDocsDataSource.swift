@@ -19,11 +19,16 @@ class UserDocsDataSource: NSObject, DataSource {
     var folders: [String] {
         let currentFolders = Bash.ls(Const.Directories.fileSystemDir)
         if currentFolders.count > 0 {
+            foldersCount = currentFolders.count
             return currentFolders
         } else {
+            foldersCount = 0
             return [createFolderCell]
         }
     }
+    
+    var foldersCount = 0
+    
     var documents: [Document] {
         didSet {
             Analytics.logDocumentsCount(documents.count)

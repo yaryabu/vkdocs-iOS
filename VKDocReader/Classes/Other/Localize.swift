@@ -12,4 +12,7 @@ extension String {
     var localized: String {
         return NSLocalizedString(self, tableName: nil, bundle: NSBundle.mainBundle(), value: "", comment: "")
     }
+    func localizedStringsDict(numberToFormat: Int) -> String {
+        return String.localizedStringWithFormat(self.localized, numberToFormat)
+    }
 }
