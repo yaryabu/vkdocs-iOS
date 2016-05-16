@@ -14,7 +14,7 @@ import RealmSwift
 /**
  Основной ViewController приложения, который слишком много на себя берет
  */
-class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate {
+class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate, UIDocumentMenuDelegate, UIDocumentPickerDelegate {
     
     var currentPath: String! = Const.Directories.fileSystemDir
     
@@ -626,27 +626,33 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
     //MARK: Загрузка файла в ВК
     
     @IBAction func addDocumentButtonPressed(sender: AnyObject) {
+        
         if serviceLayer.uploadDocsService.isUploadingNow() {
             ToastManager.sharedInstance.presentError(Error(code: 0, message: "UPLOAD_IN_PROGRESS_ERROR_MESSAGE".localized))
             return
         }
         
-        switch PHPhotoLibrary.authorizationStatus() {
-        case .Authorized:
-            presentViewController(imagePicker, animated: true, completion: nil)
-        case .NotDetermined:
-            PHPhotoLibrary.requestAuthorization({ (status) in
-                Dispatch.mainQueue({ 
-                    if status == .Authorized {
-                        self.presentViewController(self.imagePicker, animated: true, completion: nil)
-                    } else {
-                        ToastManager.sharedInstance.presentError(Error(code: 0, message: ":c"))
-                    }
+        let docMenuVC = UIDocumentMenuViewController(documentTypes: ["public.data"], inMode: UIDocumentPickerMode.Import)
+        docMenuVC.delegate = self
+        docMenuVC.addOptionWithTitle("DOCUMENT_PICKER_PHOTO_TITLE".localized, image: UIImage(named: "photos_document_picker_icon"), order: .First) {
+            switch PHPhotoLibrary.authorizationStatus() {
+            case .Authorized:
+                self.presentViewController(self.imagePicker, animated: true, completion: nil)
+            case .NotDetermined:
+                PHPhotoLibrary.requestAuthorization({ (status) in
+                    Dispatch.mainQueue({
+                        if status == .Authorized {
+                            self.presentViewController(self.imagePicker, animated: true, completion: nil)
+                        } else {
+                            ToastManager.sharedInstance.presentError(Error(code: 0, message: ":c"))
+                        }
+                    })
                 })
-            })
-        default:
-            ToastManager.sharedInstance.presentError(Error(code: 0, message: "PHOTO_ACCESS_FORBIDDEN_ERROR_MESSAGE".localized))
+            default:
+                ToastManager.sharedInstance.presentError(Error(code: 0, message: "PHOTO_ACCESS_FORBIDDEN_ERROR_MESSAGE".localized))
+            }
         }
+        presentViewController(docMenuVC, animated: true, completion: nil)
     }
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
@@ -683,6 +689,26 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
         }) { (error) -> Void in
             self.handleError(error)
         }
+    }
+    
+    func documentMenu(documentMenu: UIDocumentMenuViewController, didPickDocumentPicker documentPicker: UIDocumentPickerViewController) {
+        documentPicker.delegate = self
+        presentViewController(documentPicker, animated: true, completion: nil)
+    }
+    
+    func documentPicker(controller: UIDocumentPickerViewController, didPickDocumentAtURL url: NSURL) {
+        ToastManager.sharedInstance.presentInfo("UPLOAD_BEGAN_TOAST_MESSAGE".localized, duration: 3.0)
+        
+        url.startAccessingSecurityScopedResource()
+        let coordinator = NSFileCoordinator()
+        var error:NSError? = nil
+        coordinator.coordinateReadingItemAtURL(url, options: [], error: &error) { (url) -> Void in
+            let fileData = NSData(contentsOfURL: url)!
+            let filePath = Const.Directories.tmp + "/" + (url.absoluteString.componentsSeparatedByString("/").last ?? "VK_Docs_file")
+            fileData.writeToFile(filePath, atomically: false)
+            self.uploadMediaFile(filePath, fileName: url.absoluteString.componentsSeparatedByString("/").last ?? "VK_Docs_file")
+        }
+        url.stopAccessingSecurityScopedResource()
     }
     
     //MARK: Other
