@@ -38,6 +38,7 @@ class SettingHeaderLabel: Label {
     override func prepareLabel() {
         self.font = UIFont.defaultFont()
         self.tintColor = UIColor.vkWarmGreyColor()
+        self.textColor = UIColor.vkWarmGreyColor()
     }
 }
 
@@ -66,6 +67,7 @@ class SectionHeaderLabel: Label {
     override func prepareLabel() {
         self.font = UIFont.sectionHeaderFont()
         self.tintColor = UIColor.vkWarmGreyColor()
+        self.textColor = UIColor.vkWarmGreyColor()
     }
 }
 
