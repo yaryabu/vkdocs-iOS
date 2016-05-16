@@ -76,7 +76,7 @@ class Bash {
         do {
             //если попытаться заменить существующий файл, то возвращается ошибка
             //сделано для случаев, если from и to одинаковые
-            let bakDir = Const.Directories.tmp + "cp.bak"
+            let bakDir = Const.Directories.tmp + "/cp.bak"
             mkdir(bakDir)
             let bakPath = bakDir + "/" + from.componentsSeparatedByString("/").last!
             try NSFileManager.defaultManager().copyItemAtPath(from, toPath: bakPath)
