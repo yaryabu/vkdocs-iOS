@@ -659,7 +659,7 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
             let asset = PHAsset.fetchAssetsWithALAssetURLs([referenceUrl], options: nil).firstObject
             let fileName = asset?.filename! ?? "VK_Docs_file"
             print(fileName)
-            let path = NSTemporaryDirectory() + fileName
+            let path = Const.Directories.tmp + "/" + fileName
             if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
                 let data = UIImagePNGRepresentation(image) ?? UIImageJPEGRepresentation(image, 1.0)!
                 data.writeToFile(path, atomically: false)

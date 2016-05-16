@@ -28,23 +28,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate, VKSdkDelegate, VKSdkUIDel
         // если эти токены протухают, то документы становится невозможно просматривать
         NSHTTPCookieStorage.sharedHTTPCookieStorage().cookieAcceptPolicy = NSHTTPCookieAcceptPolicy.Never
         
+        migrationHelper()
+        
         let vkSdk = VKSdk.initializeWithAppId(Const.Common.clientId)
         vkSdk.registerDelegate(self)
         vkSdk.uiDelegate = self
-        
-        Dispatch.defaultQueue { 
-            for file in Bash.ls(NSTemporaryDirectory()) {
-                if file.containsString(Const.Common.directoryConflictHelper) {
-                    Bash.rm(NSTemporaryDirectory() + file)
-                }
-            }
-        }
         
         let defaults = NSUserDefaults(suiteName: Const.UserDefaults.appGroupId)
         defaults?.synchronize()
         if let extensions = defaults?.stringArrayForKey(Const.UserDefaults.shareExtensionDocumentsExtensions) {
             Analytics.logShareExtensionInfo(extensions)
             defaults?.removeObjectForKey(Const.UserDefaults.shareExtensionDocumentsExtensions)
+        }
+        
+        if Bash.fileExists(Const.Directories.tmp) == false {
+            Bash.mkdir(Const.Directories.tmp)
+        }
+        
+        Dispatch.defaultQueue {
+            for file in Bash.ls(Const.Directories.tmp) {
+                Bash.rm(Const.Directories.tmp + "/" + file)
+            }
         }
         
         
@@ -142,6 +146,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, VKSdkDelegate, VKSdkUIDel
         let location = event!.allTouches()!.first!.locationInView(self.window)
         if CGRectContainsPoint(UIApplication.sharedApplication().statusBarFrame, location) {
             NSNotificationCenter.defaultCenter().postNotificationName(Const.Notifications.statusBarTouched, object: nil)
+        }
+    }
+    
+    /// Функция для помощи в миграции/обновлении. Если при обновлении добавились какие-нибудь несовсместимые вещи - исправление этих вещей происходит в этой функции
+    func migrationHelper() {
+        // миграция с 1.0 на 1.1
+        Dispatch.defaultQueue {
+            for file in Bash.ls(NSTemporaryDirectory()) {
+                if file.containsString(Const.Common.directoryConflictHelper) {
+                    Bash.rm(NSTemporaryDirectory() + file)
+                }
+            }
         }
     }
     

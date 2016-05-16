@@ -104,6 +104,7 @@ struct Const {
         static let vkDocumentsDir = appDocumentsDir + "/VK_Documents"
         static let vaultDir = vkDocumentsDir + "/vault"
         static let fileSystemDir = vkDocumentsDir + "/fileSystem"
+        static let tmp = NSTemporaryDirectory() + Common.bundleIdentifier
     }
 }
 

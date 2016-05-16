@@ -63,7 +63,7 @@ class Document: Object {
     */
     dynamic var tempDir: String {
         //рандомная строка, чтобы точно не было конфликтов с пользовательскими папками
-        let dir = NSTemporaryDirectory() + id + Const.Common.directoryConflictHelper
+        let dir = Const.Directories.tmp + "/" + id + Const.Common.directoryConflictHelper
         if Bash.fileExists(dir) == false {
             Bash.mkdir(dir)
         }
