@@ -1,0 +1,9 @@
+/* 
+  InfoPlist.strings
+  VKDocReader
+
+  Created by Yaroslav Ryabukha on 16/05/16.
+  Copyright © 2016 Yaroslav Ryabukha. All rights reserved.
+*/
+
+"CFBundleDisplayName" = "Upload to VK";
