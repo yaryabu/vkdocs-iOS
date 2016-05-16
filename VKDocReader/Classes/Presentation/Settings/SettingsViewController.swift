@@ -24,6 +24,8 @@ class SettingsViewController: ViewController, MFMailComposeViewControllerDelegat
     @IBOutlet weak var clearCacheButton: UIButton! {
         didSet {
             clearCacheButton.setTitle("SETTINGS_VIEW_CONTROLLER_CLEAR_CACHE_DEFAULT_TEXT".localized, forState: UIControlState.Normal)
+            clearCacheButton.setTitleColor(UIColor.vkBlackTwoColor(), forState: UIControlState.Normal)
+            clearCacheButton.titleLabel!.font = UIFont.defaultFont()
         }
     }
     
@@ -42,9 +44,11 @@ class SettingsViewController: ViewController, MFMailComposeViewControllerDelegat
     @IBOutlet weak var onlyWifiLoadSwitch: UISwitch!
     @IBOutlet weak var saveDocsAutomaticallySwitch: UISwitch!
     
-    @IBOutlet weak var contactDeveloperButton: UIButton! {
+    @IBOutlet weak var openAboutAppScreenButton: UIButton! {
         didSet {
-            contactDeveloperButton.setTitle("SETTINGS_VIEW_CONTROLLER_CONTACT_DEVELOPER".localized, forState: UIControlState.Normal)
+            openAboutAppScreenButton.setTitleColor(UIColor.vkBlackTwoColor(), forState: UIControlState.Normal)
+            openAboutAppScreenButton.titleLabel!.font = UIFont.defaultFont()
+            openAboutAppScreenButton.setTitle("SETTINGS_VIEW_CONTROLLER_ABOUT_APP_BUTTON".localized, forState: UIControlState.Normal)
         }
     }
     
@@ -66,11 +70,6 @@ class SettingsViewController: ViewController, MFMailComposeViewControllerDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         let _ = navBarOverlay
-        self.clearCacheButton.setTitleColor(UIColor.vkBlackTwoColor(), forState: UIControlState.Normal)
-        self.clearCacheButton.titleLabel!.font = UIFont.defaultFont()
-        
-        self.contactDeveloperButton.setTitleColor(UIColor.vkBlackTwoColor(), forState: UIControlState.Normal)
-        self.contactDeveloperButton.titleLabel!.font = UIFont.defaultFont()
         
         self.onlyWifiLoadSwitch.on = self.serviceLayer.userSettingsService.useWifiOnly
         self.saveDocsAutomaticallySwitch.on = !self.serviceLayer.userSettingsService.deleteDocumentsAfterPreview
@@ -138,22 +137,8 @@ class SettingsViewController: ViewController, MFMailComposeViewControllerDelegat
         Analytics.logUseWifiOnlySetting(wifiLoadSwitch.on)
     }
     
-    @IBAction func contactButtonPressed(sender: AnyObject) {
-        if MFMailComposeViewController.canSendMail() {
-            let mail = MFMailComposeViewController()
-            mail.mailComposeDelegate = self
-            mail.setToRecipients(["yaryabu@gmail.com"])
-            mail.setSubject("VK Docs")
-            mail.setMessageBody("\n\n\n\n Device: \(Const.DeviceInfo.fullInfo)\nApp Version: \(Const.Common.fullVersion)", isHTML: false)
-            
-            presentViewController(mail, animated: true, completion: nil)
-        } else {
-            ToastManager.sharedInstance.presentError(Error(code: 0, message: "SETTINGS_VIEW_CONTROLLER_EMAIL_NOT_SET_ERROR".localized))
-        }
-    }
-    
-    func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
-        controller.dismissViewControllerAnimated(true, completion: nil)
+    @IBAction func openAboutAppScreenButtonPressed(sender: AnyObject) {
+        self.performSegueWithIdentifier(Const.StoryboardSegues.openAboutAppScreen, sender: nil)
     }
     
     func exitButtonPressed(sender: AnyObject) {

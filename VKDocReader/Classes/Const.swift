@@ -12,6 +12,7 @@ struct Const {
     struct Common {
         //FIXME: вынести куда-нибудь в Keys.swift или типа того
         static let clientId = "5295261"
+        static let appStoreAppId = "1100480185"
         static let bundleIdentifier = NSBundle.mainBundle().bundleIdentifier!
         static let appVersion = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleShortVersionString") as! String
         static let appBuildNumber = NSBundle.mainBundle().objectForInfoDictionaryKey(kCFBundleVersionKey as String) as! String
@@ -21,6 +22,12 @@ struct Const {
         //рандомная строка, которая добавляется ко всем папкам для документов, чтобы
         //не было конфликтов с пользовательскими папками
         static let directoryConflictHelper = ".CONFLICT_CONSTANT"
+    }
+    
+    struct ExternalLinks {
+        static let vkDocsVkPublicUrlString = "https://vk.com/vkdocs_app"
+        static let appStoreRateAppUrlString = "http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=\(Common.appStoreAppId)&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8"
+        static let appStoreShortLink = "http://vk.cc/54uibC"
     }
     
     struct DeviceInfo {
@@ -77,6 +84,7 @@ struct Const {
         static let logInSuccess = "logInSuccess"
         static let previewDocument = "previewDocument"
         static let createFolder = "createFolder"
+        static let openAboutAppScreen = "openAboutAppScreen"
     }
     
     struct Keychain {

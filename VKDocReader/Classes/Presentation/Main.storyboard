@@ -481,11 +481,11 @@
                                     <constraint firstAttribute="height" constant="60" id="Pmo-mf-7Z3"/>
                                 </constraints>
                                 <inset key="contentEdgeInsets" minX="24" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                <state key="normal" title="Связь с разработчиком">
+                                <state key="normal" title="О приложении">
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="contactButtonPressed:" destination="qI0-HP-mX1" eventType="touchUpInside" id="V9L-0y-raV"/>
+                                    <action selector="openAboutAppScreenButtonPressed:" destination="qI0-HP-mX1" eventType="touchUpInside" id="T1p-jP-YF1"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hut-Rc-uLI">
@@ -641,17 +641,104 @@
                     </navigationItem>
                     <connections>
                         <outlet property="clearCacheButton" destination="2zi-Zt-WTm" id="a07-k2-d2x"/>
-                        <outlet property="contactDeveloperButton" destination="y87-cI-1hi" id="WWb-VU-Eca"/>
                         <outlet property="onlyWifiLoadLabel" destination="WZ0-sv-1NE" id="Mim-ac-9ID"/>
                         <outlet property="onlyWifiLoadSwitch" destination="vbI-jq-NY7" id="yRO-vg-iZo"/>
+                        <outlet property="openAboutAppScreenButton" destination="y87-cI-1hi" id="Cq5-WK-FY6"/>
                         <outlet property="saveDocsAutomaticallyLabel" destination="Cgf-kS-X26" id="yM7-di-pcb"/>
                         <outlet property="saveDocsAutomaticallySwitch" destination="Rh8-pl-0vz" id="AqA-zu-HKB"/>
                         <outlet property="settingHeaderLabel" destination="DBB-1E-Ldx" id="rJx-Oo-Qdz"/>
+                        <segue destination="3Ev-Z2-nbk" kind="presentation" identifier="openAboutAppScreen" id="0Z5-ls-Ne6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fab-xa-LEx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2439" y="1621"/>
+        </scene>
+        <!--About App View Controller-->
+        <scene sceneID="ly5-8o-QAJ">
+            <objects>
+                <viewController id="3Ev-Z2-nbk" customClass="AboutAppViewController" customModule="VKDocReader" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Vhi-ZP-k9E"/>
+                        <viewControllerLayoutGuide type="bottom" id="r2j-BY-mSP"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="r0P-eS-hEF">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sSI-zU-5Ob">
+                                <rect key="frame" x="280" y="183" width="40" height="30"/>
+                                <state key="normal" title="Share"/>
+                                <connections>
+                                    <action selector="shareButtonPressed:" destination="3Ev-Z2-nbk" eventType="touchUpInside" id="TIR-xK-tXD"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="icd-OP-GRW">
+                                <rect key="frame" x="267" y="230" width="66" height="30"/>
+                                <state key="normal" title="VK Public"/>
+                                <connections>
+                                    <action selector="openVkCommunityButtonPressed:" destination="3Ev-Z2-nbk" eventType="touchUpInside" id="MAJ-Xu-Sso"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xQU-7I-cPM">
+                                <rect key="frame" x="0.0" y="0.0" width="76" height="97"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="97" id="3y9-mY-zmY"/>
+                                </constraints>
+                                <inset key="contentEdgeInsets" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <state key="normal" title="Close" image="exit_cross"/>
+                                <connections>
+                                    <action selector="closeScreenButtonPressed:" destination="3Ev-Z2-nbk" eventType="touchUpInside" id="8Gv-ew-u5v"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GlD-Tu-qUa">
+                                <rect key="frame" x="279" y="29" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gHc-cj-jHg">
+                                <rect key="frame" x="236.5" y="277" width="127" height="30"/>
+                                <state key="normal" title="Contact developer"/>
+                                <connections>
+                                    <action selector="contactDeveloperButtonPressed:" destination="3Ev-Z2-nbk" eventType="touchUpInside" id="k7r-St-lDR"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jhu-Ua-ijp">
+                                <rect key="frame" x="257" y="357" width="86" height="30"/>
+                                <state key="normal" title="Rate in store"/>
+                                <connections>
+                                    <action selector="rateInAppStoreButtonPressed:" destination="3Ev-Z2-nbk" eventType="touchUpInside" id="wcA-Tu-YlW"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="icd-OP-GRW" firstAttribute="centerX" secondItem="r0P-eS-hEF" secondAttribute="centerX" id="0vG-Pa-WwP"/>
+                            <constraint firstItem="gHc-cj-jHg" firstAttribute="centerX" secondItem="r0P-eS-hEF" secondAttribute="centerX" id="63I-nT-EBo"/>
+                            <constraint firstItem="xQU-7I-cPM" firstAttribute="leading" secondItem="r0P-eS-hEF" secondAttribute="leading" id="CqA-Bc-G2W"/>
+                            <constraint firstItem="icd-OP-GRW" firstAttribute="top" secondItem="sSI-zU-5Ob" secondAttribute="bottom" constant="17" id="EFj-wy-MEC"/>
+                            <constraint firstItem="jhu-Ua-ijp" firstAttribute="top" secondItem="gHc-cj-jHg" secondAttribute="bottom" constant="50" id="RtU-w6-Lik"/>
+                            <constraint firstItem="jhu-Ua-ijp" firstAttribute="centerX" secondItem="r0P-eS-hEF" secondAttribute="centerX" id="U53-97-XLc"/>
+                            <constraint firstItem="GlD-Tu-qUa" firstAttribute="centerX" secondItem="r0P-eS-hEF" secondAttribute="centerX" id="cxK-UH-8uq"/>
+                            <constraint firstItem="GlD-Tu-qUa" firstAttribute="top" secondItem="Vhi-ZP-k9E" secondAttribute="bottom" constant="9" id="gr6-hM-UFY"/>
+                            <constraint firstItem="sSI-zU-5Ob" firstAttribute="top" secondItem="GlD-Tu-qUa" secondAttribute="bottom" constant="133" id="jER-pj-qke"/>
+                            <constraint firstItem="sSI-zU-5Ob" firstAttribute="centerX" secondItem="r0P-eS-hEF" secondAttribute="centerX" id="miw-py-iRu"/>
+                            <constraint firstItem="gHc-cj-jHg" firstAttribute="top" secondItem="icd-OP-GRW" secondAttribute="bottom" constant="17" id="qn4-J7-ZkH"/>
+                            <constraint firstItem="xQU-7I-cPM" firstAttribute="top" secondItem="r0P-eS-hEF" secondAttribute="top" id="rQh-LF-biq"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="contactDeveloper" destination="gHc-cj-jHg" id="6Vb-sF-2Su"/>
+                        <outlet property="rateInAppStoreButton" destination="jhu-Ua-ijp" id="Fda-hV-Vb9"/>
+                        <outlet property="shareButton" destination="sSI-zU-5Ob" id="tKM-44-vhG"/>
+                        <outlet property="titleLabel" destination="GlD-Tu-qUa" id="pT0-hL-dz0"/>
+                        <outlet property="vkCommunityButton" destination="icd-OP-GRW" id="7Xo-Si-TxZ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1nY-Up-dqV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3080" y="1596"/>
         </scene>
         <!--Настройки-->
         <scene sceneID="2u8-v5-XEP">
