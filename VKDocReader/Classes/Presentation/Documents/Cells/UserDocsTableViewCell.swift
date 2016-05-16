@@ -16,7 +16,7 @@ class UserDocsTableViewCell: TableViewCell {
     
     static let cellIdentifier = "UserDocsTableViewCell"
     
-    private let dateFormat = "dd MMMM yyyy в HH:mm"
+    private let dateFormat = "DOCUMENT_CREATED_DATE_FORMAT".localized
     
     var document: Document?
     

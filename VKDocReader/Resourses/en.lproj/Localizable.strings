@@ -67,6 +67,7 @@
 //MARK: TableViewCell
 
 "CREATE_FOLDERS" = "Create folders";
+"DOCUMENT_CREATED_DATE_FORMAT" = "dd MMMM yyyy 'at' HH:mm";
 
 //MARK: UserDocsViewController
 
@@ -97,6 +98,8 @@
 "EDITING_MODE_DELETE_ALERT_MESSAGE" = "Picked files will be deleated from VK";
 
 // file upload & image picker
+"DOCUMENT_PICKER_PHOTO_TITLE" = "Photos";
+
 "UPLOAD_IN_PROGRESS_ERROR_MESSAGE" = "Wait for the upload to finish";
 "PHOTO_ACCESS_FORBIDDEN_ERROR_MESSAGE" = "Photo access forbidden\n Cannot load photo to VK";
 "DOCUMENT_UPLOAD_SUCCESS_TOAST_MESSAGE" = "Document uploaded";

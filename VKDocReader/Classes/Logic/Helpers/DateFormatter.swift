@@ -16,7 +16,7 @@ class DateFormatter {
     class func stringFromTimestamp(timestamp: Int, formatString: String) -> String {
         
         let formatter = NSDateFormatter()
-        formatter.locale = NSLocale(localeIdentifier: "ru_RU")
+        formatter.locale = NSLocale.currentLocale()//NSLocale(localeIdentifier: "ru_RU")
         formatter.dateFormat = formatString
         
         let date = NSDate(timeIntervalSince1970: Double(timestamp))
