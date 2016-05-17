@@ -71,6 +71,24 @@ class SectionHeaderLabel: Label {
     }
 }
 
+class AboutAppVersionLabel: Label {
+    override func prepareLabel() {
+        self.font = UIFont.loadingPercentFont()
+        self.tintColor = UIColor.vkBlackTwo50Color()
+        self.textColor = UIColor.vkBlackTwo50Color()
+        self.textAlignment = NSTextAlignment.Center
+    }
+}
+
+class AboutAppDescriptionLabel: Label {
+    override func prepareLabel() {
+        self.font = UIFont.sectionHeaderFont()
+        self.tintColor = UIColor.vkBlackTwoColor()
+        self.textColor = UIColor.vkBlackTwoColor()
+        self.textAlignment = NSTextAlignment.Center
+    }
+}
+
 
 
 

@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SafariServices
 import MessageUI
 
 class AboutAppViewController: ViewController, MFMailComposeViewControllerDelegate {
@@ -17,25 +16,46 @@ class AboutAppViewController: ViewController, MFMailComposeViewControllerDelegat
             titleLabel.text = "ABOUT_APP_VIEW_CONTROLLER_TITLE".localized
         }
     }
+    @IBOutlet weak var versionLabel: AboutAppVersionLabel! {
+        didSet {
+            versionLabel.text = String(format: "ABOUT_APP_VERSION_TEMPLATE".localized, Const.Common.appVersion)
+        }
+    }
+    
+    @IBOutlet weak var descriptionLabel: AboutAppDescriptionLabel! {
+        didSet {
+            descriptionLabel.text = "ABOUT_APP_DESCRIPTION".localized
+        }
+    }
+    
     @IBOutlet weak var shareButton: UIButton! {
         didSet {
             shareButton.setTitle("ABOUT_APP_VIEW_CONTROLLER_SHARE_WITH_FRIENDS".localized, forState: .Normal)
+            shareButton.setTitleColor(UIColor.vkBlackTwoColor(), forState: UIControlState.Normal)
+            shareButton.titleLabel!.font = UIFont.defaultFont()
         }
     }
+    
     @IBOutlet weak var vkCommunityButton: UIButton! {
         didSet {
             vkCommunityButton.setTitle("ABOUT_APP_VIEW_CONTROLLER_VK_COMMUNITY".localized, forState: .Normal)
+            vkCommunityButton.setTitleColor(UIColor.vkBlackTwoColor(), forState: UIControlState.Normal)
+            vkCommunityButton.titleLabel!.font = UIFont.defaultFont()
         }
     }
     @IBOutlet weak var contactDeveloper: UIButton! {
         didSet {
             contactDeveloper.setTitle("ABOUT_APP_VIEW_CONTROLLER_CONTACT_DEVELOPER".localized, forState: .Normal)
+            contactDeveloper.setTitleColor(UIColor.vkBlackTwoColor(), forState: UIControlState.Normal)
+            contactDeveloper.titleLabel!.font = UIFont.defaultFont()
         }
     }
     
     @IBOutlet weak var rateInAppStoreButton: UIButton! {
         didSet {
             rateInAppStoreButton.setTitle("ABOUT_APP_VIEW_CONTROLLER_RATE_IN_APP_STORE".localized, forState: .Normal)
+            rateInAppStoreButton.setTitleColor(UIColor.vkBlackTwoColor(), forState: UIControlState.Normal)
+            rateInAppStoreButton.titleLabel!.font = UIFont.defaultFont()
         }
     }
     
@@ -50,12 +70,7 @@ class AboutAppViewController: ViewController, MFMailComposeViewControllerDelegat
     }
     
     @IBAction func openVkCommunityButtonPressed(sender: AnyObject) {
-        if #available(iOS 9.0, *) {
-            let safariVC = SFSafariViewController(URL: NSURL(string: Const.ExternalLinks.vkDocsVkPublicUrlString)!, entersReaderIfAvailable: true)
-            self.presentViewController(safariVC, animated: true, completion: nil)
-        } else {
             UIApplication.sharedApplication().openURL(NSURL(string: Const.ExternalLinks.vkDocsVkPublicUrlString)! )
-        }
     }
     @IBAction func contactDeveloperButtonPressed(sender: AnyObject) {
         if MFMailComposeViewController.canSendMail() {

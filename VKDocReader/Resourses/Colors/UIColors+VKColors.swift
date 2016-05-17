@@ -56,4 +56,8 @@ extension UIColor {
     class func vkPaleGreyColor() -> UIColor {
         return UIColor(red: 224.0 / 255.0, green: 231.0 / 255.0, blue: 236.0 / 255.0, alpha: 1.0)
     }
+    
+    class func vkBlackTwo50Color() -> UIColor {
+        return UIColor(white: 0.0, alpha: 0.5)
+    }
 }

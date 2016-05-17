@@ -188,6 +188,9 @@
 //MARK: AboutAppViewController
 "ABOUT_APP_VIEW_CONTROLLER_TITLE" = "О приложении";
 
+"ABOUT_APP_VERSION_TEMPLATE" = "Версия %@";
+"ABOUT_APP_DESCRIPTION" = "Приложение VK Docs было создано\nдля конкурса ВКонтакте и продолжает\nпроцветать как самостоятельный проект.";
+
 "ABOUT_APP_VIEW_CONTROLLER_SHARE_WITH_FRIENDS" = "Поделиться с друзьями";
 "ABOUT_APP_VIEW_CONTROLLER_VK_COMMUNITY" = "Найти нас ВКонтакте";
 "ABOUT_APP_VIEW_CONTROLLER_CONTACT_DEVELOPER" = "Связь с разработчиком";

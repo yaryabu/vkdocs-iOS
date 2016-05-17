@@ -187,6 +187,9 @@
 //MARK: AboutAppViewController
 "ABOUT_APP_VIEW_CONTROLLER_TITLE" = "About";
 
+"ABOUT_APP_VERSION_TEMPLATE" = "Version %@";
+"ABOUT_APP_DESCRIPTION" = "VK Docs app was created for VK\nMobile Challenge and continues to\nthrive as a standalone project.";
+
 "ABOUT_APP_VIEW_CONTROLLER_SHARE_WITH_FRIENDS" = "Share with friends";
 "ABOUT_APP_VIEW_CONTROLLER_VK_COMMUNITY" = "VK public page";
 "ABOUT_APP_VIEW_CONTROLLER_CONTACT_DEVELOPER" = "Contact developer";
