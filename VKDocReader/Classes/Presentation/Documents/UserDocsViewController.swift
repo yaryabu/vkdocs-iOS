@@ -230,7 +230,7 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
             
             let itemsCount = tableView.indexPathsForSelectedRows!.count
             docPickerNavBarOverlay.titleLabel.text = String(format: docPickerNavBarOverlay.titleTemplate, itemsCount)
-            docPickerNavBarOverlay.shareButton.enabled = isShareButtonEnabled(tableView.indexPathsForSelectedRows!)
+            docPickerNavBarOverlay.shareButton.enabled = isShareButtonEnabled(tableView.indexPathsForSelectedRows ?? [])
             docPickerTabBarOverlay.changeButtonsState(itemsCount, isRootViewController: isRootViewController)
             return
         }
@@ -542,6 +542,7 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
             let itemsCount = tableView.indexPathsForSelectedRows?.count ?? 0
             
             docPickerNavBarOverlay.titleLabel.text = String(format: docPickerNavBarOverlay.titleTemplate, itemsCount)
+            docPickerNavBarOverlay.shareButton.enabled = isShareButtonEnabled(tableView.indexPathsForSelectedRows ?? [])
             docPickerTabBarOverlay.changeButtonsState(itemsCount, isRootViewController: isRootViewController)
             
             docPickerNavBarOverlay.presentAnimated(newFrame, superview: self.navigationController!.navigationBar)
