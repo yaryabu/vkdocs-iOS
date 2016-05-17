@@ -99,6 +99,7 @@
 // file upload & image picker
 
 "DOCUMENT_PICKER_PHOTO_TITLE" = "Фото";
+"WAIT_FOR_DOC_MENU_TO_OPEN" = "Минутку";
 
 "UPLOAD_IN_PROGRESS_ERROR_MESSAGE" = "Дождись окончания предыдущей загрузки";
 "PHOTO_ACCESS_FORBIDDEN_ERROR_MESSAGE" = "Нет доступа к фото\n Невозможно загрузить фото в ВК";

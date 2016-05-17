@@ -44,7 +44,9 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
         return gr
     }()
     
-    lazy var imagePicker: UIImagePickerController  = {
+    var docMenuWasOpenedOnce = false
+    
+    lazy var imagePicker: UIImagePickerController = {
         let picker = UIImagePickerController()
         picker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
         picker.mediaTypes = UIImagePickerController.availableMediaTypesForSourceType(picker.sourceType) ?? []
@@ -625,7 +627,6 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
     }
     
     //MARK: Загрузка файла в ВК
-    
     @IBAction func addDocumentButtonPressed(sender: AnyObject) {
         
         if serviceLayer.uploadDocsService.isUploadingNow() {
@@ -653,6 +654,11 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
                 ToastManager.sharedInstance.presentError(Error(code: 0, message: "PHOTO_ACCESS_FORBIDDEN_ERROR_MESSAGE".localized))
             }
         }
+        
+        if !docMenuWasOpenedOnce {
+            ToastManager.sharedInstance.presentInfo("WAIT_FOR_DOC_MENU_TO_OPEN".localized)
+            docMenuWasOpenedOnce = true
+        }
         presentViewController(docMenuVC, animated: true, completion: nil)
     }
     
@@ -670,7 +676,9 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
             if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
                 let data = UIImagePNGRepresentation(image) ?? UIImageJPEGRepresentation(image, 1.0)!
                 data.writeToFile(path, atomically: false)
-                self.uploadMediaFile(path, fileName: fileName)
+                Dispatch.mainQueue({ 
+                    self.uploadMediaFile(path, fileName: fileName)
+                })
                 
             } else if let videoUrl = info[UIImagePickerControllerMediaURL] as? NSURL {
                 let urlString = videoUrl.absoluteString.componentsSeparatedByString("file://").last!
@@ -707,7 +715,9 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
             let fileData = NSData(contentsOfURL: url)!
             let filePath = Const.Directories.tmp + "/" + (url.absoluteString.componentsSeparatedByString("/").last ?? "VK_Docs_file")
             fileData.writeToFile(filePath, atomically: false)
-            self.uploadMediaFile(filePath, fileName: url.absoluteString.componentsSeparatedByString("/").last ?? "VK_Docs_file")
+            Dispatch.mainQueue({ 
+                self.uploadMediaFile(filePath, fileName: url.absoluteString.componentsSeparatedByString("/").last ?? "VK_Docs_file")
+            })
         }
         url.stopAccessingSecurityScopedResource()
     }
