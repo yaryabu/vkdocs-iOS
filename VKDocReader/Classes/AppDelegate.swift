@@ -24,11 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, VKSdkDelegate, VKSdkUIDel
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         Fabric.with([Crashlytics.self])
         
-        // VK пытается присунуть свои странные токены в cookies
-        // если эти токены протухают, то документы становится невозможно просматривать
-        NSHTTPCookieStorage.sharedHTTPCookieStorage().cookieAcceptPolicy = NSHTTPCookieAcceptPolicy.Never
-        
-        migrationHelper()
+//        migrationHelper()
         
         let vkSdk = VKSdk.initializeWithAppId(Const.Common.clientId)
         vkSdk.registerDelegate(self)
@@ -108,14 +104,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, VKSdkDelegate, VKSdkUIDel
         
         let storyboard = UIStoryboard(name: Const.Common.mainStoryboardName, bundle: NSBundle.mainBundle())
         
-        if ServiceLayer.sharedServiceLayer.authService.token != nil &&
-            window?.rootViewController as? AuthViewController != nil {
-            newRootVC = storyboard.instantiateViewControllerWithIdentifier(Const.StoryboardIDs.tabBarController)
-        } else {
-            if window?.rootViewController as? TabBarController != nil {
-                newRootVC = storyboard.instantiateViewControllerWithIdentifier(Const.StoryboardIDs.authViewController)
+        if ServiceLayer.sharedServiceLayer.authService.token != nil {
+            if window?.rootViewController as? AuthViewController != nil {
+                newRootVC = storyboard.instantiateViewControllerWithIdentifier(Const.StoryboardIDs.tabBarController)
+            } else {
+                return
             }
-            
+        } else if window?.rootViewController as? TabBarController != nil {
+                newRootVC = storyboard.instantiateViewControllerWithIdentifier(Const.StoryboardIDs.authViewController)
         }
         
         if let newRootVC = newRootVC {
@@ -150,16 +146,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, VKSdkDelegate, VKSdkUIDel
     }
     
     /// Функция для помощи в миграции/обновлении. Если при обновлении добавились какие-нибудь несовсместимые вещи - исправление этих вещей происходит в этой функции
-    func migrationHelper() {
-        // миграция с 1.0 на 1.1
-        Dispatch.defaultQueue {
-            for file in Bash.ls(NSTemporaryDirectory()) {
-                if file.containsString(Const.Common.directoryConflictHelper) {
-                    Bash.rm(NSTemporaryDirectory() + file)
-                }
-            }
-        }
-    }
+//    func migrationHelper() {
+//        // миграция с 1.0 на 1.1
+//        Dispatch.defaultQueue {
+//            for file in Bash.ls(NSTemporaryDirectory()) {
+//                if file.containsString(Const.Common.directoryConflictHelper) {
+//                    Bash.rm(NSTemporaryDirectory() + file)
+//                }
+//            }
+//        }
+//    }
     
 }
 
