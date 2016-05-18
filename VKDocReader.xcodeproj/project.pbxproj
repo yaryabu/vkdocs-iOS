@@ -685,8 +685,8 @@
 				57AF2C9F1C97578600C5A193 /* Frameworks */,
 				57AF2CA01C97578600C5A193 /* Resources */,
 				AAED08BDE8CE598EDBFFB6E1 /* Copy Pods Resources */,
-				574093AB1CB492A3003C156F /* Clean */,
 				FF60B9FAAE3BD60EEECA8FD8 /* Embed Pods Frameworks */,
+				574093AB1CB492A3003C156F /* Clean */,
 			);
 			buildRules = (
 			);
@@ -856,7 +856,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cd \"${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\"\nif [[ -d \"Frameworks\" ]]; then\nrm -fr Frameworks\nfi";
+			shellScript = "echo \"${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\"\ncd \"${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\"\nif [[ -d \"Frameworks\" ]]; then\nrm -fr Frameworks\nfi";
 		};
 		577047DA1CA1C91A00A2CA98 /* Crashlitycs */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1208,7 +1208,7 @@
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -DDEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = ru.yaryabu.VKDocs;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "506ae81b-0058-4b87-a165-54c0c2c5e786";
 				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1233,7 +1233,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ru.yaryabu.VKDocs;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "71548567-8f19-4005-8a03-b3eec66f77f2";
 				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				TARGETED_DEVICE_FAMILY = 1;
