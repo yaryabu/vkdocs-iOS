@@ -34,7 +34,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>13</string>
+	<string>14</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>
@@ -69,7 +69,6 @@
 	</array>
 	<key>UIBackgroundModes</key>
 	<array>
-		<string>external-accessory</string>
 		<string>fetch</string>
 	</array>
 	<key>UILaunchStoryboardName</key>

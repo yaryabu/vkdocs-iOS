@@ -21,7 +21,7 @@ class DocsParser: Parser {
         
         for (_, subJson):(String, JSON) in json["preview"]["photo"]["sizes"] {
             if subJson["type"].string == "m" {
-                document.thumbnailUrlString = subJson["src"].string!
+                document.thumbnailUrlString = subJson["src"].string
             }
         }
         
