@@ -58,15 +58,14 @@ class UserDocsTableViewCell: TableViewCell {
             
             let filter = AspectScaledToFillSizeFilter(size: thumbnailImageView.frame.size)
             
-            thumbnailImageView.af_setImageWithURL(NSURL(string: urlString)!, filter: filter, completion: { (response) in
+            thumbnailImageView.af_setImageWithURL(NSURL(string: urlString)!, filter: filter, completion: { [unowned self] (response) in
                 switch response.result {
                 case .Success:
                     self.extensionLabel.hidden = true
                     self.thumbnailImageView.hidden = false
                 case .Failure(let error):
-                    self.extensionLabel.text = document.ext
-                    self.thumbnailImageView.hidden = true
                     self.extensionLabel.hidden = false
+                    self.thumbnailImageView.hidden = true
                     
                     let newError = ServiceLayer.sharedServiceLayer.userService.createError(error)
                     
@@ -74,8 +73,8 @@ class UserDocsTableViewCell: TableViewCell {
                 }
             })
         } else {
-            self.thumbnailImageView.hidden = true
             self.extensionLabel.hidden = false
+            self.thumbnailImageView.hidden = true
         }
         
         if isSearchResult {
