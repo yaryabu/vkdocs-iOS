@@ -347,17 +347,17 @@ class UserDocsViewController: ViewController, UITableViewDelegate, UISearchBarDe
             }
             
             let tapPoint = gestureRecognizer.locationInView(self.tableView)
-            let indexPath = tableView.indexPathForRowAtPoint(tapPoint)!
-            
-            if let ds = currentDataSource as? UserDocsDataSource {
-                if indexPath.section == 0 && ds.folders[0] == ds.createFolderCell {
-                    return
+            if let indexPath = tableView.indexPathForRowAtPoint(tapPoint) {
+                if let ds = currentDataSource as? UserDocsDataSource {
+                    if indexPath.section == 0 && ds.folders[0] == ds.createFolderCell {
+                        return
+                    }
                 }
+                tableView.setEditing(true, animated: true)
+                setEditing(true, animated: true)
+                tableView.selectRowAtIndexPath(indexPath, animated: false, scrollPosition: UITableViewScrollPosition.None)
+                tableView(tableView, didSelectRowAtIndexPath: indexPath)
             }
-            tableView.setEditing(true, animated: true)
-            setEditing(true, animated: true)
-            tableView.selectRowAtIndexPath(indexPath, animated: false, scrollPosition: UITableViewScrollPosition.None)
-            tableView(tableView, didSelectRowAtIndexPath: indexPath)
         }
         
     }
