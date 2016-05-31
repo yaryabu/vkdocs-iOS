@@ -87,7 +87,9 @@ class LoadTaskManager: Alamofire.Manager {
         
         downloadRequest.request
             .progress({ (read, totalRead, size) -> Void in
-                progress(totalReadBytes: UInt(totalRead), bytesToRead: UInt(size))
+                if totalRead >= 0 && size >= 0 {
+                    progress(totalReadBytes: UInt(totalRead), bytesToRead: UInt(size))
+                }
             })
             .response { (request, response, data, error) -> Void in
                 debugLog(downloadRequest.request)
