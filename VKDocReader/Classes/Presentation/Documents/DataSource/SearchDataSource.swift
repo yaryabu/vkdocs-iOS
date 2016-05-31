@@ -16,7 +16,13 @@ class SearchDataSource: NSObject, DataSource {
     
     private var latestQuery: String = ""
     
-    func updateCache() {}
+    func updateCache() {
+        for (i, document) in savedDocumentsResult.enumerate() {
+            if document.invalidated {
+                self.savedDocumentsResult.removeAtIndex(i)
+            }
+        }
+    }
     
     func document(indexPath: NSIndexPath) -> Document {
         if indexPath.section == 0 {
